@@ -31,3 +31,17 @@ test:
     paths:
       - build
       - .gradle
+
+javadoc:
+  stage: deploy
+  script:
+    - gradle javadoc
+  cache:
+    key: "$CI_COMMIT_REF_NAME"
+    policy: pull
+    paths:
+      - build
+      - .gradle
+  artifacts:
+    paths:
+      - 'build/docs/javadoc/'
