@@ -31,6 +31,9 @@ test:
     paths:
       - build
       - .gradle
+  artifacts:
+    paths:
+      - '**/build/reports/'
 
 javadoc:
   stage: deploy
