@@ -65,9 +65,3 @@ spotless {
 }
 
 run { standardInput = System.in }
-
-java {
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(11)
-    }
-}
