@@ -5,12 +5,12 @@ plugins {
 
     // Quality stuff
     id 'checkstyle'
-    id "com.github.spotbugs" version "4.7.2"
-    id "com.diffplug.spotless" version "5.14.2"
+    id "com.github.spotbugs"
+    id "com.diffplug.spotless"
 }
 
 dependencies {
-    implementation project(':communication')
+    // implementation project(':communication')
     // ToDo -> delete implementation project(':game') ?
 }
 
