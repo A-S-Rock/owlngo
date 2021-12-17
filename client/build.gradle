@@ -16,7 +16,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    // ToDo -> mainClass = 'owlngo.client.Client'?
+    mainClass = 'owlngo.client.Client'
 }
 
 
