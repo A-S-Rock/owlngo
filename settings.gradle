@@ -1,3 +1,5 @@
+// See https://stackoverflow.com/questions/60070739/plugin-request-for-plugin-already-on-the-classpath-must-not-include-a-version
+
 pluginManagement {
     plugins {
         id "com.github.spotbugs" version "4.7.2"
@@ -6,4 +8,6 @@ pluginManagement {
 }
 
 rootProject.name = 'owlngo'
+
+// Set up for multi module project
 include('client', 'server', 'communication')
