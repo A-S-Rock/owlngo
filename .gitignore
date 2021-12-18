@@ -1,3 +1,7 @@
+# This .gitignore is a merge from multiple sources:
+# - the .gitignore file depicted in the PEEGS script
+# - the .gitignore example from the issue on Github: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/issues/4
+
 ### Java ###
 *.class
 
