@@ -11,3 +11,8 @@ rootProject.name = 'owlngo'
 
 // Set up for multi module project
 include('client', 'server', 'communication')
+include 'gui'
+include 'game'
+include 'objects'
+include 'communication'
+
