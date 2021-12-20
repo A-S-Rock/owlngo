@@ -9,6 +9,8 @@ plugins {
     id 'checkstyle'
     id "com.github.spotbugs"
     id "com.diffplug.spotless"
+    id 'org.openjfx.javafxplugin'
+
 }
 
 dependencies {
@@ -64,6 +66,11 @@ spotless {
         googleJavaFormat()
         lineEndings 'UNIX'
     }
+}
+
+javafx {
+    version = "17.0.1"
+    modules = [ 'javafx.base', 'javafx.swing', 'javafx.graphics', 'javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.web' ]
 }
 
 run { standardInput = System.in }

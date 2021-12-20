@@ -9,6 +9,7 @@ plugins {
     id 'checkstyle'
     id "com.github.spotbugs"
     id "com.diffplug.spotless"
+
 }
 
 dependencies {
@@ -64,3 +65,4 @@ spotless {
         lineEndings 'UNIX'
     }
 }
+
