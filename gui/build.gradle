@@ -2,6 +2,7 @@ plugins {
     id 'java'
 
     id 'org.openjfx.javafxplugin'
+    id 'application'
 }
 
 version 'unspecified'
@@ -9,6 +10,11 @@ version 'unspecified'
 repositories {
     mavenCentral()
 }
+application {
+    // Define the main class for the application.
+    mainClass = 'owlngo.editor.Editor'
+}
+
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
