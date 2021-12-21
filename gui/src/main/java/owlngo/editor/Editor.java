@@ -25,7 +25,7 @@ public class Editor extends Application {
       Stage stage = new Stage();
       stage.setTitle("Owlngo Editor");
       stage.setScene(new Scene(root, 800, 600));
-      stage.setResizable(false);
+      stage.setResizable(true);
       stage.show();
       //       ((Node) event.getSource()).getScene().getWindow().hide();  // hide StartWindow
     } catch (IOException e) {
