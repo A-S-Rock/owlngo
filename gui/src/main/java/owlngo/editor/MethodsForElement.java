@@ -18,27 +18,30 @@ public class MethodsForElement {
 
   static {
     STRING_ELEMENT_IN_PLAYFIELD_MAP = new HashMap<>();
-    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("s", ElementInPlayfield.START);
-    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("e", ElementInPlayfield.END);
-    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("f", ElementInPlayfield.GROUND_NO_LAWN);
-    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("o", ElementInPlayfield.OWL);
+    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("S", ElementInPlayfield.START);
+    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("E", ElementInPlayfield.END);
+    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("F", ElementInPlayfield.GROUND_NO_LAWN);
+    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("O", ElementInPlayfield.OWL);
   }
 
-  public static ElementInPlayfield getElementInPlayfield(String string) {
+  public static boolean validKey(String inputKey){
+    return STRING_ELEMENT_IN_PLAYFIELD_MAP.containsKey(inputKey);
+  }
+
+  public static ElementInPlayfield getElementInPlayfield(String inputKey) {
     // return ElementInPlayfield.NO_ELEMENT;
-    return (STRING_ELEMENT_IN_PLAYFIELD_MAP.get(string));
+    return (STRING_ELEMENT_IN_PLAYFIELD_MAP.get(inputKey));
   }
 
   static final Map<ElementInPlayfield, BackgroundFill> elementInPlayfieldBackgroundFillMap =
       new HashMap<>();
 
   static {
-    BackgroundFill backgroundFill =
-        new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
     elementInPlayfieldBackgroundFillMap.put(
         ElementInPlayfield.NO_ELEMENT,
-        new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY));
+        new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY));
     // background with owl--------------------------------------------------------------
+    /*
     Image image= null;
     try {
       image = new Image(new FileInputStream("C:\\ingo40x40.png"));
@@ -46,21 +49,37 @@ public class MethodsForElement {
       e.printStackTrace();
     }
     ImagePattern imagePattern=new ImagePattern(image);
-    // BackgroundFill backgroundFill = new BackgroundFill(imagePattern,CornerRadii.EMPTY,Insets.EMPTY);
+    */
+
     elementInPlayfieldBackgroundFillMap.put(
-        ElementInPlayfield.OWL, new BackgroundFill(imagePattern,CornerRadii.EMPTY,Insets.EMPTY));
+        // ElementInPlayfield.OWL, new BackgroundFill(imagePattern,CornerRadii.EMPTY,Insets.EMPTY));
+        ElementInPlayfield.OWL, new BackgroundFill(
+            getImagePatternFromFile("C:\\ingo40x40.png"),CornerRadii.EMPTY,Insets.EMPTY));
     // ---------------------------------------------------------------------------------
     elementInPlayfieldBackgroundFillMap.put(
         ElementInPlayfield.GROUND_NO_LAWN,
         new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY));
+    // ----START-----------------------------------------------------------------------------
     elementInPlayfieldBackgroundFillMap.put(
         ElementInPlayfield.START, new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY));
+    // ----END------------------------------------------------------------------------------
     elementInPlayfieldBackgroundFillMap.put(
         ElementInPlayfield.END, new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY));
   }
 
   public static BackgroundFill getBackgroundFill(ElementInPlayfield elementInPlayfield) {
-    //return new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY);
     return elementInPlayfieldBackgroundFillMap.get(elementInPlayfield);
   }
+
+  private static ImagePattern getImagePatternFromFile(String pathFilename){
+    Image image= null;
+    try {
+      image = new Image(new FileInputStream(pathFilename));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    ImagePattern imagePattern=new ImagePattern(image);
+    return imagePattern;
+  }
+
 }

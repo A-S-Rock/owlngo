@@ -2,7 +2,7 @@ package owlngo.editor;
 
 import javafx.scene.input.KeyCode;
 
-public class StoreLastKey {
+final public class StoreLastKey {
   private static KeyCode keyCode;
 
   static public void setSpaceAsDefault(){
@@ -10,9 +10,26 @@ public class StoreLastKey {
   }
 
   static public KeyCode getLastKeyPressed(){
-    return keyCode;
+    if (keyCode!=null){
+       System.out.println(keyCode.getChar());
+    }
+  return keyCode;
   }
+
+  static public String getLastKeyPressedAsString(){
+    if (keyCode!=null){
+      return (keyCode.getChar().toString());
+    }else {
+      return "";
+    }
+
+  }
+
+
+
   static public void setLastKeyPressed(KeyCode character){
     keyCode =character;
   }
+
+
 }

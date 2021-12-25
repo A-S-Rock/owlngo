@@ -25,39 +25,24 @@ public class EditorWindowControler {
   // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
   @FXML
-  public void initialize()  {
+  public void initialize() {
     System.out.println("initialilize windows EditorWindow.fxml");
+    ElementsInPlayfield.setAllToNoElement();
     setPanesOnPlayfield();
   }
   // void setPanesOnBoard() throws FileNotFoundException
   void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
-    Floor floor = new Floor();
     Pane[][] pane = new Pane[numberOfPanesInRowAnColumn][numberOfPanesInRowAnColumn];
-    floor.setAllToFalse();
+    // floor.setAllToFalse();
     for (int columnIndex = 0; columnIndex < numberOfPanesInRowAnColumn; columnIndex++) {
       for (int rowIndex = 0; rowIndex < numberOfPanesInRowAnColumn; rowIndex++) {
-        Pane pane1 = new Pane();
-        // white background
 
-        BackgroundFill backgroundFill;
-        // backgroundFill= new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
+        // Initialisation
+        pane[rowIndex][columnIndex] = new Pane();
 
-        System.out.println("ElementInPlayfield"+MethodsForElement.getElementInPlayfield("o"));
-
-        // System.out.println(MethodsForElement.getBackgroundFill(ElementInPlayfield.START));
-        backgroundFill=MethodsForElement.getBackgroundFill(ElementInPlayfield.OWL);
-        /*
-        // background with little pictures
-        Image image= new Image(new FileInputStream("C:\\ingo40x40.png"));
-        ImagePattern imagePattern=new ImagePattern(image);
-        BackgroundFill backgroundFill = new BackgroundFill(imagePattern,CornerRadii.EMPTY,Insets.EMPTY);
-        */
-
-        Background background = new Background(backgroundFill);
-        pane1.setBackground(background);
-
-        pane[rowIndex][columnIndex] = pane1;
+        // Set Background of pane depending on the content of elementsInPlayfield
+        setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex, columnIndex);
 
         gridPaneChessBoard.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
         int finalColumnIndex = columnIndex;
@@ -65,31 +50,46 @@ public class EditorWindowControler {
         pane[rowIndex][columnIndex].setOnMousePressed(
             (evt) ->
                 setResetElement(
-                    pane[finalRowIndex][finalColumnIndex], floor, finalRowIndex, finalColumnIndex));
+                    pane[finalRowIndex][finalColumnIndex], finalRowIndex, finalColumnIndex));
       }
     }
   }
 
+  void setResetElement(Pane pane, int row, int column) {
+    System.out.println("setResetElement");
+    if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.NO_ELEMENT) {
+      // if (!floor.getFloor(row, column)) {
+      System.out.print("I am set");
+      System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
+      System.out.println(StoreLastKey.getLastKeyPressedAsString());
 
-  void setResetElement(Pane pane, Floor floor, int row, int column) {
-    System.out.println("selectDeselectPawn");
-    if (!floor.getFloor(row, column)) {
-      System.out.println("I am selected");
-      System.out.println("Key:" + StoreLastKey.getLastKeyPressed());
+      if (MethodsForElement.validKey(StoreLastKey.getLastKeyPressedAsString())) {
+        // set in elementsInPlayfield the elementInPlayfield depending on the key pressed
+        final ElementInPlayfield elementInPlayfield =
+            (MethodsForElement.getElementInPlayfield(StoreLastKey.getLastKeyPressedAsString()));
+        ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
+      }
+      // Set Background of pane depending on the content of elementsInPlayfield
+      setBackgroundOfPaneDependingOnContent(pane, row, column);
 
-      floor.setFloorToTrue(row, column);
-      BackgroundFill backgroundFill =
-          new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY);
-      Background background = new Background(backgroundFill);
-      pane.setBackground(background);
     } else {
-      System.out.println("I am deselected as floor");
-      floor.setFloorToFalse(row, column);
-      BackgroundFill backgroundFill =
-          new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
-      Background background = new Background(backgroundFill);
-      pane.setBackground(background);
+      System.out.println("I am reset");
+      // set in elementsInPlayfield the elementInPlayfield to noElement
+      final ElementInPlayfield elementInPlayfield = ElementInPlayfield.NO_ELEMENT;
+      ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
+
+      // Set Background of pane depending on the content of elementsInPlayfield
+      setBackgroundOfPaneDependingOnContent(pane, row, column);
     }
+  }
+
+  // Set Background of pane depending on the content of elementsInPlayfield
+  private void setBackgroundOfPaneDependingOnContent(Pane pane, int row, int column) {
+    BackgroundFill backgroundFill;
+    backgroundFill =
+        MethodsForElement.getBackgroundFill(ElementsInPlayfield.getElement(row, column));
+    Background background = new Background(backgroundFill);
+    pane.setBackground(background);
   }
 
   @FXML
