@@ -41,15 +41,6 @@ public class MethodsForElement {
         ElementInPlayfield.NO_ELEMENT,
         new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY));
     // background with owl--------------------------------------------------------------
-    /*
-    Image image= null;
-    try {
-      image = new Image(new FileInputStream("C:\\ingo40x40.png"));
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    ImagePattern imagePattern=new ImagePattern(image);
-    */
 
     elementInPlayfieldBackgroundFillMap.put(
         // ElementInPlayfield.OWL, new BackgroundFill(imagePattern,CornerRadii.EMPTY,Insets.EMPTY));
