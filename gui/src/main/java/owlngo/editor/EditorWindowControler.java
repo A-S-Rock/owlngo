@@ -4,13 +4,10 @@ import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class EditorWindowControler {
@@ -28,12 +25,12 @@ public class EditorWindowControler {
   // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
   @FXML
-  public void initialize() throws FileNotFoundException {
+  public void initialize()  {
     System.out.println("initialilize windows EditorWindow.fxml");
-    setPanesOnBoard();
+    setPanesOnPlayfield();
   }
   // void setPanesOnBoard() throws FileNotFoundException
-  void setPanesOnBoard() {
+  void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
     Floor floor = new Floor();
     Pane[][] pane = new Pane[numberOfPanesInRowAnColumn][numberOfPanesInRowAnColumn];
@@ -42,9 +39,14 @@ public class EditorWindowControler {
       for (int rowIndex = 0; rowIndex < numberOfPanesInRowAnColumn; rowIndex++) {
         Pane pane1 = new Pane();
         // white background
-        BackgroundFill backgroundFill =
-            new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
 
+        BackgroundFill backgroundFill;
+        // backgroundFill= new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY);
+
+        System.out.println("ElementInPlayfield"+MethodsForElement.getElementInPlayfield("o"));
+
+        // System.out.println(MethodsForElement.getBackgroundFill(ElementInPlayfield.START));
+        backgroundFill=MethodsForElement.getBackgroundFill(ElementInPlayfield.OWL);
         /*
         // background with little pictures
         Image image= new Image(new FileInputStream("C:\\ingo40x40.png"));
@@ -62,16 +64,19 @@ public class EditorWindowControler {
         int finalRowIndex = rowIndex;
         pane[rowIndex][columnIndex].setOnMousePressed(
             (evt) ->
-                selectDeselectAsFloor(
+                setResetElement(
                     pane[finalRowIndex][finalColumnIndex], floor, finalRowIndex, finalColumnIndex));
       }
     }
   }
 
-  void selectDeselectAsFloor(Pane pane, Floor floor, int row, int column) {
+
+  void setResetElement(Pane pane, Floor floor, int row, int column) {
     System.out.println("selectDeselectPawn");
     if (!floor.getFloor(row, column)) {
-      System.out.println("I am selected as floor");
+      System.out.println("I am selected");
+      System.out.println("Key:" + StoreLastKey.getLastKeyPressed());
+
       floor.setFloorToTrue(row, column);
       BackgroundFill backgroundFill =
           new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY);
