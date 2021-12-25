@@ -12,6 +12,13 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 
+// In this class static methods are included hold constant relations.
+// String entered  ---- ElementInPlayfield
+//   e.g.   S  means    Start
+//
+// ElementInPlayfield  ---- BackgroundFill
+//   e.g.   ElementInPlayfield.OWL  to   The graphic that is stored at "C:\\ingo40x40.png"
+//
 public class MethodsForElement {
 
   static final Map<String, ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP;
@@ -21,6 +28,7 @@ public class MethodsForElement {
     STRING_ELEMENT_IN_PLAYFIELD_MAP.put("S", ElementInPlayfield.START);
     STRING_ELEMENT_IN_PLAYFIELD_MAP.put("E", ElementInPlayfield.END);
     STRING_ELEMENT_IN_PLAYFIELD_MAP.put("F", ElementInPlayfield.GROUND_NO_LAWN);
+    STRING_ELEMENT_IN_PLAYFIELD_MAP.put("G", ElementInPlayfield.GROUND_NO_LAWN);
     STRING_ELEMENT_IN_PLAYFIELD_MAP.put("O", ElementInPlayfield.OWL);
   }
 
@@ -43,13 +51,12 @@ public class MethodsForElement {
     // background with owl--------------------------------------------------------------
 
     elementInPlayfieldBackgroundFillMap.put(
-        // ElementInPlayfield.OWL, new BackgroundFill(imagePattern,CornerRadii.EMPTY,Insets.EMPTY));
         ElementInPlayfield.OWL, new BackgroundFill(
             getImagePatternFromFile("C:\\ingo40x40.png"),CornerRadii.EMPTY,Insets.EMPTY));
     // ---------------------------------------------------------------------------------
     elementInPlayfieldBackgroundFillMap.put(
-        ElementInPlayfield.GROUND_NO_LAWN,
-        new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY));
+        ElementInPlayfield.GROUND_NO_LAWN,new BackgroundFill(
+            getImagePatternFromFile("C:\\soil.png"), CornerRadii.EMPTY, Insets.EMPTY));
     // ----START-----------------------------------------------------------------------------
     elementInPlayfieldBackgroundFillMap.put(
         ElementInPlayfield.START, new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY));
@@ -69,8 +76,8 @@ public class MethodsForElement {
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     }
-    ImagePattern imagePattern=new ImagePattern(image);
-    return imagePattern;
+    // ImagePattern imagePattern=new ImagePattern(image);
+    return new ImagePattern(image);
   }
 
 }

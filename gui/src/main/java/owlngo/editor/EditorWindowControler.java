@@ -2,16 +2,15 @@ package owlngo.editor;
 
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
-import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-import java.io.FileNotFoundException;
+
+// This class handles all actions on the window EditorWindow.fxml
+// It also set the enum ElementInPlayfield for each pane that is used in the gritPane of the window.
 
 public class EditorWindowControler {
-
   // Constant values for window
   static final int numberOfPanesInRowAnColumn = 30;
   // private static Boolean [][] isFloor=new
@@ -54,7 +53,6 @@ public class EditorWindowControler {
       }
     }
   }
-
   void setResetElement(Pane pane, int row, int column) {
     System.out.println("setResetElement");
     if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.NO_ELEMENT) {
