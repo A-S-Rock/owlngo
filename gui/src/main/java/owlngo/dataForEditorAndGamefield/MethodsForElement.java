@@ -1,4 +1,4 @@
-package owlngo.editor;
+package owlngo.dataForEditorAndGamefield;
 
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
@@ -6,6 +6,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -20,6 +21,9 @@ import java.util.Map;
 //   e.g.   ElementInPlayfield.OWL  to   The graphic that is stored at "C:\\ingo40x40.png"
 //
 public class MethodsForElement {
+
+  // Constant values for window
+  public final static int numberOfPanesInRowAnColumn = 30;
 
   static final Map<String, ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP;
 

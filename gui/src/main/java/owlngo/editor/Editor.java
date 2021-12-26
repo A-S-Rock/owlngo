@@ -1,6 +1,5 @@
 package owlngo.editor;
 
-import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -11,7 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-// This class opens the Editor-Playfield by the start method that is required by fxml
+// This class opens the Playfield-Playfield by the start method that is required by fxml
 // This class also sets a handle for key events on the scene.
 
 public class Editor extends Application {

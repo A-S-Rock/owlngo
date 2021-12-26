@@ -1,4 +1,4 @@
-package owlngo.editor;
+package owlngo.dataForEditorAndGamefield;
 
 // The enum distiguishs betwenn all the different graphic elements used as background in the panes of the gridPane
 // This graphic elements represent all diffent pieces on the playfield for the game
