@@ -8,11 +8,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
 import owlngo.dataForEditorAndGamefield.ElementsInPlayfield;
 import owlngo.dataForEditorAndGamefield.MethodsForElement;
-import owlngo.editor.StoreLastKey;
-
 
 // This class handles all actions on the window EditorWindow.fxml
 // It also set the enum ElementInPlayfield for each pane that is used
@@ -22,7 +19,7 @@ public class PlayfieldWindowControler {
   // Constant values for window
 
   // static final int numberOfPanesInRowAnColumn = 30;
-  static private Pane[][] pane =
+  private static Pane[][] pane =
       new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
           [MethodsForElement.numberOfPanesInRowAnColumn];
 
@@ -33,6 +30,44 @@ public class PlayfieldWindowControler {
   @FXML Label displayToUser;
   // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
+  public static void changeAllPanesDependingOnElementsInPlayfied() {
+    System.out.println(("changeAllPanesDependingOnElementsInPlayfied"));
+    for (int columnIndex = 0;
+        columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
+        columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
+        // Set Background of pane depending on the content of elementsInPlayfield
+        // not working
+        // pane[rowIndex][columnIndex]=setBackgroundOfPaneDependingOnContent(
+        // rowIndex,columnIndex);
+
+        BackgroundFill backgroundFill;
+        backgroundFill =
+            MethodsForElement.getBackgroundFill(
+                ElementsInPlayfield.getElement(rowIndex, columnIndex));
+        Background background = new Background(backgroundFill);
+        pane[rowIndex][columnIndex].setBackground(background);
+
+        // working
+        // setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex,
+        // columnIndex);
+      }
+    }
+  }
+
+  // Set Background of pane depending on the content of elementsInPlayfield
+  private static Pane setBackgroundOfPaneDependingOnContent(int row, int column) {
+    // System.out.println("setBackgroundOfPaneDependingOnContent");
+    Pane pane = new Pane();
+    BackgroundFill backgroundFill;
+
+    backgroundFill =
+        MethodsForElement.getBackgroundFill(ElementsInPlayfield.getElement(row, column));
+    Background background = new Background(backgroundFill);
+    pane.setBackground(background);
+    return pane;
+  }
+
   @FXML
   private void initialize() {
     System.out.println("PlayfieldWindowControler");
@@ -40,54 +75,16 @@ public class PlayfieldWindowControler {
     setPanesOnPlayfield();
   }
 
-  private void initializePanes(){
+  private void initializePanes() {
     System.out.println("initializePanes");
     for (int columnIndex = 0;
-         columnIndex < MethodsForElement.numberOfPanesInRowAnColumn; columnIndex++) {
-      for (int rowIndex = 0;
-           rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
+        columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
+        columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
         pane[rowIndex][columnIndex] = new Pane();
       }
     }
   }
-
-  private void setPanesOnPlayfield() {
-    System.out.println("setPanesOnBoard");
-    // Pane[][] pane = new Pane[numberOfPanesInRowAnColumn][numberOfPanesInRowAnColumn];
-    for (int columnIndex = 0;
-         columnIndex < MethodsForElement.numberOfPanesInRowAnColumn; columnIndex++) {
-      for (int rowIndex = 0;
-           rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
-        // Set Background of pane depending on the content of elementsInPlayfield
-
-        pane[rowIndex][columnIndex]=setBackgroundOfPaneDependingOnContent( rowIndex, columnIndex);
-        gridPanePlayfieldWindow.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
-      }
-    }
-  }
-
-  static public void changeAllPanesDependingOnElementsInPlayfied(){
-    System.out.println(("changeAllPanesDependingOnElementsInPlayfied"));
-    for (int columnIndex = 0;
-         columnIndex < MethodsForElement.numberOfPanesInRowAnColumn; columnIndex++) {
-      for (int rowIndex = 0;
-           rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
-        // Set Background of pane depending on the content of elementsInPlayfield
-        // not working
-        // pane[rowIndex][columnIndex]=setBackgroundOfPaneDependingOnContent(  rowIndex,columnIndex);
-
-        BackgroundFill backgroundFill;
-        backgroundFill=
-            MethodsForElement.getBackgroundFill(ElementsInPlayfield.getElement(rowIndex,columnIndex));
-        Background background = new Background(backgroundFill);
-        pane[rowIndex][columnIndex].setBackground(background);
-
-        // working
-        // setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex, columnIndex);
-      }
-    }
-  }
-
 
   // faster
   /*
@@ -100,23 +97,20 @@ public class PlayfieldWindowControler {
   }
   */
 
+  private void setPanesOnPlayfield() {
+    System.out.println("setPanesOnBoard");
+    // Pane[][] pane = new Pane[numberOfPanesInRowAnColumn][numberOfPanesInRowAnColumn];
+    for (int columnIndex = 0;
+        columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
+        columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
+        // Set Background of pane depending on the content of elementsInPlayfield
 
-
-  // Set Background of pane depending on the content of elementsInPlayfield
-  static private Pane setBackgroundOfPaneDependingOnContent(int row, int column) {
-    // System.out.println("setBackgroundOfPaneDependingOnContent");
-    Pane pane = new Pane();
-    BackgroundFill backgroundFill;
-
-    backgroundFill =
-        MethodsForElement.getBackgroundFill(ElementsInPlayfield.getElement(row, column));
-    Background background = new Background(backgroundFill);
-    pane.setBackground(background);
-    return pane;
+        pane[rowIndex][columnIndex] = setBackgroundOfPaneDependingOnContent(rowIndex, columnIndex);
+        gridPanePlayfieldWindow.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
+      }
+    }
   }
-
-
-
 
   @FXML
   void restartGame() {

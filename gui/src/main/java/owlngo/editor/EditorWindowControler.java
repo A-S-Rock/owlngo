@@ -8,7 +8,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
@@ -116,7 +119,7 @@ public class EditorWindowControler {
       Parent root = fxmlLoader.load();
       System.out.println("Root:" + root);
       Stage stage = new Stage();
-      stage.setTitle("Owlngo Editor");
+      stage.setTitle("Owlngo Playfield");
       Scene scene = new Scene(root, 800, 600);
       // Set up DummyGameForTesting
       DummyGameForTesting.setup();
