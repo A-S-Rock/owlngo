@@ -185,7 +185,7 @@
                                                                 <Button maxHeight="1.7976931348623157E308"
                                                                         maxWidth="1.7976931348623157E308"
                                                                         minHeight="-Infinity"
-                                                                        onAction="#startPayfieldWindow" text="Play"/>
+                                                                        onAction="#startPlayfieldWindow" text="Play"/>
                                                             </children>
                                                         </GridPane>
                                                     </children>

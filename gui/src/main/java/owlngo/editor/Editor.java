@@ -50,7 +50,6 @@ public class Editor extends Application {
       stage.show();
       //       ((Node) event.getSource()).getScene().getWindow().hide();  // hide StartWindow
     } catch (IOException e) {
-      System.out.println("Exeption Line 38 " + e);
       e.getCause().getCause();
       System.exit(0);
     }

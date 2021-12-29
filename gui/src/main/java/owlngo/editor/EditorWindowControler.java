@@ -108,7 +108,7 @@ public class EditorWindowControler {
   }
 
   @FXML
-  void startPayfieldWindow() {
+  void startPlayfieldWindow() {
     System.out.println("startPayfieldWindow");
     rotate360();
 
