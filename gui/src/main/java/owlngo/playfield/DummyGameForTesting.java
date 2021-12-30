@@ -1,8 +1,9 @@
 package owlngo.playfield;
 
 import javafx.scene.input.KeyCode;
-import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
+// import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
 import owlngo.dataForEditorAndGamefield.ElementsInPlayfield;
+
 
 public final class DummyGameForTesting {
   static int column;
@@ -10,13 +11,13 @@ public final class DummyGameForTesting {
   static int columnOld;
   static int rowOld;
 
-  static ElementInPlayfield old;
+  static ElementsInPlayfield.ElementInPlayfield old;
 
   public static void setup() {
     column = 15;
     row = 15;
     old = ElementsInPlayfield.getElement(row, column);
-    ElementsInPlayfield.setElementTo(ElementInPlayfield.OWL, row, column);
+    ElementsInPlayfield.setElementTo(ElementsInPlayfield.ElementInPlayfield.OWL, row, column);
     PlayfieldWindowControler.changeAllPanesDependingOnElementsInPlayfied(); // Update Graphics
   }
 
@@ -46,7 +47,7 @@ public final class DummyGameForTesting {
   private static void changeValueInElementsInPlayfield() {
     ElementsInPlayfield.setElementTo(old, rowOld, columnOld);
     old = ElementsInPlayfield.getElement(row, column);
-    ElementsInPlayfield.setElementTo(ElementInPlayfield.OWL, row, column);
+    ElementsInPlayfield.setElementTo(ElementsInPlayfield.ElementInPlayfield.OWL, row, column);
     PlayfieldWindowControler.changeAllPanesDependingOnElementsInPlayfied(); // Update Graphics
   }
 }

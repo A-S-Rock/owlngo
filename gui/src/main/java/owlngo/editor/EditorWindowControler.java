@@ -14,7 +14,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
+// import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
 import owlngo.dataForEditorAndGamefield.ElementsInPlayfield;
 import owlngo.dataForEditorAndGamefield.MethodsForElement;
 import owlngo.playfield.DummyGameForTesting;
@@ -72,7 +72,7 @@ public class EditorWindowControler {
 
   void setResetElement(Pane pane, int row, int column) {
     System.out.println("setResetElement");
-    if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.NO_ELEMENT) {
+    if (ElementsInPlayfield.getElement(row, column) == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
       // if (!floor.getFloor(row, column)) {
       System.out.print("I am set");
       System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
@@ -80,17 +80,21 @@ public class EditorWindowControler {
 
       if (MethodsForElement.validKey(StoreLastKey.getLastKeyPressedAsString())) {
         // set in elementsInPlayfield the elementInPlayfield depending on the key pressed
-        final ElementInPlayfield elementInPlayfield =
+        final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
             (MethodsForElement.getElementInPlayfield(StoreLastKey.getLastKeyPressedAsString()));
         ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
       }
       // Set Background of pane depending on the content of elementsInPlayfield
+      System.out.println("isGround="+ElementsInPlayfield.isGround(row,column));
+      System.out.println("isOwl="+ElementsInPlayfield.isOwl(row,column));
+
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
     } else {
       System.out.println("I am reset");
       // set in elementsInPlayfield the elementInPlayfield to noElement
-      final ElementInPlayfield elementInPlayfield = ElementInPlayfield.NO_ELEMENT;
+      final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
+              ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
       ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
 
       // Set Background of pane depending on the content of elementsInPlayfield
