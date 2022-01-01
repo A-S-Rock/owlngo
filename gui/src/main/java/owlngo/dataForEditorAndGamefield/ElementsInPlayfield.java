@@ -67,6 +67,9 @@ public class ElementsInPlayfield {
 
   /**
    * Stets the element at the position row, column
+   * @param element that is set
+   * @param row position on the playfield
+   * @param column position on the playfield
    */
   public static void setElementTo(ElementInPlayfield element, int row, int column) {
     elementInPlayfield[row][column] = element;
@@ -74,6 +77,9 @@ public class ElementsInPlayfield {
 
   /**
    * Stets the element at the position row, column
+   * @param row position on the playfield
+   * @param column position on the playfield
+
    */
   public static ElementInPlayfield getElement(int row, int column) {
     return elementInPlayfield[row][column];
@@ -82,6 +88,8 @@ public class ElementsInPlayfield {
   /**
    * Returns true if the element at row, column is a ground element
    * For anmimation different ground elements may be used
+   * @param row position on the playfield
+   * @param column position on the playfield
    */
   public static boolean isGround (int row,int column){
     List<ElementInPlayfield> groundList =
@@ -90,21 +98,20 @@ public class ElementsInPlayfield {
                     ElementInPlayfield.GROUND_LEFT_TOP_LAWN,
                     ElementInPlayfield.GROUND_LEFT_TOP_RIGHT_LAWN,
                     ElementInPlayfield.GROUND_TOP_RIGHT_LAWN);
-
-    final boolean contains = groundList.contains(elementInPlayfield[row][column]);
-    return contains;
+    return groundList.contains(elementInPlayfield[row][column]);
   }
 
   /**
    * Returns true if the element at row, column is a owl element
    * For anmimation different owl elements may be used.
+   * @param row position on the playfield
+   * @param column position on the playfield
    */
   public static boolean isOwl (int row,int column){
     List<ElementInPlayfield> owlList=
             List.of(ElementInPlayfield.OWL1,
                     ElementInPlayfield.OWL);
-    final boolean contains = owlList.contains(elementInPlayfield[row][column]);
-    return contains;
+    return owlList.contains(elementInPlayfield[row][column]);
   }
 
 }
