@@ -6,6 +6,12 @@ package owlngo.dataForEditorAndGamefield;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The class stores all Elements of the gamefield
+ * Different element represent the same logic element in case owl and ground.
+ * Therefore {@link boolean isOwl} and {@link boolean isGround} are available.
+ */
+
 public class ElementsInPlayfield {
 
   /**
