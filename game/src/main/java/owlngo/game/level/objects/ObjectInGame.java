@@ -43,6 +43,4 @@ public interface ObjectInGame {
    *     </code>
    */
   boolean isNone();
-
-  String toString();
 }
