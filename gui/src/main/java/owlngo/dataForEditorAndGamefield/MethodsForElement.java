@@ -31,7 +31,7 @@ public class MethodsForElement {
           Map.entry("O", ElementsInPlayfield.ElementInPlayfield.OWL));
 
   static final Map<ElementsInPlayfield.ElementInPlayfield, BackgroundFill>
-      elementInPlayfieldBackgroundFillMap =
+      ELEMENT_IN_PLAYFIELD_BACKGROUND_FILL_MAP =
           Map.ofEntries(
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT,
@@ -56,8 +56,7 @@ public class MethodsForElement {
                   new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 
   /**
-   * Return true if the key @param inputKey is a key where an element is defined in
-   * STRING_ELEMENT_IN_PLAYFIELD_MAP
+   * Returns true if an element with this key is defined.
    *
    * @param inputKey key entered
    */
@@ -67,7 +66,7 @@ public class MethodsForElement {
 
   /**
    * Returns an elementInPlayfield (this variable distinguishes between the different elements that
-   * are possible at one position of the playfield)
+   * are possible at one position of the playfield).
    *
    * @param inputKey key(letter) assosiated with the elementInPlayfield.
    */
@@ -76,18 +75,18 @@ public class MethodsForElement {
   }
 
   /**
-   * Returns an BackgroundFill for a given elementInPlayfield
+   * Returns an BackgroundFill for a given elementInPlayfield.
    *
-   * @param elementInPlayfield this variable distinguishes between the different elements that are
-   *     possible at one position of the playfield
+   * @param elementInPlayfield distinguishes between the different elements that are possible at one
+   *     position of the playfield
    */
   public static BackgroundFill getBackgroundFill(
       ElementsInPlayfield.ElementInPlayfield elementInPlayfield) {
-    return elementInPlayfieldBackgroundFillMap.get(elementInPlayfield);
+    return ELEMENT_IN_PLAYFIELD_BACKGROUND_FILL_MAP.get(elementInPlayfield);
   }
 
   /**
-   * Returns an ImagePattern for a valid pathFilename of a png-file
+   * Returns an ImagePattern for a valid pathFilename of a png file.
    *
    * @param pathFilename the pathFilename where the file is
    */
