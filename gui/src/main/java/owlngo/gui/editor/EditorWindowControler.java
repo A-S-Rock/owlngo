@@ -1,4 +1,4 @@
-package owlngo.editor;
+package owlngo.gui.editor;
 
 import java.io.IOException;
 import javafx.animation.RotateTransition;
@@ -14,9 +14,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import owlngo.data.ElementsInPlayfield;
-import owlngo.data.MethodsForElement;
-import owlngo.playfield.DummyGameForTesting;
+import owlngo.gui.data.ElementsInPlayfield;
+import owlngo.gui.data.MethodsForElement;
+import owlngo.gui.playfield.DummyGameForTesting;
 
 /** Controller class for the editor window. */
 public class EditorWindowControler {

@@ -15,7 +15,7 @@ repositories {
 }
 application {
     // Define the main class for the application.
-    mainClass = 'owlngo.editor.Editor'
+    mainClass = 'owlngo.gui.editor.Editor'
 }
 
 

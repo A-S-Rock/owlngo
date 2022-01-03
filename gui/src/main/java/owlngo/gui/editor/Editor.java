@@ -1,4 +1,4 @@
-package owlngo.editor;
+package owlngo.gui.editor;
 
 import java.io.IOException;
 import javafx.application.Application;

@@ -1,4 +1,4 @@
-package owlngo.playfield;
+package owlngo.gui.playfield;
 
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
@@ -7,8 +7,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import owlngo.data.ElementsInPlayfield;
-import owlngo.data.MethodsForElement;
+import owlngo.gui.data.ElementsInPlayfield;
+import owlngo.gui.data.MethodsForElement;
 
 /** Controller class for the playfield window. */
 public class PlayfieldWindowControler {

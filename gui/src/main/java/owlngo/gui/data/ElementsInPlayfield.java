@@ -1,4 +1,4 @@
-package owlngo.data;
+package owlngo.gui.data;
 
 import java.util.List;
 

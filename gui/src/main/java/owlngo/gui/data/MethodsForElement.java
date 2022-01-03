@@ -1,4 +1,4 @@
-package owlngo.data;
+package owlngo.gui.data;
 
 import java.util.Map;
 import javafx.geometry.Insets;
@@ -19,7 +19,7 @@ public class MethodsForElement {
    */
 
   // Constant values for window
-  private static final String OWL_PATH = "./pictures/ingo40x40.png";
+  private static final String OWL_PATH = "/pictures/ingo40x40.png";
   private static final String GROUND_PATH = "/pictures/soil.png";
   public static final int size = 30;
 

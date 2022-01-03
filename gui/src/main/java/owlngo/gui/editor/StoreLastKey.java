@@ -1,4 +1,4 @@
-package owlngo.editor;
+package owlngo.gui.editor;
 
 import javafx.scene.input.KeyCode;
 
