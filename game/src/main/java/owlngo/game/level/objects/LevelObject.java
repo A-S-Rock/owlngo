@@ -55,12 +55,12 @@ public class LevelObject implements ObjectInGame {
 
   @Override
   public boolean isValid() {
-    return false;
+    return objectType != null && coordinate.getRow() >= 0 && coordinate.getColumn() >= 0;
   }
 
   @Override
   public boolean isNone() {
-    return false;
+    return objectType == ObjectType.NONE;
   }
 
   @Override
