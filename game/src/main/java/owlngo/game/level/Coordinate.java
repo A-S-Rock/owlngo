@@ -1,12 +1,13 @@
 package owlngo.game.level;
 
 import owlngo.game.OwlnGo;
+import owlngo.game.level.objects.ObjectInGame;
 
 import java.util.Objects;
 
 /**
- * This class represents the position of a {@link Character} on a {@link Level} of a {@link OwlnGo}
- * game. The Coordinate-class is used similar in task4.
+ * This class represents the position of a {@link ObjectInGame} on a {@link Level} of an {@link
+ * OwlnGo} game. The Coordinate class is used similar in task4.
  */
 public final class Coordinate implements Comparable<Coordinate> {
   private final int row;
