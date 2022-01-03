@@ -14,6 +14,17 @@ public class LevelObject implements ObjectInGame {
    * @param coord coordinate to put the start object to
    * @return the start object
    */
+  public static LevelObject createNoneObject(Coordinate coord) {
+    return new LevelObject(ObjectType.NONE, coord);
+  }
+
+
+  /**
+   * Creates a new start object for the game at the given coordinate.
+   *
+   * @param coord coordinate to put the start object to
+   * @return the start object
+   */
   public static LevelObject createStartObject(Coordinate coord) {
     return new LevelObject(ObjectType.START, coord);
   }

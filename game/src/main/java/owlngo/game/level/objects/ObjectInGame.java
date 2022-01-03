@@ -14,6 +14,8 @@ public interface ObjectInGame {
     GROUND
   }
 
+
+
   /**
    * Returns the object type of the ingame object.
    *
