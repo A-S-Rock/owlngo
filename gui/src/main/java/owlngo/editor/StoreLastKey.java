@@ -2,7 +2,7 @@ package owlngo.editor;
 
 import javafx.scene.input.KeyCode;
 
-// This class stores the last key pressed
+/** This class stores the last key pressed. */
 public final class StoreLastKey {
   private static KeyCode keyCode;
 
@@ -23,8 +23,7 @@ public final class StoreLastKey {
 
   public static String getLastKeyPressedAsString() {
     if (keyCode != null) {
-      // return (keyCode.getChar().toString());
-      return (keyCode.getChar());
+      return keyCode.getChar();
     } else {
       return "";
     }

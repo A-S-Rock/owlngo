@@ -19,7 +19,7 @@ public class PlayfieldWindowControler {
   // Constant values for window
 
   // static final int numberOfPanesInRowAnColumn = 30;
-  private final static Pane[][] pane =
+  private static final Pane[][] pane =
       new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
           [MethodsForElement.numberOfPanesInRowAnColumn];
 

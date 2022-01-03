@@ -1,13 +1,12 @@
 package owlngo.data;
 
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
-
-import java.util.Map;
 
 /** This class serves as an utility class for elements in the playfield. */
 public class MethodsForElement {

@@ -5,37 +5,6 @@ import java.util.List;
 /** The class stores all elements of the gamefield. */
 public class ElementsInPlayfield {
 
-  /**
-   * The enum distiguishs betwenn all the different graphic elements used as background in the panes
-   * of the gridPane. This graphic elements represent all diffent pieces on the playfield for the
-   * game
-   *
-   * <ul>
-   *   <li>{@code OWL}: Owl
-   *   <li>{@code OWL1}: Other picture of the owl
-   *   <li>{@code START}: Where the game starts
-   *   <li>{@code END}: Position where the game ends
-   *   <li>{@code GROUND_NO_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code GROUND_LEFT_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code NO_ELEMENT}: No element
-   * </ul>
-   */
-  public enum ElementInPlayfield {
-    OWL,
-    OWL1,
-    START,
-    END,
-    GROUND_NO_LAWN,
-    GROUND_TOP_LAWN,
-    GROUND_LEFT_TOP_LAWN,
-    GROUND_TOP_RIGHT_LAWN,
-    GROUND_LEFT_TOP_RIGHT_LAWN,
-    NO_ELEMENT
-  }
-
   private static final ElementInPlayfield[][] elementInPlayfield =
       new ElementInPlayfield[MethodsForElement.numberOfPanesInRowAnColumn]
           [MethodsForElement.numberOfPanesInRowAnColumn];
@@ -98,5 +67,36 @@ public class ElementsInPlayfield {
   public static boolean isOwl(int row, int column) {
     List<ElementInPlayfield> owlList = List.of(ElementInPlayfield.OWL1, ElementInPlayfield.OWL);
     return owlList.contains(elementInPlayfield[row][column]);
+  }
+
+  /**
+   * The enum distiguishs betwenn all the different graphic elements used as background in the panes
+   * of the gridPane. This graphic elements represent all diffent pieces on the playfield for the
+   * game
+   *
+   * <ul>
+   *   <li>{@code OWL}: Owl
+   *   <li>{@code OWL1}: Other picture of the owl
+   *   <li>{@code START}: Where the game starts
+   *   <li>{@code END}: Position where the game ends
+   *   <li>{@code GROUND_NO_LAWN}: Ground element
+   *   <li>{@code GROUND_TOP_LAWN}: Ground element
+   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
+   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
+   *   <li>{@code GROUND_LEFT_TOP_RIGHT_LAWN}: Ground element
+   *   <li>{@code NO_ELEMENT}: No element
+   * </ul>
+   */
+  public enum ElementInPlayfield {
+    OWL,
+    OWL1,
+    START,
+    END,
+    GROUND_NO_LAWN,
+    GROUND_TOP_LAWN,
+    GROUND_LEFT_TOP_LAWN,
+    GROUND_TOP_RIGHT_LAWN,
+    GROUND_LEFT_TOP_RIGHT_LAWN,
+    NO_ELEMENT
   }
 }

@@ -1,9 +1,7 @@
 package owlngo.playfield;
 
 import javafx.scene.input.KeyCode;
-// import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
 import owlngo.data.ElementsInPlayfield;
-
 
 public final class DummyGameForTesting {
   static int column;
@@ -25,22 +23,22 @@ public final class DummyGameForTesting {
     columnOld = column;
     rowOld = row;
     switch (keyCode) {
-      case NUMPAD8:
+      case NUMPAD8 -> {
         row = row - 1;
         changeValueInElementsInPlayfield();
-        break;
-      case NUMPAD2:
+      }
+      case NUMPAD2 -> {
         row = row + 1;
         changeValueInElementsInPlayfield();
-        break;
-      case NUMPAD6:
+      }
+      case NUMPAD6 -> {
         column = column + 1;
         changeValueInElementsInPlayfield();
-        break;
-      case NUMPAD4:
+      }
+      case NUMPAD4 -> {
         column = column - 1;
         changeValueInElementsInPlayfield();
-        break;
+      }
     }
   }
 
