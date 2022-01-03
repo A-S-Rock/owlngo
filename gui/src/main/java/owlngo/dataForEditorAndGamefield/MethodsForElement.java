@@ -9,6 +9,7 @@ import javafx.scene.paint.ImagePattern;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -39,13 +40,13 @@ public class MethodsForElement {
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.OWL,
                   new BackgroundFill(
-                      getImagePatternFromFile("C:\\ingo40x40.png"),
+                      getImagePatternFromFile("/pictures/ingo40x40.png"),
                       CornerRadii.EMPTY,
                       Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN,
                   new BackgroundFill(
-                      getImagePatternFromFile("C:\\soil.png"), CornerRadii.EMPTY, Insets.EMPTY)),
+                      getImagePatternFromFile("/pictures/soil.png"), CornerRadii.EMPTY, Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.START,
                   new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),
@@ -88,14 +89,10 @@ public class MethodsForElement {
    * Returns an ImagePattern for a valid pathFilename of a of a png-file
    * @param pathFilename the pathFilename where the file is
    */
-  private static ImagePattern getImagePatternFromFile(String pathFilename) {
-    Image image = null;
-    try {
-      image = new Image(new FileInputStream(pathFilename));
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-    // ImagePattern imagePattern=new ImagePattern(image);
+  private static ImagePattern getImagePatternFromFile(String pathFilename)  {
+
+
+    Image image=new Image(pathFilename);
     return new ImagePattern(image);
   }
 }
