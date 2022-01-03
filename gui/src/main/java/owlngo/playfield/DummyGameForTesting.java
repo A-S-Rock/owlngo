@@ -3,9 +3,7 @@ package owlngo.playfield;
 import javafx.scene.input.KeyCode;
 import owlngo.data.ElementsInPlayfield;
 
-/**
- * Serves as a dummy game for testing.
- */
+/** Serves as a dummy game for testing. */
 public final class DummyGameForTesting {
   static int column;
   static int row;
@@ -14,6 +12,7 @@ public final class DummyGameForTesting {
 
   static ElementsInPlayfield.ElementInPlayfield old;
 
+  /** Start setup for a game with fixed dimensions. */
   public static void setup() {
     column = 15;
     row = 15;
@@ -22,26 +21,22 @@ public final class DummyGameForTesting {
     PlayfieldWindowControler.changeAllPanesDependingOnElementsInPlayfied(); // Update Graphics
   }
 
+  /** Moves the owl with the used key. */
   public static void moveOwl(KeyCode keyCode) {
     columnOld = column;
     rowOld = row;
-    switch (keyCode) {
-      case NUMPAD8 -> {
-        row = row - 1;
-        changeValueInElementsInPlayfield();
-      }
-      case NUMPAD2 -> {
-        row = row + 1;
-        changeValueInElementsInPlayfield();
-      }
-      case NUMPAD6 -> {
-        column = column + 1;
-        changeValueInElementsInPlayfield();
-      }
-      case NUMPAD4 -> {
-        column = column - 1;
-        changeValueInElementsInPlayfield();
-      }
+    if (keyCode == KeyCode.NUMPAD8) {
+      row = row - 1;
+      changeValueInElementsInPlayfield();
+    } else if (keyCode == KeyCode.NUMPAD2) {
+      row = row + 1;
+      changeValueInElementsInPlayfield();
+    } else if (keyCode == KeyCode.NUMPAD6) {
+      column = column + 1;
+      changeValueInElementsInPlayfield();
+    } else if (keyCode == KeyCode.NUMPAD4) {
+      column = column - 1;
+      changeValueInElementsInPlayfield();
     }
   }
 

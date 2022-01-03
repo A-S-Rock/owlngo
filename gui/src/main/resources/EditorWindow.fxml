@@ -12,13 +12,15 @@
   xmlns="http://javafx.com/javafx/17"
   fx:controller="owlngo.editor.EditorWindowControler">
   <children>
-    <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+    <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
       dividerPositions="0.6852" layoutX="-2.0" prefHeight="600.0"
       prefWidth="800.0">
       <items>
         <AnchorPane>
           <children>
-            <GridPane style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            <GridPane style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0"
               AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
               prefHeight="599.2" prefWidth="548.0" fx:id="gridPaneEditorWindow">
               <columnConstraints>
@@ -93,13 +95,15 @@
           prefWidth="232.0"
           fx:id="playfieldAnchor1">
           <children>
-            <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+            <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
               AnchorPane.topAnchor="0.0" dividerPositions="0.94451871657754" orientation="VERTICAL"
               prefHeight="599.2" prefWidth="248.8">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="250.0">
                   <children>
-                    <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                    <ScrollPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0"
                       AnchorPane.topAnchor="0.0" prefHeight="561.6"
                       prefWidth="247.2">
                       <content>
@@ -158,7 +162,8 @@
                 <AnchorPane maxHeight="100.0" minHeight="0.0" minWidth="100.0" prefHeight="100.0"
                   prefWidth="160.0">
                   <children>
-                    <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
+                    <SplitPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
                       layoutX="1.0" layoutY="2.0"
                       prefHeight="30.4" prefWidth="247.2">
                       <items>
@@ -177,7 +182,7 @@
                                 <Button GridPane.columnIndex="2" maxHeight="1.7976931348623157E308"
                                   maxWidth="1.7976931348623157E308"
                                   onAction="#saveElementsInPlayfield" text="Save"
-                                  fx:id="save"/>
+                                  fx:id="start"/>
                                 <Button maxHeight="1.7976931348623157E308"
                                   maxWidth="1.7976931348623157E308"
                                   minHeight="-Infinity"

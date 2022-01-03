@@ -2,6 +2,7 @@ package owlngo.editor;
 
 import java.io.IOException;
 import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -23,7 +24,7 @@ public class EditorWindowControler {
   @FXML GridPane gridPaneEditorWindow;
 
   @FXML
-  public void initialize() {
+  void initialize() {
     System.out.println("initialilize windows EditorWindow.fxml");
     ElementsInPlayfield.setAllToNoElement();
     setPanesOnPlayfield();
@@ -31,13 +32,12 @@ public class EditorWindowControler {
 
   void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
-    Pane[][] pane =
-        new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
-            [MethodsForElement.numberOfPanesInRowAnColumn];
-    for (int columnIndex = 0;
-        columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
-        columnIndex++) {
-      for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
+    final int row = MethodsForElement.size;
+    final int column = MethodsForElement.size;
+
+    Pane[][] pane = new Pane[row][column];
+    for (int columnIndex = 0; columnIndex < MethodsForElement.size; columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.size; rowIndex++) {
 
         // Initialisation
         pane[rowIndex][columnIndex] = new Pane();
@@ -121,8 +121,7 @@ public class EditorWindowControler {
       stage.show();
     } catch (IOException e) {
       System.out.println("Exeption Line 38 " + e);
-      e.getCause().getCause();
-      System.exit(0);
+      Platform.exit();
     }
   }
 

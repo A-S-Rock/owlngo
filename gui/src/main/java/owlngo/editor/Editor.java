@@ -2,6 +2,7 @@ package owlngo.editor;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -39,8 +40,7 @@ public class Editor extends Application {
       stage.setResizable(true);
       stage.show();
     } catch (IOException e) {
-      e.getCause().getCause();
-      System.exit(0);
+      Platform.exit();
     }
   }
 }

@@ -19,7 +19,9 @@ public class MethodsForElement {
    */
 
   // Constant values for window
-  public static final int numberOfPanesInRowAnColumn = 30;
+  private static final String OWL_PATH = "./pictures/ingo40x40.png";
+  private static final String GROUND_PATH = "/pictures/soil.png";
+  public static final int size = 30;
 
   static final Map<String, ElementsInPlayfield.ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
       Map.ofEntries(
@@ -38,15 +40,11 @@ public class MethodsForElement {
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.OWL,
                   new BackgroundFill(
-                      getImagePatternFromFile("/pictures/ingo40x40.png"),
-                      CornerRadii.EMPTY,
-                      Insets.EMPTY)),
+                      getImagePatternFromFile(OWL_PATH), CornerRadii.EMPTY, Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN,
                   new BackgroundFill(
-                      getImagePatternFromFile("/pictures/soil.png"),
-                      CornerRadii.EMPTY,
-                      Insets.EMPTY)),
+                      getImagePatternFromFile(GROUND_PATH), CornerRadii.EMPTY, Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.START,
                   new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),

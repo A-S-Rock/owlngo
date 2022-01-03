@@ -10,6 +10,7 @@ public final class StoreLastKey {
     keyCode = KeyCode.getKeyCode(" ");
   }
 
+  /** Returns the last pressed key. */
   public static KeyCode getLastKeyPressed() {
     if (keyCode != null) {
       System.out.println(keyCode.getChar());
@@ -21,6 +22,7 @@ public final class StoreLastKey {
     keyCode = character;
   }
 
+  /** Returns the last pressed key as a string. */
   public static String getLastKeyPressedAsString() {
     if (keyCode != null) {
       return keyCode.getChar();

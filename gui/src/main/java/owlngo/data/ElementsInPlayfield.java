@@ -6,13 +6,12 @@ import java.util.List;
 public class ElementsInPlayfield {
 
   private static final ElementInPlayfield[][] elementInPlayfield =
-      new ElementInPlayfield[MethodsForElement.numberOfPanesInRowAnColumn]
-          [MethodsForElement.numberOfPanesInRowAnColumn];
+      new ElementInPlayfield[MethodsForElement.size][MethodsForElement.size];
 
   /** Sets all elements of ElementInPlayfield to ElementInPlayfield.NO_ELEMENT */
   public static void setAllToNoElement() {
-    for (int row = 0; row < MethodsForElement.numberOfPanesInRowAnColumn; row++) {
-      for (int column = 0; column < MethodsForElement.numberOfPanesInRowAnColumn; column++) {
+    for (int row = 0; row < MethodsForElement.size; row++) {
+      for (int column = 0; column < MethodsForElement.size; column++) {
         elementInPlayfield[row][column] = ElementInPlayfield.NO_ELEMENT;
       }
     }

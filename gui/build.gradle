@@ -1,8 +1,11 @@
 plugins {
     id 'java'
-
-    id 'org.openjfx.javafxplugin'
     id 'application'
+
+    id 'checkstyle'
+    id "com.github.spotbugs"
+    id 'org.openjfx.javafxplugin'
+    id "com.diffplug.spotless"
 }
 
 version 'unspecified'
@@ -19,6 +22,31 @@ application {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+checkstyle {
+    toolVersion '8.45'
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+    excludeFilter = file('../config/spotbugs/exclude.xml')
+}
+
+spotbugs {
+    effort = 'max'
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+        lineEndings 'UNIX'
+    }
 }
 
 javafx {
