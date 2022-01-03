@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+
+    id 'org.openjfx.javafxplugin'
 }
 
 version 'unspecified'
@@ -11,6 +13,11 @@ repositories {
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+javafx {
+    version = "17.0.1"
+    modules = [ 'javafx.base', 'javafx.swing', 'javafx.graphics', 'javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.web' ]
 }
 
 test {
