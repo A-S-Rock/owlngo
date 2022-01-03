@@ -3,6 +3,9 @@ package owlngo.playfield;
 import javafx.scene.input.KeyCode;
 import owlngo.data.ElementsInPlayfield;
 
+/**
+ * Serves as a dummy game for testing.
+ */
 public final class DummyGameForTesting {
   static int column;
   static int row;

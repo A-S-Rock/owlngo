@@ -2,7 +2,6 @@ package owlngo.playfield;
 
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -11,14 +10,9 @@ import javafx.util.Duration;
 import owlngo.data.ElementsInPlayfield;
 import owlngo.data.MethodsForElement;
 
-// This class handles all actions on the window EditorWindow.fxml
-// It also set the enum ElementInPlayfield for each pane that is used
-// in the gritPane of the window.
-
+/** Controller class for the playfield window. */
 public class PlayfieldWindowControler {
-  // Constant values for window
 
-  // static final int numberOfPanesInRowAnColumn = 30;
   private static final Pane[][] pane =
       new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
           [MethodsForElement.numberOfPanesInRowAnColumn];
@@ -27,37 +21,24 @@ public class PlayfieldWindowControler {
   // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
   // fx:id="gridPaneChessBoard"
 
-  @FXML Label displayToUser;
-  // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
-
   public static void changeAllPanesDependingOnElementsInPlayfied() {
     System.out.println(("changeAllPanesDependingOnElementsInPlayfied"));
     for (int columnIndex = 0;
         columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
         columnIndex++) {
       for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
-        // Set Background of pane depending on the content of elementsInPlayfield
-        // not working
-        // pane[rowIndex][columnIndex]=setBackgroundOfPaneDependingOnContent(
-        // rowIndex,columnIndex);
-
         BackgroundFill backgroundFill;
         backgroundFill =
             MethodsForElement.getBackgroundFill(
                 ElementsInPlayfield.getElement(rowIndex, columnIndex));
         Background background = new Background(backgroundFill);
         pane[rowIndex][columnIndex].setBackground(background);
-
-        // working
-        // setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex,
-        // columnIndex);
       }
     }
   }
 
   // Set Background of pane depending on the content of elementsInPlayfield
   private static Pane setBackgroundOfPaneDependingOnContent(int row, int column) {
-    // System.out.println("setBackgroundOfPaneDependingOnContent");
     Pane pane = new Pane();
     BackgroundFill backgroundFill;
 
@@ -99,7 +80,6 @@ public class PlayfieldWindowControler {
 
   private void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
-    // Pane[][] pane = new Pane[numberOfPanesInRowAnColumn][numberOfPanesInRowAnColumn];
     for (int columnIndex = 0;
         columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
         columnIndex++) {
@@ -125,6 +105,7 @@ public class PlayfieldWindowControler {
     rt.play();
   }
 
+  /*
   void rotate() {
     RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPanePlayfieldWindow);
     rt.setByAngle(180);
@@ -132,4 +113,5 @@ public class PlayfieldWindowControler {
     rt.setAutoReverse(true);
     rt.play();
   }
+   */
 }
