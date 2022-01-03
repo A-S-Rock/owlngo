@@ -58,7 +58,33 @@ public final class Level {
     levelLayout.get(row).put(coordinate.getColumn(), objectInGame);
   }
 
+  /** Returns whether there is an object placed at the given position. */
+  public boolean hasNoObjectInGameAt(Coordinate coordinate) {
+    return getObjectInGameAt(coordinate).isNone();
+  }
 
+  /** Gets the piece at the given position. */
+  public ObjectInGame getObjectInGameAt(Coordinate coordinate) {
+    if (!levelLayout.containsKey(coordinate.getRow()) || !levelLayout.containsKey(coordinate.getColumn())) {
+      throw new IndexOutOfBoundsException("Coordinate does not exist in board map: " + coordinate);
+    }
+    return levelLayout.get(coordinate.getRow()).get(coordinate.getColumn());
+  }
 
+  /** Returns whether the given position is with the board's bounds. */
+  public boolean isPositionWithinBounds(Coordinate coordinate) {
+    final int row = coordinate.getRow();
+    final int column = coordinate.getColumn();
+    return (row >= 0) && (row < getNumRows()) && (column >= 0) && (column < getNumColumns());
+  }
 
+  /** Gets the number of rows of the board. */
+  public int getNumRows() {
+    return numRows;
+  }
+
+  /** Gets the number of columns of the board. */
+  public int getNumColumns() {
+    return numCols;
+  }
 }
