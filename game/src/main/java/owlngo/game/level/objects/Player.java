@@ -53,21 +53,40 @@ public class Player implements ObjectInGame {
   public void updatePossibleMoves(Level level) {
     assert isValid();
     possibleMoves.clear();
-    checkForwardMove(level);
-    checkBackwardMove(level);
+    checkRightwardMove(level);
+    checkLeftwardMove(level);
     checkJumpMove(level);
   }
 
+  private void checkRightwardMove(Level level) {
+    final int row = coordinate.getRow();
+    final int newColumn = coordinate.getColumn() + 1;
+    Coordinate newCoordinate = Coordinate.of(row, newColumn);
+    // check if the new position is within bounds and not occupied
+    if (level.isPositionWithinBounds(newCoordinate) && !level.hasObjectInGameAt(newCoordinate)) {
+      possibleMoves.add(Move.newRightwardMove(newCoordinate));
+    }
+  }
+
+  private void checkLeftwardMove(Level level) {
+    final int row = coordinate.getRow();
+    final int newColumn = coordinate.getColumn() - 1;
+    Coordinate newCoordinate = Coordinate.of(row, newColumn);
+    // check if the new position is within bounds and not occupied
+    if (level.isPositionWithinBounds(newCoordinate) && !level.hasObjectInGameAt(newCoordinate)) {
+      possibleMoves.add(Move.newLeftwardMove(newCoordinate));
+    }
+  }
+
   private void checkJumpMove(Level level) {
-    // TODO: Implement after Level class
-  }
-
-  private void checkBackwardMove(Level level) {
-    // TODO: Implement after Level class
-  }
-
-  private void checkForwardMove(Level level) {
-    // TODO: Implement after Level class
+    final int column = coordinate.getColumn();
+    final int newRow = coordinate.getRow() + 1;
+    Coordinate newCoordinateAtBottomOfJump = Coordinate.of(newRow, column);
+    // check if the new position is within bounds and not occupied
+    if (level.isPositionWithinBounds(newCoordinateAtBottomOfJump)
+        && !level.hasObjectInGameAt(newCoordinateAtBottomOfJump)) {
+      possibleMoves.add(Move.newJumpMove(newCoordinateAtBottomOfJump));
+    }
   }
 
   /** Returns an immutable list of the possible moves. */

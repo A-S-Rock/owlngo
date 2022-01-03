@@ -22,14 +22,14 @@ public final class Move {
   final MoveType moveType;
   final Coordinate newCoordinate;
 
-  /** Constructs a new Move instance that moves the character forward. */
-  public static Move newForwardMove(Coordinate coordinate) {
-    return new Move(MoveType.LEFT, coordinate); // Task4, ChessPiece
+  /** Constructs a new Move instance that moves the character rightward. */
+  public static Move newRightwardMove(Coordinate coordinate) {
+  return new Move(MoveType.RIGHT, coordinate); // Task4, ChessPiece
   }
 
-  /** Constructs a new Move instance that moves the character backward. */
-  public static Move newBackwardMove(Coordinate coordinate) {
-    return new Move(MoveType.RIGHT, coordinate); // Task4, ChessPiece
+  /** Constructs a new Move instance that moves the character leftward. */
+  public static Move newLeftwardMove(Coordinate coordinate) {
+    return new Move(MoveType.LEFT, coordinate); // Task4, ChessPiece
   }
 
   /** Constructs a new Move instance that lets the character jump. */
