@@ -2,7 +2,7 @@ package owlngo.playfield;
 
 import javafx.scene.input.KeyCode;
 // import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
-import owlngo.dataForEditorAndGamefield.ElementsInPlayfield;
+import owlngo.data.ElementsInPlayfield;
 
 
 public final class DummyGameForTesting {

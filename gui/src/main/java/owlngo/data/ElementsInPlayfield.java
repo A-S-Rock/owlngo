@@ -1,4 +1,4 @@
-package owlngo.dataForEditorAndGamefield;
+package owlngo.data;
 
 import java.util.List;
 

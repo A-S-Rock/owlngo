@@ -1,4 +1,4 @@
-package owlngo.dataForEditorAndGamefield;
+package owlngo.data;
 
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;

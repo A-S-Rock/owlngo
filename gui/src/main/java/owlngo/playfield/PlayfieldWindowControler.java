@@ -8,8 +8,8 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import owlngo.dataForEditorAndGamefield.ElementsInPlayfield;
-import owlngo.dataForEditorAndGamefield.MethodsForElement;
+import owlngo.data.ElementsInPlayfield;
+import owlngo.data.MethodsForElement;
 
 // This class handles all actions on the window EditorWindow.fxml
 // It also set the enum ElementInPlayfield for each pane that is used
@@ -19,7 +19,7 @@ public class PlayfieldWindowControler {
   // Constant values for window
 
   // static final int numberOfPanesInRowAnColumn = 30;
-  private static Pane[][] pane =
+  private final static Pane[][] pane =
       new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
           [MethodsForElement.numberOfPanesInRowAnColumn];
 

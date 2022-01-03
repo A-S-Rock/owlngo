@@ -1,7 +1,6 @@
 package owlngo.editor;
 
 import javafx.animation.RotateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,9 +13,8 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-// import owlngo.dataForEditorAndGamefield.ElementInPlayfield;
-import owlngo.dataForEditorAndGamefield.ElementsInPlayfield;
-import owlngo.dataForEditorAndGamefield.MethodsForElement;
+import owlngo.data.ElementsInPlayfield;
+import owlngo.data.MethodsForElement;
 import owlngo.playfield.DummyGameForTesting;
 
 import java.io.IOException;
@@ -72,7 +70,8 @@ public class EditorWindowControler {
 
   void setResetElement(Pane pane, int row, int column) {
     System.out.println("setResetElement");
-    if (ElementsInPlayfield.getElement(row, column) == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
+    if (ElementsInPlayfield.getElement(row, column)
+        == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
       // if (!floor.getFloor(row, column)) {
       System.out.print("I am set");
       System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
@@ -85,8 +84,8 @@ public class EditorWindowControler {
         ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
       }
       // Set Background of pane depending on the content of elementsInPlayfield
-      System.out.println("isGround="+ElementsInPlayfield.isGround(row,column));
-      System.out.println("isOwl="+ElementsInPlayfield.isOwl(row,column));
+      System.out.println("isGround=" + ElementsInPlayfield.isGround(row, column));
+      System.out.println("isOwl=" + ElementsInPlayfield.isOwl(row, column));
 
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
@@ -94,7 +93,7 @@ public class EditorWindowControler {
       System.out.println("I am reset");
       // set in elementsInPlayfield the elementInPlayfield to noElement
       final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
-              ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
+          ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
       ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
 
       // Set Background of pane depending on the content of elementsInPlayfield
@@ -129,14 +128,10 @@ public class EditorWindowControler {
       DummyGameForTesting.setup();
       // Set up keyHandler
       scene.setOnKeyPressed(
-          new EventHandler<>() {
-            @Override
-            public void handle(javafx.scene.input.KeyEvent event) {
-
-              KeyCode keyCode = event.getCode();
-              System.out.println("Tastendruck:" + keyCode);
-              DummyGameForTesting.moveOwl(keyCode);
-            }
+          event -> {
+            KeyCode keyCode = event.getCode();
+            System.out.println("Tastendruck:" + keyCode);
+            DummyGameForTesting.moveOwl(keyCode);
           });
 
       stage.setScene(scene);
