@@ -1,7 +1,11 @@
 plugins {
     id 'java'
+    id 'application'
 
+    id 'checkstyle'
+    id "com.github.spotbugs"
     id 'org.openjfx.javafxplugin'
+    id "com.diffplug.spotless"
 }
 
 version 'unspecified'
@@ -9,15 +13,45 @@ version 'unspecified'
 repositories {
     mavenCentral()
 }
+application {
+    // Define the main class for the application.
+    mainClass = 'owlngo.gui.editor.Editor'
+}
+
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
+checkstyle {
+    toolVersion '8.45'
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+spotbugsMain {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+    excludeFilter = file('../config/spotbugs/exclude.xml')
+}
+
+spotbugs {
+    effort = 'max'
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+        lineEndings 'UNIX'
+    }
+}
+
 javafx {
     version = "17.0.1"
-    modules = [ 'javafx.base', 'javafx.swing', 'javafx.graphics', 'javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.web' ]
+    modules = ['javafx.base', 'javafx.swing', 'javafx.graphics', 'javafx.controls', 'javafx.fxml', 'javafx.media', 'javafx.web']
 }
 
 test {
