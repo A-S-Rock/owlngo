@@ -63,7 +63,7 @@ public class Player implements ObjectInGame {
     final int newColumn = coordinate.getColumn() + 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinate) && !level.hasObjectInGameAt(newCoordinate)) {
+    if (level.isPositionWithinBounds(newCoordinate) && !level.hasNoObjectInGameAt(newCoordinate)) {
       possibleMoves.add(Move.newRightwardMove(newCoordinate));
     }
   }
@@ -73,7 +73,7 @@ public class Player implements ObjectInGame {
     final int newColumn = coordinate.getColumn() - 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinate) && !level.hasObjectInGameAt(newCoordinate)) {
+    if (level.isPositionWithinBounds(newCoordinate) && !level.hasNoObjectInGameAt(newCoordinate)) {
       possibleMoves.add(Move.newLeftwardMove(newCoordinate));
     }
   }
@@ -84,7 +84,7 @@ public class Player implements ObjectInGame {
     Coordinate newCoordinateAtBottomOfJump = Coordinate.of(newRow, column);
     // check if the new position is within bounds and not occupied
     if (level.isPositionWithinBounds(newCoordinateAtBottomOfJump)
-        && !level.hasObjectInGameAt(newCoordinateAtBottomOfJump)) {
+        && !level.hasNoObjectInGameAt(newCoordinateAtBottomOfJump)) {
       possibleMoves.add(Move.newJumpMove(newCoordinateAtBottomOfJump));
     }
   }
