@@ -1,5 +1,9 @@
 package owlngo.game.level;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.beans.property.MapProperty;
 import javafx.beans.property.SimpleMapProperty;
 import javafx.collections.FXCollections;
@@ -7,11 +11,6 @@ import owlngo.game.OwlnGo;
 import owlngo.game.level.objects.LevelObject;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.Player;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /** This class represents the level of the {@link OwlnGo} game. Similar to Task 4 ChessBoard. */
 public final class Level {
@@ -59,13 +58,14 @@ public final class Level {
   }
 
   /** Returns whether there is an object placed at the given position. */
-  public boolean hasNoObjectInGameAt(Coordinate coordinate) {
-    return getObjectInGameAt(coordinate).isNone();
+  public boolean hasObjectInGameAt(Coordinate coordinate) {
+    return !getObjectInGameAt(coordinate).isNone();
   }
 
   /** Gets the piece at the given position. */
   public ObjectInGame getObjectInGameAt(Coordinate coordinate) {
-    if (!levelLayout.containsKey(coordinate.getRow()) || !levelLayout.containsKey(coordinate.getColumn())) {
+    if (!levelLayout.containsKey(coordinate.getRow())
+        || !levelLayout.containsKey(coordinate.getColumn())) {
       throw new IndexOutOfBoundsException("Coordinate does not exist in board map: " + coordinate);
     }
     return levelLayout.get(coordinate.getRow()).get(coordinate.getColumn());

@@ -3,7 +3,7 @@ package owlngo.game.level.objects;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 
-/** Represents the general objects in {@link Level} */
+/** Represents the general objects in {@link Level}. */
 public interface ObjectInGame {
 
   enum ObjectType {
@@ -13,8 +13,6 @@ public interface ObjectInGame {
     FINISH,
     GROUND
   }
-
-
 
   /**
    * Returns the object type of the ingame object.

@@ -24,7 +24,7 @@ public final class Move {
 
   /** Constructs a new Move instance that moves the character rightward. */
   public static Move newRightwardMove(Coordinate coordinate) {
-  return new Move(MoveType.RIGHT, coordinate); // Task4, ChessPiece
+    return new Move(MoveType.RIGHT, coordinate); // Task4, ChessPiece
   }
 
   /** Constructs a new Move instance that moves the character leftward. */

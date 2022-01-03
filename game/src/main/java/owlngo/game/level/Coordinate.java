@@ -1,9 +1,8 @@
 package owlngo.game.level;
 
+import java.util.Objects;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.objects.ObjectInGame;
-
-import java.util.Objects;
 
 /**
  * This class represents the position of a {@link ObjectInGame} on a {@link Level} of an {@link

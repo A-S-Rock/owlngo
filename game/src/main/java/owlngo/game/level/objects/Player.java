@@ -1,11 +1,10 @@
 package owlngo.game.level.objects;
 
+import java.util.ArrayList;
+import java.util.List;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The player representation in the game. These objects need the ability to move on the level. This
@@ -63,7 +62,7 @@ public class Player implements ObjectInGame {
     final int newColumn = coordinate.getColumn() + 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinate) && !level.hasNoObjectInGameAt(newCoordinate)) {
+    if (level.isPositionWithinBounds(newCoordinate) && level.hasObjectInGameAt(newCoordinate)) {
       possibleMoves.add(Move.newRightwardMove(newCoordinate));
     }
   }
@@ -73,7 +72,7 @@ public class Player implements ObjectInGame {
     final int newColumn = coordinate.getColumn() - 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinate) && !level.hasNoObjectInGameAt(newCoordinate)) {
+    if (level.isPositionWithinBounds(newCoordinate) && level.hasObjectInGameAt(newCoordinate)) {
       possibleMoves.add(Move.newLeftwardMove(newCoordinate));
     }
   }
@@ -84,7 +83,7 @@ public class Player implements ObjectInGame {
     Coordinate newCoordinateAtBottomOfJump = Coordinate.of(newRow, column);
     // check if the new position is within bounds and not occupied
     if (level.isPositionWithinBounds(newCoordinateAtBottomOfJump)
-        && !level.hasNoObjectInGameAt(newCoordinateAtBottomOfJump)) {
+        && level.hasObjectInGameAt(newCoordinateAtBottomOfJump)) {
       possibleMoves.add(Move.newJumpMove(newCoordinateAtBottomOfJump));
     }
   }
