@@ -7,19 +7,18 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URL;
 import java.util.Map;
 
-/**
- * In this class static methods are included hold constant relations. String entered ----
- * ElementInPlayfield e.g. S means Start
- *
- * <p>ElementInPlayfield ---- BackgroundFill e.g. ElementInPlayfield.OWL to The graphic that is
- * stored at "C:\\ingo40x40.png"
- */
+/** This class serves as an utility class for elements in the playfield. */
 public class MethodsForElement {
+  /*
+   * This class static methods are included to hold constant relations. String entered ----
+   * ElementInPlayfield e.g. S means Start
+   *
+   * <p>ElementInPlayfield ---- BackgroundFill e.g. ElementInPlayfield.OWL to The graphic that is
+   * stored at resources/pictures/ingo40x40.png
+   */
+
   // Constant values for window
   public static final int numberOfPanesInRowAnColumn = 30;
 
@@ -46,7 +45,9 @@ public class MethodsForElement {
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN,
                   new BackgroundFill(
-                      getImagePatternFromFile("/pictures/soil.png"), CornerRadii.EMPTY, Insets.EMPTY)),
+                      getImagePatternFromFile("/pictures/soil.png"),
+                      CornerRadii.EMPTY,
+                      Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.START,
                   new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),
@@ -63,36 +64,35 @@ public class MethodsForElement {
   public static boolean validKey(String inputKey) {
     return STRING_ELEMENT_IN_PLAYFIELD_MAP.containsKey(inputKey);
   }
+
   /**
-   * Returns an the elementInPlayfield (this variable distinguishes between the different
-   * elements that are possible at one position of the playfield)
+   * Returns an elementInPlayfield (this variable distinguishes between the different elements that
+   * are possible at one position of the playfield)
+   *
    * @param inputKey key(letter) assosiated with the elementInPlayfield.
    */
   public static ElementsInPlayfield.ElementInPlayfield getElementInPlayfield(String inputKey) {
-    // return ElementInPlayfield.NO_ELEMENT;
     return (STRING_ELEMENT_IN_PLAYFIELD_MAP.get(inputKey));
   }
 
   /**
    * Returns an BackgroundFill for a given elementInPlayfield
-   * @param elementInPlayfield this variable distinguishes between the
-   *                           different elements that are possible at one
-   *                           position of the playfield
+   *
+   * @param elementInPlayfield this variable distinguishes between the different elements that are
+   *     possible at one position of the playfield
    */
-
   public static BackgroundFill getBackgroundFill(
       ElementsInPlayfield.ElementInPlayfield elementInPlayfield) {
     return elementInPlayfieldBackgroundFillMap.get(elementInPlayfield);
   }
 
   /**
-   * Returns an ImagePattern for a valid pathFilename of a of a png-file
+   * Returns an ImagePattern for a valid pathFilename of a png-file
+   *
    * @param pathFilename the pathFilename where the file is
    */
-  private static ImagePattern getImagePatternFromFile(String pathFilename)  {
-
-
-    Image image=new Image(pathFilename);
+  private static ImagePattern getImagePatternFromFile(String pathFilename) {
+    Image image = new Image(pathFilename);
     return new ImagePattern(image);
   }
 }
