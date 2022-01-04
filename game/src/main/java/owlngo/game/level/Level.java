@@ -92,6 +92,17 @@ public final class Level {
     return new Level(this);
   }
 
+  /**
+   * Creates a new level with a ground object set at the given coordinate.
+   *
+   * @param coordinate position of ground
+   * @return an immutable copy of the level with ground at the new location
+   */
+  public Level withGroundAt(Coordinate coordinate) {
+    replaceObject(LevelObject.createGroundObject(coordinate), coordinate);
+    return new Level(this);
+  }
+
   private void replaceObject(ObjectInGame objectInGame, Coordinate coordinate) {
     if (objectInGame.getType() == ObjectType.NONE) {
       throw new AssertionError("Error: Tried to erase all dummies!");
@@ -201,4 +212,27 @@ public final class Level {
   public int getNumColumns() {
     return numCols;
   }
+
+
+  /** Moves the object to the new position. */
+  private void movePiece(ObjectInGame object, Coordinate newCoordinate) {
+    assert !object.getCoordinate().equals(newCoordinate);
+    removeObjectInGame(object);
+    ObjectInGame movedObject = object.withNewPosition(newCoordinate);
+    setObjectInGameAt(movedObject, newCoordinate);
+    objectsInGame.add(movedObject);
+  }
+
+  /** Removes the object from the level. */
+  private void removeObjectInGame(ObjectInGame objectInGame) {
+    assert !objectInGame.isNone();
+    Coordinate coordinate = objectInGame.getCoordinate();
+    setObjectInGameAt(LevelObject.createNoneObject(coordinate), coordinate);
+    boolean wasRemoved = objectsInGame.remove(objectInGame);
+    assert wasRemoved;
+  }
+
+
+
+
 }
