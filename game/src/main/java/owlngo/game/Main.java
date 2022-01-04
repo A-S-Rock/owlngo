@@ -11,7 +11,7 @@ public class Main {
   public static void main(String[] args) {
 
     System.out.println("Initialize game.");
-    new OwlnGo();
+    final OwlnGo game = new OwlnGo();
 
     System.out.println("This text is for debugging purpose.");
   }
