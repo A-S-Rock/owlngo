@@ -2,12 +2,9 @@ package owlngo.game;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
-import owlngo.game.level.objects.LevelObject;
 import owlngo.game.level.objects.ObjectInGame;
-import owlngo.game.level.objects.Player;
 
 /**
  * The class stores the current state of the {@link OwlnGo} game, including the game status, the
@@ -15,25 +12,9 @@ import owlngo.game.level.objects.Player;
  */
 public class GameState {
 
-  /**
-   * Represents the status of the Owlngo game.
-   *
-   * <ul>
-   *   <li>{@code ONGOING}: if the game is still running.
-   *   <li>{@code WIN}: if the player won the game.
-   *   <li>{@code LOSE}: if the player lost the game.
-   * </ul>
-   */
-  public enum GameStatus {
-    ONGOING,
-    WIN,
-    LOSE
-  }
-
   private final Level level;
   private ObjectProperty<GameStatus> gameStatus = new SimpleObjectProperty<>();
   private ObjectProperty<ObjectInGame> player = new SimpleObjectProperty<>();
-
   /**
    * Contructs a GameState instance with a chess board of the given diemensions. Initially, the game
    * status is set to ONGOING.
@@ -48,12 +29,11 @@ public class GameState {
     level = new Level(numRows, numCols);
     gameStatus.set(GameStatus.ONGOING);
     level.updatePossibleMovesOfPlayer();
-    player.set(Player.createPlayer(Coordinate.of(1,1)));
+    player.set(level.getCopyOfPlayer());
   }
 
   private GameState(
-      Level level,
-      ObjectProperty<GameStatus> gameStatus, ObjectProperty<ObjectInGame> player) {
+      Level level, ObjectProperty<GameStatus> gameStatus, ObjectProperty<ObjectInGame> player) {
     this.level = level;
     this.gameStatus = gameStatus;
     this.player = player;
@@ -101,4 +81,18 @@ public class GameState {
     return gameStatus;
   }
 
+  /**
+   * Represents the status of the Owlngo game.
+   *
+   * <ul>
+   *   <li>{@code ONGOING}: if the game is still running.
+   *   <li>{@code WIN}: if the player won the game.
+   *   <li>{@code LOSE}: if the player lost the game.
+   * </ul>
+   */
+  public enum GameStatus {
+    ONGOING,
+    WIN,
+    LOSE
+  }
 }
