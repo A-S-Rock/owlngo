@@ -17,6 +17,12 @@ public class Player implements ObjectInGame {
   private final Coordinate coordinate;
   private final List<Move> possibleMoves;
 
+  private Player(ObjectType objectType, Coordinate coordinate, List<Move> possibleMoves) {
+    this.objectType = objectType;
+    this.coordinate = coordinate;
+    this.possibleMoves = possibleMoves;
+  }
+
   /**
    * Creates a fresh player object at the given position.
    *
@@ -27,33 +33,18 @@ public class Player implements ObjectInGame {
     return new Player(ObjectType.PLAYER, coord, new ArrayList<>());
   }
 
-  private Player(ObjectType objectType, Coordinate coordinate, List<Move> possibleMoves) {
-    this.objectType = objectType;
-    this.coordinate = coordinate;
-    this.possibleMoves = possibleMoves;
-  }
-
-  /** Returns a clone of the object. */
-  @Override
-  public ObjectInGame copyOf() {
-    if (isNone()) {
-      throw new AssertionError("Error: Player cannot be NONE!");
-    }
-    return new Player(objectType, coordinate, possibleMoves);
-  }
-
   public void updatePossibleMoves(Level level) {
     assert isValid();
     possibleMoves.clear();
     checkFallMove(level);
-    checkRightwardMove(level);
-    checkLeftwardMove(level);
+    checkRightMove(level);
+    checkLeftMove(level);
     checkJumpMove(level);
   }
 
   public Move getFallMove() {
     List<Move> fallMoves =
-        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.FALL).toList();
+        getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.FALL).toList();
     if (fallMoves.size() != 1) {
       return Move.newFallMove(coordinate);
     } else {
@@ -63,9 +54,9 @@ public class Player implements ObjectInGame {
 
   public Move getRightMove() {
     List<Move> rightMoves =
-        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.RIGHT).toList();
+        getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.RIGHT).toList();
     if (rightMoves.size() != 1) {
-      return Move.newRightwardMove(coordinate);
+      return Move.newRightMove(coordinate);
     } else {
       return rightMoves.get(0);
     }
@@ -73,9 +64,9 @@ public class Player implements ObjectInGame {
 
   public Move getLeftMove() {
     List<Move> leftMoves =
-        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.LEFT).toList();
+        getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.LEFT).toList();
     if (leftMoves.size() != 1) {
-      return Move.newLeftwardMove(coordinate);
+      return Move.newLeftMove(coordinate);
     } else {
       return leftMoves.get(0);
     }
@@ -83,7 +74,7 @@ public class Player implements ObjectInGame {
 
   public Move getJumpMove() {
     List<Move> jumpMoves =
-        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.JUMP).toList();
+        getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.JUMP).toList();
     if (jumpMoves.size() != 1) {
       return Move.newJumpMove(coordinate);
     } else {
@@ -103,7 +94,7 @@ public class Player implements ObjectInGame {
     }
   }
 
-  private void checkRightwardMove(Level level) {
+  private void checkRightMove(Level level) {
     final int row = coordinate.getRow();
     final int newColumn = coordinate.getColumn() + 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
@@ -111,11 +102,11 @@ public class Player implements ObjectInGame {
     if (level.isPositionWithinBounds(newCoordinate)
         && level.hasObjectInGameAt(newCoordinate)
         && level.getObjectInGameAt(newCoordinate).getType() != ObjectType.GROUND) {
-      possibleMoves.add(Move.newRightwardMove(newCoordinate));
+      possibleMoves.add(Move.newRightMove(newCoordinate));
     }
   }
 
-  private void checkLeftwardMove(Level level) {
+  private void checkLeftMove(Level level) {
     final int row = coordinate.getRow();
     final int newColumn = coordinate.getColumn() - 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
@@ -123,7 +114,7 @@ public class Player implements ObjectInGame {
     if (level.isPositionWithinBounds(newCoordinate)
         && level.hasObjectInGameAt(newCoordinate)
         && level.getObjectInGameAt(newCoordinate).getType() != ObjectType.GROUND) {
-      possibleMoves.add(Move.newLeftwardMove(newCoordinate));
+      possibleMoves.add(Move.newLeftMove(newCoordinate));
     }
   }
 
@@ -157,6 +148,14 @@ public class Player implements ObjectInGame {
   public ObjectInGame withNewPosition(Coordinate coordinate) {
     assert isValid();
     return createPlayer(coordinate);
+  }
+
+  @Override
+  public ObjectInGame copyOf() {
+    if (isNone()) {
+      throw new AssertionError("Error: Player cannot be NONE!");
+    }
+    return new Player(objectType, coordinate, possibleMoves);
   }
 
   @Override

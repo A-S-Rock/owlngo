@@ -5,9 +5,10 @@ import javafx.beans.property.SimpleObjectProperty;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
 import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.Player;
 
 /**
- * The class stores the current state of the {@link OwlnGo} game, including the game status, the
+ * The class stores the current state of the {@link OwlnGo} game, including the game status and the
  * level. Similar to Task 4, Bauernschach.
  */
 public class GameState {
@@ -15,8 +16,9 @@ public class GameState {
   private final Level level;
   private ObjectProperty<GameStatus> gameStatus = new SimpleObjectProperty<>();
   private ObjectProperty<ObjectInGame> player = new SimpleObjectProperty<>();
+
   /**
-   * Contructs a GameState instance with a chess board of the given diemensions. Initially, the game
+   * Contructs a GameState instance with a level of the given diemensions. Initially, the game
    * status is set to ONGOING.
    *
    * @param numRows the number of rows of the level
@@ -62,9 +64,9 @@ public class GameState {
     return level.copyOf();
   }
 
-  /** Returns the piece that has been selected. */
-  public ObjectInGame getPlayer() {
-    return player.get();
+  /** Returns the player. */
+  public Player getPlayer() {
+    return (Player) player.get();
   }
 
   /** Applies the given move. */

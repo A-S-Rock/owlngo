@@ -6,6 +6,7 @@ import owlngo.game.level.Level;
 /** Represents the general objects in {@link Level}. */
 public interface ObjectInGame {
 
+  /** Various object types for the game. */
   enum ObjectType {
     NONE,
     PLAYER,

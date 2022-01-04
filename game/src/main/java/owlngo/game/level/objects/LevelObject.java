@@ -5,11 +5,15 @@ import owlngo.game.level.Coordinate;
 /** Represents a general map layout object of various type. */
 public class LevelObject implements ObjectInGame {
 
+  /** A global constant representing an empty dummy object. */
+  public static final LevelObject NONE = new LevelObject(ObjectType.NONE, Coordinate.of(-1, -1));
   private final ObjectType objectType;
   private final Coordinate coordinate;
 
-  /** A global constant representing an empty dummy object. */
-  public static final LevelObject NONE = new LevelObject(ObjectType.NONE, Coordinate.of(-1, -1));
+  private LevelObject(ObjectType objectType, Coordinate coordinate) {
+    this.objectType = objectType;
+    this.coordinate = coordinate;
+  }
 
   /**
    * Creates a new start object for the game at the given coordinate.
@@ -49,11 +53,6 @@ public class LevelObject implements ObjectInGame {
    */
   public static LevelObject createAirObject(Coordinate coord) {
     return new LevelObject(ObjectType.AIR, coord);
-  }
-
-  private LevelObject(ObjectType objectType, Coordinate coordinate) {
-    this.objectType = objectType;
-    this.coordinate = coordinate;
   }
 
   @Override

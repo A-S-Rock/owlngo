@@ -18,11 +18,7 @@ public class MethodsForElement {
    * stored at resources/pictures/ingo40x40.png
    */
 
-  // Constant values for window
-  private static final String OWL_PATH = "/pictures/ingo40x40.png";
-  private static final String GROUND_PATH = "/pictures/soil.png";
   public static final int size = 30;
-
   static final Map<String, ElementsInPlayfield.ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
       Map.ofEntries(
           Map.entry("S", ElementsInPlayfield.ElementInPlayfield.START),
@@ -30,7 +26,9 @@ public class MethodsForElement {
           Map.entry("F", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
           Map.entry("G", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
           Map.entry("O", ElementsInPlayfield.ElementInPlayfield.OWL));
-
+  // Constant values for window
+  private static final String OWL_PATH = "/pictures/ingo40x40.png";
+  private static final String GROUND_PATH = "/pictures/soil.png";
   static final Map<ElementsInPlayfield.ElementInPlayfield, BackgroundFill>
       ELEMENT_IN_PLAYFIELD_BACKGROUND_FILL_MAP =
           Map.ofEntries(

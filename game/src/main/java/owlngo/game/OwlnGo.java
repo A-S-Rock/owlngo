@@ -45,7 +45,7 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = (Player) gameState.getPlayer();
+    Player player = gameState.getPlayer();
 
     Move move = player.getRightMove();
     gameState.moveObjectInGame(move);
@@ -62,7 +62,7 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = (Player) gameState.getPlayer();
+    Player player = gameState.getPlayer();
 
     Move move = player.getLeftMove();
     gameState.moveObjectInGame(move);
@@ -79,7 +79,7 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = (Player) gameState.getPlayer();
+    Player player = gameState.getPlayer();
 
     Move move = player.getJumpMove();
     gameState.moveObjectInGame(move);
@@ -96,7 +96,7 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = (Player) gameState.getPlayer();
+    Player player = gameState.getPlayer();
 
     Move move = player.getFallMove();
     gameState.moveObjectInGame(move);

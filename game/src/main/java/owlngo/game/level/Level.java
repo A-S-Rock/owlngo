@@ -58,6 +58,27 @@ public final class Level {
     replaceWithObject(player, player.getCoordinate());
   }
 
+  private Level(Level sourceLevel) {
+    numRows = sourceLevel.getNumRows();
+    numCols = sourceLevel.getNumColumns();
+    levelLayout = new HashMap<>();
+
+    List<ObjectInGame> clonedObjectsInGame = new ArrayList<>();
+    for (int i = 0; i < numRows; ++i) {
+      for (int j = 0; j < numCols; ++j) {
+        Coordinate coordinate = Coordinate.of(i, j);
+        ObjectInGame clonedObjectInGame = sourceLevel.getObjectInGameAt(coordinate).copyOf();
+        setObjectInGameAt(clonedObjectInGame, coordinate);
+        clonedObjectsInGame.add(clonedObjectInGame);
+      }
+    }
+    objectsInGame = List.copyOf(clonedObjectsInGame);
+
+    player = sourceLevel.getCopyOfPlayer();
+    startObject = sourceLevel.getCopyOfStartObject();
+    finishObject = sourceLevel.getCopyOfFinishObject();
+  }
+
   /**
    * Creates a new level with a new player set at the given coordinate.
    *
@@ -130,27 +151,6 @@ public final class Level {
     ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
     objectsInGame.add(newObject);
     setObjectInGameAt(newObject, coordinate);
-  }
-
-  private Level(Level sourceLevel) {
-    numRows = sourceLevel.getNumRows();
-    numCols = sourceLevel.getNumColumns();
-    levelLayout = new HashMap<>();
-
-    List<ObjectInGame> clonedObjectsInGame = new ArrayList<>();
-    for (int i = 0; i < numRows; ++i) {
-      for (int j = 0; j < numCols; ++j) {
-        Coordinate coordinate = Coordinate.of(i, j);
-        ObjectInGame clonedObjectInGame = sourceLevel.getObjectInGameAt(coordinate).copyOf();
-        setObjectInGameAt(clonedObjectInGame, coordinate);
-        clonedObjectsInGame.add(clonedObjectInGame);
-      }
-    }
-    objectsInGame = List.copyOf(clonedObjectsInGame);
-
-    player = sourceLevel.getCopyOfPlayer();
-    startObject = sourceLevel.getCopyOfStartObject();
-    finishObject = sourceLevel.getCopyOfFinishObject();
   }
 
   /** Returns an immutable copy of the player in the game. */

@@ -11,7 +11,7 @@ public final class Move {
 
   /**
    * Represents the types of moves. A {@link Player} can move in the <code>LEFT</code> or <code>
-   * RIGHT</code> direction and can also <code>JUMP</code>.
+   * RIGHT</code> direction and can also <code>JUMP</code> and <code>FALL</code>.
    */
   public enum MoveType { // TODO: Add extended JavaDocs for each move type.
     LEFT,
@@ -23,13 +23,18 @@ public final class Move {
   final MoveType moveType;
   final Coordinate newCoordinate;
 
+  private Move(MoveType moveType, Coordinate newCoordinate) {
+    this.moveType = moveType;
+    this.newCoordinate = newCoordinate;
+  }
+
   /** Constructs a new Move instance that moves the character rightward. */
-  public static Move newRightwardMove(Coordinate coordinate) {
+  public static Move newRightMove(Coordinate coordinate) {
     return new Move(MoveType.RIGHT, coordinate); // Task4, ChessPiece
   }
 
   /** Constructs a new Move instance that moves the character leftward. */
-  public static Move newLeftwardMove(Coordinate coordinate) {
+  public static Move newLeftMove(Coordinate coordinate) {
     return new Move(MoveType.LEFT, coordinate); // Task4, ChessPiece
   }
 
@@ -43,11 +48,6 @@ public final class Move {
     return new Move(MoveType.FALL, coordinate); // Task4, ChessPiece
   }
 
-  private Move(MoveType moveType, Coordinate newCoordinate) {
-    this.moveType = moveType;
-    this.newCoordinate = newCoordinate;
-  }
-
   /** Gets the type of the move. */
   public MoveType getMoveType() {
     return moveType;
@@ -57,9 +57,9 @@ public final class Move {
     if (moveType == MoveType.FALL) {
       return newFallMove(newCoordinate);
     } else if (moveType == MoveType.RIGHT) {
-      return newRightwardMove(newCoordinate);
+      return newRightMove(newCoordinate);
     } else if (moveType == MoveType.LEFT) {
-      return newLeftwardMove(newCoordinate);
+      return newLeftMove(newCoordinate);
     } else if (moveType == MoveType.JUMP) {
       return newJumpMove(newCoordinate);
     }
