@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.objects.LevelObject;
 import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.game.level.objects.Player;
 
 /** This class represents the level of the {@link OwlnGo} game. Similar to Task 4 ChessBoard. */
@@ -37,27 +38,76 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
-    player = Player.createPlayer(Coordinate.of(0, 1));
-    startObject = LevelObject.createStartObject(Coordinate.of(0, 0));
-    finishObject = LevelObject.createFinishObject(Coordinate.of(0, numCols - 1));
+    player = Player.createPlayer(Coordinate.of(1, 1));
+    startObject = LevelObject.createStartObject(Coordinate.of(1, 0));
+    finishObject = LevelObject.createFinishObject(Coordinate.of(1, numCols - 1));
 
     for (int i = 0; i < numRows; ++i) {
       for (int j = 0; j < numCols; ++j) {
         Coordinate coordinate = Coordinate.of(i, j);
         ObjectInGame object = LevelObject.createNoneObject(coordinate);
+        if (i == 0) {
+          object = LevelObject.createGroundObject(coordinate);
+        }
         objectsInGame.add(object);
-        setObjectsInGameAt(object, coordinate);
+        setObjectInGameAt(object, coordinate);
       }
     }
-    objectsInGame.add(player);
-    setObjectsInGameAt(player, player.getCoordinate());
-    objectsInGame.add(startObject);
-    setObjectsInGameAt(startObject, startObject.getCoordinate());
-    objectsInGame.add(finishObject);
-    setObjectsInGameAt(finishObject, finishObject.getCoordinate());
+
+    withNewPlayerAt(player.getCoordinate());
+    withStartAt(startObject.getCoordinate());
+    withFinishAt(finishObject.getCoordinate());
   }
 
-  // TODO: Create factory methods for player, start and finish
+  /**
+   * Creates a new level with a new player set at the given coordinate.
+   *
+   * @param coordinate position of the new player
+   * @return an immutable copy of the level with the new player
+   */
+  public Level withNewPlayerAt(Coordinate coordinate) {
+    replaceObject(player, coordinate);
+    return new Level(this);
+  }
+
+  /**
+   * Creates a new level with the start set at the given coordinate.
+   *
+   * @param coordinate position of start
+   * @return an immutable copy of the level with start at the new location
+   */
+  public Level withStartAt(Coordinate coordinate) {
+    replaceObject(startObject, coordinate);
+    return new Level(this);
+  }
+
+  /**
+   * Creates a new level with the finish set at the given coordinate.
+   *
+   * @param coordinate position of finish
+   * @return an immutable copy of the level with finish at the new location
+   */
+  public Level withFinishAt(Coordinate coordinate) {
+    replaceObject(finishObject, coordinate);
+    return new Level(this);
+  }
+
+  private void replaceObject(ObjectInGame objectInGame, Coordinate coordinate) {
+    if (objectInGame.getType() == ObjectType.NONE) {
+      throw new AssertionError("Error: Tried to erase all dummies!");
+    }
+    final boolean successful = objectsInGame.removeIf(object -> object.equals(objectInGame));
+    if (successful) {
+      objectsInGame.add(LevelObject.createNoneObject(objectInGame.getCoordinate()));
+    }
+
+    // Replace dummy at given coordinate with new object.
+    objectsInGame.removeIf(object -> object.getCoordinate().equals(coordinate));
+
+    ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
+    objectsInGame.add(newObject);
+    setObjectInGameAt(newObject, coordinate);
+  }
 
   private Level(Level sourceLevel) {
     numRows = sourceLevel.getNumRows();
@@ -69,7 +119,7 @@ public final class Level {
       for (int j = 0; j < numCols; ++j) {
         Coordinate coordinate = Coordinate.of(i, j);
         ObjectInGame clonedObjectInGame = sourceLevel.getObjectInGameAt(coordinate).copyOf();
-        setObjectsInGameAt(clonedObjectInGame, coordinate);
+        setObjectInGameAt(clonedObjectInGame, coordinate);
         clonedObjectsInGame.add(clonedObjectInGame);
       }
     }
@@ -82,7 +132,7 @@ public final class Level {
 
   /** Returns an immutable copy of the player in the game. */
   public Player getCopyOfPlayer() {
-    return player.copyOf();
+    return (Player) player.copyOf();
   }
 
   /** Returns an immutable copy of the start in the game. */
@@ -114,7 +164,7 @@ public final class Level {
     return List.copyOf(clonedList);
   }
 
-  private void setObjectsInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
+  private void setObjectInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
     assert objectInGame.isNone() || (objectInGame.getCoordinate().equals(coordinate));
     final int row = coordinate.getRow();
     levelLayout.putIfAbsent(row, new SimpleMapProperty<>(FXCollections.observableHashMap()));
@@ -151,6 +201,4 @@ public final class Level {
   public int getNumColumns() {
     return numCols;
   }
-
-
 }

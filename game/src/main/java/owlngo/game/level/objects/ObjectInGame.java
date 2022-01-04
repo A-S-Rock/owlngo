@@ -14,6 +14,9 @@ public interface ObjectInGame {
     GROUND
   }
 
+  /** Creates a new object ingame at the given position. */
+  ObjectInGame withNewPosition(Coordinate coordinate);
+
   /** Returns an immutable instance of an ingame object. */
   ObjectInGame copyOf();
 

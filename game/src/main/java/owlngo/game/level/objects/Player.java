@@ -33,20 +33,12 @@ public class Player implements ObjectInGame {
   }
 
   /** Returns a clone of the object. */
-  public Player copyOf() {
+  @Override
+  public ObjectInGame copyOf() {
     if (isNone()) {
       throw new AssertionError("Error: Player cannot be NONE!");
     }
     return new Player(objectType, coordinate, possibleMoves);
-  }
-
-  /**
-   * Creates a new instance of player where coordinate is as given and with empty possible moves.
-   * Other members are as in this instance.
-   */
-  public Player withNewPosition(Coordinate coordinate) {
-    assert isValid();
-    return createPlayer(coordinate);
   }
 
   public void updatePossibleMoves(Level level) {
@@ -100,6 +92,12 @@ public class Player implements ObjectInGame {
       coordList.add(move.getNewCoordinate());
     }
     return coordList;
+  }
+
+  @Override
+  public ObjectInGame withNewPosition(Coordinate coordinate) {
+    assert isValid();
+    return createPlayer(coordinate);
   }
 
   @Override

@@ -54,6 +54,12 @@ public class LevelObject implements ObjectInGame {
   }
 
   @Override
+  public ObjectInGame withNewPosition(Coordinate coordinate) {
+    assert isValid();
+    return new LevelObject(objectType, coordinate);
+  }
+
+  @Override
   public ObjectInGame copyOf() {
     return new LevelObject(objectType, coordinate);
   }
