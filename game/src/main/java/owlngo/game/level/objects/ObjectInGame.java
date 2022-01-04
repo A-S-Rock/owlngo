@@ -14,18 +14,13 @@ public interface ObjectInGame {
     GROUND
   }
 
-  /**
-   * Returns the object type of the ingame object.
-   *
-   * @return the object type
-   */
+  /** Returns an immutable instance of an ingame object. */
+  ObjectInGame copyOf();
+
+  /** Returns the object type of the ingame object. */
   ObjectType getType();
 
-  /**
-   * Returns the current position of the ingame object.
-   *
-   * @return the coordinates of the object
-   */
+  /** Returns the current position of the ingame object. */
   Coordinate getCoordinate();
 
   /**

@@ -22,6 +22,13 @@ public final class Level {
   private final LevelObject startObject;
   private final LevelObject finishObject;
 
+  /**
+   * Constructs a default level with fixed positions of player, start and finish for the given
+   * dimensions.
+   *
+   * @param numRows number of rows
+   * @param numCols number of columns
+   */
   public Level(int numRows, int numCols) {
     if (numRows <= 3 || numCols <= 3) {
       throw new IllegalArgumentException("Level dimensions cannot be lower or equal to 3.");
@@ -48,6 +55,63 @@ public final class Level {
     setObjectsInGameAt(startObject, startObject.getCoordinate());
     objectsInGame.add(finishObject);
     setObjectsInGameAt(finishObject, finishObject.getCoordinate());
+  }
+
+  // TODO: Create factory methods for player, start and finish
+
+  private Level(Level sourceLevel) {
+    numRows = sourceLevel.getNumRows();
+    numCols = sourceLevel.getNumColumns();
+    levelLayout = new HashMap<>();
+
+    List<ObjectInGame> clonedObjectsInGame = new ArrayList<>();
+    for (int i = 0; i < numRows; ++i) {
+      for (int j = 0; j < numCols; ++j) {
+        Coordinate coordinate = Coordinate.of(i, j);
+        ObjectInGame clonedObjectInGame = sourceLevel.getObjectInGameAt(coordinate).copyOf();
+        setObjectsInGameAt(clonedObjectInGame, coordinate);
+        clonedObjectsInGame.add(clonedObjectInGame);
+      }
+    }
+    objectsInGame = List.copyOf(clonedObjectsInGame);
+
+    player = sourceLevel.getCopyOfPlayer();
+    startObject = sourceLevel.getCopyOfStartObject();
+    finishObject = sourceLevel.getCopyOfFinishObject();
+  }
+
+  /** Returns an immutable copy of the player in the game. */
+  public Player getCopyOfPlayer() {
+    return player.copyOf();
+  }
+
+  /** Returns an immutable copy of the start in the game. */
+  public LevelObject getCopyOfStartObject() {
+    return (LevelObject) startObject.copyOf();
+  }
+
+  /** Returns an immutable copy of the finish in the game. */
+  public LevelObject getCopyOfFinishObject() {
+    return (LevelObject) finishObject.copyOf();
+  }
+
+  /** Returns the layout property of the level. */
+  public Map<Integer, MapProperty<Integer, ObjectInGame>> propertyLevelLayout() {
+    return levelLayout;
+  }
+
+  /** Returns an immutable copy of the level. */
+  public Level copyOf() {
+    return new Level(this);
+  }
+
+  /** Returns an immutable list of the added objects ingame. */
+  public List<ObjectInGame> getListOfObjectsInGame() {
+    List<ObjectInGame> clonedList = new ArrayList<>();
+    for (ObjectInGame object : objectsInGame) {
+      clonedList.add(object.copyOf());
+    }
+    return List.copyOf(clonedList);
   }
 
   private void setObjectsInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
@@ -87,4 +151,6 @@ public final class Level {
   public int getNumColumns() {
     return numCols;
   }
+
+
 }

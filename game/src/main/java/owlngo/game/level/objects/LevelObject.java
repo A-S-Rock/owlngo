@@ -18,7 +18,6 @@ public class LevelObject implements ObjectInGame {
     return new LevelObject(ObjectType.NONE, coord);
   }
 
-
   /**
    * Creates a new start object for the game at the given coordinate.
    *
@@ -52,6 +51,11 @@ public class LevelObject implements ObjectInGame {
   private LevelObject(ObjectType objectType, Coordinate coordinate) {
     this.objectType = objectType;
     this.coordinate = coordinate;
+  }
+
+  @Override
+  public ObjectInGame copyOf() {
+    return new LevelObject(objectType, coordinate);
   }
 
   @Override
