@@ -178,4 +178,9 @@ public class Player implements ObjectInGame {
   public boolean isNone() {
     return objectType == ObjectType.NONE;
   }
+
+  @Override
+  public String toString() {
+    return "Player{" + "objectType=" + objectType + ", coordinate=" + coordinate + "}";
+  }
 }
