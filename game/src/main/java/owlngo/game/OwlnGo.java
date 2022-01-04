@@ -40,6 +40,7 @@ public class OwlnGo {
     }
   }
 
+  /** Moves the player to the right. */
   public void moveRight() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
@@ -57,6 +58,7 @@ public class OwlnGo {
     }
   }
 
+  /** Moves the player to the left. */
   public void moveLeft() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
@@ -74,6 +76,7 @@ public class OwlnGo {
     }
   }
 
+  /** Lets the player jump. */
   public void moveJump() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
@@ -91,6 +94,7 @@ public class OwlnGo {
     }
   }
 
+  /** Lets the player fall. */
   public void moveFall() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");

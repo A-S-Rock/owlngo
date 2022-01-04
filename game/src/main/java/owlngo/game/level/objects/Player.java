@@ -33,6 +33,7 @@ public final class Player implements ObjectInGame {
     return new Player(ObjectType.PLAYER, coord, new ArrayList<>());
   }
 
+  /** Returns a new falling move if it exists, otherwise the position stays the same. */
   public Move getFallMove() {
     List<Move> fallMoves =
         getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.FALL).toList();
@@ -43,6 +44,7 @@ public final class Player implements ObjectInGame {
     }
   }
 
+  /** Returns a new left move if it exists, otherwise the position stays the same. */
   public Move getLeftMove() {
     List<Move> leftMoves =
         getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.LEFT).toList();
@@ -53,6 +55,7 @@ public final class Player implements ObjectInGame {
     }
   }
 
+  /** Returns a new right move if it exists, otherwise the position stays the same. */
   public Move getRightMove() {
     List<Move> rightMoves =
         getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.RIGHT).toList();
@@ -63,6 +66,7 @@ public final class Player implements ObjectInGame {
     }
   }
 
+  /** Returns a new jumping move if it exists, otherwise the position stays the same. */
   public Move getJumpMove() {
     List<Move> jumpMoves =
         getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.JUMP).toList();
@@ -73,6 +77,11 @@ public final class Player implements ObjectInGame {
     }
   }
 
+  /**
+   * Updates the possible moves for the player at the given level.
+   *
+   * @param level the given level
+   */
   public void updatePossibleMoves(Level level) {
     assert isValid();
     possibleMoves.clear();

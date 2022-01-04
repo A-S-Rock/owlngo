@@ -204,6 +204,7 @@ public final class Level {
   }
 
   /** Returns the layout property of the level. */
+  @edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP")
   public Map<Integer, MapProperty<Integer, ObjectInGame>> propertyLevelLayout() {
     return levelLayout;
   }

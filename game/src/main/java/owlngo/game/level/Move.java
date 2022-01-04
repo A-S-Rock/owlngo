@@ -53,6 +53,7 @@ public final class Move {
     return moveType;
   }
 
+  /** Returns a new Move for the given move type. */
   public Move getMoveByType(MoveType moveType) {
     if (moveType == MoveType.FALL) {
       return newFallMove(newCoordinate);
