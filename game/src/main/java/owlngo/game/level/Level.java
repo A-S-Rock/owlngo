@@ -215,7 +215,7 @@ public final class Level {
 
 
   /** Moves the object to the new position. */
-  private void movePiece(ObjectInGame object, Coordinate newCoordinate) {
+  public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
     assert !object.getCoordinate().equals(newCoordinate);
     removeObjectInGame(object);
     ObjectInGame movedObject = object.withNewPosition(newCoordinate);
@@ -232,7 +232,10 @@ public final class Level {
     assert wasRemoved;
   }
 
-
+  /** Update the possible moves of the chess pieces with the given color. */
+  public void updatePossibleMovesOfPlayer() {
+      player.updatePossibleMoves(this);
+  }
 
 
 }
