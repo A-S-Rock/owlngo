@@ -7,6 +7,29 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.3.0] - 2022-01-05
+
+### Added
+
+- GAME: Basic game implementation
+    - game structure in docs/game/ (currently in version 2)
+    - creating a game with given dimension is possible and contains the needed objects like player,
+      start, finish and ground objects
+    - Test main class for checking right behaviour of ingame objects
+    - __IMPORTANT:__ Moving the player has __NOT__ been tested yet and may not be working. For this
+      reason it hasn't been included in the test main class, just the start of a game
+
+### Changed
+
+- `game/build.gradle` for updates on the module (like integration of code style tests) and
+  application features (`gradle run` for example)
+- Structuring of the files in docs/ for more convenient searching
+
+### Fixed
+
+- Updated SpotBugs because of deprecated Security features used by SpotBugs in Java 17 (they will be
+  removed in Java 18)
+
 ## [0.2.0] - 2022-01-03
 
 ### Added
@@ -24,8 +47,8 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
     - helper and utility classes for data structuring
 
 
-- Mockup game to simulate the looks on the GUI and
-  for testing purposes (will be deprecated and removed later on)
+- Mockup game to simulate the looks on the GUI and for testing purposes (will be deprecated and
+  removed later on)
 
 ### Changed
 
