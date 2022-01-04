@@ -44,9 +44,11 @@ public final class Level {
     for (int i = 0; i < numRows; ++i) {
       for (int j = 0; j < numCols; ++j) {
         Coordinate coordinate = Coordinate.of(i, j);
-        ObjectInGame object = LevelObject.createAirObject(coordinate);
+        ObjectInGame object;
         if (i == 0) {
           object = LevelObject.createGroundObject(coordinate);
+        } else {
+          object = LevelObject.createAirObject(coordinate);
         }
         objectsInGame.add(object);
         setObjectInGameAt(object, coordinate);
@@ -77,6 +79,21 @@ public final class Level {
     player = sourceLevel.getCopyOfPlayer();
     startObject = sourceLevel.getCopyOfStartObject();
     finishObject = sourceLevel.getCopyOfFinishObject();
+  }
+
+  /** Returns an immutable copy of the level. */
+  public Level copyOf() {
+    return new Level(this);
+  }
+
+  /** Gets the number of rows of the board. */
+  public int getNumRows() {
+    return numRows;
+  }
+
+  /** Gets the number of columns of the board. */
+  public int getNumColumns() {
+    return numCols;
   }
 
   /**
@@ -148,7 +165,7 @@ public final class Level {
     // Replace dummy at given coordinate with new object.
     objectsInGame.removeIf(object -> object.getCoordinate().equals(coordinate));
 
-    ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
+    final ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
     objectsInGame.add(newObject);
     setObjectInGameAt(newObject, coordinate);
   }
@@ -171,11 +188,6 @@ public final class Level {
   /** Returns the layout property of the level. */
   public Map<Integer, MapProperty<Integer, ObjectInGame>> propertyLevelLayout() {
     return levelLayout;
-  }
-
-  /** Returns an immutable copy of the level. */
-  public Level copyOf() {
-    return new Level(this);
   }
 
   /** Returns an immutable list of the added objects ingame. */
@@ -213,16 +225,6 @@ public final class Level {
     final int row = coordinate.getRow();
     final int column = coordinate.getColumn();
     return (row >= 0) && (row < getNumRows()) && (column >= 0) && (column < getNumColumns());
-  }
-
-  /** Gets the number of rows of the board. */
-  public int getNumRows() {
-    return numRows;
-  }
-
-  /** Gets the number of columns of the board. */
-  public int getNumColumns() {
-    return numCols;
   }
 
   /** Moves the object to the new position. */

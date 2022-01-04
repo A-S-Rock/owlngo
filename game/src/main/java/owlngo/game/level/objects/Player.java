@@ -52,16 +52,6 @@ public class Player implements ObjectInGame {
     }
   }
 
-  public Move getRightMove() {
-    List<Move> rightMoves =
-        getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.RIGHT).toList();
-    if (rightMoves.size() != 1) {
-      return Move.newRightMove(coordinate);
-    } else {
-      return rightMoves.get(0);
-    }
-  }
-
   public Move getLeftMove() {
     List<Move> leftMoves =
         getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.LEFT).toList();
@@ -69,6 +59,16 @@ public class Player implements ObjectInGame {
       return Move.newLeftMove(coordinate);
     } else {
       return leftMoves.get(0);
+    }
+  }
+
+  public Move getRightMove() {
+    List<Move> rightMoves =
+        getPossibleMoves().stream().filter(move -> move.getMoveType() == MoveType.RIGHT).toList();
+    if (rightMoves.size() != 1) {
+      return Move.newRightMove(coordinate);
+    } else {
+      return rightMoves.get(0);
     }
   }
 

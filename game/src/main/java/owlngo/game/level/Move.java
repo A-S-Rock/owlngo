@@ -13,7 +13,7 @@ public final class Move {
    * Represents the types of moves. A {@link Player} can move in the <code>LEFT</code> or <code>
    * RIGHT</code> direction and can also <code>JUMP</code> and <code>FALL</code>.
    */
-  public enum MoveType { // TODO: Add extended JavaDocs for each move type.
+  public enum MoveType {
     LEFT,
     RIGHT,
     JUMP,
