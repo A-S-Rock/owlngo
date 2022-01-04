@@ -17,7 +17,6 @@ repositories {
 dependencies {
     implementation 'com.github.spotbugs:spotbugs-annotations:4.5.2'
 
-
 // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testImplementation 'com.google.truth:truth:1.1.3'

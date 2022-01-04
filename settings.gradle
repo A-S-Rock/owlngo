@@ -3,7 +3,7 @@
 pluginManagement {
     plugins {
         id "com.github.spotbugs" version "5.0.3"
-        id "com.diffplug.spotless" version "6.0.5"
+        id "com.diffplug.spotless" version "6.1.0"
         id 'org.openjfx.javafxplugin' version '0.0.10'
     }
 }
@@ -11,9 +11,5 @@ pluginManagement {
 rootProject.name = 'owlngo'
 
 // Set up for multi module project
-include('client', 'server', 'communication')
-include 'gui'
-include 'game'
-include 'objects'
-include 'communication'
+include('client', 'server', 'communication', 'gui', 'game', 'objects')
 

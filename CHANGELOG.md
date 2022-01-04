@@ -17,13 +17,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
       start, finish and ground objects
     - Test main class for checking right behaviour of ingame objects
     - __IMPORTANT:__ Moving the player has __NOT__ been tested yet and may not be working. For this
-      reason it hasn't been included in the test main class, just the start of a game
+      reason it hasn't been included in the test main class and won't be called
 
 ### Changed
 
-- `game/build.gradle` for updates on the module (like integration of code style tests) and
-  application features (`gradle run` for example)
-- Structuring of the files in docs/ for more convenient searching
+- all `build.gradle`s in the modules have been updated to unify their overall structure
 
 ### Fixed
 
@@ -77,7 +75,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Added
 
-- added sketch for project structure (beta)
+- sketch for project structure (beta)
 
 ### Changed
 
