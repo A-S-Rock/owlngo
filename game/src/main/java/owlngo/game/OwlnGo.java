@@ -6,8 +6,8 @@ import owlngo.game.level.Move;
 import owlngo.game.level.objects.Player;
 
 /**
- * Represents a Owlngo game. This class implements the game logic. Similar to Bauernschach
- * from Task 4.
+ * Represents an Owlngo game. This class implements the game logic. Similar to Bauernschach from
+ * Task 4.
  */
 public class OwlnGo {
 
@@ -16,16 +16,15 @@ public class OwlnGo {
 
   private GameState gameState;
 
-  /** Contruct a Owlngo game instance with the prespecified level dimensions. */
+  /** Constructs an Owlngo game instance with the prespecified level dimensions. */
   public OwlnGo() {
     gameState = new GameState(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
   }
 
-  /** Contruct a Owlngo game instance with the given level dimensions. */
+  /** Constructs an Owlngo game instance with the given level dimensions. */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
   }
-
 
   /** Get the current GameState. */
   public final GameState getGameState() {
@@ -36,8 +35,7 @@ public class OwlnGo {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
-    }
-    else if (move.getNewCoordinate().getRow() == 0){
+    } else if (move.getNewCoordinate().getRow() == 0) {
       gameState = gameState.with(GameStatus.LOSE);
     }
   }
@@ -108,6 +106,4 @@ public class OwlnGo {
       gameState.getLevel().updatePossibleMovesOfPlayer();
     }
   }
-
-
 }
