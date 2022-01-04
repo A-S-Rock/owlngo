@@ -16,7 +16,8 @@ public final class Move {
   public enum MoveType { // TODO: Add extended JavaDocs for each move type.
     LEFT,
     RIGHT,
-    JUMP
+    JUMP,
+    FALL
   }
 
   final MoveType moveType;
@@ -37,6 +38,11 @@ public final class Move {
     return new Move(MoveType.JUMP, coordinate); // Task4, ChessPiece
   }
 
+  /** Constructs a new Move instance that lets the character jump. */
+  public static Move newFallMove(Coordinate coordinate) {
+    return new Move(MoveType.FALL, coordinate); // Task4, ChessPiece
+  }
+
   private Move(MoveType moveType, Coordinate newCoordinate) {
     this.moveType = moveType;
     this.newCoordinate = newCoordinate;
@@ -45,6 +51,19 @@ public final class Move {
   /** Gets the type of the move. */
   public MoveType getMoveType() {
     return moveType;
+  }
+
+  public Move getMoveByType(MoveType moveType) {
+    if (moveType == MoveType.FALL) {
+      return newFallMove(newCoordinate);
+    } else if (moveType == MoveType.RIGHT) {
+      return newRightwardMove(newCoordinate);
+    } else if (moveType == MoveType.LEFT) {
+      return newLeftwardMove(newCoordinate);
+    } else if (moveType == MoveType.JUMP) {
+      return newJumpMove(newCoordinate);
+    }
+    throw new AssertionError("Unknown movetype.");
   }
 
   /** Gets the new coordinate of the piece after applying the move. */
