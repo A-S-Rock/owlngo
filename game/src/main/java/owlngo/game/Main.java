@@ -3,6 +3,10 @@ package owlngo.game;
 /** This class is just for testing without the GUI. */
 public class Main {
 
+  // TODO: Check moves
+  // TODO: Write JUnit tests
+  // TODO: Adjust class diagram
+  // TODO: Checkstyle, SpotBugs, Spotless
   public static void main(String[] args) {
 
     System.out.println("Initialize game.");
