@@ -4,7 +4,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
-import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.Player;
 
 /**
@@ -13,9 +12,24 @@ import owlngo.game.level.objects.Player;
  */
 public class GameState {
 
+  /**
+   * Represents the status of the Owlngo game.
+   *
+   * <ul>
+   *   <li>{@code ONGOING}: if the game is still running.
+   *   <li>{@code WIN}: if the player won the game.
+   *   <li>{@code LOSE}: if the player lost the game.
+   * </ul>
+   */
+  public enum GameStatus {
+    ONGOING,
+    WIN,
+    LOSE
+  }
+
   private final Level level;
   private ObjectProperty<GameStatus> gameStatus = new SimpleObjectProperty<>();
-  private ObjectProperty<ObjectInGame> player = new SimpleObjectProperty<>();
+  private ObjectProperty<Player> player = new SimpleObjectProperty<>();
 
   /**
    * Contructs a GameState instance with a level of the given diemensions. Initially, the game
@@ -35,7 +49,7 @@ public class GameState {
   }
 
   private GameState(
-      Level level, ObjectProperty<GameStatus> gameStatus, ObjectProperty<ObjectInGame> player) {
+      Level level, ObjectProperty<GameStatus> gameStatus, ObjectProperty<Player> player) {
     this.level = level;
     this.gameStatus = gameStatus;
     this.player = player;
@@ -55,23 +69,13 @@ public class GameState {
     return gameStatus.get() == GameStatus.ONGOING;
   }
 
-  public ObjectProperty<ObjectInGame> propertyPlayer() {
-    return player;
-  }
-
   /** Returns a clone of the current level. */
   public final Level getLevel() {
     return level.copyOf();
   }
 
-  /** Returns the player. */
-  public Player getPlayer() {
-    return (Player) player.get();
-  }
-
-  /** Applies the given move. */
-  void moveObjectInGame(Move move) {
-    level.moveObjectInGame(player.get(), move.getNewCoordinate());
+  public ObjectProperty<GameStatus> propertyStatus() {
+    return gameStatus;
   }
 
   /** Gets the current game status. */
@@ -79,22 +83,17 @@ public class GameState {
     return gameStatus.get();
   }
 
-  public ObjectProperty<GameStatus> propertyStatus() {
-    return gameStatus;
+  public ObjectProperty<Player> propertyPlayer() {
+    return player;
   }
 
-  /**
-   * Represents the status of the Owlngo game.
-   *
-   * <ul>
-   *   <li>{@code ONGOING}: if the game is still running.
-   *   <li>{@code WIN}: if the player won the game.
-   *   <li>{@code LOSE}: if the player lost the game.
-   * </ul>
-   */
-  public enum GameStatus {
-    ONGOING,
-    WIN,
-    LOSE
+  /** Returns the player. */
+  public Player getPlayer() {
+    return player.get();
+  }
+
+  /** Applies the given move. */
+  void moveObjectInGame(Move move) {
+    level.moveObjectInGame(player.get(), move.getNewCoordinate());
   }
 }

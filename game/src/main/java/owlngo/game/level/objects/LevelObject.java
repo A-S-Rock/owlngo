@@ -3,10 +3,11 @@ package owlngo.game.level.objects;
 import owlngo.game.level.Coordinate;
 
 /** Represents a general map layout object of various type. */
-public class LevelObject implements ObjectInGame {
+public final class LevelObject implements ObjectInGame {
 
   /** A global constant representing an empty dummy object. */
   public static final LevelObject NONE = new LevelObject(ObjectType.NONE, Coordinate.of(-1, -1));
+
   private final ObjectType objectType;
   private final Coordinate coordinate;
 

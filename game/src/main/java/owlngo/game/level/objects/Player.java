@@ -11,7 +11,7 @@ import owlngo.game.level.Move.MoveType;
  * The player representation in the game. These objects need the ability to move on the level. This
  * class has been adjusted from the Task 4 template.
  */
-public class Player implements ObjectInGame {
+public final class Player implements ObjectInGame {
 
   private final ObjectType objectType;
   private final Coordinate coordinate;
@@ -31,15 +31,6 @@ public class Player implements ObjectInGame {
    */
   public static Player createPlayer(Coordinate coord) {
     return new Player(ObjectType.PLAYER, coord, new ArrayList<>());
-  }
-
-  public void updatePossibleMoves(Level level) {
-    assert isValid();
-    possibleMoves.clear();
-    checkFallMove(level);
-    checkRightMove(level);
-    checkLeftMove(level);
-    checkJumpMove(level);
   }
 
   public Move getFallMove() {
@@ -80,6 +71,15 @@ public class Player implements ObjectInGame {
     } else {
       return jumpMoves.get(0);
     }
+  }
+
+  public void updatePossibleMoves(Level level) {
+    assert isValid();
+    possibleMoves.clear();
+    checkFallMove(level);
+    checkRightMove(level);
+    checkLeftMove(level);
+    checkJumpMove(level);
   }
 
   private void checkFallMove(Level level) {

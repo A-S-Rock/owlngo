@@ -81,21 +81,6 @@ public final class Level {
     finishObject = sourceLevel.getCopyOfFinishObject();
   }
 
-  /** Returns an immutable copy of the level. */
-  public Level copyOf() {
-    return new Level(this);
-  }
-
-  /** Gets the number of rows of the board. */
-  public int getNumRows() {
-    return numRows;
-  }
-
-  /** Gets the number of columns of the board. */
-  public int getNumColumns() {
-    return numCols;
-  }
-
   /**
    * Creates a new level with a new player set at the given coordinate.
    *
@@ -170,6 +155,21 @@ public final class Level {
     setObjectInGameAt(newObject, coordinate);
   }
 
+  /** Returns an immutable copy of the level. */
+  public Level copyOf() {
+    return new Level(this);
+  }
+
+  /** Gets the number of rows of the board. */
+  public int getNumRows() {
+    return numRows;
+  }
+
+  /** Gets the number of columns of the board. */
+  public int getNumColumns() {
+    return numCols;
+  }
+
   /** Returns an immutable copy of the player in the game. */
   public Player getCopyOfPlayer() {
     return (Player) player.copyOf();
@@ -185,11 +185,6 @@ public final class Level {
     return (LevelObject) finishObject.copyOf();
   }
 
-  /** Returns the layout property of the level. */
-  public Map<Integer, MapProperty<Integer, ObjectInGame>> propertyLevelLayout() {
-    return levelLayout;
-  }
-
   /** Returns an immutable list of the added objects ingame. */
   public List<ObjectInGame> getListOfObjectsInGame() {
     List<ObjectInGame> clonedList = new ArrayList<>();
@@ -197,6 +192,20 @@ public final class Level {
       clonedList.add(object.copyOf());
     }
     return List.copyOf(clonedList);
+  }
+
+  /** Gets the piece at the given position. */
+  public ObjectInGame getObjectInGameAt(Coordinate coordinate) {
+    if (!levelLayout.containsKey(coordinate.getRow())
+        || !levelLayout.containsKey(coordinate.getColumn())) {
+      throw new IndexOutOfBoundsException("Coordinate does not exist in board map: " + coordinate);
+    }
+    return levelLayout.get(coordinate.getRow()).get(coordinate.getColumn());
+  }
+
+  /** Returns the layout property of the level. */
+  public Map<Integer, MapProperty<Integer, ObjectInGame>> propertyLevelLayout() {
+    return levelLayout;
   }
 
   private void setObjectInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
@@ -209,15 +218,6 @@ public final class Level {
   /** Returns whether there is an object placed at the given position. */
   public boolean hasObjectInGameAt(Coordinate coordinate) {
     return !getObjectInGameAt(coordinate).isNone();
-  }
-
-  /** Gets the piece at the given position. */
-  public ObjectInGame getObjectInGameAt(Coordinate coordinate) {
-    if (!levelLayout.containsKey(coordinate.getRow())
-        || !levelLayout.containsKey(coordinate.getColumn())) {
-      throw new IndexOutOfBoundsException("Coordinate does not exist in board map: " + coordinate);
-    }
-    return levelLayout.get(coordinate.getRow()).get(coordinate.getColumn());
   }
 
   /** Returns whether the given position is with the board's bounds. */
