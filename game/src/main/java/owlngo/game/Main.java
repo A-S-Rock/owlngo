@@ -5,8 +5,7 @@ public class Main {
 
   // TODO: Check moves
   // TODO: Write JUnit tests
-  // TODO: Adjust class diagram
-  // TODO: Checkstyle, SpotBugs, Spotless
+  // TODO: Write CHANGELOG
 
   /** Main method. */
   public static void main(String[] args) {
