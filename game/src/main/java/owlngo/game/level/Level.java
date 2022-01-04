@@ -53,9 +53,9 @@ public final class Level {
       }
     }
 
-    withStartAt(startObject.getCoordinate());
-    withFinishAt(finishObject.getCoordinate());
-    withNewPlayerAt(player.getCoordinate());
+    replaceWithObject(startObject, startObject.getCoordinate());
+    replaceWithObject(finishObject, finishObject.getCoordinate());
+    replaceWithObject(player, player.getCoordinate());
   }
 
   /**
@@ -117,7 +117,9 @@ public final class Level {
     if (objectInGame.equals(LevelObject.NONE)) {
       throw new AssertionError("Error: Tried to erase all dummies!");
     }
-    final boolean successful = objectsInGame.removeIf(object -> object.equals(objectInGame));
+    final boolean successful =
+        objectsInGame.removeIf(
+            object -> object.getCoordinate().equals(objectInGame.getCoordinate()));
     if (successful) {
       objectsInGame.add(LevelObject.createAirObject(objectInGame.getCoordinate()));
     }
