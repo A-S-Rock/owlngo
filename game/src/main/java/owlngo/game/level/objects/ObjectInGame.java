@@ -11,6 +11,7 @@ public interface ObjectInGame {
     PLAYER,
     START,
     FINISH,
+    AIR,
     GROUND
   }
 

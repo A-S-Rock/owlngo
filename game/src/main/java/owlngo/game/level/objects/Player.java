@@ -2,7 +2,6 @@ package owlngo.game.level.objects;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
@@ -53,49 +52,41 @@ public class Player implements ObjectInGame {
   }
 
   public Move getFallMove() {
-    List<Move> fallMoves = possibleMoves.stream()
-        .filter(move -> move.getMoveType() == MoveType.FALL)
-        .collect(Collectors.toList());
+    List<Move> fallMoves =
+        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.FALL).toList();
     if (fallMoves.size() != 1) {
       return Move.newFallMove(coordinate);
-    }
-    else {
+    } else {
       return fallMoves.get(0);
     }
   }
 
   public Move getRightMove() {
-    List<Move> rightMoves = possibleMoves.stream()
-        .filter(move -> move.getMoveType() == MoveType.RIGHT)
-        .collect(Collectors.toList());
+    List<Move> rightMoves =
+        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.RIGHT).toList();
     if (rightMoves.size() != 1) {
       return Move.newRightwardMove(coordinate);
-    }
-    else {
+    } else {
       return rightMoves.get(0);
     }
   }
 
   public Move getLeftMove() {
-    List<Move> leftMoves = possibleMoves.stream()
-        .filter(move -> move.getMoveType() == MoveType.LEFT)
-        .collect(Collectors.toList());
+    List<Move> leftMoves =
+        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.LEFT).toList();
     if (leftMoves.size() != 1) {
       return Move.newLeftwardMove(coordinate);
-    }
-    else {
+    } else {
       return leftMoves.get(0);
     }
   }
 
   public Move getJumpMove() {
-    List<Move> jumpMoves = possibleMoves.stream()
-        .filter(move -> move.getMoveType() == MoveType.JUMP)
-        .collect(Collectors.toList());
+    List<Move> jumpMoves =
+        possibleMoves.stream().filter(move -> move.getMoveType() == MoveType.JUMP).toList();
     if (jumpMoves.size() != 1) {
       return Move.newJumpMove(coordinate);
-    }
-    else {
+    } else {
       return jumpMoves.get(0);
     }
   }
@@ -103,11 +94,12 @@ public class Player implements ObjectInGame {
   private void checkFallMove(Level level) {
     final int column = coordinate.getColumn();
     final int newRow = coordinate.getRow() - 1;
-    Coordinate newCoordinateAtBottomOfJump = Coordinate.of(newRow, column);
+    Coordinate newCoordinate = Coordinate.of(newRow, column);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinateAtBottomOfJump)
-        && level.hasObjectInGameAt(newCoordinateAtBottomOfJump)) {
-      possibleMoves.add(Move.newFallMove(newCoordinateAtBottomOfJump));
+    if (level.isPositionWithinBounds(newCoordinate)
+        && level.hasObjectInGameAt(newCoordinate)
+        && level.getObjectInGameAt(newCoordinate).getType() != ObjectType.GROUND) {
+      possibleMoves.add(Move.newFallMove(newCoordinate));
     }
   }
 
@@ -116,7 +108,9 @@ public class Player implements ObjectInGame {
     final int newColumn = coordinate.getColumn() + 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinate) && level.hasObjectInGameAt(newCoordinate)) {
+    if (level.isPositionWithinBounds(newCoordinate)
+        && level.hasObjectInGameAt(newCoordinate)
+        && level.getObjectInGameAt(newCoordinate).getType() != ObjectType.GROUND) {
       possibleMoves.add(Move.newRightwardMove(newCoordinate));
     }
   }
@@ -126,7 +120,9 @@ public class Player implements ObjectInGame {
     final int newColumn = coordinate.getColumn() - 1;
     Coordinate newCoordinate = Coordinate.of(row, newColumn);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinate) && level.hasObjectInGameAt(newCoordinate)) {
+    if (level.isPositionWithinBounds(newCoordinate)
+        && level.hasObjectInGameAt(newCoordinate)
+        && level.getObjectInGameAt(newCoordinate).getType() != ObjectType.GROUND) {
       possibleMoves.add(Move.newLeftwardMove(newCoordinate));
     }
   }
@@ -134,11 +130,12 @@ public class Player implements ObjectInGame {
   private void checkJumpMove(Level level) {
     final int column = coordinate.getColumn();
     final int newRow = coordinate.getRow() + 1;
-    Coordinate newCoordinateAtBottomOfJump = Coordinate.of(newRow, column);
+    Coordinate newCoordinate = Coordinate.of(newRow, column);
     // check if the new position is within bounds and not occupied
-    if (level.isPositionWithinBounds(newCoordinateAtBottomOfJump)
-        && level.hasObjectInGameAt(newCoordinateAtBottomOfJump)) {
-      possibleMoves.add(Move.newJumpMove(newCoordinateAtBottomOfJump));
+    if (level.isPositionWithinBounds(newCoordinate)
+        && level.hasObjectInGameAt(newCoordinate)
+        && level.getObjectInGameAt(newCoordinate).getType() != ObjectType.GROUND) {
+      possibleMoves.add(Move.newJumpMove(newCoordinate));
     }
   }
 

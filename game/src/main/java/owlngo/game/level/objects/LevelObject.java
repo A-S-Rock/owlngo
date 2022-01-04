@@ -8,15 +8,8 @@ public class LevelObject implements ObjectInGame {
   private final ObjectType objectType;
   private final Coordinate coordinate;
 
-  /**
-   * Creates a new start object for the game at the given coordinate.
-   *
-   * @param coord coordinate to put the start object to
-   * @return the start object
-   */
-  public static LevelObject createNoneObject(Coordinate coord) {
-    return new LevelObject(ObjectType.NONE, coord);
-  }
+  /** A global constant representing an empty dummy object. */
+  public static final LevelObject NONE = new LevelObject(ObjectType.NONE, Coordinate.of(-1, -1));
 
   /**
    * Creates a new start object for the game at the given coordinate.
@@ -46,6 +39,16 @@ public class LevelObject implements ObjectInGame {
    */
   public static LevelObject createGroundObject(Coordinate coord) {
     return new LevelObject(ObjectType.GROUND, coord);
+  }
+
+  /**
+   * Creates a new air object for the game at the given coordinate.
+   *
+   * @param coord coordinate to put the air object to
+   * @return the air object
+   */
+  public static LevelObject createAirObject(Coordinate coord) {
+    return new LevelObject(ObjectType.AIR, coord);
   }
 
   private LevelObject(ObjectType objectType, Coordinate coordinate) {
