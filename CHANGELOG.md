@@ -18,6 +18,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
     - Test main class for checking right behaviour of ingame objects
     - __IMPORTANT:__ Moving the player has __NOT__ been tested yet and may not be working. For this
       reason it hasn't been included in the test main class and won't be called
+- CLIENT-SERVER: Basic communication implementation
+    - Client and Server now can communicate with each other
+    - For now there is only sent a test message from the client to the server
 
 ### Changed
 
