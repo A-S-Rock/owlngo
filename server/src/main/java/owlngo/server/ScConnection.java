@@ -3,7 +3,6 @@ package owlngo.server;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
 
@@ -11,7 +10,6 @@ import java.nio.charset.StandardCharsets;
 public class ScConnection implements Runnable {
 
   private final Socket socket;
-  private String playerName;
 
   ScConnection(Socket socket) {
     this.socket = socket;
@@ -22,8 +20,8 @@ public class ScConnection implements Runnable {
    * corresponding client.
    */
   public void run() {
-    PrintWriter pcOutput = null;
-    BufferedReader pcInput = null;
+    // PrintWriter pcOutput = null; // Currently unused outputsteam to the client
+    BufferedReader pcInput; // = null;
     try {
       pcInput =
           new BufferedReader(

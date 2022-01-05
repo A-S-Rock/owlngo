@@ -1,8 +1,6 @@
 package owlngo.client;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -62,6 +60,8 @@ public final class Client {
           }
           break;
         case "--help":
+          printHelpMessage();
+          break;
         default:
           printHelpMessage();
           return;
@@ -74,7 +74,7 @@ public final class Client {
       return;
     }
 
-    InetAddress inetAddress = null;
+    InetAddress inetAddress; // = null;
     try {
       inetAddress = InetAddress.getByName(serverAddress);
     } catch (UnknownHostException e) {
@@ -131,8 +131,9 @@ public final class Client {
   public void start(String username, Socket socket) throws IOException {
     PrintWriter clientOutput =
         new PrintWriter(socket.getOutputStream(), true, StandardCharsets.UTF_8);
-    BufferedReader clientInput =
-        new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
+    // Input Reader defined, but not yet used
+    /*BufferedReader clientInput =
+    new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));*/
     clientOutput.println("I say hello. What say you? :P");
   }
 }
