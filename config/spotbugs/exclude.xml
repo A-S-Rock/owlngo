@@ -4,4 +4,12 @@
     <Bug pattern="DMI_HARDCODED_ABSOLUTE_FILENAME"/>
     <Class name="owlngo.gui.data.MethodsForElement"/>
   </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP"/>
+    <Class name="owlngo.game.GameState"/>
+  </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP"/>
+    <Class name="owlngo.game.level.Level"/>
+  </Match>
 </FindBugsFilter>
