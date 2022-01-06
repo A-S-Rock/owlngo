@@ -78,7 +78,6 @@ public class ElementsInPlayfield {
    * Stets the element at the position row, column
    * @param row position on the playfield
    * @param column position on the playfield
-
    */
   public static ElementInPlayfield getElement(int row, int column) {
     return elementInPlayfield[row][column];

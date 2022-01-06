@@ -6,6 +6,11 @@ import javafx.scene.input.KeyCode;
 public final class StoreLastKey {
   private static KeyCode keyCode;
 
+  /**
+   * Stets keyCode to space
+   * @param row position on the playfield
+   * @param column position on the playfield
+   */
   public static void setSpaceAsDefault() {
     keyCode = KeyCode.getKeyCode(" ");
   }
@@ -18,6 +23,10 @@ public final class StoreLastKey {
     return keyCode;
   }
 
+  /**
+   * Stets keyCode to the given character
+   * @param character key pressed
+   */
   public static void setLastKeyPressed(KeyCode character) {
     keyCode = character;
   }

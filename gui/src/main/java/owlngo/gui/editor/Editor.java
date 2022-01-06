@@ -16,6 +16,9 @@ public class Editor extends Application {
   }
 
   @Override
+  /**
+   * Called by FXML
+   */
   public void start(Stage primaryStage) {
     StoreLastKey.setSpaceAsDefault();
 
