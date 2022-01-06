@@ -20,11 +20,17 @@ import owlngo.gui.playfield.DummyGameForTesting;
 
 import java.io.IOException;
 
-// This class handles all actions on the window EditorWindow.fxml
-// It also set the enum ElementInPlayfield for each pane that is used in the gritPane of the window.
+
+/**
+ * The class handles all actions on the window EditorWindow.fxml
+ * The class also sets all enums ElementInPlayfield in the Array ElementsInPlayfield
+ * This is done by the keys g,s,e,o.
+ * The element is set when the mouse is clicked on the pane
+ *
+ */
 
 public class EditorWindowControler {
-
+  // 6.1. 14.20
   @FXML GridPane gridPaneEditorWindow;
   /// @FXML GridPane gridPaneChessBoard;
   // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
@@ -36,29 +42,36 @@ public class EditorWindowControler {
   @FXML
   public void initialize() {
     System.out.println("initialilize windows EditorWindow.fxml");
-    ElementsInPlayfield.setAllToNoElement();
+    ElementsInPlayfield.setAllToNoElement(); // Define all Elements
+
     setPanesOnPlayfield();
   }
-  // void setPanesOnBoard() throws FileNotFoundException
-  void setPanesOnPlayfield() {
+
+  /**
+   * This method sets panes in the gridpane
+   * The method sets the Background of pane depending on the content of
+   * elementsInPlayfield (in the beginning no element)
+   * The method sete event handlers for each pane[][]. The method called by the event handler is setResetElement.
+   */
+  private void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
     Pane[][] pane =
         new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
             [MethodsForElement.numberOfPanesInRowAnColumn];
-    // floor.setAllToFalse();
+        // define size of Pane[][]
     for (int columnIndex = 0;
         columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
         columnIndex++) {
       for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
-
         // Initialisation
         pane[rowIndex][columnIndex] = new Pane();
-
         // Set Background of pane depending on the content of elementsInPlayfield
         setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex, columnIndex);
-
+        // Put pane[][] into gridPane of EditorWindow
         gridPaneEditorWindow.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
-        // gridPaneChessBoard.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
+
+        // Set event handler for each pane[][]
+        // The called method is setResetElement
         int finalColumnIndex = columnIndex;
         int finalRowIndex = rowIndex;
         pane[rowIndex][columnIndex].setOnMousePressed(
@@ -69,10 +82,16 @@ public class EditorWindowControler {
     }
   }
 
-  void setResetElement(Pane pane, int row, int column) {
+  /**
+   * This method defines the elements in ElementsInPlayfield by clicking a pane.
+   * The kind of element is defined by the letter g, s, e, o
+   * (ground, start, end, owl)
+   * If one of those elements is clicked it is again set to no element
+   */
+
+  private void setResetElement(Pane pane, int row, int column) {
     System.out.println("setResetElement");
     if (ElementsInPlayfield.getElement(row, column) == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
-      // if (!floor.getFloor(row, column)) {
       System.out.print("I am set");
       System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
       System.out.println(StoreLastKey.getLastKeyPressedAsString());
@@ -110,10 +129,22 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
+
+  /**
+   * This method starts the PlayfieldWindow()
+   * Also an event Handler  for the keybourd is started, which calls the
+   *
+   * elementsInPlayfield (in the beginning no element)
+   * The method sete event handlers for each pane[][]. The method called by the event handler is
+   * DummyGameForTesting.moveOwl.
+   */
+
   @FXML
-  void startPlayfieldWindow() {
+  private void startPlayfieldWindow() {
     System.out.println("startPayfieldWindow");
     rotate360();
+
+
 
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
     System.out.println("FxmlLoader" + fxmlLoader);

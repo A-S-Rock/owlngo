@@ -22,6 +22,7 @@ import java.util.Map;
  * ElementInPlayfield.END----------------------Color RED
  */
 public class MethodsForElement {
+  // 6.1. 14.20
   // Constant values for window
   public static final int numberOfPanesInRowAnColumn = 30;
 
