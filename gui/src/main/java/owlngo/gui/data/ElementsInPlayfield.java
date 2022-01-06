@@ -12,7 +12,7 @@ import java.util.List;
  */
 
 public class ElementsInPlayfield {
-
+// 6.1. 14.20
   /**
    * The enum distiguishs betwenn all the different graphic elements used as background
    * in the panes of the gridPane. This graphic elements represent all diffent pieces

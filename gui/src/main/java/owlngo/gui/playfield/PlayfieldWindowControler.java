@@ -22,9 +22,8 @@ import owlngo.gui.data.MethodsForElement;
  * A key handler is setup that allows to move the owl with 8,4,2,6.
  *
  */
-
-
 public class PlayfieldWindowControler {
+  // 6.1. 14.20
   // Constant values for window
   // static final int numberOfPanesInRowAnColumn = 30;
   private final static Pane[][] pane =

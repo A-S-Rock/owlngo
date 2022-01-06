@@ -30,7 +30,7 @@ import java.io.IOException;
  */
 
 public class EditorWindowControler {
-
+  // 6.1. 14.20
   @FXML GridPane gridPaneEditorWindow;
   /// @FXML GridPane gridPaneChessBoard;
   // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
