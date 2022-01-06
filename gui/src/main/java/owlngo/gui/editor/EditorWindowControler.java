@@ -1,12 +1,12 @@
 package owlngo.gui.editor;
 
-import java.io.IOException;
 import javafx.animation.RotateTransition;
-import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -18,26 +18,38 @@ import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.DummyGameForTesting;
 
-/** Controller class for the editor window. */
+import java.io.IOException;
+
+// This class handles all actions on the window EditorWindow.fxml
+// It also set the enum ElementInPlayfield for each pane that is used in the gritPane of the window.
+
 public class EditorWindowControler {
 
   @FXML GridPane gridPaneEditorWindow;
+  /// @FXML GridPane gridPaneChessBoard;
+  // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
+  // fx:id="gridPaneChessBoard"
+
+  @FXML Label displayToUser;
+  // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
   @FXML
-  void initialize() {
+  public void initialize() {
     System.out.println("initialilize windows EditorWindow.fxml");
     ElementsInPlayfield.setAllToNoElement();
     setPanesOnPlayfield();
   }
-
+  // void setPanesOnBoard() throws FileNotFoundException
   void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
-    final int row = MethodsForElement.size;
-    final int column = MethodsForElement.size;
-
-    Pane[][] pane = new Pane[row][column];
-    for (int columnIndex = 0; columnIndex < MethodsForElement.size; columnIndex++) {
-      for (int rowIndex = 0; rowIndex < MethodsForElement.size; rowIndex++) {
+    Pane[][] pane =
+        new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
+            [MethodsForElement.numberOfPanesInRowAnColumn];
+    // floor.setAllToFalse();
+    for (int columnIndex = 0;
+        columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
+        columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
 
         // Initialisation
         pane[rowIndex][columnIndex] = new Pane();
@@ -46,6 +58,7 @@ public class EditorWindowControler {
         setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex, columnIndex);
 
         gridPaneEditorWindow.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
+        // gridPaneChessBoard.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
         int finalColumnIndex = columnIndex;
         int finalRowIndex = rowIndex;
         pane[rowIndex][columnIndex].setOnMousePressed(
@@ -58,33 +71,37 @@ public class EditorWindowControler {
 
   void setResetElement(Pane pane, int row, int column) {
     System.out.println("setResetElement");
-    if (ElementsInPlayfield.getElement(row, column)
-        == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
+    if (ElementsInPlayfield.getElement(row, column) == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
+      // if (!floor.getFloor(row, column)) {
       System.out.print("I am set");
       System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
       System.out.println(StoreLastKey.getLastKeyPressedAsString());
 
       if (MethodsForElement.validKey(StoreLastKey.getLastKeyPressedAsString())) {
+        // set in elementsInPlayfield the elementInPlayfield depending on the key pressed
         final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
             (MethodsForElement.getElementInPlayfield(StoreLastKey.getLastKeyPressedAsString()));
         ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
       }
       // Set Background of pane depending on the content of elementsInPlayfield
-      System.out.println("isGround=" + ElementsInPlayfield.isGround(row, column));
-      System.out.println("isOwl=" + ElementsInPlayfield.isOwl(row, column));
+      System.out.println("isGround="+ElementsInPlayfield.isGround(row,column));
+      System.out.println("isOwl="+ElementsInPlayfield.isOwl(row,column));
 
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
     } else {
-      System.out.println("I am reset.");
+      System.out.println("I am reset");
+      // set in elementsInPlayfield the elementInPlayfield to noElement
       final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
-          ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
+              ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
       ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
 
+      // Set Background of pane depending on the content of elementsInPlayfield
       setBackgroundOfPaneDependingOnContent(pane, row, column);
     }
   }
 
+  // Set Background of pane depending on the content of elementsInPlayfield
   private void setBackgroundOfPaneDependingOnContent(Pane pane, int row, int column) {
     BackgroundFill backgroundFill;
     backgroundFill =
@@ -107,21 +124,29 @@ public class EditorWindowControler {
       Stage stage = new Stage();
       stage.setTitle("Owlngo Playfield");
       Scene scene = new Scene(root, 800, 600);
-
+      // Set up DummyGameForTesting
       DummyGameForTesting.setup();
+      // Set up keyHandler
       scene.setOnKeyPressed(
-          event -> {
-            KeyCode keyCode = event.getCode();
-            System.out.println("Tastendruck:" + keyCode);
-            DummyGameForTesting.moveOwl(keyCode);
+          new EventHandler<>() {
+            @Override
+            public void handle(javafx.scene.input.KeyEvent event) {
+
+              KeyCode keyCode = event.getCode();
+              System.out.println("Tastendruck:" + keyCode);
+              DummyGameForTesting.moveOwl(keyCode);
+            }
           });
 
       stage.setScene(scene);
+      // stage.setScene(new Scene(root, 800, 600));
       stage.setResizable(true);
       stage.show();
+      //     ((Node) event.getSource()).getScene().getWindow().hide();  // hide StartWindow
     } catch (IOException e) {
       System.out.println("Exeption Line 38 " + e);
-      Platform.exit();
+      e.getCause().getCause();
+      System.exit(0);
     }
   }
 
@@ -143,7 +168,6 @@ public class EditorWindowControler {
     rt.play();
   }
 
-  /*
   void rotate() {
     RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPaneEditorWindow);
     rt.setByAngle(180);
@@ -151,5 +175,4 @@ public class EditorWindowControler {
     rt.setAutoReverse(true);
     rt.play();
   }
-  */
 }
