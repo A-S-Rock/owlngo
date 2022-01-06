@@ -7,7 +7,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [0.3.1] - 2022-01-05
+## [0.4.0] - 2022-01-06
+
+### Added
+
+- CLIENT-SERVER: Basic communication implementation
+  - Client and Server now can communicate with each other
+  - For now there is only sent a test message from the client to the server
 
 ### Fixed
 
