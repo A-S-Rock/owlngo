@@ -8,12 +8,13 @@ public final class StoreLastKey {
 
   /**
    * Stets keyCode to space
-   * @param row position on the playfield
-   * @param column position on the playfield
+   * This is required to get no Null pointer
+   *  exception when getLastKeyPressed() is called without a key being pressed.
    */
   public static void setSpaceAsDefault() {
     keyCode = KeyCode.getKeyCode(" ");
   }
+
 
   /** Returns the last pressed key. */
   public static KeyCode getLastKeyPressed() {

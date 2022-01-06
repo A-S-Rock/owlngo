@@ -32,9 +32,6 @@ public class ElementsInPlayfield {
    * </ul>
    */
 
-  // The enum distiguishs betwenn all the different graphic elements used as background in the panes
-  // of the gridPane
-  // This graphic elements represent all diffent pieces on the playfield for the game
   public enum ElementInPlayfield {
     OWL,
     OWL1,
@@ -54,6 +51,7 @@ public class ElementsInPlayfield {
           [MethodsForElement.numberOfPanesInRowAnColumn];
 
   /**
+   * Define all elements of ElementInPlayfield.
    * Stets all elements of ElementInPlayfield to ElementInPlayfield.NO_ELEMENT
    */
   public static void setAllToNoElement() {

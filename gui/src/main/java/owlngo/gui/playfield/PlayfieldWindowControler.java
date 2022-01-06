@@ -15,10 +15,19 @@ import owlngo.gui.data.MethodsForElement;
 // It also set the enum ElementInPlayfield for each pane that is used
 // in the gritPane of the window.
 
+/**
+ * The class handles all actions on the window PlayfieldWindow.fxml
+ * It displays the element in ElementsInPlayfield as panes in a gridpane.
+ * The background is set according to the elements.
+ * A key handler is setup that allows to move the owl with 8,4,2,6.
+ *
+ */
+
+
 public class PlayfieldWindowControler {
   // Constant values for window
   // static final int numberOfPanesInRowAnColumn = 30;
-  private static Pane[][] pane =
+  private final static Pane[][] pane =
       new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
           [MethodsForElement.numberOfPanesInRowAnColumn];
 
@@ -29,6 +38,11 @@ public class PlayfieldWindowControler {
   @FXML Label displayToUser;
   // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
+
+  /**
+   * The method changes the background of the panes in the gridpane depending
+   * on all the elements set in ElementsInPlayfield
+   */
 
   public static void changeAllPanesDependingOnElementsInPlayfied() {
     System.out.println(("changeAllPanesDependingOnElementsInPlayfied"));
@@ -74,6 +88,7 @@ public class PlayfieldWindowControler {
     System.out.println("PlayfieldWindowControler");
     initializePanes();
     setPanesOnPlayfield();
+    // OwlnGo game= new OwlnGo();
   }
 
   private void initializePanes() {
