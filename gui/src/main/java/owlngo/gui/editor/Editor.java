@@ -10,16 +10,17 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /** Starter class for the editor window. */
-// 6.1.  10.18
+// 6.1.
 public class Editor extends Application {
   public static void main(String[] args) {
     launch(args);
   }
 
-  @Override
+
   /**
    * Called by FXML when FXML is started
    */
+  @Override
   public void start(Stage primaryStage) {
     StoreLastKey.setSpaceAsDefault();
     // set a default key. This is required to get no Null pointer
