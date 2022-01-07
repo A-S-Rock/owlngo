@@ -8,14 +8,12 @@ public final class StoreLastKey {
   private static KeyCode keyCode;
 
   /**
-   * Stets keyCode to space
-   * This is required to get no Null pointer
-   *  exception when getLastKeyPressed() is called without a key being pressed.
+   * Stets keyCode to space This is required to get no Null pointer exception when
+   * getLastKeyPressed() is called without a key being pressed.
    */
   public static void setSpaceAsDefault() {
     keyCode = KeyCode.getKeyCode(" ");
   }
-
 
   /** Returns the last pressed key. */
   public static KeyCode getLastKeyPressed() {
@@ -27,6 +25,7 @@ public final class StoreLastKey {
 
   /**
    * Stets keyCode to the given character
+   *
    * @param character key pressed
    */
   public static void setLastKeyPressed(KeyCode character) {

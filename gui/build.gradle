@@ -18,7 +18,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'owlngo.gui.main'
+    mainClass = 'owlngo.gui.Main'
 }
 
 run {

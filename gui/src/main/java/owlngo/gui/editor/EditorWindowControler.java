@@ -1,5 +1,6 @@
 package owlngo.gui.editor;
 
+import java.io.IOException;
 import javafx.animation.RotateTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -18,17 +19,11 @@ import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.DummyGameForTesting;
 
-import java.io.IOException;
-
-
 /**
- * The class handles all actions on the window EditorWindow.fxml
- * The class also sets all enums ElementInPlayfield in the Array ElementsInPlayfield
- * This is done by the keys g,s,e,o.
- * The element is set when the mouse is clicked on the pane
- *
+ * The class handles all actions on the window EditorWindow.fxml The class also sets all enums
+ * ElementInPlayfield in the Array ElementsInPlayfield This is done by the keys g,s,e,o. The element
+ * is set when the mouse is clicked on the pane
  */
-
 public class EditorWindowControler {
   // 6.1. 14.20
   @FXML GridPane gridPaneEditorWindow;
@@ -48,17 +43,16 @@ public class EditorWindowControler {
   }
 
   /**
-   * This method sets panes in the gridpane
-   * The method sets the Background of pane depending on the content of
-   * elementsInPlayfield (in the beginning no element)
-   * The method sete event handlers for each pane[][]. The method called by the event handler is setResetElement.
+   * This method sets panes in the gridpane The method sets the Background of pane depending on the
+   * content of elementsInPlayfield (in the beginning no element) The method sete event handlers for
+   * each pane[][]. The method called by the event handler is setResetElement.
    */
   private void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
     Pane[][] pane =
         new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
             [MethodsForElement.numberOfPanesInRowAnColumn];
-        // define size of Pane[][]
+    // define size of Pane[][]
     for (int columnIndex = 0;
         columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
         columnIndex++) {
@@ -83,15 +77,14 @@ public class EditorWindowControler {
   }
 
   /**
-   * This method defines the elements in ElementsInPlayfield by clicking a pane.
-   * The kind of element is defined by the letter g, s, e, o
-   * (ground, start, end, owl)
-   * If one of those elements is clicked it is again set to no element
+   * This method defines the elements in ElementsInPlayfield by clicking a pane. The kind of element
+   * is defined by the letter g, s, e, o (ground, start, end, owl) If one of those elements is
+   * clicked it is again set to no element
    */
-
   private void setResetElement(Pane pane, int row, int column) {
     System.out.println("setResetElement");
-    if (ElementsInPlayfield.getElement(row, column) == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
+    if (ElementsInPlayfield.getElement(row, column)
+        == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
       System.out.print("I am set");
       System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
       System.out.println(StoreLastKey.getLastKeyPressedAsString());
@@ -103,8 +96,8 @@ public class EditorWindowControler {
         ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
       }
       // Set Background of pane depending on the content of elementsInPlayfield
-      System.out.println("isGround="+ElementsInPlayfield.isGround(row,column));
-      System.out.println("isOwl="+ElementsInPlayfield.isOwl(row,column));
+      System.out.println("isGround=" + ElementsInPlayfield.isGround(row, column));
+      System.out.println("isOwl=" + ElementsInPlayfield.isOwl(row, column));
 
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
@@ -112,7 +105,7 @@ public class EditorWindowControler {
       System.out.println("I am reset");
       // set in elementsInPlayfield the elementInPlayfield to noElement
       final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
-              ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
+          ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
       ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
 
       // Set Background of pane depending on the content of elementsInPlayfield
@@ -129,22 +122,17 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
-
   /**
-   * This method starts the PlayfieldWindow()
-   * Also an event Handler  for the keybourd is started, which calls the
+   * This method starts the PlayfieldWindow() Also an event Handler for the keybourd is started,
+   * which calls the
    *
-   * elementsInPlayfield (in the beginning no element)
-   * The method sete event handlers for each pane[][]. The method called by the event handler is
-   * DummyGameForTesting.moveOwl.
+   * <p>elementsInPlayfield (in the beginning no element) The method sete event handlers for each
+   * pane[][]. The method called by the event handler is DummyGameForTesting.moveOwl.
    */
-
   @FXML
   private void startPlayfieldWindow() {
     System.out.println("startPayfieldWindow");
     rotate360();
-
-
 
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
     System.out.println("FxmlLoader" + fxmlLoader);

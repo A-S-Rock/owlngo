@@ -6,20 +6,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-/** Class adds a soil-themed rectangle as a ground/soil tile. */
-public class GroundView extends StackPane {
-  Image soilImage;
+/** Class adds a plane-symbol in a rectangle as a finish tile. */
+public class FinishView extends StackPane {
+  Image finishImage;
 
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
-  public GroundView() {
+  public FinishView() {
     try {
-      soilImage = new Image(getClass().getResource("/images/soil.png").toString());
+      finishImage = new Image(getClass().getResource("/images/finish.png").toString());
     } catch (IllegalArgumentException e) {
       System.err.println("Image not found.");
     }
-    Rectangle groundElement =
+    Rectangle playerElement =
         new Rectangle(GameView.TILE_SIZE, GameView.TILE_SIZE, Color.TRANSPARENT);
-    groundElement.setFill(new ImagePattern(soilImage));
-    getChildren().add(groundElement);
+    playerElement.setFill(new ImagePattern(finishImage));
+    getChildren().add(playerElement);
   }
 }

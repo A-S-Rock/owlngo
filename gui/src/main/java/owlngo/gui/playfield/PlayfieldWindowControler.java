@@ -16,17 +16,15 @@ import owlngo.gui.data.MethodsForElement;
 // in the gritPane of the window.
 
 /**
- * The class handles all actions on the window PlayfieldWindow.fxml
- * It displays the element in ElementsInPlayfield as panes in a gridpane.
- * The background is set according to the elements.
- * A key handler is setup that allows to move the owl with 8,4,2,6.
- *
+ * The class handles all actions on the window PlayfieldWindow.fxml It displays the element in
+ * ElementsInPlayfield as panes in a gridpane. The background is set according to the elements. A
+ * key handler is setup that allows to move the owl with 8,4,2,6.
  */
 public class PlayfieldWindowControler {
   // 6.1. 14.20
   // Constant values for window
   // static final int numberOfPanesInRowAnColumn = 30;
-  private final static Pane[][] pane =
+  private static final Pane[][] pane =
       new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
           [MethodsForElement.numberOfPanesInRowAnColumn];
 
@@ -37,12 +35,10 @@ public class PlayfieldWindowControler {
   @FXML Label displayToUser;
   // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
-
   /**
-   * The method changes the background of the panes in the gridpane depending
-   * on all the elements set in ElementsInPlayfield
+   * The method changes the background of the panes in the gridpane depending on all the elements
+   * set in ElementsInPlayfield
    */
-
   public static void changeAllPanesDependingOnElementsInPlayfied() {
     System.out.println(("changeAllPanesDependingOnElementsInPlayfied"));
     for (int columnIndex = 0;
@@ -68,7 +64,6 @@ public class PlayfieldWindowControler {
     }
   }
 
-
   // Set Background of pane depending on the content of elementsInPlayfield
   private static Pane setBackgroundOfPaneDependingOnContent(int row, int column) {
     // System.out.println("setBackgroundOfPaneDependingOnContent");
@@ -90,6 +85,7 @@ public class PlayfieldWindowControler {
     // OwlnGo game= new OwlnGo();
   }
 
+  /* Initializes the Gamefield with panes */
   private void initializePanes() {
     System.out.println("initializePanes");
     for (int columnIndex = 0;

@@ -1,5 +1,6 @@
 package owlngo.gui.data;
 
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundFill;
@@ -7,18 +8,12 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
-import java.util.Map;
-
 /**
- * In this class static methods are included to hold constant relations.
- * String entered ---- ElementInPlayfield
- *         S                   Start
- *         E                   END
- *         ....
+ * In this class static methods are included to hold constant relations. String entered ----
+ * ElementInPlayfield S Start E END ....
  *
- * ElementInPlayfield ------------------------ BackgroundFill
- * ElementInPlayfield.OWL -------------------- to the graphic that is stored
- *                                             at resources\C:\\ingo40x40.png"
+ * <p>ElementInPlayfield ------------------------ BackgroundFill ElementInPlayfield.OWL
+ * -------------------- to the graphic that is stored at resources\C:\\ingo40x40.png"
  * ElementInPlayfield.END----------------------Color RED
  */
 public class MethodsForElement {
@@ -43,13 +38,15 @@ public class MethodsForElement {
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.OWL,
                   new BackgroundFill(
-                      getImagePatternFromFile("/pictures/ingo40x40.png"),
+                      getImagePatternFromFile("/images/ingo40x40.png"),
                       CornerRadii.EMPTY,
                       Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN,
                   new BackgroundFill(
-                      getImagePatternFromFile("/pictures/soil.png"), CornerRadii.EMPTY, Insets.EMPTY)),
+                      getImagePatternFromFile("/images/soil.png"),
+                      CornerRadii.EMPTY,
+                      Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.START,
                   new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),
@@ -67,8 +64,9 @@ public class MethodsForElement {
     return STRING_ELEMENT_IN_PLAYFIELD_MAP.containsKey(inputKey);
   }
   /**
-   * Returns an the elementInPlayfield (this variable distinguishes between the different
-   * elements that are possible at one position of the playfield)
+   * Returns an the elementInPlayfield (this variable distinguishes between the different elements
+   * that are possible at one position of the playfield)
+   *
    * @param inputKey key(letter) assosiated with the elementInPlayfield.
    */
   public static ElementsInPlayfield.ElementInPlayfield getElementInPlayfield(String inputKey) {
@@ -78,11 +76,10 @@ public class MethodsForElement {
 
   /**
    * Returns an BackgroundFill for a given elementInPlayfield
-   * @param elementInPlayfield this variable distinguishes between the
-   *                           different elements that are possible at one
-   *                           position of the playfield
+   *
+   * @param elementInPlayfield this variable distinguishes between the different elements that are
+   *     possible at one position of the playfield
    */
-
   public static BackgroundFill getBackgroundFill(
       ElementsInPlayfield.ElementInPlayfield elementInPlayfield) {
     return elementInPlayfieldBackgroundFillMap.get(elementInPlayfield);
@@ -90,12 +87,12 @@ public class MethodsForElement {
 
   /**
    * Returns an ImagePattern for a valid pathFilename of a of a png-file
+   *
    * @param pathFilename the pathFilename where the file is
    */
-  private static ImagePattern getImagePatternFromFile(String pathFilename)  {
+  private static ImagePattern getImagePatternFromFile(String pathFilename) {
 
-
-    Image image=new Image(pathFilename);
+    Image image = new Image(pathFilename);
     return new ImagePattern(image);
   }
 }
