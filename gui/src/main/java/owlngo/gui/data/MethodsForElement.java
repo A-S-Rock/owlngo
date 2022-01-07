@@ -19,7 +19,7 @@ import javafx.scene.paint.ImagePattern;
 public class MethodsForElement {
   // 6.1. 14.20
   // Constant values for window
-  public static final int numberOfPanesInRowAnColumn = 30;
+  public static final int SIZE = 30;
 
   static final Map<String, ElementsInPlayfield.ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
       Map.ofEntries(
@@ -55,17 +55,18 @@ public class MethodsForElement {
                   new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 
   /**
-   * Return true if the key @param inputKey is a key where an element is defined in
-   * STRING_ELEMENT_IN_PLAYFIELD_MAP
+   * Return true, if the key @param inputKey is a key where an element is defined in
+   * STRING_ELEMENT_IN_PLAYFIELD_MAP.
    *
    * @param inputKey key entered
    */
   public static boolean validKey(String inputKey) {
     return STRING_ELEMENT_IN_PLAYFIELD_MAP.containsKey(inputKey);
   }
+
   /**
-   * Returns an the elementInPlayfield (this variable distinguishes between the different elements
-   * that are possible at one position of the playfield)
+   * Returns the elementInPlayfield (this variable distinguishes between the different elements that
+   * are possible at one position of the playfield).
    *
    * @param inputKey key(letter) assosiated with the elementInPlayfield.
    */
@@ -75,7 +76,7 @@ public class MethodsForElement {
   }
 
   /**
-   * Returns an BackgroundFill for a given elementInPlayfield
+   * Returns an BackgroundFill for a given elementInPlayfield.
    *
    * @param elementInPlayfield this variable distinguishes between the different elements that are
    *     possible at one position of the playfield
@@ -86,7 +87,7 @@ public class MethodsForElement {
   }
 
   /**
-   * Returns an ImagePattern for a valid pathFilename of a of a png-file
+   * Returns an ImagePattern for a valid pathFilename of a png-file.
    *
    * @param pathFilename the pathFilename where the file is
    */

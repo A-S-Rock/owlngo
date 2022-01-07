@@ -44,23 +44,22 @@ public class ElementsInPlayfield {
   }
 
   private static final ElementInPlayfield[][] elementInPlayfield =
-      new ElementInPlayfield[MethodsForElement.numberOfPanesInRowAnColumn]
-          [MethodsForElement.numberOfPanesInRowAnColumn];
+      new ElementInPlayfield[MethodsForElement.SIZE][MethodsForElement.SIZE];
 
   /**
    * Define all elements of ElementInPlayfield. Stets all elements of ElementInPlayfield to
    * ElementInPlayfield.NO_ELEMENT
    */
   public static void setAllToNoElement() {
-    for (int row = 0; row < MethodsForElement.numberOfPanesInRowAnColumn; row++) {
-      for (int column = 0; column < MethodsForElement.numberOfPanesInRowAnColumn; column++) {
+    for (int row = 0; row < MethodsForElement.SIZE; row++) {
+      for (int column = 0; column < MethodsForElement.SIZE; column++) {
         elementInPlayfield[row][column] = ElementInPlayfield.NO_ELEMENT;
       }
     }
   }
 
   /**
-   * Stets the element at the position row, column
+   * Sets the element at the position (row, column).
    *
    * @param element that is set
    * @param row position on the playfield
@@ -71,7 +70,7 @@ public class ElementsInPlayfield {
   }
 
   /**
-   * Stets the element at the position row, column
+   * Gets the element at the position (row, column).
    *
    * @param row position on the playfield
    * @param column position on the playfield
@@ -81,8 +80,8 @@ public class ElementsInPlayfield {
   }
 
   /**
-   * Returns true if the element at row, column is a ground element For anmimation different ground
-   * elements may be used
+   * Returns true if the element at (row, column) is a ground element. For anmimation different
+   * ground elements may be used.
    *
    * @param row position on the playfield
    * @param column position on the playfield

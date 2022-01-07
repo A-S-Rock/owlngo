@@ -24,7 +24,7 @@ public final class StoreLastKey {
   }
 
   /**
-   * Stets keyCode to the given character
+   * Sets keyCode to the given character.
    *
    * @param character key pressed
    */

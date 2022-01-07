@@ -2,7 +2,6 @@ package owlngo.gui.editor;
 
 import java.io.IOException;
 import javafx.animation.RotateTransition;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,7 +34,7 @@ public class EditorWindowControler {
   // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
   @FXML
-  public void initialize() {
+  void initialize() {
     System.out.println("initialilize windows EditorWindow.fxml");
     ElementsInPlayfield.setAllToNoElement(); // Define all Elements
 
@@ -48,15 +47,14 @@ public class EditorWindowControler {
    * each pane[][]. The method called by the event handler is setResetElement.
    */
   private void setPanesOnPlayfield() {
-    System.out.println("setPanesOnBoard");
-    Pane[][] pane =
-        new Pane[MethodsForElement.numberOfPanesInRowAnColumn]
-            [MethodsForElement.numberOfPanesInRowAnColumn];
+    // For CheckStyle purposes, some values need to be stored locally to shorten lines.
+    final int size = MethodsForElement.SIZE;
+
     // define size of Pane[][]
-    for (int columnIndex = 0;
-        columnIndex < MethodsForElement.numberOfPanesInRowAnColumn;
-        columnIndex++) {
-      for (int rowIndex = 0; rowIndex < MethodsForElement.numberOfPanesInRowAnColumn; rowIndex++) {
+    Pane[][] pane = new Pane[size][size];
+
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
         // Initialisation
         pane[rowIndex][columnIndex] = new Pane();
         // Set Background of pane depending on the content of elementsInPlayfield
@@ -147,14 +145,10 @@ public class EditorWindowControler {
       DummyGameForTesting.setup();
       // Set up keyHandler
       scene.setOnKeyPressed(
-          new EventHandler<>() {
-            @Override
-            public void handle(javafx.scene.input.KeyEvent event) {
-
-              KeyCode keyCode = event.getCode();
-              System.out.println("Tastendruck:" + keyCode);
-              DummyGameForTesting.moveOwl(keyCode);
-            }
+          event -> {
+            KeyCode keyCode = event.getCode();
+            System.out.println("Tastendruck:" + keyCode);
+            DummyGameForTesting.moveOwl(keyCode);
           });
 
       stage.setScene(scene);
