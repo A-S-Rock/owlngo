@@ -5,6 +5,7 @@ import owlngo.gui.data.ElementsInPlayfield;
 
 /** Serves as a dummy game for testing. */
 public final class DummyGameForTesting {
+  // 6.1. 14.20
   static int column;
   static int row;
   static int columnOld;

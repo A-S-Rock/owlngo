@@ -10,6 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /** Starter class for the editor window. */
+// 6.1. 14.20
 public class Editor extends Application {
   public static void main(String[] args) {
     launch(args);
@@ -18,6 +19,8 @@ public class Editor extends Application {
   @Override
   public void start(Stage primaryStage) {
     StoreLastKey.setSpaceAsDefault();
+    // set a default key. This is required to get no Null pointer
+    // exception when getLastKeyPressed() is called without a key being pressed.
 
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/EditorWindow.fxml")));
     System.out.println("FxmlLoader" + fxmlLoader);

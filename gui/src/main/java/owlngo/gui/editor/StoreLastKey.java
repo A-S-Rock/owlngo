@@ -4,8 +4,13 @@ import javafx.scene.input.KeyCode;
 
 /** This class stores the last key pressed. */
 public final class StoreLastKey {
+  // 6.1. 14.20
   private static KeyCode keyCode;
 
+  /**
+   * Stets keyCode to space This is required to get no Null pointer exception when
+   * getLastKeyPressed() is called without a key being pressed.
+   */
   public static void setSpaceAsDefault() {
     keyCode = KeyCode.getKeyCode(" ");
   }
@@ -18,6 +23,11 @@ public final class StoreLastKey {
     return keyCode;
   }
 
+  /**
+   * Sets keyCode to the given character.
+   *
+   * @param character key pressed
+   */
   public static void setLastKeyPressed(KeyCode character) {
     keyCode = character;
   }

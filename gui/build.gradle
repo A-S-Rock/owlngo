@@ -11,11 +11,14 @@ plugins {
 }
 
 dependencies {
+    dependencies {
+        implementation project(':game')
+    }
 }
 
 application {
     // Define the main class for the application.
-    mainClass = 'owlngo.gui.editor.Editor'
+    mainClass = 'owlngo.gui.Main'
 }
 
 run {

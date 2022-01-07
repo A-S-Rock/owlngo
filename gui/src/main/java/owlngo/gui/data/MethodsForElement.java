@@ -8,17 +8,19 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 
-/** This class serves as an utility class for elements in the playfield. */
+/**
+ * In this class static methods are included to hold constant relations. String entered ----
+ * ElementInPlayfield S Start E END ....
+ *
+ * <p>ElementInPlayfield ------------------------ BackgroundFill ElementInPlayfield.OWL
+ * -------------------- to the graphic that is stored at resources\C:\\ingo40x40.png"
+ * ElementInPlayfield.END----------------------Color RED
+ */
 public class MethodsForElement {
-  /*
-   * This class static methods are included to hold constant relations. String entered ----
-   * ElementInPlayfield e.g. S means Start
-   *
-   * <p>ElementInPlayfield ---- BackgroundFill e.g. ElementInPlayfield.OWL to The graphic that is
-   * stored at resources/pictures/ingo40x40.png
-   */
+  // 6.1. 14.20
+  // Constant values for window
+  public static final int SIZE = 30;
 
-  public static final int size = 30;
   static final Map<String, ElementsInPlayfield.ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
       Map.ofEntries(
           Map.entry("S", ElementsInPlayfield.ElementInPlayfield.START),
@@ -26,11 +28,9 @@ public class MethodsForElement {
           Map.entry("F", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
           Map.entry("G", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
           Map.entry("O", ElementsInPlayfield.ElementInPlayfield.OWL));
-  // Constant values for window
-  private static final String OWL_PATH = "/pictures/ingo40x40.png";
-  private static final String GROUND_PATH = "/pictures/soil.png";
+
   static final Map<ElementsInPlayfield.ElementInPlayfield, BackgroundFill>
-      ELEMENT_IN_PLAYFIELD_BACKGROUND_FILL_MAP =
+      elementInPlayfieldBackgroundFillMap =
           Map.ofEntries(
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT,
@@ -38,11 +38,15 @@ public class MethodsForElement {
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.OWL,
                   new BackgroundFill(
-                      getImagePatternFromFile(OWL_PATH), CornerRadii.EMPTY, Insets.EMPTY)),
+                      getImagePatternFromFile("/images/ingo40x40.png"),
+                      CornerRadii.EMPTY,
+                      Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN,
                   new BackgroundFill(
-                      getImagePatternFromFile(GROUND_PATH), CornerRadii.EMPTY, Insets.EMPTY)),
+                      getImagePatternFromFile("/images/soil.png"),
+                      CornerRadii.EMPTY,
+                      Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.START,
                   new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),
@@ -51,7 +55,8 @@ public class MethodsForElement {
                   new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
 
   /**
-   * Returns true if an element with this key is defined.
+   * Return true, if the key @param inputKey is a key where an element is defined in
+   * STRING_ELEMENT_IN_PLAYFIELD_MAP.
    *
    * @param inputKey key entered
    */
@@ -60,32 +65,34 @@ public class MethodsForElement {
   }
 
   /**
-   * Returns an elementInPlayfield (this variable distinguishes between the different elements that
+   * Returns the elementInPlayfield (this variable distinguishes between the different elements that
    * are possible at one position of the playfield).
    *
    * @param inputKey key(letter) assosiated with the elementInPlayfield.
    */
   public static ElementsInPlayfield.ElementInPlayfield getElementInPlayfield(String inputKey) {
+    // return ElementInPlayfield.NO_ELEMENT;
     return (STRING_ELEMENT_IN_PLAYFIELD_MAP.get(inputKey));
   }
 
   /**
    * Returns an BackgroundFill for a given elementInPlayfield.
    *
-   * @param elementInPlayfield distinguishes between the different elements that are possible at one
-   *     position of the playfield
+   * @param elementInPlayfield this variable distinguishes between the different elements that are
+   *     possible at one position of the playfield
    */
   public static BackgroundFill getBackgroundFill(
       ElementsInPlayfield.ElementInPlayfield elementInPlayfield) {
-    return ELEMENT_IN_PLAYFIELD_BACKGROUND_FILL_MAP.get(elementInPlayfield);
+    return elementInPlayfieldBackgroundFillMap.get(elementInPlayfield);
   }
 
   /**
-   * Returns an ImagePattern for a valid pathFilename of a png file.
+   * Returns an ImagePattern for a valid pathFilename of a png-file.
    *
    * @param pathFilename the pathFilename where the file is
    */
   private static ImagePattern getImagePatternFromFile(String pathFilename) {
+
     Image image = new Image(pathFilename);
     return new ImagePattern(image);
   }
