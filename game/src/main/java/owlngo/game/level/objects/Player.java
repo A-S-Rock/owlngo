@@ -93,7 +93,7 @@ public final class Player implements ObjectInGame {
 
   private void checkFallMove(Level level) {
     final int column = coordinate.getColumn();
-    final int newRow = coordinate.getRow() - 1;
+    final int newRow = coordinate.getRow() + 1;
     Coordinate newCoordinate = Coordinate.of(newRow, column);
     // check if the new position is within bounds and not occupied
     if (level.isPositionWithinBounds(newCoordinate)
@@ -129,7 +129,7 @@ public final class Player implements ObjectInGame {
 
   private void checkJumpMove(Level level) {
     final int column = coordinate.getColumn();
-    final int newRow = coordinate.getRow() + 1;
+    final int newRow = coordinate.getRow() - 1;
     Coordinate newCoordinate = Coordinate.of(newRow, column);
     // check if the new position is within bounds and not occupied
     if (level.isPositionWithinBounds(newCoordinate)

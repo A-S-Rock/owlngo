@@ -10,8 +10,10 @@ public class Main {
   public static void main(String[] args) {
 
     System.out.println("Initialize game.");
-    new OwlnGo();
+    OwlnGo game = new OwlnGo();
 
-    System.out.println("This text is for debugging purpose.");
+    System.out.println("This text is for debugging purpose. Now some moves are tested.");
+    game.moveRight();
+    System.out.println("After a right move has been made.");
   }
 }
