@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.objects.LevelObject;
 import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.game.level.objects.Player;
 
 /** This class represents the level of the {@link OwlnGo} game. Similar to Task 4 ChessBoard. */
@@ -18,7 +19,7 @@ public final class Level {
   private final int numCols;
   private final Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
   private final List<ObjectInGame> objectsInGame;
-  private final Player player;
+  private final Player playerObject;
   private final LevelObject startObject;
   private final LevelObject finishObject;
 
@@ -37,7 +38,7 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
-    player = Player.createPlayer(Coordinate.of(numRows - 2, 1));
+    playerObject = Player.createPlayer(Coordinate.of(numRows - 2, 1));
     startObject = LevelObject.createStartObject(Coordinate.of(numRows - 2, 0));
     finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 2, numCols - 1));
 
@@ -55,9 +56,9 @@ public final class Level {
       }
     }
 
-    replaceWithObject(startObject, startObject.getCoordinate());
-    replaceWithObject(finishObject, finishObject.getCoordinate());
-    replaceWithObject(player, player.getCoordinate());
+    // replaceWithObject(startObject, startObject.getCoordinate());
+    // replaceWithObject(finishObject, finishObject.getCoordinate());
+    // replaceWithObject(playerObject, playerObject.getCoordinate());
   }
 
   private Level(Level sourceLevel) {
@@ -76,7 +77,7 @@ public final class Level {
     }
     objectsInGame = List.copyOf(clonedObjectsInGame);
 
-    player = sourceLevel.getCopyOfPlayer();
+    playerObject = sourceLevel.getCopyOfPlayer();
     startObject = sourceLevel.getCopyOfStartObject();
     finishObject = sourceLevel.getCopyOfFinishObject();
   }
@@ -93,7 +94,7 @@ public final class Level {
    * @return an immutable copy of the level with the new player
    */
   public Level withNewPlayerAt(Coordinate coordinate) {
-    replaceWithObject(player, coordinate);
+    replaceWithObject(Player.createPlayer(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -104,7 +105,7 @@ public final class Level {
    * @return an immutable copy of the level with start at the new location
    */
   public Level withStartAt(Coordinate coordinate) {
-    replaceWithObject(startObject, coordinate);
+    replaceWithObject(LevelObject.createStartObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -115,7 +116,7 @@ public final class Level {
    * @return an immutable copy of the level with finish at the new location
    */
   public Level withFinishAt(Coordinate coordinate) {
-    replaceWithObject(finishObject, coordinate);
+    replaceWithObject(LevelObject.createFinishObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -177,7 +178,7 @@ public final class Level {
 
   /** Returns an immutable copy of the player in the game. */
   public Player getCopyOfPlayer() {
-    return (Player) player.copyOf();
+    return (Player) playerObject.copyOf();
   }
 
   /** Returns an immutable copy of the start in the game. */
@@ -253,6 +254,12 @@ public final class Level {
 
   /** Update the possible moves of the chess pieces with the given color. */
   public void updatePossibleMovesOfPlayer() {
-    player.updatePossibleMoves(this);
+    for (ObjectInGame object : objectsInGame) {
+      if (object.getType() == ObjectType.PLAYER) {
+        final Player player = (Player) object;
+        player.updatePossibleMoves(this);
+      }
+    }
+    // playerObject.updatePossibleMoves(this);
   }
 }
