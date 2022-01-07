@@ -37,9 +37,9 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
-    player = Player.createPlayer(Coordinate.of(1, 1));
-    startObject = LevelObject.createStartObject(Coordinate.of(1, 0));
-    finishObject = LevelObject.createFinishObject(Coordinate.of(1, numCols - 1));
+    player = Player.createPlayer(Coordinate.of(numRows - 1, 1));
+    startObject = LevelObject.createStartObject(Coordinate.of(numRows - 1, 0));
+    finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 1, numCols - 1));
 
     for (int i = 0; i < numRows; ++i) {
       for (int j = 0; j < numCols; ++j) {
