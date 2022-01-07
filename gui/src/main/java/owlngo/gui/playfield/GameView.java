@@ -3,8 +3,6 @@ package owlngo.gui.playfield;
 import java.util.Map;
 import java.util.Objects;
 import javafx.beans.property.MapProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableMap;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;

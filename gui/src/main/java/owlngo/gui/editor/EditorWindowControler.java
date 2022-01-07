@@ -2,6 +2,7 @@ package owlngo.gui.editor;
 
 import java.io.IOException;
 import javafx.animation.RotateTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -158,8 +159,7 @@ public class EditorWindowControler {
       //     ((Node) event.getSource()).getScene().getWindow().hide();  // hide StartWindow
     } catch (IOException e) {
       System.out.println("Exeption Line 38 " + e);
-      e.getCause().getCause();
-      System.exit(0);
+      Platform.exit();
     }
   }
 

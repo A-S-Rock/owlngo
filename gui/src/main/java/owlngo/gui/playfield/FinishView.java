@@ -1,5 +1,6 @@
 package owlngo.gui.playfield;
 
+import java.util.Objects;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,7 +14,9 @@ public class FinishView extends StackPane {
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
   public FinishView() {
     try {
-      finishImage = new Image(getClass().getResource("/images/finish.png").toString());
+      finishImage =
+          new Image(
+              Objects.requireNonNull(getClass().getResource("/images/finish.png")).toString());
     } catch (IllegalArgumentException e) {
       System.err.println("Image not found.");
     }

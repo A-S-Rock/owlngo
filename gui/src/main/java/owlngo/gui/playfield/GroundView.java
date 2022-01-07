@@ -1,5 +1,6 @@
 package owlngo.gui.playfield;
 
+import java.util.Objects;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -13,7 +14,8 @@ public class GroundView extends StackPane {
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
   public GroundView() {
     try {
-      soilImage = new Image(getClass().getResource("/images/soil.png").toString());
+      soilImage =
+          new Image(Objects.requireNonNull(getClass().getResource("/images/soil.png")).toString());
     } catch (IllegalArgumentException e) {
       System.err.println("Image not found.");
     }
