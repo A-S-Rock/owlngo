@@ -61,27 +61,23 @@ public class GameView extends HBox {
         final ObjectInGame objectInGame = rowProperty.get(currentColumn);
         if (objectInGame.getType().equals(ObjectType.GROUND)) {
           tileContent.getChildren().add(new GroundView());
-        }
-        if (objectInGame.getType().equals(ObjectType.PLAYER)) {
+        } else if (objectInGame.getType().equals(ObjectType.PLAYER)) {
           tileContent.getChildren().add(new AirView());
           tileContent.getChildren().add(new PlayerView());
-        }
-        if (objectInGame.getType().equals(ObjectType.AIR)) {
+        } else if (objectInGame.getType().equals(ObjectType.AIR)) {
           tileContent.getChildren().add(new AirView());
-        }
-        if (objectInGame.getType().equals(ObjectType.START)) {
+        } else if (objectInGame.getType().equals(ObjectType.START)) {
           tileContent.getChildren().add(new AirView());
           tileContent.getChildren().add(new StartView());
-        }
-        if (objectInGame.getType().equals(ObjectType.FINISH)) {
+        } else if (objectInGame.getType().equals(ObjectType.FINISH)) {
           tileContent.getChildren().add(new AirView());
           tileContent.getChildren().add(new FinishView());
+        } else {
+          throw new AssertionError("Object type does not exist.");
         }
 
         rowProperty.addListener(
-            (ObservableValue<? extends ObservableMap<Integer, ObjectInGame>> observable,
-                ObservableMap<Integer, ObjectInGame> oldValue,
-                ObservableMap<Integer, ObjectInGame> newValue) -> {
+            (observable, oldValue, newValue) -> {
               tileContent.getChildren().clear();
               if (objectInGame.getType().equals(ObjectType.PLAYER)) {
                 tileContent.getChildren().add(new AirView());
