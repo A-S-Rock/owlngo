@@ -7,13 +7,28 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.5.0] - 2022-01-07
+
+### Added
+
+- GUI: Enhanced version of the game window which now actually displays the game!
+    - right now without FXML (could be added)
+    - Game window now shows the default level from the actual game (40 rows x 30 columns) with
+      start, player and finish
+    - movement still not implemented (will be done in 0.6.0)
+
+### Fixed
+
+- level layout was upside down, now it shows properly
+- default start, player and finish were on the wrong row
+
 ## [0.4.0] - 2022-01-06
 
 ### Added
 
 - CLIENT-SERVER: Basic communication implementation
-  - Client and Server now can communicate with each other
-  - For now there is only sent a test message from the client to the server
+    - Client and Server now can communicate with each other
+    - For now there is only sent a test message from the client to the server
 
 ### Fixed
 
@@ -109,5 +124,10 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.3.0...main?from_project_id=3507
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.5.0...main?from_project_id=3507
+
+[0.5.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.4.0...v0.5.0?from_project_id=3507
+
+[0.4.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.3.0...v0.4.0?from_project_id=3507
+
 [0.3.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/releases/v0.3.0
