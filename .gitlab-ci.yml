@@ -20,6 +20,10 @@ build:
     policy: push
     paths:
       - client/build
+      - communication/build
+      - game/build
+      - gui/build
+      - objects/build
       - server/build
       - .gradle
 
@@ -30,7 +34,12 @@ test:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
     paths:
-      - build
+      - client/build
+      - communication/build
+      - game/build
+      - gui/build
+      - objects/build
+      - server/build
       - .gradle
   artifacts:
     paths:
@@ -44,7 +53,12 @@ javadoc:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
     paths:
-      - build
+      - client/build
+      - communication/build
+      - game/build
+      - gui/build
+      - objects/build
+      - server/build
       - .gradle
   artifacts:
     paths:
