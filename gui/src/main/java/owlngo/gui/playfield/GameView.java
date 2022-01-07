@@ -22,7 +22,7 @@ import owlngo.game.level.objects.ObjectInGame.ObjectType;
  */
 public class GameView extends HBox {
 
-  private OwlnGo game = new OwlnGo();
+  private final OwlnGo game = new OwlnGo();
   static final int TILE_SIZE = 40;
 
   /** Constructor without a parameter. */

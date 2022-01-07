@@ -37,15 +37,15 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
-    player = Player.createPlayer(Coordinate.of(numRows - 1, 1));
-    startObject = LevelObject.createStartObject(Coordinate.of(numRows - 1, 0));
-    finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 1, numCols - 1));
+    player = Player.createPlayer(Coordinate.of(numRows - 2, 1));
+    startObject = LevelObject.createStartObject(Coordinate.of(numRows - 2, 0));
+    finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 2, numCols - 1));
 
     for (int i = 0; i < numRows; ++i) {
       for (int j = 0; j < numCols; ++j) {
         Coordinate coordinate = Coordinate.of(i, j);
         ObjectInGame object;
-        if (i == 0) {
+        if (i == numRows - 1) {
           object = LevelObject.createGroundObject(coordinate);
         } else {
           object = LevelObject.createAirObject(coordinate);
