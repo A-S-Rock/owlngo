@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.objects.LevelObject;
 import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.game.level.objects.Player;
 
 /** This class represents the level of the {@link OwlnGo} game. Similar to Task 4 ChessBoard. */
@@ -18,9 +19,9 @@ public final class Level {
   private final int numCols;
   private final Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
   private final List<ObjectInGame> objectsInGame;
-  private final Player player;
-  private final LevelObject startObject;
-  private final LevelObject finishObject;
+  private Player playerObject;
+  private LevelObject startObject;
+  private LevelObject finishObject;
 
   /**
    * Constructs a default level with fixed positions of player, start and finish for the given
@@ -37,7 +38,7 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
-    player = Player.createPlayer(Coordinate.of(numRows - 2, 1));
+    playerObject = Player.createPlayer(Coordinate.of(numRows - 2, 1));
     startObject = LevelObject.createStartObject(Coordinate.of(numRows - 2, 0));
     finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 2, numCols - 1));
 
@@ -55,9 +56,9 @@ public final class Level {
       }
     }
 
-    replaceWithObject(startObject, startObject.getCoordinate());
-    replaceWithObject(finishObject, finishObject.getCoordinate());
-    replaceWithObject(player, player.getCoordinate());
+    replaceObjectInGameWith(startObject, startObject.getCoordinate());
+    replaceObjectInGameWith(finishObject, finishObject.getCoordinate());
+    replaceObjectInGameWith(playerObject, playerObject.getCoordinate());
   }
 
   private Level(Level sourceLevel) {
@@ -76,10 +77,15 @@ public final class Level {
     }
     objectsInGame = List.copyOf(clonedObjectsInGame);
 
-    player = sourceLevel.getCopyOfPlayer();
+    playerObject = sourceLevel.getCopyOfPlayer();
     startObject = sourceLevel.getCopyOfStartObject();
     finishObject = sourceLevel.getCopyOfFinishObject();
   }
+
+  /*
+   * TODO: Maybe these factory methods could cause problems with the bindings in JavaFX.
+   *   They could just act directly on the Level object (as the level itself stays immutable).
+   */
 
   /**
    * Creates a new level with a new player set at the given coordinate.
@@ -88,7 +94,7 @@ public final class Level {
    * @return an immutable copy of the level with the new player
    */
   public Level withNewPlayerAt(Coordinate coordinate) {
-    replaceWithObject(player, coordinate);
+    replaceObjectInGameWith(Player.createPlayer(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -99,7 +105,7 @@ public final class Level {
    * @return an immutable copy of the level with start at the new location
    */
   public Level withStartAt(Coordinate coordinate) {
-    replaceWithObject(startObject, coordinate);
+    replaceObjectInGameWith(LevelObject.createStartObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -110,7 +116,7 @@ public final class Level {
    * @return an immutable copy of the level with finish at the new location
    */
   public Level withFinishAt(Coordinate coordinate) {
-    replaceWithObject(finishObject, coordinate);
+    replaceObjectInGameWith(LevelObject.createFinishObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -121,7 +127,7 @@ public final class Level {
    * @return an immutable copy of the level with air at the new location
    */
   public Level withAirAt(Coordinate coordinate) {
-    replaceWithObject(LevelObject.createAirObject(coordinate), coordinate);
+    replaceObjectInGameWith(LevelObject.createAirObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -132,27 +138,46 @@ public final class Level {
    * @return an immutable copy of the level with ground at the new location
    */
   public Level withGroundAt(Coordinate coordinate) {
-    replaceWithObject(LevelObject.createGroundObject(coordinate), coordinate);
+    replaceObjectInGameWith(LevelObject.createGroundObject(coordinate), coordinate);
     return new Level(this);
   }
 
-  private void replaceWithObject(ObjectInGame objectInGame, Coordinate coordinate) {
-    if (objectInGame.equals(LevelObject.NONE)) {
-      throw new AssertionError("Error: Tried to erase all dummies!");
-    }
-    final boolean successful =
-        objectsInGame.removeIf(
-            object -> object.getCoordinate().equals(objectInGame.getCoordinate()));
-    if (successful) {
-      objectsInGame.add(LevelObject.createAirObject(objectInGame.getCoordinate()));
-    }
+  /** Moves the object to the new position. */
+  public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
+    final Coordinate oldCoordinate = object.getCoordinate();
+    assert !oldCoordinate.equals(newCoordinate);
 
-    // Replace dummy at given coordinate with new object.
+    replaceObjectInGameWith(LevelObject.createAirObject(oldCoordinate), oldCoordinate);
+    replaceObjectInGameWith(object, newCoordinate);
+  }
+
+  private void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
+    removeObjectInGame(objectInGame);
+
+    // Replace dummy air at given coordinate with new object.
     objectsInGame.removeIf(object -> object.getCoordinate().equals(coordinate));
 
-    final ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
+    ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
+
+    if (newObject.getType() == ObjectType.PLAYER) {
+      playerObject = (Player) newObject.copyOf();
+    } else if (newObject.getType() == ObjectType.START) {
+      startObject = (LevelObject) newObject.copyOf();
+    } else if (newObject.getType() == ObjectType.FINISH) {
+      finishObject = (LevelObject) newObject.copyOf();
+    }
+
     objectsInGame.add(newObject);
     setObjectInGameAt(newObject, coordinate);
+  }
+
+  /** Removes the object from the level. */
+  private void removeObjectInGame(ObjectInGame objectInGame) {
+    assert !objectInGame.isNone();
+    Coordinate coordinate = objectInGame.getCoordinate();
+    setObjectInGameAt(LevelObject.createAirObject(coordinate), coordinate);
+    boolean wasRemoved = objectsInGame.remove(objectInGame);
+    assert wasRemoved;
   }
 
   /** Returns an immutable copy of the level. */
@@ -172,7 +197,7 @@ public final class Level {
 
   /** Returns an immutable copy of the player in the game. */
   public Player getCopyOfPlayer() {
-    return (Player) player.copyOf();
+    return (Player) playerObject.copyOf();
   }
 
   /** Returns an immutable copy of the start in the game. */
@@ -228,26 +253,8 @@ public final class Level {
     return (row >= 0) && (row < getNumRows()) && (column >= 0) && (column < getNumColumns());
   }
 
-  /** Moves the object to the new position. */
-  public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
-    assert !object.getCoordinate().equals(newCoordinate);
-    removeObjectInGame(object);
-    ObjectInGame movedObject = object.withNewPosition(newCoordinate);
-    setObjectInGameAt(movedObject, newCoordinate);
-    objectsInGame.add(movedObject);
-  }
-
-  /** Removes the object from the level. */
-  private void removeObjectInGame(ObjectInGame objectInGame) {
-    assert !objectInGame.isNone();
-    Coordinate coordinate = objectInGame.getCoordinate();
-    setObjectInGameAt(LevelObject.createAirObject(coordinate), coordinate);
-    boolean wasRemoved = objectsInGame.remove(objectInGame);
-    assert wasRemoved;
-  }
-
   /** Update the possible moves of the chess pieces with the given color. */
   public void updatePossibleMovesOfPlayer() {
-    player.updatePossibleMoves(this);
+    playerObject.updatePossibleMoves(this);
   }
 }
