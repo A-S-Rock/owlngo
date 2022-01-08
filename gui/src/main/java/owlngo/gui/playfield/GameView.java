@@ -1,10 +1,9 @@
 package owlngo.gui.playfield;
 
-import java.util.Map;
-import java.util.Objects;
 import javafx.beans.property.MapProperty;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
@@ -14,13 +13,16 @@ import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
 
+import java.util.Map;
+import java.util.Objects;
+
 /**
  * Class shows our playingfield on the left side and a information field with buttons, etc. on the
  * right side.
  */
 public class GameView extends HBox {
 
-  private final OwlnGo game = new OwlnGo();
+  private final OwlnGo game = new OwlnGo(21,21);
   static final int TILE_SIZE = 40;
 
   /** Constructor without a parameter. */
@@ -36,6 +38,8 @@ public class GameView extends HBox {
   public GameView(OwlnGo game) {
     getChildren().addAll(createLevelView(game), createSidePanel(game));
   }
+
+
 
   private Node createLevelView(OwlnGo game) {
     TilePane levelView = new TilePane();
@@ -74,15 +78,17 @@ public class GameView extends HBox {
           throw new AssertionError("Object type does not exist.");
         }
 
+        int finalCurrentColumn = currentColumn;
         rowProperty.addListener(
             (observable, oldValue, newValue) -> {
               tileContent.getChildren().clear();
+
+              final ObjectInGame playerTile = newValue.get(finalCurrentColumn);
               if (objectInGame.getType().equals(ObjectType.PLAYER)) {
                 tileContent.getChildren().add(new AirView());
                 tileContent.getChildren().add(new PlayerView());
               }
             });
-
         levelView.getChildren().add(tileContent);
       }
     }
@@ -94,4 +100,21 @@ public class GameView extends HBox {
 
     return new VBox(new Button("Test Button"));
   }
-}
+
+  public void interpreteKeyEntries(KeyCode keyCode){
+      if (keyCode == KeyCode.NUMPAD8) {
+        // game.moveJump();
+        System.out.println("Jump");
+      } else if (keyCode == KeyCode.NUMPAD2) {
+        System.out.println("go down");
+      } else if (keyCode == KeyCode.NUMPAD6) {
+      System.out.println("go right");
+        game.moveRight();
+      } else if (keyCode == KeyCode.NUMPAD4) {
+      System.out.println("go left");
+        game.moveLeft();
+      }
+    }
+  }
+
+
