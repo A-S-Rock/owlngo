@@ -56,9 +56,9 @@ public final class Level {
       }
     }
 
-    replaceObjectInGame(startObject, startObject.getCoordinate());
-    replaceObjectInGame(finishObject, finishObject.getCoordinate());
-    replaceObjectInGame(playerObject, playerObject.getCoordinate());
+    replaceObjectInGameWith(startObject, startObject.getCoordinate());
+    replaceObjectInGameWith(finishObject, finishObject.getCoordinate());
+    replaceObjectInGameWith(playerObject, playerObject.getCoordinate());
   }
 
   private Level(Level sourceLevel) {
@@ -94,7 +94,7 @@ public final class Level {
    * @return an immutable copy of the level with the new player
    */
   public Level withNewPlayerAt(Coordinate coordinate) {
-    replaceObjectInGame(Player.createPlayer(coordinate), coordinate);
+    replaceObjectInGameWith(Player.createPlayer(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -105,7 +105,7 @@ public final class Level {
    * @return an immutable copy of the level with start at the new location
    */
   public Level withStartAt(Coordinate coordinate) {
-    replaceObjectInGame(LevelObject.createStartObject(coordinate), coordinate);
+    replaceObjectInGameWith(LevelObject.createStartObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -116,7 +116,7 @@ public final class Level {
    * @return an immutable copy of the level with finish at the new location
    */
   public Level withFinishAt(Coordinate coordinate) {
-    replaceObjectInGame(LevelObject.createFinishObject(coordinate), coordinate);
+    replaceObjectInGameWith(LevelObject.createFinishObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -127,7 +127,7 @@ public final class Level {
    * @return an immutable copy of the level with air at the new location
    */
   public Level withAirAt(Coordinate coordinate) {
-    replaceObjectInGame(LevelObject.createAirObject(coordinate), coordinate);
+    replaceObjectInGameWith(LevelObject.createAirObject(coordinate), coordinate);
     return new Level(this);
   }
 
@@ -138,11 +138,20 @@ public final class Level {
    * @return an immutable copy of the level with ground at the new location
    */
   public Level withGroundAt(Coordinate coordinate) {
-    replaceObjectInGame(LevelObject.createGroundObject(coordinate), coordinate);
+    replaceObjectInGameWith(LevelObject.createGroundObject(coordinate), coordinate);
     return new Level(this);
   }
 
-  private void replaceObjectInGame(ObjectInGame objectInGame, Coordinate coordinate) {
+  /** Moves the object to the new position. */
+  public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
+    final Coordinate oldCoordinate = object.getCoordinate();
+    assert !oldCoordinate.equals(newCoordinate);
+
+    replaceObjectInGameWith(LevelObject.createAirObject(oldCoordinate), oldCoordinate);
+    replaceObjectInGameWith(object, newCoordinate);
+  }
+
+  private void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
     removeObjectInGame(objectInGame);
 
     // Replace dummy air at given coordinate with new object.
@@ -160,15 +169,6 @@ public final class Level {
 
     objectsInGame.add(newObject);
     setObjectInGameAt(newObject, coordinate);
-  }
-
-  /** Moves the object to the new position. */
-  public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
-    assert !object.getCoordinate().equals(newCoordinate);
-    removeObjectInGame(object);
-    ObjectInGame movedObject = object.withNewPosition(newCoordinate);
-    setObjectInGameAt(movedObject, newCoordinate);
-    objectsInGame.add(movedObject);
   }
 
   /** Removes the object from the level. */
