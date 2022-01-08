@@ -77,7 +77,7 @@ public class OwlnGo {
   }
 
   /** Lets the player jump. */
-  public void moveJump() {
+  public void moveJump(boolean activateFall) {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
@@ -90,7 +90,9 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveFall();
+      if (activateFall) {
+        moveFall();
+      }
     }
   }
 
