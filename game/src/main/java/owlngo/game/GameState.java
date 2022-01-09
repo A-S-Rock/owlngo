@@ -95,5 +95,7 @@ public class GameState {
   /** Applies the given move. */
   void moveObjectInGame(Move move) {
     level.moveObjectInGame(player.get(), move.getNewCoordinate());
+    level.updatePossibleMovesOfPlayer();
+    player.set(level.getCopyOfPlayer());
   }
 }
