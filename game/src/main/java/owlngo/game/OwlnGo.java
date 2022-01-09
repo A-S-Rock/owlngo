@@ -35,7 +35,7 @@ public class OwlnGo {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
-    } else if (move.getNewCoordinate().getRow() == 0) {
+    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1) {
       gameState = gameState.with(GameStatus.LOSE);
     }
   }
@@ -77,7 +77,7 @@ public class OwlnGo {
   }
 
   /** Lets the player jump. */
-  public void moveJump() {
+  public void moveJump(boolean activateFall) {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
@@ -90,7 +90,9 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveFall();
+      if (activateFall) {
+        moveFall();
+      }
     }
   }
 
@@ -106,6 +108,8 @@ public class OwlnGo {
     gameState.moveObjectInGame(move);
 
     checkWinningConditions(move);
+
+    // This might be obsolete because updates takes place in moveObjectInGame(move).
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
     }

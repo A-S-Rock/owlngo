@@ -1,5 +1,6 @@
 package owlngo.game.level.objects;
 
+import java.util.Objects;
 import owlngo.game.level.Coordinate;
 
 /** Represents a general map layout object of various type. */
@@ -85,6 +86,25 @@ public final class LevelObject implements ObjectInGame {
   @Override
   public boolean isNone() {
     return objectType == ObjectType.NONE;
+  }
+
+  // Had to add equals() and hashCode() because of object comparison in lists.
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    LevelObject that = (LevelObject) o;
+    return objectType == that.objectType && coordinate.equals(that.coordinate);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(objectType, coordinate);
   }
 
   @Override
