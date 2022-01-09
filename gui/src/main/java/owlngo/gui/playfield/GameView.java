@@ -1,7 +1,8 @@
 package owlngo.gui.playfield;
 
+import java.util.Map;
+import java.util.Objects;
 import javafx.beans.property.MapProperty;
-import javafx.collections.MapChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -16,11 +17,8 @@ import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
 
-import java.util.Map;
-import java.util.Objects;
-
 /**
- * Class shows our playingfield on the left side and a information field with buttons, etc. on the
+ * Class shows our playingfield on the left side and an information field with buttons, etc. on the
  * right side.
  */
 public class GameView extends HBox {
@@ -108,7 +106,7 @@ public class GameView extends HBox {
 
   public void interpreteKeyEntries(KeyCode keyCode, OwlnGo game) {
     if (keyCode == KeyCode.W) {
-      game.moveJump();
+      game.moveJump(false); // jumping without falling for testing
       System.out.println("W -> Jump");
     } else if (keyCode == KeyCode.S) {
       System.out.println("S -> Down");
