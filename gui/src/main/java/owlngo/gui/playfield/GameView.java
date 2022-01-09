@@ -1,6 +1,7 @@
 package owlngo.gui.playfield;
 
 import javafx.beans.property.MapProperty;
+import javafx.collections.MapChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.KeyCode;
@@ -8,6 +9,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
@@ -22,11 +25,12 @@ import java.util.Objects;
  */
 public class GameView extends HBox {
 
-  private final OwlnGo game = new OwlnGo(21,21);
+  OwlnGo game;
   static final int TILE_SIZE = 40;
 
   /** Constructor without a parameter. */
   public GameView() {
+    game = new OwlnGo(21, 21);
     getChildren().addAll(createLevelView(game), createSidePanel(game));
   }
 
@@ -38,8 +42,6 @@ public class GameView extends HBox {
   public GameView(OwlnGo game) {
     getChildren().addAll(createLevelView(game), createSidePanel(game));
   }
-
-
 
   private Node createLevelView(OwlnGo game) {
     TilePane levelView = new TilePane();
@@ -81,18 +83,21 @@ public class GameView extends HBox {
         int finalCurrentColumn = currentColumn;
         rowProperty.addListener(
             (observable, oldValue, newValue) -> {
+              System.out.println("Something changed");
+              System.out.println("Observable: " + observable);
+              System.out.println("Old Value: " + oldValue);
+              System.out.println("New Value: " + newValue);
               tileContent.getChildren().clear();
-
               final ObjectInGame playerTile = newValue.get(finalCurrentColumn);
+              System.out.println("Coords of PlayerTile: " + playerTile.getCoordinate().toString());
               if (objectInGame.getType().equals(ObjectType.PLAYER)) {
                 tileContent.getChildren().add(new AirView());
-                tileContent.getChildren().add(new PlayerView());
+                tileContent.getChildren().add(new Rectangle(20, 20, Color.RED));
               }
             });
         levelView.getChildren().add(tileContent);
       }
     }
-
     return levelView;
   }
 
@@ -101,20 +106,18 @@ public class GameView extends HBox {
     return new VBox(new Button("Test Button"));
   }
 
-  public void interpreteKeyEntries(KeyCode keyCode){
-      if (keyCode == KeyCode.NUMPAD8) {
-        // game.moveJump();
-        System.out.println("Jump");
-      } else if (keyCode == KeyCode.NUMPAD2) {
-        System.out.println("go down");
-      } else if (keyCode == KeyCode.NUMPAD6) {
-      System.out.println("go right");
-        game.moveRight();
-      } else if (keyCode == KeyCode.NUMPAD4) {
-      System.out.println("go left");
-        game.moveLeft();
-      }
+  public void interpreteKeyEntries(KeyCode keyCode, OwlnGo game) {
+    if (keyCode == KeyCode.W) {
+      game.moveJump();
+      System.out.println("W -> Jump");
+    } else if (keyCode == KeyCode.S) {
+      System.out.println("S -> Down");
+    } else if (keyCode == KeyCode.D) {
+      System.out.println("D -> Right");
+      game.moveRight();
+    } else if (keyCode == KeyCode.A) {
+      System.out.println("A -> Left");
+      game.moveLeft();
     }
   }
-
-
+}
