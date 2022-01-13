@@ -17,6 +17,13 @@ public class Main extends Application {
   public void start(Stage primaryStage) {
     primaryStage.setTitle("Owlngo");
     OwlnGo game = new OwlnGo(10, 10);
+    System.out.println("Game NachDefinition"+game);
+
+    System.out.println(game.getGameState().getPlayer().getCoordinate().toString());
+    game.moveRight();
+    System.out.println(game.getGameState().getPlayer().getCoordinate().toString());
+    System.out.println("---------------------------------------------------");
+
     GameView gameView = new GameView(game);
     Scene scene = new Scene(gameView, 1400, 900); // ToDo remove/replace the magic numbers here
     scene.setOnKeyPressed(

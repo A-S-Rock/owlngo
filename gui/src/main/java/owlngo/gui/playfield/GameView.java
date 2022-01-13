@@ -100,7 +100,6 @@ public class GameView extends HBox {
   }
 
   private Node createSidePanel(OwlnGo game) {
-
     return new VBox(new Button("Test Button"));
   }
 
@@ -112,7 +111,10 @@ public class GameView extends HBox {
       System.out.println("S -> Down");
     } else if (keyCode == KeyCode.D) {
       System.out.println("D -> Right");
+      System.out.println(game.getGameState().getPlayer().getCoordinate().toString());
       game.moveRight();
+      System.out.println(game.getGameState().getPlayer().getCoordinate().toString());
+      System.out.println("Game bei Verwendung"+game);
     } else if (keyCode == KeyCode.A) {
       System.out.println("A -> Left");
       game.moveLeft();
