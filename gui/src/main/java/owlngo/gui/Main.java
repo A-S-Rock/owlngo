@@ -24,7 +24,6 @@ public class Main extends Application {
           KeyCode keyCode = event.getCode();
           gameView.interpreteKeyEntries(keyCode, game);
         });
-
     primaryStage.setScene(scene);
     primaryStage.setResizable(true);
     primaryStage.show();

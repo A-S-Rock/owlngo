@@ -27,7 +27,8 @@ public final class Coordinate implements Comparable<Coordinate> {
     return row;
   }
 
-  /** Gets the column number. */
+  /** Gets the column number.
+   * @return*/
   public int getColumn() {
     return column;
   }
