@@ -19,6 +19,8 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClass = 'owlngo.gui.Main'
+    // mainClass = 'owlngo.gui.editor.Editor'
+
 }
 
 run {
@@ -67,6 +69,8 @@ spotless {
         lineEndings 'UNIX'
     }
 }
+
+
 
 javafx {
     version = "17.0.1"

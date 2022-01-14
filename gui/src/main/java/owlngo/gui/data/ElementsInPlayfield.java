@@ -3,6 +3,8 @@ package owlngo.gui.data;
 // This class contains a two dimentional array of the enumes elementInPlayfield.
 // It represents all graphic elements that are displayed on all the panes in the gridPane.
 
+import owlngo.game.level.objects.ObjectInGame;
+
 import java.util.List;
 
 /**
@@ -30,6 +32,8 @@ public class ElementsInPlayfield {
    *   <li>{@code NO_ELEMENT}: No element
    * </ul>
    */
+
+
   public enum ElementInPlayfield {
     OWL,
     OWL1,
@@ -40,11 +44,14 @@ public class ElementsInPlayfield {
     GROUND_LEFT_TOP_LAWN,
     GROUND_TOP_RIGHT_LAWN,
     GROUND_LEFT_TOP_RIGHT_LAWN,
-    NO_ELEMENT
+    NO_ELEMENT,
+    AIR
   }
 
   private static final ElementInPlayfield[][] elementInPlayfield =
       new ElementInPlayfield[MethodsForElement.SIZE][MethodsForElement.SIZE];
+
+  // nObjectInGame.ObjectType
 
   /**
    * Define all elements of ElementInPlayfield. Stets all elements of ElementInPlayfield to

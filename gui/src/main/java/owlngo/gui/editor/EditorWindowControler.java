@@ -18,6 +18,7 @@ import javafx.util.Duration;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.DummyGameForTesting;
+import owlngo.gui.playfield.PlayfieldWindowControler;
 
 /**
  * The class handles all actions on the window EditorWindow.fxml The class also sets all enums
@@ -149,7 +150,8 @@ public class EditorWindowControler {
           event -> {
             KeyCode keyCode = event.getCode();
             System.out.println("Tastendruck:" + keyCode);
-            DummyGameForTesting.moveOwl(keyCode);
+            // DummyGameForTesting.moveOwl(keyCode);
+            PlayfieldWindowControler.interpreteKeys(keyCode);
           });
 
       stage.setScene(scene);
@@ -166,6 +168,7 @@ public class EditorWindowControler {
   @FXML
   void loadElementsInPlayfield() {
     System.out.println("loadElementsInPlayfield");
+
   }
 
   @FXML

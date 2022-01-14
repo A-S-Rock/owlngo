@@ -1,12 +1,17 @@
 package owlngo.gui.data;
 
-import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import owlngo.game.level.objects.ObjectInGame;
+
+import java.util.Map;
+
+import static owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield.START;
+
 
 /**
  * In this class static methods are included to hold constant relations. String entered ----
@@ -21,9 +26,27 @@ public class MethodsForElement {
   // Constant values for window
   public static final int SIZE = 30;
 
+  // NONE,            NO_ELEMENT
+  // PLAYER,          OWL
+  // START,           START
+  // FINISH,          END
+  // AIR,             AIR
+  // GROUND           GROUND_NO_LAWN
+
+  public static final Map<ObjectInGame.ObjectType, ElementsInPlayfield.ElementInPlayfield>
+      OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP =
+          Map.ofEntries(
+              Map.entry(ObjectInGame.ObjectType.NONE, ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT),
+              Map.entry(ObjectInGame.ObjectType.PLAYER, ElementsInPlayfield.ElementInPlayfield.OWL),
+              Map.entry(ObjectInGame.ObjectType.START, ElementsInPlayfield.ElementInPlayfield.START),
+              Map.entry(ObjectInGame.ObjectType.FINISH, ElementsInPlayfield.ElementInPlayfield.END),
+              Map.entry(ObjectInGame.ObjectType.AIR, ElementsInPlayfield.ElementInPlayfield.AIR),
+              Map.entry(ObjectInGame.ObjectType.GROUND, ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN)
+          );
+
   static final Map<String, ElementsInPlayfield.ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
       Map.ofEntries(
-          Map.entry("S", ElementsInPlayfield.ElementInPlayfield.START),
+          Map.entry("S", START),
           Map.entry("E", ElementsInPlayfield.ElementInPlayfield.END),
           Map.entry("F", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
           Map.entry("G", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
@@ -36,6 +59,9 @@ public class MethodsForElement {
                   ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT,
                   new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)),
               Map.entry(
+                  ElementsInPlayfield.ElementInPlayfield.AIR,
+                  new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)),
+              Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.OWL,
                   new BackgroundFill(
                       getImagePatternFromFile("/images/ingo40x40.png"),
@@ -47,12 +73,17 @@ public class MethodsForElement {
                       getImagePatternFromFile("/images/soil.png"),
                       CornerRadii.EMPTY,
                       Insets.EMPTY)),
-              Map.entry(
-                  ElementsInPlayfield.ElementInPlayfield.START,
-                  new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),
+              Map.entry(START,
+                  new BackgroundFill(
+                      getImagePatternFromFile("/images/start.png"),
+                      CornerRadii.EMPTY,
+                      Insets.EMPTY)),
               Map.entry(
                   ElementsInPlayfield.ElementInPlayfield.END,
-                  new BackgroundFill(Color.RED, CornerRadii.EMPTY, Insets.EMPTY)));
+                  new BackgroundFill(
+                      getImagePatternFromFile("/images/finish.png"),
+                      CornerRadii.EMPTY,
+                      Insets.EMPTY)));
 
   /**
    * Return true, if the key @param inputKey is a key where an element is defined in

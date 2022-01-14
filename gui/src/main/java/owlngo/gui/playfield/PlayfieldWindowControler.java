@@ -3,13 +3,19 @@ package owlngo.gui.playfield;
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import owlngo.game.OwlnGo;
+import owlngo.game.level.Coordinate;
+import owlngo.game.level.objects.ObjectInGame;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
+
+import static owlngo.gui.data.MethodsForElement.OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP;
 
 // This class handles all actions on the window EditorWindow.fxml
 // It also set the enum ElementInPlayfield for each pane that is used
@@ -26,12 +32,38 @@ public class PlayfieldWindowControler {
   // static final int numberOfPanesInRowAnColumn = 30;
   private static final Pane[][] pane = new Pane[MethodsForElement.SIZE][MethodsForElement.SIZE];
 
+  private static final OwlnGo game = new OwlnGo(MethodsForElement.SIZE, MethodsForElement.SIZE);
+
   @FXML GridPane gridPanePlayfieldWindow;
   // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
   // fx:id="gridPaneChessBoard"
 
   @FXML Label displayToUser;
   // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
+
+  @FXML
+  private void initialize() {
+    System.out.println("PlayfieldWindowControler");
+    getElementsOfPlayfieldFromGame();
+    initializePanes();
+    setPanesOnPlayfield();
+    // OwlnGo game= new OwlnGo();
+  }
+
+  private static void getElementsOfPlayfieldFromGame() {
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
+        ObjectInGame.ObjectType objectType=
+            game.getGameState().getLevel().getObjectInGameAt(coordinate).getType();
+        // System.out.print(objectType+" ");
+        ElementsInPlayfield.ElementInPlayfield elementsInPlayfield;
+        elementsInPlayfield= OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP.get(objectType);
+        // System.out.print(elementsInPlayfield+" ");
+        ElementsInPlayfield.setElementTo(elementsInPlayfield,rowIndex,columnIndex);
+      }
+    }
+  }
 
   /**
    * The method changes the background of the panes in the gridpane depending on all the elements
@@ -73,14 +105,6 @@ public class PlayfieldWindowControler {
     return pane;
   }
 
-  @FXML
-  private void initialize() {
-    System.out.println("PlayfieldWindowControler");
-    initializePanes();
-    setPanesOnPlayfield();
-    // OwlnGo game= new OwlnGo();
-  }
-
   /* Initializes the Gamefield with panes */
   private void initializePanes() {
     System.out.println("initializePanes");
@@ -90,17 +114,6 @@ public class PlayfieldWindowControler {
       }
     }
   }
-
-  // faster
-  /*
-  static private void setBackgroundOfPaneDependingOnContent(pane, int row, int column) {
-    BackgroundFill backgroundFill;
-    backgroundFill =
-        MethodsForElement.getBackgroundFill(ElementsInPlayfield.getElement(row, column));
-    Background background = new Background(backgroundFill);
-    pane.setBackground(background);
-  }
-  */
 
   private void setPanesOnPlayfield() {
     System.out.println("setPanesOnBoard");
@@ -117,8 +130,25 @@ public class PlayfieldWindowControler {
 
   @FXML
   void restartGame() {
+
     rotate360();
+
   }
+
+  public static void interpreteKeys(KeyCode keyCode) {
+    if (keyCode == KeyCode.NUMPAD8) {
+      game.moveJump(true);
+    } else if (keyCode == KeyCode.NUMPAD2) {
+
+    } else if (keyCode == KeyCode.NUMPAD6) {
+      game.moveRight();
+    } else if (keyCode == KeyCode.NUMPAD4) {
+      game.moveLeft();
+    }
+    getElementsOfPlayfieldFromGame();
+    changeAllPanesDependingOnElementsInPlayfied();
+  }
+
 
   void rotate360() {
     RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPanePlayfieldWindow);
