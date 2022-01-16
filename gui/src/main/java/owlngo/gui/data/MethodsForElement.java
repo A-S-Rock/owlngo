@@ -1,5 +1,8 @@
 package owlngo.gui.data;
 
+import static owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield.START;
+
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BackgroundFill;
@@ -7,11 +10,6 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import owlngo.game.level.objects.ObjectInGame;
-
-import java.util.Map;
-
-import static owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield.START;
-
 
 /**
  * In this class static methods are included to hold constant relations. String entered ----
@@ -36,13 +34,16 @@ public class MethodsForElement {
   public static final Map<ObjectInGame.ObjectType, ElementsInPlayfield.ElementInPlayfield>
       OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP =
           Map.ofEntries(
-              Map.entry(ObjectInGame.ObjectType.NONE, ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT),
+              Map.entry(
+                  ObjectInGame.ObjectType.NONE, ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT),
               Map.entry(ObjectInGame.ObjectType.PLAYER, ElementsInPlayfield.ElementInPlayfield.OWL),
-              Map.entry(ObjectInGame.ObjectType.START, ElementsInPlayfield.ElementInPlayfield.START),
+              Map.entry(
+                  ObjectInGame.ObjectType.START, ElementsInPlayfield.ElementInPlayfield.START),
               Map.entry(ObjectInGame.ObjectType.FINISH, ElementsInPlayfield.ElementInPlayfield.END),
               Map.entry(ObjectInGame.ObjectType.AIR, ElementsInPlayfield.ElementInPlayfield.AIR),
-              Map.entry(ObjectInGame.ObjectType.GROUND, ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN)
-          );
+              Map.entry(
+                  ObjectInGame.ObjectType.GROUND,
+                  ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN));
 
   static final Map<String, ElementsInPlayfield.ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
       Map.ofEntries(
@@ -73,7 +74,8 @@ public class MethodsForElement {
                       getImagePatternFromFile("/images/soil.png"),
                       CornerRadii.EMPTY,
                       Insets.EMPTY)),
-              Map.entry(START,
+              Map.entry(
+                  START,
                   new BackgroundFill(
                       getImagePatternFromFile("/images/start.png"),
                       CornerRadii.EMPTY,

@@ -10,7 +10,7 @@ import javafx.scene.shape.Rectangle;
 /** Class adds an owl-themed rectangle as a player tile. */
 public class PlayerView extends StackPane {
 
-  Image playerImage;
+  private Image playerImage;
 
   /** Constructor loads a png-image and creates a rectangle filled with this image. */
   public PlayerView() {

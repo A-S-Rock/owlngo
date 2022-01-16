@@ -7,6 +7,7 @@ import owlngo.game.level.Coordinate;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
 
+/** Represents the view for an in-game object. */
 public class LevelTileView extends StackPane {
 
   static final double TILE_WIDTH = 40;

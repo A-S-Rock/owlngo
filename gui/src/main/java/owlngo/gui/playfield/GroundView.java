@@ -9,7 +9,8 @@ import javafx.scene.shape.Rectangle;
 
 /** Class adds a soil-themed rectangle as a ground/soil tile. */
 public class GroundView extends StackPane {
-  Image soilImage;
+
+  private Image soilImage;
 
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
   public GroundView() {

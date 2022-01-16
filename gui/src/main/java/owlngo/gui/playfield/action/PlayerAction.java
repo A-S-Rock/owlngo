@@ -9,6 +9,7 @@ import javafx.scene.layout.Region;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.objects.ObjectInGame;
 
+/** Manages possible keyboard actions for the player view in the GUI. */
 public final class PlayerAction implements EventHandler<KeyEvent> {
 
   private final int row;
@@ -17,6 +18,15 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
   private final Region levelView;
   private final Map<ObjectInGame, Node> individualObjects;
 
+  /**
+   * Creates a specific action for the given parameters.
+   *
+   * @param row the current row
+   * @param column the current column
+   * @param game the game instance
+   * @param levelView the level layout
+   * @param individualObjects possible movable objects in-game
+   */
   public PlayerAction(
       int row,
       int column,
@@ -27,7 +37,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
     this.column = column;
     this.game = game;
     this.levelView = levelView;
-    this.individualObjects = individualObjects;
+    this.individualObjects = Map.copyOf(individualObjects);
   }
 
   @Override
