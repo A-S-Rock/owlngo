@@ -1,9 +1,8 @@
 package owlngo.gui;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
-import owlngo.gui.playfield.GameView;
+import owlngo.gui.playfield.ViewUtils;
 
 /** Main class that shows scenes in a window. */
 public class Main extends Application {
@@ -14,9 +13,7 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setTitle("Owlngo");
-    Scene scene =
-        new Scene(new GameView(), 1400, 900); // ToDo remove/replace the magic numbers here
-    primaryStage.setScene(scene);
+    ViewUtils.setSceneToGameView(primaryStage);
     primaryStage.setResizable(true);
     primaryStage.show();
   }

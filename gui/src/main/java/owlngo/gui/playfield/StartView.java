@@ -9,7 +9,8 @@ import javafx.scene.shape.Rectangle;
 
 /** Class adds a house-symbol in a rectangle as a start tile. */
 public class StartView extends StackPane {
-  Image startImage;
+
+  private Image startImage;
 
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
   public StartView() {

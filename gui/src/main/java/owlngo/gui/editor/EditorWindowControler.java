@@ -1,23 +1,12 @@
 package owlngo.gui.editor;
 
-import java.io.IOException;
-import javafx.animation.RotateTransition;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import javafx.util.Duration;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
-import owlngo.gui.playfield.DummyGameForTesting;
 
 /**
  * The class handles all actions on the window EditorWindow.fxml The class also sets all enums
@@ -30,9 +19,6 @@ public class EditorWindowControler {
   /// @FXML GridPane gridPaneChessBoard;
   // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
   // fx:id="gridPaneChessBoard"
-
-  @FXML Label displayToUser;
-  // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
 
   @FXML
   void initialize() {
@@ -121,13 +107,13 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
-  /**
+  /*
+  *
    * This method starts the PlayfieldWindow() Also an event Handler for the keybourd is started,
    * which calls the
    *
    * <p>elementsInPlayfield (in the beginning no element) The method sete event handlers for each
    * pane[][]. The method called by the event handler is DummyGameForTesting.moveOwl.
-   */
   @FXML
   private void startPlayfieldWindow() {
     System.out.println("startPayfieldWindow");
@@ -149,7 +135,8 @@ public class EditorWindowControler {
           event -> {
             KeyCode keyCode = event.getCode();
             System.out.println("Tastendruck:" + keyCode);
-            DummyGameForTesting.moveOwl(keyCode);
+            // DummyGameForTesting.moveOwl(keyCode);
+            PlayfieldWindowControler.interpreteKeys(keyCode);
           });
 
       stage.setScene(scene);
@@ -161,7 +148,7 @@ public class EditorWindowControler {
       System.out.println("Exeption Line 38 " + e);
       Platform.exit();
     }
-  }
+  }*/
 
   @FXML
   void loadElementsInPlayfield() {
@@ -171,21 +158,5 @@ public class EditorWindowControler {
   @FXML
   void saveElementsInPlayfield() {
     System.out.println("saveElementsInPlayfield");
-  }
-
-  void rotate360() {
-    RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPaneEditorWindow);
-    rt.setByAngle(360);
-    rt.setCycleCount(1);
-    rt.setAutoReverse(false);
-    rt.play();
-  }
-
-  void rotate() {
-    RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPaneEditorWindow);
-    rt.setByAngle(180);
-    rt.setCycleCount(1);
-    rt.setAutoReverse(true);
-    rt.play();
   }
 }
