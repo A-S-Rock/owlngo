@@ -1,46 +1,35 @@
 package owlngo.gui.playfield;
 
-import java.sql.Array;
-import javafx.beans.Observable;
+import java.util.HashMap;
+import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.property.MapProperty;
-import javafx.collections.MapChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javax.naming.SizeLimitExceededException;
 import owlngo.game.GameState;
 import owlngo.game.OwlnGo;
+import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
-
-import java.util.Map;
-import java.util.Objects;
-import owlngo.game.level.objects.Player;
+import owlngo.gui.playfield.action.PlayerAction;
 
 /**
- * Class shows our playingfield on the left side and a information field with buttons, etc. on the
+ * Class shows our playingfield on the left side and an information field with buttons, etc. on the
  * right side.
  */
 public class GameView extends HBox {
 
-  OwlnGo game;
-  static final int TILE_SIZE = 40;
+  public static final int TILE_SIZE = 40;
 
-  /** Constructor without a parameter. */
-  public GameView() {
-    this.game = new OwlnGo(21, 21);
-    getChildren().addAll(createLevelView(game), createSidePanel(game));
-  }
+  private final Map<ObjectInGame, Node> movableObjectViews = new HashMap<>();
 
   /**
    * Constructor that uses a given game.
@@ -48,130 +37,99 @@ public class GameView extends HBox {
    * @param game is a given owlngo game
    */
   public GameView(OwlnGo game) {
-    this.game = game;
     getChildren().addAll(createLevelView(game), createSidePanel(game));
   }
 
   private Node createLevelView(OwlnGo game) {
     TilePane levelView = new TilePane();
-    /*levelView.setOnKeyPressed(
-        event -> {
-          KeyCode keyCode = event.getCode();
-          interpreteKeyEntries(keyCode);
-          });*/
 
     GameState gameState = game.getGameState();
-    Level level = game.getGameState().getLevel();
+
+    fillLevelView(levelView, game);
+    StackPane fullLevel = new StackPane();
+    fillLevel(fullLevel, levelView, game);
+    gameState
+        .propertyPlayer()
+        .addListener(((observable, oldValue, newValue) -> fillLevel(fullLevel, levelView, game)));
+
+    ObjectInGame player = gameState.getPlayer();
+    Node playerView = movableObjectViews.get(player);
+    onKeyPressedProperty().bind(playerView.onKeyPressedProperty());
+
+    AnchorPane root = new AnchorPane();
+    root.getChildren().add(fullLevel);
+    return root;
+  }
+
+  private void fillLevel(StackPane level, Region levelView, OwlnGo game) {
+    level.getChildren().clear();
+    level.getChildren().addAll(levelView, createMovableObjectsView(game, levelView));
+  }
+
+  private Node createMovableObjectsView(OwlnGo game, Region levelView) {
+    movableObjectViews.clear();
+    Pane pane = new Pane();
+    pane.setMouseTransparent(true);
+
+    GameState gameState = game.getGameState();
+    Level level = gameState.getLevel();
+
     final int rows = level.getNumRows();
-    final int cols = level.getNumColumns();
-
-    levelView.setPrefRows(rows);
-    levelView.setPrefColumns(cols);
-
-    //  Zeile                Spalte    Inhalt
-    Map<Integer, MapProperty<Integer, ObjectInGame>> levelProperties = level.propertyLevelLayout();
-    MapProperty<Integer, ObjectInGame> rowProperty;
+    final int columns = level.getNumColumns();
 
     for (int currentRow = 0; currentRow < rows; currentRow++) {
-      rowProperty = Objects.requireNonNull(levelProperties.get(currentRow));
-      for (int currentColumn = 0; currentColumn < cols; currentColumn++) {
-        StackPane tileContent = new StackPane();
+      for (int currentColumn = 0; currentColumn < columns; currentColumn++) {
+        ObjectInGame object = level.getObjectInGameAt(Coordinate.of(currentRow, currentColumn));
 
-        final ObjectInGame objectInGame = rowProperty.get(currentColumn);
-        if (objectInGame.getType().equals(ObjectType.GROUND)) {
-          tileContent.getChildren().add(new GroundView());
-        } else if (objectInGame.getType().equals(ObjectType.PLAYER)) {
-          tileContent.getChildren().add(new AirView());
-
-          tileContent.getChildren().add(new PlayerView());
-        } else if (objectInGame.getType().equals(ObjectType.AIR)) {
-          tileContent.getChildren().add(new AirView());
-        } else if (objectInGame.getType().equals(ObjectType.START)) {
-          tileContent.getChildren().add(new AirView());
-          tileContent.getChildren().add(new StartView());
-        } else if (objectInGame.getType().equals(ObjectType.FINISH)) {
-          tileContent.getChildren().add(new AirView());
-          tileContent.getChildren().add(new FinishView());
-        } else {
-          throw new AssertionError("Object type does not exist.");
+        // Currently, only players can move.
+        if (object.getType() != ObjectType.PLAYER) {
+          continue;
         }
+        PlayerView playerView = new PlayerView();
+        movableObjectViews.put(object, playerView);
 
-        int finalCurrentColumn = currentColumn;
-
-        // Binden der GUI (Bewegung in Pixel) an das Model (Bewegung in der MapProperty)
-        // spalte / reihe der playerProperty aus gameState binden
-        /*DoubleBinding playerLocationX =
+        int finalCurrentCol = currentColumn;
+        int finalCurrentRow = currentRow;
+        DoubleBinding pieceLocationX =
             Bindings.createDoubleBinding(
-                () ->
-                    (double) gameState.propertyPlayer().get().getCoordinate().getColumn()*40,
-                gameState.propertyPlayer());
-
-        */
-
-        PlayerView actualPlayer = new PlayerView();
-        DoubleBinding playerLocationX =
+                () -> ViewUtils.getTileX(levelView.widthProperty().get(), finalCurrentCol),
+                levelView.widthProperty());
+        DoubleBinding pieceLocationY =
             Bindings.createDoubleBinding(
-                () -> (double) gameState.propertyPlayer().get().getCoordinate().getColumn()*40,
-                gameState.propertyPlayer());
-        DoubleBinding playerLocationY =
-            Bindings.createDoubleBinding(
-                () -> (double) gameState.propertyPlayer().get().getCoordinate().getRow()*40,
-                gameState.propertyPlayer());
-        tileContent.translateXProperty().bind(playerLocationX);
-        tileContent.translateYProperty().bind(playerLocationY);
+                () -> ViewUtils.getTileY(levelView.heightProperty().get(), finalCurrentRow),
+                levelView.heightProperty());
 
-        /*gameState
-        .propertyPlayer()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              System.out.println("Something changed");
-              tileContent.getChildren().clear();
+        playerView.layoutXProperty().bind(pieceLocationX);
+        playerView.layoutYProperty().bind(pieceLocationY);
 
-              if (objectInGame.getType().equals(ObjectType.PLAYER)) {
-                tileContent.getChildren().add(new AirView());
-                tileContent.getChildren().add(new PlayerView());
-              }
-            });*/
+        PlayerAction action =
+            new PlayerAction(currentRow, currentColumn, game, levelView, movableObjectViews);
+        playerView.setOnKeyPressed(action);
+      }
+    }
+    pane.getChildren().addAll(movableObjectViews.values());
+    return pane;
+  }
+
+  private void fillLevelView(TilePane levelView, OwlnGo game) {
+    GameState gameState = game.getGameState();
+    Level level = gameState.getLevel();
+
+    final int rows = level.getNumRows();
+    final int columns = level.getNumColumns();
+
+    levelView.setPrefRows(rows);
+    levelView.setPrefColumns(columns);
+
+    for (int currentRow = 0; currentRow < rows; currentRow++) {
+      for (int currentColumn = 0; currentColumn < columns; currentColumn++) {
+        LevelTileView tileContent = new LevelTileView(currentRow, currentColumn, game);
         levelView.getChildren().add(tileContent);
       }
     }
-    return levelView;
   }
 
   private Node createSidePanel(OwlnGo game) {
-
     return new VBox(new Button("Test Button"));
-  }
-
-
-  public void interpreteKeyEntries(KeyCode keyCode) {
-    if (keyCode == KeyCode.W) {
-      game.moveJump(false);
-      System.out.println("W -> Jump");
-    } else if (keyCode == KeyCode.S) {
-      System.out.println("S -> Down");
-    } else if (keyCode == KeyCode.D) {
-      System.out.println("D -> Right");
-      game.moveRight();
-    } else if (keyCode == KeyCode.A) {
-      System.out.println("A -> Left");
-      game.moveLeft();
-    }
-  }
-
-  public void interpreteKeyEntries(KeyCode keyCode, OwlnGo game) {
-    if (keyCode == KeyCode.W) {
-      game.moveJump(false);
-      System.out.println("W -> Jump with disabled fall");
-    } else if (keyCode == KeyCode.S) {
-      game.moveJump(true);
-      System.out.println("S -> Jump with activated fall");
-    } else if (keyCode == KeyCode.D) {
-      System.out.println("D -> Right");
-      game.moveRight();
-    } else if (keyCode == KeyCode.A) {
-      System.out.println("A -> Left");
-      game.moveLeft();
-    }
   }
 }

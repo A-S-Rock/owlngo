@@ -1,18 +1,15 @@
 package owlngo.gui.playfield;
 
 import java.util.Objects;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.DoubleBinding;
 import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import owlngo.game.GameState;
-import owlngo.game.OwlnGo;
 
-/** Class adds a owl-themed rectangle as a player tile. */
+/** Class adds an owl-themed rectangle as a player tile. */
 public class PlayerView extends StackPane {
+
   Image playerImage;
 
   /** Constructor loads a png-image and creates a rectangle filled with this image. */

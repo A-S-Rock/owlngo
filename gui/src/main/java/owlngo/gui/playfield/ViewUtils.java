@@ -18,10 +18,19 @@ public class ViewUtils {
         .addListener(
             ((observable, oldValue, newValue) -> {
               if (newValue == GameStatus.ONGOING) {
-                return;
+                // TODO: Implement victory screen after game stops
+                System.out.println(" ");
               }
             }));
 
     stage.setScene(new Scene(new GameView(game)));
+  }
+
+  public static double getTileX(double levelWidth, int column) {
+    return (column * levelWidth / ViewUtils.NUM_LEVEL_COLUMNS);
+  }
+
+  public static double getTileY(double levelHeight, int row) {
+    return (row * levelHeight / ViewUtils.NUM_LEVEL_ROWS);
   }
 }
