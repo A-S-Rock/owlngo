@@ -53,6 +53,10 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       game.moveJump(false);
       System.out.println("Jumping.");
     }
+    if (pressedKey.equals("s") || event.getCode() == KeyCode.DOWN) {
+      game.moveFall();
+      System.out.println("Falling");
+    }
     if (pressedKey.equals("d") || event.getCode() == KeyCode.RIGHT) {
       game.moveRight();
       System.out.println("Moving right.");
