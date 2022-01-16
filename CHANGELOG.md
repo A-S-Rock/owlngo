@@ -7,13 +7,22 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.6.0] - 2022-01-16
+
+### Added
+
+- GUI: Enhanced version of the game window which now actually displays the moves!
+    - right now, jump means "fly", because falling is switched off
+    - animations are not implemented yet (will be done in 0.7.0)
+- Readme: short presentation of the project and how to use it.
+
 ## [0.5.0] - 2022-01-07
 
 ### Added
 
 - GUI: Enhanced version of the game window which now actually displays the game!
     - right now without FXML (could be added)
-    - Game window now shows the default level from the actual game (40 rows x 30 columns) with
+    - Game window now shows the default level from the actual game (10 rows x 10 columns) with
       start, player and finish
     - movement still not implemented (will be done in 0.6.0)
 
