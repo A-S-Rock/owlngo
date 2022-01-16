@@ -51,11 +51,11 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
     }
     if (pressedKey.equals("w") || event.getCode() == KeyCode.UP) {
       game.moveJump(false);
-      System.out.println("Jumping.");
+      System.out.println("Jumping (without falling).");
     }
     if (pressedKey.equals("s") || event.getCode() == KeyCode.DOWN) {
       game.moveFall();
-      System.out.println("Falling");
+      System.out.println("Falling (one tile down)");
     }
     if (pressedKey.equals("d") || event.getCode() == KeyCode.RIGHT) {
       game.moveRight();

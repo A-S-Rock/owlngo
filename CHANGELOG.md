@@ -7,6 +7,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.6.1] - Clean-up 2022-01-16
+
+### Deleted
+- unused Classes in owlngo.gui > editor deleted
+- subdirectory olngo.gui > data deleted
+- package objects deleted
+- 
+
 ## [0.6.0] - 2022-01-16
 
 ### Added
