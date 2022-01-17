@@ -2,6 +2,7 @@ package owlngo.game;
 
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
+import owlngo.game.level.Level;
 import owlngo.game.level.Move;
 import owlngo.game.level.objects.Player;
 
@@ -24,6 +25,11 @@ public class OwlnGo {
   /** Constructs an Owlngo game instance with the given level dimensions. */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
+  }
+
+  /** Constructs an Owlngo game instance with the given level dimensions. */
+  public OwlnGo(Level level) {
+    gameState = new GameState(level);
   }
 
   /** Get the current GameState. */
