@@ -48,6 +48,16 @@ public class GameState {
     player.set(level.getCopyOfPlayer());
   }
 
+  GameState(Level level) {
+    if (level.getNumRows() <= 3 || level.getNumColumns() <= 3) {
+      throw new IllegalArgumentException("Level dimensions cannot be lower or equal to 3.");
+    }
+    this.level = level;
+    gameStatus.set(GameStatus.ONGOING);
+    level.updatePossibleMovesOfPlayer();
+    player.set(level.getCopyOfPlayer());
+  }
+
   private GameState(
       Level level, ObjectProperty<GameStatus> gameStatus, ObjectProperty<Player> player) {
     this.level = level;
