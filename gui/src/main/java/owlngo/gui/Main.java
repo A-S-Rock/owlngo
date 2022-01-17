@@ -13,7 +13,9 @@ public class Main extends Application {
   @Override
   public void start(Stage primaryStage) {
     primaryStage.setTitle("Owlngo");
-    ViewUtils.setSceneToGameView(primaryStage);
+    primaryStage.isResizable();
+    ViewUtils.setSceneToWelcomeScreen(primaryStage);
+    //ViewUtils.setSceneToGameView(primaryStage);
     primaryStage.setResizable(true);
     primaryStage.show();
   }
