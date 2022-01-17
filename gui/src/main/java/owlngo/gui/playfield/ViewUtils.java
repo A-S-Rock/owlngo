@@ -2,7 +2,6 @@ package owlngo.gui.playfield;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import owlngo.game.GameState;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.OwlnGo;
 
