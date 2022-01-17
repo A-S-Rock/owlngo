@@ -13,7 +13,6 @@
             <option value="$PROJECT_DIR$/communication" />
             <option value="$PROJECT_DIR$/game" />
             <option value="$PROJECT_DIR$/gui" />
-            <option value="$PROJECT_DIR$/objects" />
             <option value="$PROJECT_DIR$/server" />
           </set>
         </option>
