@@ -27,7 +27,7 @@ public class OwlnGo {
     gameState = new GameState(numRows, numCols);
   }
 
-  /** Constructs an Owlngo game instance with the given level dimensions. */
+  /** Constructs an Owlngo game instance with a given level. */
   public OwlnGo(Level level) {
     gameState = new GameState(level);
   }
