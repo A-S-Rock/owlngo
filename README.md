@@ -24,7 +24,7 @@ application > run**".
 **A** - to make a step to the left
 
 **S** - to make a "small" fall (just 1 field down) (maybe we will use this later to make a power
-dive))
+dive)
 
 **D** - to make a step to the right
 
