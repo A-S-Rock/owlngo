@@ -172,7 +172,7 @@ public class EditorWindowControler {
   }
 
   @FXML
-  void loadElementsInPlayfield() {
+  void startGameView() {
     System.out.println("loadElementsInPlayfield");
     ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
 
@@ -189,6 +189,15 @@ public class EditorWindowControler {
     System.out.println("saveElementsInPlayfield");
   }
 
+
+  @FXML
+  void loadElementsInPlayfield(){
+    System.out.println("loadElementsInPlayfield");
+  }
+
+
+
+
   void rotate360() {
     RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPaneEditorWindow);
     rt.setByAngle(360);
@@ -204,4 +213,9 @@ public class EditorWindowControler {
     rt.setAutoReverse(true);
     rt.play();
   }
+
+
+
 }
+
+
