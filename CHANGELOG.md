@@ -7,6 +7,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.6.2] - 2022-01-16
+
+### Added
+- Added OwnlGo constructor with the parameter "Level level".
+
+
 ## [0.6.1] - Clean-up 2022-01-16
 
 ### Deleted
