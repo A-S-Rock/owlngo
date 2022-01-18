@@ -11,12 +11,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-/**
- * Contoller class for GameOverScreen.fxml.
- */
-public class GameOverScreenController {
+public class LoadLevelScreenController {
 
-  @FXML Button backToWelcomeScreenButton;
+  @FXML
+  Button backToWelcomeScreenButton;
 
   @FXML
   void initialize() {
@@ -39,4 +37,5 @@ public class GameOverScreenController {
           }
         });
   }
+
 }

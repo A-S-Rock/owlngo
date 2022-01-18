@@ -19,6 +19,7 @@ import javafx.stage.Stage;
  */
 public class WelcomeScreenController {
   @FXML Button startRandomGameButton;
+  @FXML Button loadLevelButton;
 
   @FXML
   void initialize() {
@@ -40,5 +41,26 @@ public class WelcomeScreenController {
             }
           }
         });
+
+
+    loadLevelButton.setOnAction(
+        new EventHandler<>() {
+          @Override
+          public void handle(ActionEvent event) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
+            try {
+              Parent root = fxmlLoader.load();
+              Stage scene = new Stage();
+              scene.setTitle("Owlngo");
+              scene.setScene(new Scene(root, 1200, 800));
+              scene.setResizable(true);
+              scene.show();
+              ((Node) (event.getSource())).getScene().getWindow().hide();
+            } catch (IOException e) {
+              System.out.println("IO Exception");
+            }
+          }
+        });
   }
+
 }
