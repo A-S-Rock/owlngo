@@ -47,11 +47,11 @@ public final class Level {
       for (int j = 0; j < numCols; ++j) {
         Coordinate coordinate = Coordinate.of(i, j);
         ObjectInGame object;
-          if (i == numRows - 1) {
-           object = LevelObject.createGroundObject(coordinate);
-          } else {
+        if (i == numRows - 1) {
+          object = LevelObject.createGroundObject(coordinate);
+        } else {
           object = LevelObject.createAirObject(coordinate);
-          }
+        }
         objectsInGame.add(object);
         setObjectInGameAt(object, coordinate);
       }
@@ -60,8 +60,6 @@ public final class Level {
     replaceObjectInGameWith(startObject, startObject.getCoordinate());
     replaceObjectInGameWith(finishObject, finishObject.getCoordinate());
     replaceObjectInGameWith(playerObject, playerObject.getCoordinate());
-
-
   }
 
   private Level(Level sourceLevel) {

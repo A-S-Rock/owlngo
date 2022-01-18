@@ -1,5 +1,6 @@
 package owlngo.gui.editor;
 
+import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -8,15 +9,17 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /** Starter class for the editor window. */
-
 public class Editor extends Application {
   public static void main(String[] args) {
     launch(args);
   }
 
+  /**
+   * FXML begins execution with the start method.
+   *
+   * @param primaryStage is default
+   */
   @Override
   public void start(Stage primaryStage) {
     StoreLastKey.setSpaceAsDefault();

@@ -1,5 +1,7 @@
 package owlngo.gui.playfield;
 
+import static owlngo.gui.data.MethodsForElement.OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP;
+
 import javafx.animation.RotateTransition;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -14,8 +16,6 @@ import owlngo.game.level.Coordinate;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
-
-import static owlngo.gui.data.MethodsForElement.OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP;
 
 // This class handles all actions on the window EditorWindow.fxml
 // It also set the enum ElementInPlayfield for each pane that is used
@@ -108,10 +108,6 @@ public class PlayfieldWindowControler {
     System.out.println(("changeAllPanesDependingOnElementsInPlayfied"));
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
-        // Set Background of pane depending on the content of elementsInPlayfield
-        // not working
-        // pane[rowIndex][columnIndex]=setBackgroundOfPaneDependingOnContent(
-        // rowIndex,columnIndex);
 
         BackgroundFill backgroundFill;
         backgroundFill =
@@ -119,10 +115,6 @@ public class PlayfieldWindowControler {
                 ElementsInPlayfield.getElement(rowIndex, columnIndex));
         Background background = new Background(backgroundFill);
         pane[rowIndex][columnIndex].setBackground(background);
-
-        // working
-        // setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex,
-        // columnIndex);
       }
     }
   }
@@ -170,16 +162,19 @@ public class PlayfieldWindowControler {
   }
 
   public static void interpreteKeys(KeyCode keyCode) {
-    if (keyCode == KeyCode.NUMPAD8 || keyCode==keyCode.getKeyCode("w")
-        || keyCode==keyCode.getKeyCode("W")) {
+    if (keyCode == KeyCode.NUMPAD8
+        || keyCode == keyCode.getKeyCode("w")
+        || keyCode == keyCode.getKeyCode("W")) {
       game.moveJump(false);
-    } else if (keyCode == KeyCode.NUMPAD2 ) {
-
-    } else if ((keyCode == KeyCode.NUMPAD6) || (keyCode==KeyCode.getKeyCode("d"))
-        || (keyCode==KeyCode.getKeyCode("D"))) {
+    } else if (keyCode == KeyCode.NUMPAD2) {
+      // nothing to do
+    } else if ((keyCode == KeyCode.NUMPAD6)
+        || (keyCode == KeyCode.getKeyCode("d"))
+        || (keyCode == KeyCode.getKeyCode("D"))) {
       game.moveRight();
-    } else if (keyCode == KeyCode.NUMPAD4 || keyCode==keyCode.getKeyCode("a")
-        || keyCode==keyCode.getKeyCode("A")) {
+    } else if (keyCode == KeyCode.NUMPAD4
+        || keyCode == keyCode.getKeyCode("a")
+        || keyCode == keyCode.getKeyCode("A")) {
       game.moveLeft();
     }
     getElementsOfPlayfieldFromGame();

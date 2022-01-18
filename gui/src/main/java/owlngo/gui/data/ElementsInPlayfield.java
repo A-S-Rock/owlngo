@@ -3,10 +3,9 @@ package owlngo.gui.data;
 // This class contains a two dimentional array of the enumes elementInPlayfield.
 // It represents all graphic elements that are displayed on all the panes in the gridPane.
 
+import java.util.List;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
-
-import java.util.List;
 
 /**
  * The class stores all Elements of the gamefield Different element represent the same logic element
@@ -50,7 +49,7 @@ public class ElementsInPlayfield {
   private static final ElementInPlayfield[][] elementInPlayfield =
       new ElementInPlayfield[MethodsForElement.SIZE][MethodsForElement.SIZE];
 
-  private static Level level = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
+  private final static Level level = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
   // nObjectInGame.ObjectType
 
   /**
@@ -137,7 +136,9 @@ public class ElementsInPlayfield {
       }
     }
   }
-  public static Level getLevel (){
+
+  public static Level getLevel() {
     return level;
-  };
+  }
+
 }

@@ -1,5 +1,6 @@
 package owlngo.gui.editor;
 
+import java.io.IOException;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -18,8 +19,6 @@ import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.PlayfieldWindowControler;
 import owlngo.gui.playfield.ViewUtils;
-
-import java.io.IOException;
 
 /**
  * The class handles all actions on the window EditorWindow.fxml The class also sets all enums
@@ -135,7 +134,6 @@ public class EditorWindowControler {
     System.out.println("startPayfieldWindow");
     rotate360();
 
-
     ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
 
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
@@ -167,8 +165,6 @@ public class EditorWindowControler {
       System.out.println("Exeption Line 38 " + e);
       Platform.exit();
     }
-
-
   }
 
   @FXML
@@ -176,12 +172,11 @@ public class EditorWindowControler {
     System.out.println("loadElementsInPlayfield");
     ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
 
-    Stage primaryStage=new Stage();
+    Stage primaryStage = new Stage();
     primaryStage.setTitle("Owlngo");
     ViewUtils.setSceneToGameView(primaryStage);
     primaryStage.setResizable(true);
     primaryStage.show();
-
   }
 
   @FXML
@@ -189,14 +184,10 @@ public class EditorWindowControler {
     System.out.println("saveElementsInPlayfield");
   }
 
-
   @FXML
-  void loadElementsInPlayfield(){
+  void loadElementsInPlayfield() {
     System.out.println("loadElementsInPlayfield");
   }
-
-
-
 
   void rotate360() {
     RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPaneEditorWindow);
@@ -213,9 +204,4 @@ public class EditorWindowControler {
     rt.setAutoReverse(true);
     rt.play();
   }
-
-
-
 }
-
-
