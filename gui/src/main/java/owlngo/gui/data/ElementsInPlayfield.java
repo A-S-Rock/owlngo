@@ -49,7 +49,7 @@ public class ElementsInPlayfield {
   private static final ElementInPlayfield[][] elementInPlayfield =
       new ElementInPlayfield[MethodsForElement.SIZE][MethodsForElement.SIZE];
 
-  private final static Level level = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
+  private static final Level level = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
   // nObjectInGame.ObjectType
 
   /**
@@ -114,6 +114,12 @@ public class ElementsInPlayfield {
     List<ElementInPlayfield> owlList = List.of(ElementInPlayfield.OWL1, ElementInPlayfield.OWL);
     return owlList.contains(elementInPlayfield[row][column]);
   }
+
+
+  /**
+   * This method sets the level based on the information of the array.
+   * elementInPlayfield[rowIndex][columnIndex]
+   */
 
   public static void setLevelForGameDependingOnElementsInPlayfield() {
 
