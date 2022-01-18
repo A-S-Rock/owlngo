@@ -11,10 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-
-/**
- * Contoller class for LoadLevelScreen.fxml.
- */
+/** Contoller class for LoadLevelScreen.fxml. */
 public class LoadLevelScreenController {
 
   @FXML Button backToWelcomeScreenButton;
