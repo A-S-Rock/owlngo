@@ -1,8 +1,6 @@
 package owlngo.gui.playfield;
 
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.OwlnGo;
@@ -43,5 +41,4 @@ public final class ViewUtils {
   public static double getTileY(double levelHeight, int row) {
     return (row * levelHeight / ViewUtils.NUM_LEVEL_ROWS);
   }
-
 }

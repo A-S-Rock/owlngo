@@ -1,6 +1,5 @@
 package owlngo.gui.controller;
 
-
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,11 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-
-
-/**
- * Contoller class for WelcomeScreen.fxml.
- */
+/** Contoller class for WelcomeScreen.fxml. */
 public class WelcomeScreenController {
   @FXML Button startRandomGameButton;
   @FXML Button loadLevelButton;
@@ -42,7 +37,6 @@ public class WelcomeScreenController {
           }
         });
 
-
     loadLevelButton.setOnAction(
         new EventHandler<>() {
           @Override
@@ -62,5 +56,4 @@ public class WelcomeScreenController {
           }
         });
   }
-
 }

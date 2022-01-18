@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import owlngo.gui.playfield.ViewUtils;
 
 /** Main class that shows scenes in a window. */
 public class Main extends Application {
@@ -20,12 +19,11 @@ public class Main extends Application {
 
     Parent root = fxmlLoader.load();
 
-
     primaryStage.setTitle("Owlngo");
     primaryStage.isResizable();
     primaryStage.setScene(new Scene(root));
-    //ViewUtils.setSceneToWelcomeScreen(primaryStage);
-    //ViewUtils.setSceneToGameView(primaryStage);
+    // ViewUtils.setSceneToWelcomeScreen(primaryStage);
+    // ViewUtils.setSceneToGameView(primaryStage);
     primaryStage.setResizable(true);
     primaryStage.show();
   }

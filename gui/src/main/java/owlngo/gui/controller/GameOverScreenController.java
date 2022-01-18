@@ -11,9 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-/**
- * Contoller class for GameOverScreen.fxml.
- */
+/** Contoller class for GameOverScreen.fxml. */
 public class GameOverScreenController {
 
   @FXML Button backToWelcomeScreenButton;
@@ -33,7 +31,7 @@ public class GameOverScreenController {
               scene.setResizable(false);
               scene.show();
               ((Node) (event.getSource())).getScene().getWindow().hide();
-            }   catch (IOException e) {
+            } catch (IOException e) {
               System.out.println("IO Exception");
             }
           }

@@ -13,8 +13,7 @@ import javafx.stage.Stage;
 
 public class LoadLevelScreenController {
 
-  @FXML
-  Button backToWelcomeScreenButton;
+  @FXML Button backToWelcomeScreenButton;
 
   @FXML
   void initialize() {
@@ -31,11 +30,10 @@ public class LoadLevelScreenController {
               scene.setResizable(false);
               scene.show();
               ((Node) (event.getSource())).getScene().getWindow().hide();
-            }   catch (IOException e) {
+            } catch (IOException e) {
               System.out.println("IO Exception");
             }
           }
         });
   }
-
 }
