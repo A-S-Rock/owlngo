@@ -7,12 +7,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.WelcomeScreenController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="600.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Willkommen!">
+            <Label text="Willkommen zu OwlnGo!!">
                <font>
                   <Font size="72.0" />
                </font>
@@ -20,20 +19,29 @@
                   <Insets bottom="50.0" top="100.0" />
                </VBox.margin>
             </Label>
-            <Button alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" text="Zufallsspiel" textAlignment="CENTER">
+            <Button fx:id="randomGameButton" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Zufallsspiel" textAlignment="CENTER">
                <padding>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                </padding>
+               <font>
+                  <Font size="36.0" />
+               </font>
             </Button>
-            <Button mnemonicParsing="false" text="Level laden">
+            <Button fx:id="loadLevelButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Level laden">
                <padding>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                </padding>
+               <font>
+                  <Font size="36.0" />
+               </font>
             </Button>
-            <Button maxHeight="40.0" maxWidth="200.0" minHeight="40.0" minWidth="200.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Button">
+            <Button fx:id="exitGameButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Spiel beenden">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
+               <font>
+                  <Font size="36.0" />
+               </font>
             </Button>
          </children>
          <opaqueInsets>

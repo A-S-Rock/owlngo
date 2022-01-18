@@ -7,10 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.GameOverScreenController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="Game over!">
                <VBox.margin>
@@ -20,7 +19,14 @@
                   <Font size="72.0" />
                </font>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Back to welcome screen" />
+            <Button fx:id="toMainMenuButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Main menu">
+               <font>
+                  <Font size="36.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Spiel beenden">
+               <font>
+                  <Font size="36.0" />
+               </font></Button>
          </children>
          <opaqueInsets>
             <Insets />
