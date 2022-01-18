@@ -30,9 +30,11 @@ public final class ViewUtils {
               }
             }));
 
-    Scene gameView = new Scene(new GameView(game, stage), 1200, 800);
+    Scene gameView = new Scene(new GameView(game), 1200, 800);
     stage.setScene(gameView);
   }
+
+  public static void addGameToPane() {}
 
   public static double getTileX(double levelWidth, int column) {
     return (column * levelWidth / ViewUtils.NUM_LEVEL_COLUMNS);

@@ -9,22 +9,27 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import owlngo.game.OwlnGo;
+import owlngo.gui.playfield.GameView;
 
-/** Contoller class for WelcomeScreen.fxml. */
-public class WelcomeScreenController {
-  @FXML Button startRandomGameButton;
-  @FXML Button loadLevelButton;
-  @FXML Button exitGameButton;
-  @FXML Button highscoreButton;
+/** Contoller class for GameViewScreen.fxml. */
+public class GameViewScreenController {
+  @FXML Button backToMainMenuButton;
+  @FXML Button giveUpButton;
+  @FXML Pane gamePane;
 
   @FXML
   void initialize() {
-    startRandomGameButton.setOnAction(
+    OwlnGo game = new OwlnGo(10, 10);
+    gamePane.getChildren().addAll(new GameView(game));
+
+    backToMainMenuButton.setOnAction(
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
             try {
               Parent root = fxmlLoader.load();
               Stage scene = new Stage();
@@ -39,11 +44,11 @@ public class WelcomeScreenController {
           }
         });
 
-    loadLevelButton.setOnAction(
+    giveUpButton.setOnAction(
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameOverScreen.fxml"));
             try {
               Parent root = fxmlLoader.load();
               Stage scene = new Stage();
@@ -57,26 +62,5 @@ public class WelcomeScreenController {
             }
           }
         });
-
-    highscoreButton.setOnAction(
-        new EventHandler<>() {
-          @Override
-          public void handle(ActionEvent event) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/HighscoreScreen.fxml"));
-            try {
-              Parent root = fxmlLoader.load();
-              Stage scene = new Stage();
-              scene.setTitle("Owlngo");
-              scene.setScene(new Scene(root, 1200, 800));
-              scene.setResizable(true);
-              scene.show();
-              ((Node) (event.getSource())).getScene().getWindow().hide();
-            } catch (IOException e) {
-              System.out.println("IO Exception");
-            }
-          }
-        });
-
-    exitGameButton.setOnAction(event -> System.exit(0));
   }
 }

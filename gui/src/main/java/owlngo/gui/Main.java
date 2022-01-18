@@ -22,7 +22,6 @@ public class Main extends Application {
     primaryStage.setTitle("Owlngo");
     primaryStage.isResizable();
     primaryStage.setScene(new Scene(root));
-    // ViewUtils.setSceneToWelcomeScreen(primaryStage);
     // ViewUtils.setSceneToGameView(primaryStage);
     primaryStage.setResizable(true);
     primaryStage.show();
