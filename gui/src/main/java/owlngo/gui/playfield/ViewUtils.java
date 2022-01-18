@@ -36,16 +36,6 @@ public final class ViewUtils {
     stage.setScene(gameView);
   }
 
-  public static void setSceneToWelcomeScreen(Stage stage) {
-    Scene welcomeScene = new Scene(new WelcomeScreen(stage), 1200, 800);
-    stage.setScene(welcomeScene);
-  }
-
-  public static void setSceneToGameOverScreen(Stage stage) {
-    Scene gameOverScene = new Scene(new GameOverScreen(stage), 1200, 800);
-    stage.setScene(gameOverScene);
-  }
-
   public static double getTileX(double levelWidth, int column) {
     return (column * levelWidth / ViewUtils.NUM_LEVEL_COLUMNS);
   }
@@ -54,25 +44,4 @@ public final class ViewUtils {
     return (row * levelHeight / ViewUtils.NUM_LEVEL_ROWS);
   }
 
-  public static Node createRandomGameButton(Stage stage) {
-    Button button = new Button("Start new random game.");
-    button.setStyle("-fx-font: 48 arial;");
-    button.setOnMouseClicked(
-        (evt) -> {
-          setSceneToGameView(stage);
-        }
-    );
-    return button;
-  }
-
-  public static Node createGiveUpButton(Stage stage) {
-    Button button = new Button("Give up.");
-    button.setStyle("-fx-font: 48 arial;");
-    button.setOnMouseClicked(
-        (evt) -> {
-          setSceneToGameOverScreen(stage);
-        }
-    );
-    return button;
-  }
 }

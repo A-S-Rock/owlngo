@@ -136,7 +136,7 @@ public class GameView extends HBox {
     buttonPanel.setSpacing(40);
     Button buttonOne = new Button("Test Button");
     buttonOne.setStyle("-fx-font: 48 arial;");
-    buttonPanel.getChildren().addAll(buttonOne, ViewUtils.createGiveUpButton(primaryStage));
+    buttonPanel.getChildren().addAll(buttonOne);
     return buttonPanel;
   }
 }

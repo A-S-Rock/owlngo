@@ -1,6 +1,10 @@
 package owlngo.gui;
 
+import java.io.IOException;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 import owlngo.gui.playfield.ViewUtils;
 
@@ -11,10 +15,16 @@ public class Main extends Application {
   }
 
   @Override
-  public void start(Stage primaryStage) {
+  public void start(Stage primaryStage) throws IOException {
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
+
+    Parent root = fxmlLoader.load();
+
+
     primaryStage.setTitle("Owlngo");
     primaryStage.isResizable();
-    ViewUtils.setSceneToWelcomeScreen(primaryStage);
+    primaryStage.setScene(new Scene(root));
+    //ViewUtils.setSceneToWelcomeScreen(primaryStage);
     //ViewUtils.setSceneToGameView(primaryStage);
     primaryStage.setResizable(true);
     primaryStage.show();

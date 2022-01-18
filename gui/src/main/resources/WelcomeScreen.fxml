@@ -19,7 +19,7 @@
                   <Insets bottom="50.0" top="100.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="randomGameButton" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Zufallsspiel" textAlignment="CENTER">
+            <Button fx:id="startRandomGameButton" alignment="TOP_CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Zufallsspiel" textAlignment="CENTER">
                <padding>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                </padding>
