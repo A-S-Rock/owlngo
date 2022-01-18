@@ -20,23 +20,6 @@ public class GameOverScreenController {
 
   @FXML
   void initialize() {
-    backToWelcomeScreenButton.setOnAction(
-        new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameOverScreen.fxml"));
-            try {
-              Parent root = fxmlLoader.load();
-              Stage scene = new Stage();
-              scene.setTitle("Bauernschach v1.0");
-              scene.setScene(new Scene(root, 800, 600));
-              scene.setResizable(false);
-              scene.show();
-              ((Node) (event.getSource())).getScene().getWindow().hide();
-            } catch (IOException e) {
-              System.exit(0);
-            }
-          }
-        });
+
   }
 }
