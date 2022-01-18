@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class WelcomeScreenController {
   @FXML Button startRandomGameButton;
   @FXML Button loadLevelButton;
+  @FXML Button exitGameButton;
 
   @FXML
   void initialize() {
@@ -55,5 +56,7 @@ public class WelcomeScreenController {
             }
           }
         });
+
+    exitGameButton.setOnAction(event -> System.exit(0));
   }
 }

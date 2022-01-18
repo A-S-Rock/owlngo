@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 public class GameOverScreenController {
 
   @FXML Button backToWelcomeScreenButton;
+  @FXML Button exitGameButton;
 
   @FXML
   void initialize() {
@@ -36,5 +37,7 @@ public class GameOverScreenController {
             }
           }
         });
+
+    exitGameButton.setOnAction(event -> System.exit(0));
   }
 }
