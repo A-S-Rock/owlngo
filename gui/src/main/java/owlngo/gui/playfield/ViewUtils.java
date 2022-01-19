@@ -21,7 +21,6 @@ public class ViewUtils {
    */
   public static void setSceneToGameView(Stage stage) {
     // OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS);
-    System.out.println("before new OwlnGo(level)");
 
     // Level level =new Level(NUM_LEVEL_ROWS,NUM_LEVEL_COLUMNS);
     // OwlnGo game = new OwlnGo(level);
