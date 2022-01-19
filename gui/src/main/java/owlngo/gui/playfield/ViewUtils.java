@@ -4,7 +4,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.OwlnGo;
-import owlngo.game.level.Level;
 import owlngo.gui.data.ElementsInPlayfield;
 
 /** Serves as an utility class for various view - dependant tasks. */

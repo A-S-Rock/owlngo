@@ -115,12 +115,10 @@ public class ElementsInPlayfield {
     return owlList.contains(elementInPlayfield[row][column]);
   }
 
-
   /**
    * This method sets the level based on the information of the array.
    * elementInPlayfield[rowIndex][columnIndex]
    */
-
   public static void setLevelForGameDependingOnElementsInPlayfield() {
 
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
@@ -146,5 +144,4 @@ public class ElementsInPlayfield {
   public static Level getLevel() {
     return level;
   }
-
 }

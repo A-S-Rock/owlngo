@@ -1,15 +1,17 @@
 package owlngo.gui.playfield;
 
+import java.util.HashMap;
+import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import owlngo.game.GameState;
 import owlngo.game.OwlnGo;
@@ -18,8 +20,6 @@ import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.gui.playfield.action.PlayerAction;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Class shows our playingfield on the left side and an information field with buttons, etc. on the

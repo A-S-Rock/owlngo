@@ -162,12 +162,11 @@ public class PlayfieldWindowControler {
   }
 
   /**
-   * Depending on keyboard entries on the Num Keybord of the letters w, a, d
-   * an action for the game is started.
+   * Depending on keyboard entries on the Num Keybord of the letters w, a, d an action for the game
+   * is started.
    *
-   * @param keyCode    keyboard entry
+   * @param keyCode keyboard entry
    */
-
   public static void interpreteKeys(KeyCode keyCode) {
     if (keyCode == KeyCode.NUMPAD8
         || keyCode == keyCode.getKeyCode("w")
