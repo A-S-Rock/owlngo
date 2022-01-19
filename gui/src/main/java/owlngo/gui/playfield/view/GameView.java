@@ -1,4 +1,4 @@
-package owlngo.gui.playfield;
+package owlngo.gui.playfield.view;
 
 import java.util.HashMap;
 import java.util.Map;
