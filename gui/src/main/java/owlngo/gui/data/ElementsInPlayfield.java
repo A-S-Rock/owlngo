@@ -137,7 +137,7 @@ public class ElementsInPlayfield {
         } else if (elementInPlayfield[rowIndex][columnIndex] == ElementInPlayfield.AIR) {
           level.withAirAt(coordinate);
         } else if (elementInPlayfield[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
-          // Nothing to do
+          level.withAirAt(coordinate);
         }
       }
     }
