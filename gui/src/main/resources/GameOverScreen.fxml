@@ -19,11 +19,11 @@
                   <Font size="72.0" />
                </font>
             </Label>
-            <Button fx:id="backToWelcomeScreenButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Main menu">
+            <Button fx:id="backToWelcomeScreenButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Main menu">
                <font>
                   <Font size="36.0" />
                </font></Button>
-            <Button fx:id="exitGameButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Spiel beenden">
+            <Button fx:id="exitGameButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Spiel beenden">
                <font>
                   <Font size="36.0" />
                </font></Button>

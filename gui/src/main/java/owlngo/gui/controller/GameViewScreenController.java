@@ -22,7 +22,7 @@ public class GameViewScreenController {
 
   @FXML
   void initialize() {
-    OwlnGo game = new OwlnGo(10, 10);
+    OwlnGo game = new OwlnGo(19, 15);
     gamePane.getChildren().addAll(new GameView(game));
 
     backToMainMenuButton.setOnAction(

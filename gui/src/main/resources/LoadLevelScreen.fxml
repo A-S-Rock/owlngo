@@ -19,7 +19,7 @@
                   <Insets bottom="20.0" top="80.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="backToWelcomeScreenButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="400.0" text="Main menu">
+            <Button fx:id="backToWelcomeScreenButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Main menu">
                <font>
                   <Font size="36.0" />
                </font>
