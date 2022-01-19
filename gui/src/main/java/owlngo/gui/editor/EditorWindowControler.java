@@ -1,5 +1,6 @@
 package owlngo.gui.editor;
 
+import java.io.File;
 import java.io.IOException;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
@@ -15,6 +16,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javax.swing.JFileChooser;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.PlayfieldWindowControler;
@@ -182,11 +184,23 @@ public class EditorWindowControler {
   @FXML
   void saveElementsInPlayfield() {
     System.out.println("saveElementsInPlayfield");
+    JFileChooser fileChooser = new JFileChooser();
+    int valueFileChooser = fileChooser.showSaveDialog(null);
+    if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
+      File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
+      System.out.println(fileName);
+    }
   }
 
   @FXML
   void loadElementsInPlayfield() {
     System.out.println("loadElementsInPlayfield");
+    JFileChooser fileChooser = new JFileChooser();
+    int valueFileChooser = fileChooser.showOpenDialog(null);
+    if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
+      File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
+      System.out.println(fileName);
+    }
   }
 
   void rotate360() {
