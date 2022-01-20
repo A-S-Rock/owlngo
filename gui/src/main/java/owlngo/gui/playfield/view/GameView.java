@@ -1,10 +1,15 @@
 package owlngo.gui.playfield.view;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
+import javafx.event.Event;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -13,12 +18,17 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import owlngo.game.GameState;
+import owlngo.game.GameState.GameStatus;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
+import owlngo.gui.controller.ControllerUtils;
+import owlngo.gui.controller.GameOverScreenController;
+import owlngo.gui.controller.GameSolvedScreenController;
 import owlngo.gui.playfield.action.PlayerAction;
 
 /**

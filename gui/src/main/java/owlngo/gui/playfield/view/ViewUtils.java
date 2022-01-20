@@ -1,5 +1,8 @@
 package owlngo.gui.playfield.view;
 
+import java.io.IOException;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import owlngo.game.GameState.GameStatus;
@@ -20,13 +23,43 @@ public final class ViewUtils {
   public static void setSceneToGameView(Stage stage) {
     OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS);
 
+    final FXMLLoader fxmlWinWindow =
+        new FXMLLoader(ViewUtils.class.getResource("/GameSolvedScreen.fxml"));
+    final FXMLLoader fxmlLoseWindow =
+        new FXMLLoader(ViewUtils.class.getResource("/GameOverScreen.fxml"));
+    System.out.println(fxmlWinWindow);
+
     game.getGameState()
         .propertyStatus()
         .addListener(
             ((observable, oldValue, newValue) -> {
-              if (newValue == GameStatus.ONGOING) {
-                // TODO: Implement victory screen after game stops
-                System.out.println(" ");
+              if (newValue == GameStatus.LOSE) {
+                try {
+                  Parent root = fxmlLoseWindow.load();
+                  Stage loseWindow = new Stage();
+                  loseWindow.setTitle("Owlngo");
+                  loseWindow.setScene(new Scene(root, 1200, 800));
+                  loseWindow.setResizable(false);
+                  loseWindow.show();
+                  ((Stage) (stage.getScene().getWindow())).close();
+                } catch (IOException e) {
+                  System.out.println("Unable to load LoseWindow");
+                }
+                System.out.println("Game Lost");
+              }
+              if (newValue == GameStatus.WIN) {
+                try {
+                  Parent root = fxmlWinWindow.load();
+                  Stage winWindow = new Stage();
+                  winWindow.setTitle("Owlngo");
+                  winWindow.setScene(new Scene(root, 1200, 800));
+                  winWindow.setResizable(false);
+                  winWindow.show();
+                  ((Stage) (stage.getScene().getWindow())).close();
+                } catch (IOException e) {
+                  System.out.println("Unable to load WinWindow");
+                }
+                System.out.println("Game Won");
               }
             }));
 
@@ -34,6 +67,9 @@ public final class ViewUtils {
     // stage.setScene(gameView);
     stage.setScene(new Scene(new GameView(game)));
   }
+
+
+
 
   public static double getTileX(double levelWidth, int column) {
     return (column * levelWidth / ViewUtils.NUM_LEVEL_COLUMNS);
