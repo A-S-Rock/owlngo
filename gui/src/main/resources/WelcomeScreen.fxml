@@ -4,22 +4,40 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.WelcomeScreenController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <GridPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" percentWidth="0.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" prefWidth="200.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="200.0" minWidth="200.0" percentWidth="0.0" prefWidth="200.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Label text="Willkommen zu OwlnGo!!">
+            <Label prefHeight="89.0" prefWidth="826.0" text="Willkommen zu Owl'n Go!!" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1">
                <font>
                   <Font size="72.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="20.0" top="80.0" />
-               </VBox.margin>
             </Label>
-            <Button fx:id="startRandomGameButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Zufallsspiel" textAlignment="CENTER">
+            <Button fx:id="startRandomGameButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Zufallsspiel" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <padding>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                </padding>
@@ -27,7 +45,7 @@
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button fx:id="loadLevelButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Level laden">
+            <Button fx:id="loadLevelButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Level laden" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <padding>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                </padding>
@@ -35,23 +53,18 @@
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button fx:id="highscoreButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Highscore">
+            <Button fx:id="highscoreButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Highscore" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="5">
                <font>
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button fx:id="exitGameButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Spiel beenden">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
+            <Button fx:id="exitGameButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Spiel beenden" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="6">
                <font>
                   <Font size="36.0" />
                </font>
             </Button>
+            <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="4" />
          </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-      </VBox>
+      </GridPane>
    </children>
 </AnchorPane>
