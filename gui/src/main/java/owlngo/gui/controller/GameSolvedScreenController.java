@@ -12,12 +12,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-/** Contoller class for WelcomeScreen.fxml. */
-public class WelcomeScreenController {
-  @FXML Button startRandomGameButton;
-  @FXML Button loadLevelButton;
+/** Contoller class for GameSolvedScreen.fxml. */
+public class GameSolvedScreenController {
+
+  @FXML Button backToWelcomeScreenButton;
   @FXML Button exitGameButton;
-  @FXML Button highscoreButton;
   @FXML Pane imagePane;
 
   private static final int LOGO_WIDTH = 300;
@@ -25,29 +24,11 @@ public class WelcomeScreenController {
 
   @FXML
   void initialize() {
-    startRandomGameButton.setOnAction(
+    backToWelcomeScreenButton.setOnAction(
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
-            ControllerUtils.createScene(event, fxmlLoader);
-          }
-        });
-
-    loadLevelButton.setOnAction(
-        new EventHandler<>() {
-          @Override
-          public void handle(ActionEvent event) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
-            ControllerUtils.createScene(event, fxmlLoader);
-          }
-        });
-
-    highscoreButton.setOnAction(
-        new EventHandler<>() {
-          @Override
-          public void handle(ActionEvent event) {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/HighscoreScreen.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           }
         });
@@ -67,7 +48,7 @@ public class WelcomeScreenController {
     } catch (IllegalArgumentException e) {
       System.err.println("Image not found.");
     }
-    Rectangle logoElement = new Rectangle(LOGO_WIDTH, LOGO_HEIGHT, Color.TRANSPARENT);
+    Rectangle logoElement = new Rectangle(LOGO_WIDTH, LOGO_HEIGHT, Color.GREEN);
     logoElement.setFill(new ImagePattern(logoImage));
     return logoElement;
   }

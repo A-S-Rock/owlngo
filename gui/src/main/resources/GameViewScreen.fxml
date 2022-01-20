@@ -17,7 +17,7 @@
                <children>
                   <VBox alignment="TOP_CENTER" layoutX="148.0" layoutY="45.0" prefHeight="597.3333333333334" prefWidth="396.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label text="OwlnGo">
+                        <Label text="Owl'n Go">
                            <font>
                               <Font size="72.0" />
                            </font>
