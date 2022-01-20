@@ -13,7 +13,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added WelcomeScreen
 - Added GameViewScreen
 - Added HighscoreScreen
-- AddedLoadLevelScreen
+- Added LoadLevelScreen
 - Added GameOverScreen
 - Inserted gradletasks for starting Game and WelcomeScreen seperately
 
@@ -157,7 +157,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.5.0...main?from_project_id=3507
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.6.3...main?from_project_id=3507
+
+[0.6.3]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.5.0...v0.6.3?from_project_id=3507
 
 [0.5.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.4.0...v0.5.0?from_project_id=3507
 
