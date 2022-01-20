@@ -1,8 +1,9 @@
 package owlngo.gui.playfield;
 
-/** This class is used to start the game window as a gradle task including the JavaFX libraries. */
-public class GameScreenMain {
-  // TODO: Copy this class to your window package and adjust it as explained.
+/**
+ * This class is used to start the welcome window as a gradle task including the JavaFX libraries.
+ */
+public class WelcomeScreenMain {
 
   /*
    * This is a template for the main class needed to start a JavaFX window from a gradle task.
@@ -34,6 +35,6 @@ public class GameScreenMain {
    */
 
   public static void main(String[] args) {
-    GameScreen.main(args);
+    WelcomeScreen.main(args);
   }
 }

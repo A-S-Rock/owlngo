@@ -6,7 +6,7 @@ import owlngo.game.GameState.GameStatus;
 import owlngo.game.OwlnGo;
 
 /** Serves as an utility class for various view - dependant tasks. */
-public class ViewUtils {
+public final class ViewUtils {
 
   static final int NUM_LEVEL_COLUMNS = 10;
   static final int NUM_LEVEL_ROWS = 10;
@@ -30,6 +30,8 @@ public class ViewUtils {
               }
             }));
 
+    // Scene gameView = new Scene(new GameView(game), 1200, 800);
+    // stage.setScene(gameView);
     stage.setScene(new Scene(new GameView(game)));
   }
 

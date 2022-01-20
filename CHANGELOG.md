@@ -7,6 +7,16 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.6.3] - 2022-01-20
+
+### Added
+- Added WelcomeScreen
+- Added GameViewScreen
+- Added HighscoreScreen
+- AddedLoadLevelScreen
+- Added GameOverScreen
+- Inserted gradletasks for starting Game and WelcomeScreen seperately
+
 ## [0.6.2] - 2022-01-16
 
 ### Added
