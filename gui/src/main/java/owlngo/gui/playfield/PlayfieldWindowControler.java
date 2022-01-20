@@ -35,7 +35,7 @@ public class PlayfieldWindowControler {
   // private static final OwlnGo game = new OwlnGo(MethodsForElement.SIZE, MethodsForElement.SIZE);
   private static final OwlnGo game = new OwlnGo(ElementsInPlayfield.getLevel());
 
-  private static Coordinate oldCoordinate;
+  // private static Coordinate oldCoordinate;
 
   @FXML GridPane gridPanePlayfieldWindow;
   // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
@@ -54,36 +54,6 @@ public class PlayfieldWindowControler {
 
     // OwlnGo game= new OwlnGo();
   }
-
-  /*
-  private static void setChangeListner() {
-    oldCoordinate=game.getGameState().getPlayer().getCoordinate();
-    game.getGameState()
-        .propertyPlayer()
-        .addListener(
-            new ChangeListener<Player>() {
-              @Override
-              public void changed(
-                  ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
-                System.out.println(
-                    "Es hat sich was geändert"
-                        + game.getGameState().getPlayer().getCoordinate().toString());
-                Coordinate newCoordinate = game.getGameState().getPlayer().getCoordinate();
-                while ((oldCoordinate.getColumn() == newCoordinate.getColumn())
-                    && (oldCoordinate.getRow() == newCoordinate.getRow())) {
-                  newCoordinate = game.getGameState().getPlayer().getCoordinate();
-                  System.out.print("*");
-                }
-                oldCoordinate = newCoordinate;
-                for (int x = 1; x < 100; x++) {
-                  changeAllPanesDependingOnElementsInPlayfied();
-                }
-              }
-            });
-
-
-  }
-  */
 
   private static void getElementsOfPlayfieldFromGame() {
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
