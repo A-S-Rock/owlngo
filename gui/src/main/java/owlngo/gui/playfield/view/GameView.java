@@ -5,12 +5,14 @@ import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import owlngo.game.GameState;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.Coordinate;
@@ -35,7 +37,7 @@ public class GameView extends HBox {
    * @param game is a given owlngo game
    */
   public GameView(OwlnGo game) {
-    getChildren().addAll(createLevelView(game));
+    getChildren().addAll(createLevelView(game), createSidePanel(game));
   }
 
   private Node createLevelView(OwlnGo game) {
@@ -125,5 +127,9 @@ public class GameView extends HBox {
         levelView.getChildren().add(tileContent);
       }
     }
+  }
+
+  private Node createSidePanel(OwlnGo game) {
+    return new VBox(new Button("Test Button"));
   }
 }
