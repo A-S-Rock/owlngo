@@ -8,9 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/**
- * Utility class offers often-used methods for creating scenes, logos, avatars.
- */
+/** Utility class offers often-used methods for creating scenes, logos, avatars. */
 public class ControllerUtils {
 
   /**

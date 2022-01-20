@@ -68,9 +68,6 @@ public final class ViewUtils {
     stage.setScene(new Scene(new GameView(game)));
   }
 
-
-
-
   public static double getTileX(double levelWidth, int column) {
     return (column * levelWidth / ViewUtils.NUM_LEVEL_COLUMNS);
   }
