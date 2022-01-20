@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import owlngo.gui.playfield.GameView;
 
 /** Contoller class for WelcomeScreen.fxml. */
 public class WelcomeScreenController {
@@ -26,8 +25,8 @@ public class WelcomeScreenController {
   @FXML Button highscoreButton;
   @FXML Pane imagePane;
 
-  private int LOGO_WIDTH = 300;
-  private int LOGO_HEIGHT = LOGO_WIDTH;
+  private static final int LOGO_WIDTH = 300;
+  private static final int LOGO_HEIGHT = LOGO_WIDTH;
 
   @FXML
   void initialize() {
