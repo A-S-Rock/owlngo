@@ -1,12 +1,17 @@
 package owlngo.gui.controller;
 
+import java.io.IOException;
 import java.util.Objects;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {
@@ -33,8 +38,7 @@ public class GameViewScreenController {
           @Override
           public void handle(ActionEvent event) {
             FXMLLoader fxmlLoader =
-                new FXMLLoader(
-                    Objects.requireNonNull(getClass().getResource("/GameGivenUpScreen.fxml")));
+                new FXMLLoader(getClass().getResource("/GameGivenUpScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           }
         });

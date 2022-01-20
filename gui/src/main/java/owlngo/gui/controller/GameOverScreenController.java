@@ -25,6 +25,15 @@ public class GameOverScreenController {
 
   @FXML
   void initialize() {
+    retryButton.setOnAction(
+        new EventHandler<>() {
+          @Override
+          public void handle(ActionEvent event) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
+            ControllerUtils.createScene(event, fxmlLoader);
+          }
+        });
+
     backToWelcomeScreenButton.setOnAction(
         new EventHandler<>() {
           @Override

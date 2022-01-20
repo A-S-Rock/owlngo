@@ -14,7 +14,7 @@ import javafx.scene.shape.Rectangle;
 
 /** Contoller class for GameGivenUpScreen.fxml. */
 public class GameGivenUpScreenController {
-
+  @FXML Button retryButton;
   @FXML Button backToWelcomeScreenButton;
   @FXML Button exitGameButton;
   @FXML Pane imagePane;
@@ -24,6 +24,15 @@ public class GameGivenUpScreenController {
 
   @FXML
   void initialize() {
+    retryButton.setOnAction(
+        new EventHandler<>() {
+          @Override
+          public void handle(ActionEvent event) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
+            ControllerUtils.createScene(event, fxmlLoader);
+          }
+        });
+
     backToWelcomeScreenButton.setOnAction(
         new EventHandler<>() {
           @Override

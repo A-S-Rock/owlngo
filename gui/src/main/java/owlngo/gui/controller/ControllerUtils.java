@@ -17,7 +17,7 @@ public class ControllerUtils {
    * @param event is a click on a connected button
    * @param fxmlLoader is a sceneBuilder designed window
    */
-  static void createScene(ActionEvent event, FXMLLoader fxmlLoader) {
+  public static void createScene(ActionEvent event, FXMLLoader fxmlLoader) {
     try {
       Parent root = fxmlLoader.load();
       Stage scene = new Stage();
