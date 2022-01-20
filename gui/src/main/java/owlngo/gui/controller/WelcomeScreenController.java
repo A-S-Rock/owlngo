@@ -98,7 +98,7 @@ public class WelcomeScreenController {
     try {
       logoImage =
           new Image(
-              Objects.requireNonNull(getClass().getResource("/images/logo_animated.png"))
+              Objects.requireNonNull(getClass().getResource("/images/logo_animated.gif"))
                   .toString());
     } catch (IllegalArgumentException e) {
       System.err.println("Image not found.");
