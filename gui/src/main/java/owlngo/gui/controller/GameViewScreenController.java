@@ -11,8 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import owlngo.game.OwlnGo;
-import owlngo.gui.playfield.GameView;
 
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {
@@ -22,8 +20,6 @@ public class GameViewScreenController {
 
   @FXML
   void initialize() {
-    OwlnGo game = new OwlnGo(19, 15);
-    gamePane.getChildren().addAll(new GameView(game));
 
     backToMainMenuButton.setOnAction(
         new EventHandler<>() {
