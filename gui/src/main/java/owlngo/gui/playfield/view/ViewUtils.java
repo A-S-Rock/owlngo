@@ -1,4 +1,4 @@
-package owlngo.gui.playfield;
+package owlngo.gui.playfield.view;
 
 import javafx.scene.Scene;
 import javafx.stage.Stage;

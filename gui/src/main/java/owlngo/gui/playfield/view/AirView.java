@@ -1,4 +1,4 @@
-package owlngo.gui.playfield;
+package owlngo.gui.playfield.view;
 
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;

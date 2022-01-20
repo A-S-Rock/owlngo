@@ -1,4 +1,4 @@
-package owlngo.gui.playfield;
+package owlngo.gui.playfield.view;
 
 import java.util.Objects;
 import javafx.scene.image.Image;
@@ -7,24 +7,23 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-/** Class adds an owl-themed rectangle as a player tile. */
-public class PlayerView extends StackPane {
+/** Class adds a plane-symbol in a rectangle as a finish tile. */
+public class FinishView extends StackPane {
 
-  private Image playerImage;
+  private Image finishImage;
 
-  /** Constructor loads a png-image and creates a rectangle filled with this image. */
-  public PlayerView() {
+  /** Constructor loads a png-image and makes a rectangle filled with this image. */
+  public FinishView() {
     try {
-      playerImage =
+      finishImage =
           new Image(
-              Objects.requireNonNull(getClass().getResource("/images/ingo40x40.png")).toString());
+              Objects.requireNonNull(getClass().getResource("/images/finish.png")).toString());
     } catch (IllegalArgumentException e) {
       System.err.println("Image not found.");
     }
     Rectangle playerElement =
         new Rectangle(GameView.TILE_SIZE, GameView.TILE_SIZE, Color.TRANSPARENT);
-    playerElement.setFill(new ImagePattern(playerImage));
-
+    playerElement.setFill(new ImagePattern(finishImage));
     getChildren().add(playerElement);
   }
 }
