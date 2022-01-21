@@ -141,7 +141,21 @@ public class ElementsInPlayfield {
     }
   }
 
+  /** This method is called external to get the level that was set elementsInPlayfield. */
   public static Level getLevel() {
+
+    Level levelOut = level.copyOf(); // Macht Laufzeitfehler beim Betägigen der Tasten
+    /*
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
+        System.out.print(level.getObjectInGameAt(coordinate).getType());
+        System.out.print(levelOut.getObjectInGameAt(coordinate).getType());
+        System.out.print(" ");
+      }
+      System.out.println();
+    }
+    */
     return level;
   }
 }
