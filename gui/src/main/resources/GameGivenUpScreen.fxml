@@ -32,7 +32,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label prefHeight="89.0" prefWidth="826.0" text="Never gonna give (you) up!" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1">
+            <Label prefHeight="89.0" prefWidth="826.0" text="Never gonna give up!" GridPane.columnIndex="1" GridPane.columnSpan="4" GridPane.rowIndex="1">
                <font>
                   <Font size="72.0" />
                </font>
@@ -45,7 +45,7 @@
                   <Font size="36.0" />
                </font>
             </Button>
-            <Button fx:id="backToWelcomeScreenButtonbackToWelcomeScreenButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Main menu" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
+            <Button fx:id="backToWelcomeScreenButton" alignment="CENTER" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Main menu" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
                <padding>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                </padding>

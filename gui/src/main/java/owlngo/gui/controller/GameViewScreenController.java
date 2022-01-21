@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import owlngo.gui.playfield.GameScreenMain;
 
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {
@@ -33,7 +34,8 @@ public class GameViewScreenController {
           @Override
           public void handle(ActionEvent event) {
             FXMLLoader fxmlLoader =
-                new FXMLLoader(getClass().getResource("/GameGivenUpScreen.fxml"));
+                new FXMLLoader(
+                    Objects.requireNonNull(getClass().getResource("/GameGivenUpScreen.fxml")));
             ControllerUtils.createScene(event, fxmlLoader);
           }
         });
