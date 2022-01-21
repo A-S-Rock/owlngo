@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import owlngo.gui.playfield.GameScreenMain;
 
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {
