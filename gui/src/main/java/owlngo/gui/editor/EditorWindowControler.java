@@ -63,17 +63,13 @@ public class EditorWindowControler {
   }
 
   /** Starts the GameViewScreen. */
-
   @FXML
   void startGameView() {
-    if (!OwlInElementsOfPlayfield()){
+    if (!owlInElementsOfPlayfield()) {
       // set default position of owl
-      ElementsInPlayfield.setElementTo(ElementInPlayfield.OWL,
-          MethodsForElement.SIZE/2,MethodsForElement.SIZE/2);
-      JOptionPane.showMessageDialog(null,
-          "No owl set by user. Owl is set at default position.");
-
-
+      ElementsInPlayfield.setElementTo(
+          ElementInPlayfield.OWL, MethodsForElement.SIZE / 2, MethodsForElement.SIZE / 2);
+      JOptionPane.showMessageDialog(null, "No owl set by user. Owl is set at default position.");
     }
 
     ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
@@ -181,12 +177,12 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
-  private Boolean OwlInElementsOfPlayfield() {
-    boolean owl= false;
+  private Boolean owlInElementsOfPlayfield() {
+    boolean owl = false;
     for (int column = 0; column < MethodsForElement.SIZE; column++) {
       for (int row = 0; row < MethodsForElement.SIZE; row++) {
         if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.OWL) {
-          owl=true;
+          owl = true;
           break;
         }
       }

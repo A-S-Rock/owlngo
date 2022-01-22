@@ -146,7 +146,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Button>
-              <Button onAction="#startPlayfieldWindow" prefHeight="51.0" prefWidth="241.0" text="PlayOld">
+              <Button onAction="#startPlayfieldWindow" prefHeight="51.0" prefWidth="241.0" text="PlayOld(TestOnly)">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
