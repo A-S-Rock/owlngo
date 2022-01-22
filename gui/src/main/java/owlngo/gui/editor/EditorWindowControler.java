@@ -73,7 +73,7 @@ public class EditorWindowControler {
       JOptionPane.showMessageDialog(null, "No owl set by user. Owl is set at default position.");
     }
     */
-
+    // That is new
     if (owlElementInElementsOfPlayfield()
         && startElementInElementsInPlayfield()
         && endElementInElementsOfPlayfield()) {
