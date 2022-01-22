@@ -23,8 +23,8 @@ build:
       - communication/build
       - game/build
       - gui/build
-      - objects/build
       - server/build
+      - build
       - .gradle
 
 test:
@@ -38,8 +38,8 @@ test:
       - communication/build
       - game/build
       - gui/build
-      - objects/build
       - server/build
+      - build
       - .gradle
   artifacts:
     paths:
@@ -57,8 +57,8 @@ javadoc:
       - communication/build
       - game/build
       - gui/build
-      - objects/build
       - server/build
+      - build
       - .gradle
   artifacts:
     paths:
