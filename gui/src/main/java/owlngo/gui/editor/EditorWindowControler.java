@@ -14,7 +14,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import owlngo.gui.data.ElementsInPlayfield;
+import owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.PlayfieldWindowControler;
 import owlngo.gui.playfield.view.ViewUtils;
@@ -30,6 +32,76 @@ public class EditorWindowControler {
     ElementsInPlayfield.setAllToNoElement(); // Define all Elements
 
     setPanesOnPlayfield();
+  }
+
+  /** Starts the Old playfield window GUI. */
+  @FXML
+  private void startPlayfieldWindow() {
+    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
+
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
+
+    try {
+      Parent root = fxmlLoader.load();
+      Stage stage = new Stage();
+      stage.setTitle("Owlngo Playfield");
+      Scene scene = new Scene(root, 800, 600);
+      // Set up keyHandler
+      scene.setOnKeyPressed(
+          event -> {
+            KeyCode keyCode = event.getCode();
+            PlayfieldWindowControler.interpreteKeys(keyCode);
+          });
+
+      stage.setScene(scene);
+      stage.setResizable(true);
+      stage.show();
+    } catch (IOException e) {
+      System.err.println("Couldn't load playing field window!");
+      Platform.exit();
+    }
+  }
+
+  /** Starts the GameViewScreen. */
+
+  @FXML
+  void startGameView() {
+    if (!owlIsAvailable()){
+      // set default position of owl
+      ElementsInPlayfield.setElementTo(ElementInPlayfield.OWL,
+          MethodsForElement.SIZE/2,MethodsForElement.SIZE/2);
+      JOptionPane.showMessageDialog(null,"No owl set by user");
+
+
+    }
+
+    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
+
+    Stage primaryStage = new Stage();
+    primaryStage.setTitle("Owlngo");
+    ViewUtils.setSceneToGameViewWithLevel(primaryStage, ElementsInPlayfield.getLevel());
+    primaryStage.setResizable(true);
+    primaryStage.show();
+  }
+
+  @FXML
+  void saveElementsInPlayfield() {
+    JFileChooser fileChooser = new JFileChooser();
+    int valueFileChooser = fileChooser.showSaveDialog(null);
+    if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
+      File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
+      System.out.println(fileName);
+    }
+  }
+
+  @FXML
+  void loadElementsInPlayfield() {
+    JFileChooser fileChooser = new JFileChooser();
+    int valueFileChooser = fileChooser.showOpenDialog(null);
+    if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
+      File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
+      System.out.println(fileName);
+    }
   }
 
   /**
@@ -108,62 +180,17 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
-  /** Starts the playfield window GUI. */
-  @FXML
-  private void startPlayfieldWindow() {
-    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
-
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
-
-    try {
-      Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
-      stage.setTitle("Owlngo Playfield");
-      Scene scene = new Scene(root, 800, 600);
-      // Set up keyHandler
-      scene.setOnKeyPressed(
-          event -> {
-            KeyCode keyCode = event.getCode();
-            PlayfieldWindowControler.interpreteKeys(keyCode);
-          });
-
-      stage.setScene(scene);
-      stage.setResizable(true);
-      stage.show();
-    } catch (IOException e) {
-      System.err.println("Couldn't load playing field window!");
-      Platform.exit();
+  private boolean owlIsAvailable() {
+    Boolean owl = false;
+    for (int column = 0; column < MethodsForElement.SIZE; column++) {
+      for (int row = 0; row < MethodsForElement.SIZE; row++) {
+        if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.OWL) {
+          owl = true;
+        }
+        ;
+      }
     }
-  }
+    return owl;
 
-  @FXML
-  void startGameView() {
-    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
-
-    Stage primaryStage = new Stage();
-    primaryStage.setTitle("Owlngo");
-    ViewUtils.setSceneToGameViewWithLevel(primaryStage, ElementsInPlayfield.getLevel());
-    primaryStage.setResizable(true);
-    primaryStage.show();
-  }
-
-  @FXML
-  void saveElementsInPlayfield() {
-    JFileChooser fileChooser = new JFileChooser();
-    int valueFileChooser = fileChooser.showSaveDialog(null);
-    if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
-      File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
-      System.out.println(fileName);
-    }
-  }
-
-  @FXML
-  void loadElementsInPlayfield() {
-    JFileChooser fileChooser = new JFileChooser();
-    int valueFileChooser = fileChooser.showOpenDialog(null);
-    if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
-      File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
-      System.out.println(fileName);
-    }
   }
 }

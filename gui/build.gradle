@@ -18,13 +18,14 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClass = 'owlngo.gui.playfield.GameScreenMain'
-
+    //mainClass = 'owlngo.gui.playfield.GameScreenMain'
+    mainClass = 'owlngo.gui.editor.EditorScreen'
 }
 
 run {
     standardInput = System.in
 }
+
 
 /* TODO: Add a task like the template linked to the right main class for editor and welcome
     screen.
