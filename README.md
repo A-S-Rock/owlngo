@@ -38,6 +38,6 @@ What we have so far (and what's coming next)
   screen at the end)
 - [ ] added animations to all moves
 - [ ] added a timer and some controls to the gameplay screen
-- [ ] added an editor
+- [x] added an editor
 - [ ] added all previously concepted windows
 - [ ] connected everything with the server-client-architecture
