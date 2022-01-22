@@ -66,11 +66,12 @@ public class EditorWindowControler {
 
   @FXML
   void startGameView() {
-    if (!owlIsAvailable()){
+    if (!OwlInElementsOfPlayfield()){
       // set default position of owl
       ElementsInPlayfield.setElementTo(ElementInPlayfield.OWL,
           MethodsForElement.SIZE/2,MethodsForElement.SIZE/2);
-      JOptionPane.showMessageDialog(null,"No owl set by user");
+      JOptionPane.showMessageDialog(null,
+          "No owl set by user. Owl is set at default position.");
 
 
     }
@@ -180,17 +181,16 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
-  private boolean owlIsAvailable() {
-    Boolean owl = false;
+  private Boolean OwlInElementsOfPlayfield() {
+    boolean owl= false;
     for (int column = 0; column < MethodsForElement.SIZE; column++) {
       for (int row = 0; row < MethodsForElement.SIZE; row++) {
         if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.OWL) {
-          owl = true;
+          owl=true;
+          break;
         }
-        ;
       }
     }
     return owl;
-
   }
 }

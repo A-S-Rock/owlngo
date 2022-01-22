@@ -18,8 +18,9 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    //mainClass = 'owlngo.gui.playfield.GameScreenMain'
+    // mainClass = 'owlngo.gui.playfield.GameScreenMain'
     mainClass = 'owlngo.gui.editor.EditorScreen'
+
 }
 
 run {
