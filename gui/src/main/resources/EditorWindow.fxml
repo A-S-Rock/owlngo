@@ -89,7 +89,7 @@
         </AnchorPane>
         <AnchorPane fx:id="playfieldAnchor1" maxWidth="232.0" minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="232.0">
           <children>
-            <SplitPane dividerPositions="0.6526845637583892" orientation="VERTICAL" prefHeight="598.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.5671140939597316" orientation="VERTICAL" prefHeight="598.0" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="250.0">
                   <children>
@@ -157,6 +157,11 @@
                                  </font>
                               </Button>
               <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#loadElementsInPlayfield" text="Load">
+                                 <font>
+                                    <Font size="24.0" />
+                                 </font>
+                              </Button>
+                              <Button layoutX="10.0" layoutY="163.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#loadWellcomeScreen" text="Return to game">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

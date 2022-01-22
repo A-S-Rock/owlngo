@@ -109,6 +109,21 @@ public class EditorWindowControler {
     }
   }
 
+  @FXML
+  void loadWellcomeScreen() throws IOException {
+    System.out.println(" loadWellcomeScreen");
+
+    Stage primaryStage = new Stage();
+    FXMLLoader fxmlLoaderWellcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
+
+    Parent root = fxmlLoaderWellcome.load();
+
+    primaryStage.setTitle("Owlngo");
+    primaryStage.isResizable();
+    primaryStage.setScene(new Scene(root));
+    primaryStage.setResizable(true);
+    primaryStage.show();
+  }
   /**
    * Sets the background depending on the elements in the playing field (in the beginning no
    * elements).
