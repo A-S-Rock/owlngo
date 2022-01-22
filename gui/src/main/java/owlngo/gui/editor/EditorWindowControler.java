@@ -101,6 +101,7 @@ public class EditorWindowControler {
 
   @FXML
   void loadElementsInPlayfield() {
+    System.out.println("loadElementsInPlayfield()");
     JFileChooser fileChooser = new JFileChooser();
     int valueFileChooser = fileChooser.showOpenDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
