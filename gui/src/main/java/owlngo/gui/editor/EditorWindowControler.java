@@ -124,6 +124,7 @@ public class EditorWindowControler {
     primaryStage.setResizable(true);
     primaryStage.show();
   }
+
   /**
    * Sets the background depending on the elements in the playing field (in the beginning no
    * elements).
