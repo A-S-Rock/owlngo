@@ -11,17 +11,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import owlngo.game.level.objects.ObjectInGame;
 
-/**
- * In this class static methods are included to hold constant relations. String entered ----
- * ElementInPlayfield S Start E END ....
- *
- * <p>ElementInPlayfield ------------------------ BackgroundFill ElementInPlayfield.OWL
- * -------------------- to the graphic that is stored at resources\C:\\ingo40x40.png"
- * ElementInPlayfield.END----------------------Color RED
- */
+/** In this class static methods are included to hold constant relations. */
 public class MethodsForElement {
-  // 6.1. 14.20
-  // Constant values for window
+
   public static final int SIZE = 30;
 
   // NONE,            NO_ELEMENT

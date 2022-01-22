@@ -39,7 +39,7 @@ public class ElementsInPlayfield {
 
   private static final ElementInPlayfield[][] ELEMENTS_IN_PLAYFIELD =
       new ElementInPlayfield[MethodsForElement.SIZE][MethodsForElement.SIZE];
-  private static final Level LEVEL = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
+  private static Level LEVEL = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
 
   /** Changes the elements in the playing field to empty elements. */
   public static void setAllToNoElement() {
@@ -108,17 +108,17 @@ public class ElementsInPlayfield {
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
         Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
         if (isGround(rowIndex, columnIndex)) {
-          LEVEL.withGroundAt(coordinate);
+          LEVEL = LEVEL.withGroundAt(coordinate);
         } else if (isOwl(rowIndex, columnIndex)) {
-          LEVEL.withNewPlayerAt(coordinate);
+          LEVEL = LEVEL.withNewPlayerAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.START) {
-          LEVEL.withStartAt(coordinate);
+          LEVEL = LEVEL.withStartAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.END) {
-          LEVEL.withFinishAt(coordinate);
+          LEVEL = LEVEL.withFinishAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.AIR) {
-          LEVEL.withAirAt(coordinate);
+          LEVEL = LEVEL.withAirAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
-          LEVEL.withAirAt(coordinate);
+          LEVEL = LEVEL.withAirAt(coordinate);
         }
       }
     }

@@ -10,7 +10,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /** Starter class for the editor window. */
-public class Editor extends Application {
+public class EditorScreen extends Application {
   public static void main(String[] args) {
     launch(args);
   }

@@ -18,9 +18,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    //mainClass = 'owlngo.gui.Main'
     mainClass = 'owlngo.gui.playfield.GameScreenMain'
-    // mainClass = 'owlngo.gui.editor.Editor'
 
 }
 
@@ -63,6 +61,20 @@ task taskForWelcomeScreen(type: JavaExec) {
     mainClass = 'owlngo.gui.playfield.WelcomeScreenMain'
 }
 
+task taskForEditorScreen(type: JavaExec) {
+    doFirst   {
+        jvmArgs   =   [
+                '--module-path', classpath.asPath,
+                '--add-modules', 'javafx.controls',
+                '--add-modules', 'javafx.fxml',
+                '--add-modules', 'javafx.graphics',
+                '--add-modules', 'javafx.base',
+                '--add-modules', 'javafx.swing',
+        ]
+    }
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'owlngo.gui.editor.EditorScreenMain'
+}
 
 repositories {
     // Use Maven Central for resolving dependencies.

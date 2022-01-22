@@ -76,7 +76,7 @@ public final class Level {
         clonedObjectsInGame.add(clonedObjectInGame);
       }
     }
-    objectsInGame = List.copyOf(clonedObjectsInGame);
+    objectsInGame = new ArrayList<>(clonedObjectsInGame);
 
     playerObject = sourceLevel.getCopyOfPlayer();
     startObject = sourceLevel.getCopyOfStartObject();

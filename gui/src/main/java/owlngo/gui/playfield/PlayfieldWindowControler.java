@@ -14,12 +14,10 @@ import owlngo.game.level.objects.ObjectInGame;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 
-/**
- * Handles all actions on the playfield window. Obsolete because one already exists. TODO: Delete
- * and refactor classes if needed.
- */
+/** Handles all actions on the playfield window. Obsolete because one already exists. */
 public class PlayfieldWindowControler {
 
+  // TODO: Delete and refactor classes if needed.
   private static final Pane[][] PANE = new Pane[MethodsForElement.SIZE][MethodsForElement.SIZE];
   private static final OwlnGo GAME = new OwlnGo(ElementsInPlayfield.getLevel());
 

@@ -142,7 +142,7 @@ public class EditorWindowControler {
 
     Stage primaryStage = new Stage();
     primaryStage.setTitle("Owlngo");
-    ViewUtils.setSceneToGameView(primaryStage);
+    ViewUtils.setSceneToGameViewWithLevel(primaryStage, ElementsInPlayfield.getLevel());
     primaryStage.setResizable(true);
     primaryStage.show();
   }
