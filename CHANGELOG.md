@@ -16,7 +16,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [0.6.4] - 2022-01-21
 
 ### Added
-- Reworked GameOverScreen
+- Reworked GameOverScreen 
 - Added GameSolvedScreen
 - Added GameGivenUpScreen
 - Connected playerStatus WIN and LOSE to corresponding Screens
