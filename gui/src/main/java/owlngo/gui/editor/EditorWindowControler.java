@@ -65,20 +65,29 @@ public class EditorWindowControler {
   /** Starts the GameViewScreen. */
   @FXML
   void startGameView() {
-    if (!owlInElementsOfPlayfield()) {
+    /*
+    if (!owlElementInElementsOfPlayfield()) {
       // set default position of owl
       ElementsInPlayfield.setElementTo(
           ElementInPlayfield.OWL, MethodsForElement.SIZE / 2, MethodsForElement.SIZE / 2);
       JOptionPane.showMessageDialog(null, "No owl set by user. Owl is set at default position.");
     }
+    */
 
-    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
+    if (owlElementInElementsOfPlayfield()
+        && startElementInElementsInPlayfield()
+        && endElementInElementsOfPlayfield()) {
+      ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
 
-    Stage primaryStage = new Stage();
-    primaryStage.setTitle("Owlngo");
-    ViewUtils.setSceneToGameViewWithLevel(primaryStage, ElementsInPlayfield.getLevel());
-    primaryStage.setResizable(true);
-    primaryStage.show();
+      Stage primaryStage = new Stage();
+      primaryStage.setTitle("Owlngo");
+      ViewUtils.setSceneToGameViewWithLevel(primaryStage, ElementsInPlayfield.getLevel());
+      primaryStage.setResizable(true);
+      primaryStage.show();
+    } else {
+      JOptionPane.showMessageDialog(null,
+          "Start, End and Owl must be in the playfield.");
+    }
   }
 
   @FXML
@@ -177,7 +186,7 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
-  private Boolean owlInElementsOfPlayfield() {
+  private boolean owlElementInElementsOfPlayfield() {
     boolean owl = false;
     for (int column = 0; column < MethodsForElement.SIZE; column++) {
       for (int row = 0; row < MethodsForElement.SIZE; row++) {
@@ -188,5 +197,31 @@ public class EditorWindowControler {
       }
     }
     return owl;
+  }
+
+  private boolean startElementInElementsInPlayfield() {
+    boolean start = false;
+    for (int column = 0; column < MethodsForElement.SIZE; column++) {
+      for (int row = 0; row < MethodsForElement.SIZE; row++) {
+        if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.START) {
+          start = true;
+          break;
+        }
+      }
+    }
+    return start;
+  }
+
+  private boolean endElementInElementsOfPlayfield() {
+    boolean end = false;
+    for (int column = 0; column < MethodsForElement.SIZE; column++) {
+      for (int row = 0; row < MethodsForElement.SIZE; row++) {
+        if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.START) {
+          end = true;
+          break;
+        }
+      }
+    }
+    return end;
   }
 }
