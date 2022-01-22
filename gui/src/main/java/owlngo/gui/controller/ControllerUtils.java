@@ -2,6 +2,7 @@ package owlngo.gui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -20,6 +21,8 @@ public class ControllerUtils {
   private static final int SCENE_HEIGHT = SCENE_WIDTH * 2 / 3;
 
   private static final int LOGO_WIDTH = 300;
+
+  @SuppressWarnings("SuspiciousNameCombination")
   private static final int LOGO_HEIGHT = LOGO_WIDTH;
 
   private static final URL STANDARD_LOGO =
@@ -50,7 +53,7 @@ public class ControllerUtils {
   }
 
   /**
-   * Creates a image-filled rectangle used as a logo depending on the game status.
+   * Creates an image-filled rectangle used as a logo depending on the game status.
    *
    * @param logoType is a string to diffentiate between win, lose, giveup and standard
    * @return a properly styled rectangle
@@ -58,30 +61,22 @@ public class ControllerUtils {
   public static Rectangle createLogoPane(String logoType) {
     Image logoImage = null;
     URL logoUrl;
-    switch (logoType) {
-      case "standard":
-        logoUrl = STANDARD_LOGO;
-        break;
-      case "win":
-        logoUrl = WIN_LOGO;
-        break;
-      case "lose":
-        logoUrl = LOSE_LOGO;
-        break;
-      case "giveup":
-        logoUrl = GIVEUP_LOGO;
-        break;
-      default:
-        logoUrl = STANDARD_LOGO;
-        break;
+    if ("win".equals(logoType)) {
+      logoUrl = WIN_LOGO;
+    } else if ("lose".equals(logoType)) {
+      logoUrl = LOSE_LOGO;
+    } else if ("giveup".equals(logoType)) {
+      logoUrl = GIVEUP_LOGO;
+    } else {
+      logoUrl = STANDARD_LOGO;
     }
     try {
-      logoImage = new Image(logoUrl.toString());
+      logoImage = new Image(Objects.requireNonNull(logoUrl).toString());
     } catch (IllegalArgumentException e) {
       System.err.println("Image not found.");
     }
     Rectangle logoElement = new Rectangle(LOGO_WIDTH, LOGO_HEIGHT, Color.TRANSPARENT);
-    logoElement.setFill(new ImagePattern(logoImage));
+    logoElement.setFill(new ImagePattern(Objects.requireNonNull(logoImage)));
     return logoElement;
   }
 }
