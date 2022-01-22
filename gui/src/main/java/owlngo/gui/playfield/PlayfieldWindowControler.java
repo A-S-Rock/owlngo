@@ -139,18 +139,16 @@ public class PlayfieldWindowControler {
    */
   public static void interpreteKeys(KeyCode keyCode) {
     if (keyCode == KeyCode.NUMPAD8
-        || keyCode == keyCode.getKeyCode("w")
-        || keyCode == keyCode.getKeyCode("W")) {
+        || keyCode == KeyCode.getKeyCode("w")
+        || keyCode == KeyCode.getKeyCode("W")) {
       game.moveJump(false);
-    } else if (keyCode == KeyCode.NUMPAD2) {
-      // nothing to do
     } else if ((keyCode == KeyCode.NUMPAD6)
         || (keyCode == KeyCode.getKeyCode("d"))
         || (keyCode == KeyCode.getKeyCode("D"))) {
       game.moveRight();
     } else if (keyCode == KeyCode.NUMPAD4
-        || keyCode == keyCode.getKeyCode("a")
-        || keyCode == keyCode.getKeyCode("A")) {
+        || keyCode == KeyCode.getKeyCode("a")
+        || keyCode == KeyCode.getKeyCode("A")) {
       game.moveLeft();
     }
     getElementsOfPlayfieldFromGame();

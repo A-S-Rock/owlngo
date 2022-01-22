@@ -2,40 +2,27 @@ package owlngo.gui.editor;
 
 import java.io.File;
 import java.io.IOException;
-import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 import javax.swing.JFileChooser;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.PlayfieldWindowControler;
-import owlngo.gui.playfield.ViewUtils;
+import owlngo.gui.playfield.view.ViewUtils;
 
-/**
- * The class handles all actions on the window EditorWindow.fxml The class also sets all enums
- * ElementInPlayfield in the Array ElementsInPlayfield This is done by the keys g,s,e,o. The element
- * is set when the mouse is clicked on the pane
- */
+/** Handles all actions on the editor window. */
 public class EditorWindowControler {
-  // 6.1. 14.20
-  @FXML GridPane gridPaneEditorWindow;
-  /// @FXML GridPane gridPaneChessBoard;
-  // Name must be as fx:ID in gridPane in PlayfieldToControlerFirstVersion.fxml
-  // fx:id="gridPaneChessBoard"
 
-  @FXML Label displayToUser;
-  // Name must be as ID:ID  in Text in PlayfieldToControlerFirstVersion.fxml
+  @FXML GridPane gridPaneEditorWindow;
 
   @FXML
   void initialize() {
@@ -46,9 +33,8 @@ public class EditorWindowControler {
   }
 
   /**
-   * This method sets panes in the gridpane The method sets the Background of pane depending on the
-   * content of elementsInPlayfield (in the beginning no element) The method sete event handlers for
-   * each pane[][]. The method called by the event handler is setResetElement.
+   * Sets the background depending on the elements in the playing field (in the beginning no
+   * elements).
    */
   private void setPanesOnPlayfield() {
     // For CheckStyle purposes, some values need to be stored locally to shorten lines.
@@ -79,9 +65,8 @@ public class EditorWindowControler {
   }
 
   /**
-   * This method defines the elements in ElementsInPlayfield by clicking a pane. The kind of element
-   * is defined by the letter g, s, e, o (ground, start, end, owl) If one of those elements is
-   * clicked it is again set to no element
+   * Defines the elements by clicking on them. The kind of element is defined by the letter g, s, e,
+   * o (ground, start, end, owl). If one of those elements is clicked, it is set to no element.
    */
   private void setResetElement(Pane pane, int row, int column) {
     System.out.println("setResetElement");
@@ -115,7 +100,6 @@ public class EditorWindowControler {
     }
   }
 
-  // Set Background of pane depending on the content of elementsInPlayfield
   private void setBackgroundOfPaneDependingOnContent(Pane pane, int row, int column) {
     BackgroundFill backgroundFill;
     backgroundFill =
@@ -124,54 +108,36 @@ public class EditorWindowControler {
     pane.setBackground(background);
   }
 
-  /**
-   * This method starts the PlayfieldWindow() Also an event Handler for the keybourd is started,
-   * which calls the
-   *
-   * <p>elementsInPlayfield (in the beginning no element) The method sete event handlers for each
-   * pane[][]. The method called by the event handler is DummyGameForTesting.moveOwl.
-   */
+  /** Starts the playfield window GUI. */
   @FXML
   private void startPlayfieldWindow() {
-    System.out.println("startPayfieldWindow");
-    rotate360();
-
     ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
 
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
-    System.out.println("FxmlLoader" + fxmlLoader);
 
     try {
       Parent root = fxmlLoader.load();
-      System.out.println("Root:" + root);
       Stage stage = new Stage();
       stage.setTitle("Owlngo Playfield");
       Scene scene = new Scene(root, 800, 600);
-      // Set up DummyGameForTesting
-      // DummyGameForTesting.setup();
       // Set up keyHandler
       scene.setOnKeyPressed(
           event -> {
             KeyCode keyCode = event.getCode();
-            System.out.println("Tastendruck:" + keyCode);
-            // DummyGameForTesting.moveOwl(keyCode);
             PlayfieldWindowControler.interpreteKeys(keyCode);
           });
 
       stage.setScene(scene);
-      // stage.setScene(new Scene(root, 800, 600));
       stage.setResizable(true);
       stage.show();
-      //     ((Node) event.getSource()).getScene().getWindow().hide();  // hide StartWindow
     } catch (IOException e) {
-      System.out.println("Exeption Line 38 " + e);
+      System.err.println("Couldn't load playing field window!");
       Platform.exit();
     }
   }
 
   @FXML
   void startGameView() {
-    System.out.println("loadElementsInPlayfield");
     ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
 
     Stage primaryStage = new Stage();
@@ -183,7 +149,6 @@ public class EditorWindowControler {
 
   @FXML
   void saveElementsInPlayfield() {
-    System.out.println("saveElementsInPlayfield");
     JFileChooser fileChooser = new JFileChooser();
     int valueFileChooser = fileChooser.showSaveDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
@@ -194,28 +159,11 @@ public class EditorWindowControler {
 
   @FXML
   void loadElementsInPlayfield() {
-    System.out.println("loadElementsInPlayfield");
     JFileChooser fileChooser = new JFileChooser();
     int valueFileChooser = fileChooser.showOpenDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
       System.out.println(fileName);
     }
-  }
-
-  void rotate360() {
-    RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPaneEditorWindow);
-    rt.setByAngle(360);
-    rt.setCycleCount(1);
-    rt.setAutoReverse(false);
-    rt.play();
-  }
-
-  void rotate() {
-    RotateTransition rt = new RotateTransition(Duration.millis(1000), gridPaneEditorWindow);
-    rt.setByAngle(180);
-    rt.setCycleCount(1);
-    rt.setAutoReverse(true);
-    rt.play();
   }
 }

@@ -1,23 +1,14 @@
 package owlngo.gui.data;
 
-// This class contains a two dimentional array of the enumes elementInPlayfield.
-// It represents all graphic elements that are displayed on all the panes in the gridPane.
-
 import java.util.List;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 
-/**
- * The class stores all Elements of the gamefield Different element represent the same logic element
- * in case owl and ground. Therefore {@link boolean isOwl} and {@link boolean isGround} are
- * available.
- */
+/** The class stores all elements of the gamefield and provides utilities for them. */
 public class ElementsInPlayfield {
-  // 6.1. 14.20
+
   /**
-   * The enum distiguishs betwenn all the different graphic elements used as background in the panes
-   * of the gridPane. This graphic elements represent all diffent pieces on the playfield for the
-   * game
+   * The enum distiguishes between all the different graphic elements used as background.
    *
    * <ul>
    *   <li>{@code OWL}: Owl
@@ -46,20 +37,15 @@ public class ElementsInPlayfield {
     AIR
   }
 
-  private static final ElementInPlayfield[][] elementInPlayfield =
+  private static final ElementInPlayfield[][] ELEMENTS_IN_PLAYFIELD =
       new ElementInPlayfield[MethodsForElement.SIZE][MethodsForElement.SIZE];
+  private static final Level LEVEL = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
 
-  private static final Level level = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
-  // nObjectInGame.ObjectType
-
-  /**
-   * Define all elements of ElementInPlayfield. Stets all elements of ElementInPlayfield to
-   * ElementInPlayfield.NO_ELEMENT
-   */
+  /** Changes the elements in the playing field to empty elements. */
   public static void setAllToNoElement() {
     for (int row = 0; row < MethodsForElement.SIZE; row++) {
       for (int column = 0; column < MethodsForElement.SIZE; column++) {
-        elementInPlayfield[row][column] = ElementInPlayfield.NO_ELEMENT;
+        ELEMENTS_IN_PLAYFIELD[row][column] = ElementInPlayfield.NO_ELEMENT;
       }
     }
   }
@@ -72,7 +58,7 @@ public class ElementsInPlayfield {
    * @param column position on the playfield
    */
   public static void setElementTo(ElementInPlayfield element, int row, int column) {
-    elementInPlayfield[row][column] = element;
+    ELEMENTS_IN_PLAYFIELD[row][column] = element;
   }
 
   /**
@@ -82,7 +68,7 @@ public class ElementsInPlayfield {
    * @param column position on the playfield
    */
   public static ElementInPlayfield getElement(int row, int column) {
-    return elementInPlayfield[row][column];
+    return ELEMENTS_IN_PLAYFIELD[row][column];
   }
 
   /**
@@ -100,11 +86,11 @@ public class ElementsInPlayfield {
             ElementInPlayfield.GROUND_LEFT_TOP_LAWN,
             ElementInPlayfield.GROUND_LEFT_TOP_RIGHT_LAWN,
             ElementInPlayfield.GROUND_TOP_RIGHT_LAWN);
-    return groundList.contains(elementInPlayfield[row][column]);
+    return groundList.contains(ELEMENTS_IN_PLAYFIELD[row][column]);
   }
 
   /**
-   * Returns true if the element at row, column is a owl element For anmimation different owl
+   * Returns true if the element at (row, column) is an owl element. For anmimation different owl
    * elements may be used.
    *
    * @param row position on the playfield
@@ -112,50 +98,34 @@ public class ElementsInPlayfield {
    */
   public static boolean isOwl(int row, int column) {
     List<ElementInPlayfield> owlList = List.of(ElementInPlayfield.OWL1, ElementInPlayfield.OWL);
-    return owlList.contains(elementInPlayfield[row][column]);
+    return owlList.contains(ELEMENTS_IN_PLAYFIELD[row][column]);
   }
 
-  /**
-   * This method sets the level based on the information of the array.
-   * elementInPlayfield[rowIndex][columnIndex]
-   */
+  /** Sets the level based on the information of the array. */
   public static void setLevelForGameDependingOnElementsInPlayfield() {
 
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
         Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
         if (isGround(rowIndex, columnIndex)) {
-          level.withGroundAt(coordinate);
+          LEVEL.withGroundAt(coordinate);
         } else if (isOwl(rowIndex, columnIndex)) {
-          level.withNewPlayerAt(coordinate);
-        } else if (elementInPlayfield[rowIndex][columnIndex] == ElementInPlayfield.START) {
-          level.withStartAt(coordinate);
-        } else if (elementInPlayfield[rowIndex][columnIndex] == ElementInPlayfield.END) {
-          level.withFinishAt(coordinate);
-        } else if (elementInPlayfield[rowIndex][columnIndex] == ElementInPlayfield.AIR) {
-          level.withAirAt(coordinate);
-        } else if (elementInPlayfield[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
-          level.withAirAt(coordinate);
+          LEVEL.withNewPlayerAt(coordinate);
+        } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.START) {
+          LEVEL.withStartAt(coordinate);
+        } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.END) {
+          LEVEL.withFinishAt(coordinate);
+        } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.AIR) {
+          LEVEL.withAirAt(coordinate);
+        } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
+          LEVEL.withAirAt(coordinate);
         }
       }
     }
   }
 
-  /** This method is called external to get the level that was set elementsInPlayfield. */
+  /** Returns the level created for the GUI. */
   public static Level getLevel() {
-
-    Level levelOut = level.copyOf(); // Macht Laufzeitfehler beim Betägigen der Tasten
-    /*
-    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
-      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
-        Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
-        System.out.print(level.getObjectInGameAt(coordinate).getType());
-        System.out.print(levelOut.getObjectInGameAt(coordinate).getType());
-        System.out.print(" ");
-      }
-      System.out.println();
-    }
-    */
-    return level;
+    return LEVEL.copyOf();
   }
 }
