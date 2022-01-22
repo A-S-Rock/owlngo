@@ -141,12 +141,12 @@
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
 
-              <Button fx:id="save" maxHeight="-Infinity" onAction="#startGameView" prefHeight="51.0" prefWidth="237.0" text="PlayNew">
+              <Button fx:id="save" maxHeight="-Infinity" onAction="#startGameView" prefHeight="51.0" prefWidth="237.0" text="Play">
                                  <font>
                                     <Font size="24.0" />
                                  </font>
                               </Button>
-              <Button onAction="#startPlayfieldWindow" prefHeight="51.0" prefWidth="241.0" text="PlayOld(TestOnly)">
+              <Button onAction="#startPlayfieldWindow" prefHeight="51.0" prefWidth="241.0" text="(TestOnly)Play">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

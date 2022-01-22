@@ -85,8 +85,7 @@ public class EditorWindowControler {
       primaryStage.setResizable(true);
       primaryStage.show();
     } else {
-      JOptionPane.showMessageDialog(null,
-          "Start, End and Owl must be in the playfield.");
+      JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
     }
   }
 
