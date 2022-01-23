@@ -10,6 +10,8 @@ import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.messages.SendLevelNotification;
 import owlngo.communication.savefiles.LevelSavefile;
+import owlngo.communication.utils.MessageCoder;
+import owlngo.communication.utils.SavefileCoder;
 import owlngo.game.OwlnGo;
 
 /** Mock tests for fast testing. Later on, JUnit should be used for this. */

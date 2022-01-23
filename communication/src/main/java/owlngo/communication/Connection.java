@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import owlngo.communication.messages.Message;
+import owlngo.communication.utils.MessageCoder;
 
 /**
  * Contains a socket's streams. The class serves as a container for 'interfaces' to an established

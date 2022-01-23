@@ -152,7 +152,7 @@ public final class Level {
     replaceObjectInGameWith(object, newCoordinate);
   }
 
-  private void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
+  public void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
     removeObjectInGame(objectInGame);
 
     // Replace dummy air at given coordinate with new object.

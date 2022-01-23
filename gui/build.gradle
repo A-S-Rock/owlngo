@@ -1,3 +1,4 @@
+//file:noinspection GroovyAccessibility
 plugins {
     // Apply the java Plugin to add support for Java.
     id 'java'
@@ -26,11 +27,6 @@ application {
 run {
     standardInput = System.in
 }
-
-
-/* TODO: Add a task like the template linked to the right main class for editor and welcome
-    screen.
- */
 
 // This is a template for the game window
 task taskForGameScreen(type: JavaExec) {

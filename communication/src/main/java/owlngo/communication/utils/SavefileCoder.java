@@ -1,4 +1,4 @@
-package owlngo.communication;
+package owlngo.communication.utils;
 
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
