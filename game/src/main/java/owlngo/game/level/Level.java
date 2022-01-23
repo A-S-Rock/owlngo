@@ -17,11 +17,11 @@ import owlngo.game.level.objects.Player;
 public final class Level {
   private final int numRows;
   private final int numCols;
-  private final Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
+  private transient final Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
   private final List<ObjectInGame> objectsInGame;
-  private Player playerObject;
-  private LevelObject startObject;
-  private LevelObject finishObject;
+  private transient Player playerObject;
+  private transient LevelObject startObject;
+  private transient LevelObject finishObject;
 
   /**
    * Constructs a default level with fixed positions of player, start and finish for the given

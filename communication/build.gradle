@@ -22,7 +22,7 @@ dependencies {
 dependencies {
     implementation 'com.github.spotbugs:spotbugs-annotations:4.5.3'
 
-    // Use Moshi for JSON encoding and decoding message objects
+    // Use Moshi for JSON encoding and decoding message and savefile objects
     implementation 'com.squareup.moshi:moshi:1.13.0'
     implementation 'com.squareup.moshi:moshi-adapters:1.13.0'
 

@@ -12,6 +12,9 @@ import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.messages.SendLevelNotification;
+import owlngo.game.level.objects.LevelObject;
+import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.Player;
 
 /** Serves as a JSON encoder and decoder to all {@link Message} - implementing classes. */
 public final class MessageCoder {
@@ -28,6 +31,10 @@ public final class MessageCoder {
                   .withSubtype(LevelNamesNotification.class, "LevelNamesNotification")
                   .withSubtype(SendLevelNotification.class, "SendLevelNotification")
                   .withSubtype(LevelSavedNotification.class, "LevelSavedNotification"))
+          .add(
+              PolymorphicJsonAdapterFactory.of(ObjectInGame.class, "objectJsonType")
+                  .withSubtype(Player.class, "player")
+                  .withSubtype(LevelObject.class, "levelObject"))
           .build();
 
   /**
