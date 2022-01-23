@@ -4,7 +4,9 @@ import owlngo.game.level.Level;
 
 /** Requests a level layout to be saved on the server. */
 public final class SaveLevelRequest implements Message {
+  @SuppressWarnings("unused")
   private static final String messageType = "SaveLevelRequest";
+
   private final String author;
   private final String levelName;
   private final Level level;
