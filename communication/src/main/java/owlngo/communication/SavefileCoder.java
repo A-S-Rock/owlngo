@@ -3,9 +3,11 @@ package owlngo.communication;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
 import java.io.IOException;
-import owlngo.communication.messages.Message;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.savefiles.Savefile;
+import owlngo.game.level.objects.LevelObject;
+import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.Player;
 
 /** Serves as a utility class to parse data from the game into a compact JSON format. */
 public final class SavefileCoder {
@@ -15,26 +17,30 @@ public final class SavefileCoder {
           .add(
               PolymorphicJsonAdapterFactory.of(Savefile.class, "savefileType")
                   .withSubtype(LevelSavefile.class, "LevelSavefile"))
+          .add(
+              PolymorphicJsonAdapterFactory.of(ObjectInGame.class, "objectJsonType")
+                  .withSubtype(Player.class, "player")
+                  .withSubtype(LevelObject.class, "levelObject"))
           .build();
 
   /**
-   * Encodes a given {@link Message} to a JSON String.
+   * Encodes a given {@link Savefile} to a JSON String.
    *
-   * @param message the given Message
-   * @return a JSON String representation of the {@link Message} object
+   * @param savefile the given {@link Savefile}
+   * @return a JSON String representation of the {@link Savefile} object
    */
-  public static String encodeToJson(Message message) {
-    return moshi.adapter(Message.class).toJson(message);
+  public static String encodeToJson(Savefile savefile) {
+    return moshi.adapter(Savefile.class).toJson(savefile);
   }
 
   /**
    * Decondes a given JSON String of a Message object.
    *
-   * @param messageJson the JSON representation of a {@link Message} object
-   * @return the actual {@link Message} object
+   * @param savefileJson the JSON representation of a {@link Savefile} object
+   * @return the actual {@link Savefile} object
    * @throws IOException if an error happens while parsing
    */
-  public static Message decodeFromJson(String messageJson) throws IOException {
-    return moshi.adapter(Message.class).fromJson(messageJson);
+  public static Savefile decodeFromJson(String savefileJson) throws IOException {
+    return moshi.adapter(Savefile.class).fromJson(savefileJson);
   }
 }

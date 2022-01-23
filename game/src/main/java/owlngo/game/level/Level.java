@@ -17,7 +17,7 @@ import owlngo.game.level.objects.Player;
 public final class Level {
   private final int numRows;
   private final int numCols;
-  private transient final Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
+  private final transient Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
   private final List<ObjectInGame> objectsInGame;
   private transient Player playerObject;
   private transient LevelObject startObject;
