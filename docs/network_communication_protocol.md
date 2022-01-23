@@ -73,10 +73,9 @@ format. Used library for this are moshi and moshi-adapter, ver. 1.13.0
 
 4. `LevelSavedNotification`: Confirmation message if level layout has been saved successfully.
    ```json lines
-   {"messageType":"SendLevelNotification","levelName":<LEVEL_NAME>,"level":<LEVEL>}
+   {"messageType":"SendLevelNotification","levelName":<LEVEL_NAME>}
    ```
     - `String <LEVEL_NAME>`: Loaded level's name.
-    - `LevelJSON <LEVEL>`: Loaded level's layout (see previous description of `LevelJSON`).
 
 #### Upcoming
 
