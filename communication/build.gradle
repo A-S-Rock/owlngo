@@ -34,6 +34,11 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
 }
 
+task testMessages(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'owlngo.communication.TestMain'
+}
+
 tasks.named('test') {
     // Use junit platform for unit tests.
     useJUnitPlatform()
