@@ -13,7 +13,7 @@ public final class LevelSavefile implements Savefile {
   public LevelSavefile(String levelName, String author, Level level) {
     this.levelName = levelName;
     this.author = author;
-    this.level = level;
+    this.level = level.copyOf();
   }
 
   public String getLevelName() {
@@ -25,6 +25,6 @@ public final class LevelSavefile implements Savefile {
   }
 
   public Level getLevel() {
-    return level;
+    return level.copyOf();
   }
 }
