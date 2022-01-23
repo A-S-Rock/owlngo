@@ -39,7 +39,7 @@ public final class Level {
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
     startObject = LevelObject.createStartObject(Coordinate.of(0, 0));
-    playerObject = Player.createPlayer(startObject.getCoordinate()); // must be on top of start
+    playerObject = Player.createPlayer(Coordinate.of(0, 0));
     assert playerObject.getCoordinate().equals(startObject.getCoordinate());
 
     finishObject = LevelObject.createFinishObject(Coordinate.of(0, 0));
@@ -80,8 +80,17 @@ public final class Level {
 
     final LevelObject newStartObject = LevelObject.createStartObject(Coordinate.of(maxRow - 1, 0));
     level.replaceObjectInGameWith(newStartObject, newStartObject.getCoordinate());
-    final Player newPlayerObject = Player.createPlayer(newStartObject.getCoordinate());
+
+    final int startObjectRow = newStartObject.getCoordinate().getRow();
+    final int startObjectColumn = newStartObject.getCoordinate().getColumn();
+    if (startObjectColumn == maxCol) {
+      throw new AssertionError(
+          "Start object is on the rightmost edge! This should be handled before.");
+    }
+    final Coordinate playerCoordinate = Coordinate.of(startObjectRow, startObjectColumn + 1);
+    final Player newPlayerObject = Player.createPlayer(playerCoordinate);
     level.replaceObjectInGameWith(newPlayerObject, newPlayerObject.getCoordinate());
+
     final LevelObject newFinishObject =
         LevelObject.createFinishObject(Coordinate.of(maxRow - 1, maxCol));
     level.replaceObjectInGameWith(newFinishObject, newFinishObject.getCoordinate());
