@@ -161,7 +161,7 @@
                                     <Font size="24.0" />
                                  </font>
                               </Button>
-                              <Button layoutX="10.0" layoutY="163.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#loadWellcomeScreen" text="Return to game">
+                              <Button layoutX="10.0" layoutY="163.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#loadWelcomeScreen" text="Return to game">
                                  <font>
                                     <Font size="24.0" />
                                  </font>

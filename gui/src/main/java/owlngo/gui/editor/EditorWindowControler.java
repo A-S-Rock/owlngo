@@ -56,6 +56,7 @@ public class EditorWindowControler {
       stage.setScene(scene);
       stage.setResizable(true);
       stage.show();
+      gridPaneEditorWindow.getScene().getWindow().hide();
     } catch (IOException e) {
       System.err.println("Couldn't load playing field window!");
       Platform.exit();
@@ -84,6 +85,7 @@ public class EditorWindowControler {
       ViewUtils.setSceneToGameViewWithLevel(primaryStage, ElementsInPlayfield.getLevel());
       primaryStage.setResizable(true);
       primaryStage.show();
+      gridPaneEditorWindow.getScene().getWindow().hide();
     } else {
       JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
     }
@@ -111,7 +113,7 @@ public class EditorWindowControler {
   }
 
   @FXML
-  void loadWellcomeScreen() throws IOException {
+  void loadWelcomeScreen() throws IOException {
     System.out.println(" loadWellcomeScreen");
 
     Stage primaryStage = new Stage();
@@ -124,6 +126,7 @@ public class EditorWindowControler {
     primaryStage.setScene(new Scene(root));
     primaryStage.setResizable(true);
     primaryStage.show();
+    gridPaneEditorWindow.getScene().getWindow().hide();
   }
 
   /**
@@ -203,41 +206,44 @@ public class EditorWindowControler {
   }
 
   private boolean owlElementInElementsOfPlayfield() {
-    boolean owl = false;
+    int countOwls = 0;
+
     for (int column = 0; column < MethodsForElement.SIZE; column++) {
       for (int row = 0; row < MethodsForElement.SIZE; row++) {
         if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.OWL) {
-          owl = true;
-          break;
+          countOwls++;
         }
       }
     }
-    return owl;
+
+    return countOwls == 1;
   }
 
   private boolean startElementInElementsInPlayfield() {
-    boolean start = false;
+    int countStarts = 0;
+
     for (int column = 0; column < MethodsForElement.SIZE; column++) {
       for (int row = 0; row < MethodsForElement.SIZE; row++) {
         if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.START) {
-          start = true;
-          break;
+          countStarts++;
         }
       }
     }
-    return start;
+
+    return countStarts == 1;
   }
 
   private boolean endElementInElementsOfPlayfield() {
-    boolean end = false;
+    int countEnds = 0;
+
     for (int column = 0; column < MethodsForElement.SIZE; column++) {
       for (int row = 0; row < MethodsForElement.SIZE; row++) {
-        if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.START) {
-          end = true;
-          break;
+        if (ElementsInPlayfield.getElement(row, column) == ElementInPlayfield.END) {
+          countEnds++;
         }
       }
     }
-    return end;
+
+    return countEnds == 1;
   }
 }
