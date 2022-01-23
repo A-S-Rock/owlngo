@@ -2,6 +2,7 @@ package owlngo.communication.messages;
 
 import java.util.List;
 
+/** Delivers all level's names to the client for level choice. */
 public final class LevelNamesNotification implements Message {
   @SuppressWarnings("unused")
   private static final String messageType = "LevelNamesNotification";
