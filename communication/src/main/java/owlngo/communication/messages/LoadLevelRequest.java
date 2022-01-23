@@ -10,7 +10,7 @@ public final class LoadLevelRequest implements Message {
 
   public LoadLevelRequest(String playerName, Level level) {
     this.playerName = playerName;
-    this.level = level;
+    this.level = level.copyOf();
   }
 
   public String getPlayerName() {
@@ -18,6 +18,6 @@ public final class LoadLevelRequest implements Message {
   }
 
   public Level getLevel() {
-    return level;
+    return level.copyOf();
   }
 }

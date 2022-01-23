@@ -9,10 +9,17 @@ public final class SaveLevelRequest implements Message {
   private final String levelName;
   private final Level level;
 
+  /**
+   * Constructs a save request message.
+   *
+   * @param author the level creator's name
+   * @param levelName the name given to the level
+   * @param level the level
+   */
   public SaveLevelRequest(String author, String levelName, Level level) {
     this.author = author;
     this.levelName = levelName;
-    this.level = level;
+    this.level = level.copyOf();
   }
 
   public String getAuthor() {
@@ -24,6 +31,6 @@ public final class SaveLevelRequest implements Message {
   }
 
   public Level getLevel() {
-    return level;
+    return level.copyOf();
   }
 }
