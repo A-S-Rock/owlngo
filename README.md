@@ -6,29 +6,46 @@ play and create new levels.
 We use a server-client-architecture to show and deliver existing levels with their highscores. For
 messages between each other we use the moshi (json) protocol.
 
-At the current stage it's just possible to start and play one existing and really easy level in a
-simple, not animated way.
+For testing purposes the game window, welcome window and editor window can be started separately
+through dedicated gradle tasks. When the project is done, these tasks are considered to only be used
+for testing and will not be called from users (this will be delegated to the client).
 
 ### Start the game
 
 - *In IntelliJ*: Use the gradle task "**owlngo > gui > Tasks >
-application > run**".
+  other > taskForGameScreen**".
 
 
-- *In Terminal*: Use `./gradlew :gui:run` to start the game.
+- *In Terminal*: Use `./gradlew :gui:taskforGameScreen` to start the game.
+
+### Start the welcome screen
+
+- *In IntelliJ*: Use the gradle task "**owlngo > gui > Tasks >
+  other > taskForWelcomeScreen**".
+
+
+- *In Terminal*: Use `./gradlew :gui:taskForWelcomeScreen` to start the game.
+
+### Start the welcome screen
+
+- *In IntelliJ*: Use the gradle task "**owlngo > gui > Tasks >
+  other > taskForEditorScreen**".
+
+
+- *In Terminal*: Use `./gradlew :gui:taskForEditorScreen` to start the game.
 
 ### Controls
 
 **W** - to make a jump (which is currently set to just jump without falling afterwards)
 
-**A** - to make a step to the left
+**A** - to make a step to the left including a one-step fall.
 
 **S** - to make a "small" fall (just 1 field down) (maybe we will use this later to make a power
 dive)
 
-**D** - to make a step to the right
+**D** - to make a step to the right including a one-step fall.
 
-************
+***
 
 What we have so far (and what's coming next)
 

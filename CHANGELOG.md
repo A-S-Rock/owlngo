@@ -7,27 +7,36 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
-## [0.6.5] - 2022-01-22
+## [0.7.0] - 2022-01-22
 
-### Added 
+### Added
+
+- Editor window for level creation (not properly linked right now)
 - Added editor working together with GameViewScreen and PlayfieldWindow (for testing only)
 - Reworked design of editor window
+- Reworked design of the animations when game is won, lost or given up.
 
+### Changed
+
+- README.md features testing tasks for game, welcome screen and editor
 
 ## [0.6.4] - 2022-01-21
 
 ### Added
-- Reworked GameOverScreen 
+
+- Reworked GameOverScreen
 - Added GameSolvedScreen
 - Added GameGivenUpScreen
 - Connected playerStatus WIN and LOSE to corresponding Screens
 
 ### Fixed ###
+
 - Bugfixes in game-ended screens, definining logo-URLs as constants
 
 ## [0.6.3] - 2022-01-20
 
 ### Added
+
 - Added WelcomeScreen
 - Added GameViewScreen
 - Added HighscoreScreen
@@ -38,16 +47,17 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [0.6.2] - 2022-01-16
 
 ### Added
-- Added OwnlGo constructor with the parameter "Level level".
 
+- Added OwnlGo constructor with a Level parameter.
 
 ## [0.6.1] - Clean-up 2022-01-16
 
 ### Deleted
+
 - unused Classes in owlngo.gui > editor deleted
 - subdirectory olngo.gui > data deleted
 - package objects deleted
-- 
+-
 
 ## [0.6.0] - 2022-01-16
 
@@ -175,8 +185,11 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.6.3...main?from_project_id=3507
-[0.6.4]: 
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.7.0...main?from_project_id=3507
+
+[0.7.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.6.4...v0.7.0?from_project_id=3507
+
+[0.6.4]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.6.3...v0.6.4?from_project_id=3507
 
 [0.6.3]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.5.0...v0.6.3?from_project_id=3507
 
