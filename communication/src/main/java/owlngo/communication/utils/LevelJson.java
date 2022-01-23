@@ -16,12 +16,22 @@ public final class LevelJson {
   private final int numCols;
   private final List<ObjectInGame> objectsInGame;
 
+  /**
+   * Creates a level JSON class (not the JSON string) from a given level layout.
+   *
+   * @param level level to reduce to a more compact data class
+   */
   public LevelJson(Level level) {
     numRows = level.getNumRows();
     numCols = level.getNumColumns();
     objectsInGame = new ArrayList<>(level.getListOfObjectsInGame());
   }
 
+  /**
+   * Creates the {@link Level} object from the stored data.
+   *
+   * @return the full {@link Level} object
+   */
   public Level createLevel() {
     Level level = new Level(numRows, numCols);
     for (ObjectInGame object : objectsInGame) {

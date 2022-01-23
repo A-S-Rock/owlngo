@@ -54,6 +54,15 @@ public final class Level {
     }
   }
 
+  /**
+   * Creates a demo level with the given dimensions. At the lowest level, all but those at column
+   * multiples of 4 are ground elements. Start is set one row over the ground on the far left side,
+   * the player is over it. Finish is set on the same level as start, but on the far right side.
+   *
+   * @param numRows row count the level will have
+   * @param numCols column count the level will have
+   * @return the described demo level
+   */
   public static Level createDemoLevel(int numRows, int numCols) {
     final Level level = new Level(numRows, numCols);
 
@@ -61,7 +70,7 @@ public final class Level {
     final int maxCol = numCols - 1;
 
     for (int currentCol = 0; currentCol <= maxCol; currentCol++) {
-      if (currentCol != 0 && currentCol % 4 == 0) { // creates a hole in the ground at column multiples of 4
+      if (currentCol != 0 && currentCol % 4 == 0) { // hole in the ground at column multiples of 4
         continue;
       }
       final Coordinate coordinate = Coordinate.of(maxRow, currentCol);
