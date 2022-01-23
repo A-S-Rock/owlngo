@@ -27,12 +27,10 @@ public class ControllerUtils {
 
   private static final URL STANDARD_LOGO =
       ControllerUtils.class.getResource("/images/logo_animated.gif");
-  private static final URL LOSE_LOGO =
-      ControllerUtils.class.getResource("/images/logo_animated.gif");
+  private static final URL LOSE_LOGO = ControllerUtils.class.getResource("/images/logo_lose.gif");
   private static final URL GIVEUP_LOGO =
-      ControllerUtils.class.getResource("/images/logo_animated.gif");
-  private static final URL WIN_LOGO =
-      ControllerUtils.class.getResource("/images/logo_animated.gif");
+      ControllerUtils.class.getResource("/images/logo_giveup.gif");
+  private static final URL WIN_LOGO = ControllerUtils.class.getResource("/images/logo_win.gif");
 
   /**
    * Creates a new scene with a fxml-window.
