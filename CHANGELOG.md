@@ -21,6 +21,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added GameGivenUpScreen
 - Connected playerStatus WIN and LOSE to corresponding Screens
 
+### Fixed ###
+- Bugfixes in game-ended screens, definining logo-URLs as constants
+
 ## [0.6.3] - 2022-01-20
 
 ### Added

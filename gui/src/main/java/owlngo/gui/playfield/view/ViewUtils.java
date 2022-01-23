@@ -16,6 +16,9 @@ public final class ViewUtils {
   static final int NUM_LEVEL_COLUMNS = 30;
   static final int NUM_LEVEL_ROWS = 30;
 
+  static final int DEFAULT_SCENE_WIDTH = 1200;
+  static final int DEFAULT_SCENE_HEIGHT = DEFAULT_SCENE_WIDTH * 2 / 3;
+
   /**
    * Sets the scene of the current window to the game window. Also, the game now checks if the game
    * has stopped.
@@ -56,7 +59,7 @@ public final class ViewUtils {
                   Parent root = fxmlLoseWindow.load();
                   Stage loseWindow = new Stage();
                   loseWindow.setTitle("Owlngo");
-                  loseWindow.setScene(new Scene(root, 1200, 800));
+                  loseWindow.setScene(new Scene(root, DEFAULT_SCENE_WIDTH, DEFAULT_SCENE_HEIGHT));
                   loseWindow.setResizable(false);
                   loseWindow.show();
                   ((Stage) (stage.getScene().getWindow())).close();
@@ -70,7 +73,7 @@ public final class ViewUtils {
                   Parent root = fxmlWinWindow.load();
                   Stage winWindow = new Stage();
                   winWindow.setTitle("Owlngo");
-                  winWindow.setScene(new Scene(root, 1200, 800));
+                  winWindow.setScene(new Scene(root, DEFAULT_SCENE_WIDTH, DEFAULT_SCENE_HEIGHT));
                   winWindow.setResizable(false);
                   winWindow.show();
                   ((Stage) (stage.getScene().getWindow())).close();
