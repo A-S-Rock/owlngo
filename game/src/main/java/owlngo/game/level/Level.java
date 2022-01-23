@@ -38,28 +38,46 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
+    startObject = LevelObject.createStartObject(Coordinate.of(0, 0));
+    playerObject = Player.createPlayer(startObject.getCoordinate()); // must be on top of start
+    assert playerObject.getCoordinate().equals(startObject.getCoordinate());
 
-    playerObject = Player.createPlayer(Coordinate.of(numRows - 2, 1));
-    startObject = LevelObject.createStartObject(Coordinate.of(numRows - 2, 0));
-    finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 2, numCols - 1));
+    finishObject = LevelObject.createFinishObject(Coordinate.of(0, 0));
 
     for (int i = 0; i < numRows; ++i) {
       for (int j = 0; j < numCols; ++j) {
         Coordinate coordinate = Coordinate.of(i, j);
-        ObjectInGame object;
-        if (i == numRows - 1) {
-          object = LevelObject.createGroundObject(coordinate);
-        } else {
-          object = LevelObject.createAirObject(coordinate);
-        }
-        objectsInGame.add(object);
+        ObjectInGame object = LevelObject.createAirObject(coordinate);
+        objectsInGame.add(object); // player, start and finish are absent
         setObjectInGameAt(object, coordinate);
       }
     }
+  }
 
-    replaceObjectInGameWith(startObject, startObject.getCoordinate());
-    replaceObjectInGameWith(finishObject, finishObject.getCoordinate());
-    replaceObjectInGameWith(playerObject, playerObject.getCoordinate());
+  public static Level createDemoLevel(int numRows, int numCols) {
+    final Level level = new Level(numRows, numCols);
+
+    final int maxRow = numRows - 1;
+    final int maxCol = numCols - 1;
+
+    for (int currentCol = 0; currentCol <= maxCol; currentCol++) {
+      if (currentCol != 0 && currentCol % 4 == 0) { // creates a hole in the ground at column multiples of 4
+        continue;
+      }
+      final Coordinate coordinate = Coordinate.of(maxRow, currentCol);
+      final ObjectInGame object = LevelObject.createGroundObject(coordinate);
+      level.replaceObjectInGameWith(object, object.getCoordinate());
+    }
+
+    final LevelObject newStartObject = LevelObject.createStartObject(Coordinate.of(maxRow - 1, 0));
+    level.replaceObjectInGameWith(newStartObject, newStartObject.getCoordinate());
+    final Player newPlayerObject = Player.createPlayer(newStartObject.getCoordinate());
+    level.replaceObjectInGameWith(newPlayerObject, newPlayerObject.getCoordinate());
+    final LevelObject newFinishObject =
+        LevelObject.createFinishObject(Coordinate.of(maxRow - 1, maxCol));
+    level.replaceObjectInGameWith(newFinishObject, newFinishObject.getCoordinate());
+
+    return level;
   }
 
   private Level(Level sourceLevel) {
@@ -84,8 +102,7 @@ public final class Level {
   }
 
   /*
-   * TODO: Maybe these factory methods could cause problems with the bindings in JavaFX.
-   *   They could just act directly on the Level object (as the level itself stays immutable).
+   * TODO: Player is obsolete as it shouldn't be set by the user!
    */
 
   /**
@@ -146,17 +163,18 @@ public final class Level {
   /** Moves the object to the new position. */
   public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
     final Coordinate oldCoordinate = object.getCoordinate();
-    assert !oldCoordinate.equals(newCoordinate);
 
     replaceObjectInGameWith(LevelObject.createAirObject(oldCoordinate), oldCoordinate);
     replaceObjectInGameWith(object, newCoordinate);
   }
 
-  public void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
+  private void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
     removeObjectInGame(objectInGame);
 
-    // Replace dummy air at given coordinate with new object.
-    objectsInGame.removeIf(object -> object.getCoordinate().equals(coordinate));
+    if (objectInGame.getType() != ObjectType.PLAYER) {
+      // Replace dummy air at given coordinate with new object.
+      objectsInGame.removeIf(object -> object.getCoordinate().equals(coordinate));
+    }
 
     ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
 

@@ -2,8 +2,10 @@ package owlngo.communication.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
 
 /**
  * Reduced {@link Level} object specialized for the network and savefile JSON protocol. Only holds
@@ -23,7 +25,20 @@ public final class LevelJson {
   public Level createLevel() {
     Level level = new Level(numRows, numCols);
     for (ObjectInGame object : objectsInGame) {
-      level.replaceObjectInGameWith(object, object.getCoordinate());
+      final ObjectType type = object.getType();
+      final Coordinate coordinate = object.getCoordinate();
+
+      if (type == ObjectType.START) {
+        level = level.withStartAt(coordinate);
+      } else if (type == ObjectType.FINISH) {
+        level = level.withFinishAt(coordinate);
+      } else if (type == ObjectType.GROUND) {
+        level = level.withGroundAt(coordinate);
+      }
+
+      if (type == ObjectType.PLAYER) {
+        level = level.withNewPlayerAt(coordinate);
+      }
     }
     return level;
   }
