@@ -13,7 +13,11 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.spotbugs:spotbugs-annotations:4.5.2'
+    implementation project(':game')
+}
+
+dependencies {
+    implementation 'com.github.spotbugs:spotbugs-annotations:4.5.3'
 
 
 // Use JUnit Jupiter API for testing.
