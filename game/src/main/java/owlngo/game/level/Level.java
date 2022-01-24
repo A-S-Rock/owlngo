@@ -38,6 +38,7 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
+
     playerObject = Player.createPlayer(Coordinate.of(numRows - 2, 1));
     startObject = LevelObject.createStartObject(Coordinate.of(numRows - 2, 0));
     finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 2, numCols - 1));
@@ -75,7 +76,7 @@ public final class Level {
         clonedObjectsInGame.add(clonedObjectInGame);
       }
     }
-    objectsInGame = List.copyOf(clonedObjectsInGame);
+    objectsInGame = new ArrayList<>(clonedObjectsInGame);
 
     playerObject = sourceLevel.getCopyOfPlayer();
     startObject = sourceLevel.getCopyOfStartObject();

@@ -26,7 +26,7 @@ import owlngo.gui.playfield.action.PlayerAction;
  */
 public class GameView extends StackPane {
 
-  public static final int TILE_SIZE = 40;
+  public static final int TILE_SIZE = 20;
 
   private final Map<ObjectInGame, Node> movableObjectViews = new HashMap<>();
 
