@@ -32,7 +32,8 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
 
   If the object is a moveable object like a player, (`ObjectInGameJson`) in JSON is extended:
    ```json lines
-   {"objectJsonType":<OBJECT_JSON_TYPE>,"objectType":<OBJECT_TYPE>,"coordinate":<COORDINATE>,"possibleMoves":<POSSIBLE_MOVES>}
+   {"objectJsonType":<OBJECT_JSON_TYPE>,"objectType":<OBJECT_TYPE>,"coordinate":<COORDINATE>,
+  "possibleMoves":<POSSIBLE_MOVES>}
    ```
     - `List<MoveJson> <POSSIBLE_MOVES>`: JSON representation of moves the moveable object can
       make.<br><br>

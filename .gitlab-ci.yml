@@ -24,7 +24,6 @@ build:
       - game/build
       - gui/build
       - server/build
-      - build
       - .gradle
 
 test:
@@ -39,7 +38,6 @@ test:
       - game/build
       - gui/build
       - server/build
-      - build
       - .gradle
   artifacts:
     paths:
@@ -58,7 +56,6 @@ javadoc:
       - game/build
       - gui/build
       - server/build
-      - build
       - .gradle
   artifacts:
     paths:
