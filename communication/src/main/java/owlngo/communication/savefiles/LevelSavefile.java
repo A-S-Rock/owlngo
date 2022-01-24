@@ -1,5 +1,6 @@
 package owlngo.communication.savefiles;
 
+import owlngo.communication.utils.LevelJson;
 import owlngo.game.level.Level;
 
 /** Used for the persistent saving of Level files including some stats. */
@@ -9,7 +10,7 @@ public final class LevelSavefile implements Savefile {
 
   private final String levelName;
   private final String author;
-  private final Level level;
+  private final LevelJson levelJson;
 
   /**
    * Creates a new level savefile.
@@ -21,7 +22,7 @@ public final class LevelSavefile implements Savefile {
   public LevelSavefile(String levelName, String author, Level level) {
     this.levelName = levelName;
     this.author = author;
-    this.level = level.copyOf();
+    levelJson = new LevelJson(level);
   }
 
   public String getLevelName() {
@@ -33,6 +34,6 @@ public final class LevelSavefile implements Savefile {
   }
 
   public Level getLevel() {
-    return level.copyOf();
+    return levelJson.createLevel();
   }
 }

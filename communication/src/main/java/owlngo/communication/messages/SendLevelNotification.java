@@ -1,5 +1,6 @@
 package owlngo.communication.messages;
 
+import owlngo.communication.utils.LevelJson;
 import owlngo.game.level.Level;
 
 /** Returns a level to the client from the server. */
@@ -8,11 +9,11 @@ public final class SendLevelNotification implements Message {
   private static final String messageType = "SendLevelNotification";
 
   private final String levelName;
-  private final Level level;
+  private final LevelJson levelJson;
 
   public SendLevelNotification(String levelName, Level level) {
     this.levelName = levelName;
-    this.level = level.copyOf();
+    levelJson = new LevelJson(level);
   }
 
   public String getLevelName() {
@@ -20,6 +21,6 @@ public final class SendLevelNotification implements Message {
   }
 
   public Level getLevel() {
-    return level.copyOf();
+    return levelJson.createLevel();
   }
 }

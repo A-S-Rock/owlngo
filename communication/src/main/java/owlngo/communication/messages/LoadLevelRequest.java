@@ -1,5 +1,6 @@
 package owlngo.communication.messages;
 
+import owlngo.communication.utils.LevelJson;
 import owlngo.game.level.Level;
 
 /** Calls for a concrete level layout from the server to play on. */
@@ -8,11 +9,11 @@ public final class LoadLevelRequest implements Message {
   private static final String messageType = "LoadLevelRequest";
 
   private final String playerName;
-  private final Level level;
+  private final LevelJson levelJson;
 
   public LoadLevelRequest(String playerName, Level level) {
     this.playerName = playerName;
-    this.level = level.copyOf();
+    levelJson = new LevelJson(level);
   }
 
   public String getPlayerName() {
@@ -20,6 +21,6 @@ public final class LoadLevelRequest implements Message {
   }
 
   public Level getLevel() {
-    return level.copyOf();
+    return levelJson.createLevel();
   }
 }

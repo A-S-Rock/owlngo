@@ -1,5 +1,6 @@
 package owlngo.communication.messages;
 
+import owlngo.communication.utils.LevelJson;
 import owlngo.game.level.Level;
 
 /** Requests a level layout to be saved on the server. */
@@ -9,7 +10,7 @@ public final class SaveLevelRequest implements Message {
 
   private final String author;
   private final String levelName;
-  private final Level level;
+  private final LevelJson levelJson;
 
   /**
    * Constructs a save request message.
@@ -21,7 +22,7 @@ public final class SaveLevelRequest implements Message {
   public SaveLevelRequest(String author, String levelName, Level level) {
     this.author = author;
     this.levelName = levelName;
-    this.level = level.copyOf();
+    levelJson = new LevelJson(level);
   }
 
   public String getAuthor() {
@@ -33,6 +34,6 @@ public final class SaveLevelRequest implements Message {
   }
 
   public Level getLevel() {
-    return level.copyOf();
+    return levelJson.createLevel();
   }
 }
