@@ -7,36 +7,6 @@ import owlngo.game.level.Level;
 /** The class stores all elements of the gamefield and provides utilities for them. */
 public class ElementsInPlayfield {
 
-  /**
-   * The enum distiguishes between all the different graphic elements used as background.
-   *
-   * <ul>
-   *   <li>{@code OWL}: Owl
-   *   <li>{@code OWL1}: Other picture of the owl
-   *   <li>{@code START}: Where the game starts
-   *   <li>{@code END}: Position where the game ends
-   *   <li>{@code GROUND_NO_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code GROUND_LEFT_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code NO_ELEMENT}: No element
-   * </ul>
-   */
-  public enum ElementInPlayfield {
-    OWL,
-    OWL1,
-    START,
-    END,
-    GROUND_NO_LAWN,
-    GROUND_TOP_LAWN,
-    GROUND_LEFT_TOP_LAWN,
-    GROUND_TOP_RIGHT_LAWN,
-    GROUND_LEFT_TOP_RIGHT_LAWN,
-    NO_ELEMENT,
-    AIR
-  }
-
   private static final ElementInPlayfield[][] ELEMENTS_IN_PLAYFIELD =
       new ElementInPlayfield[MethodsForElement.SIZE][MethodsForElement.SIZE];
   private static Level LEVEL = new Level(MethodsForElement.SIZE, MethodsForElement.SIZE);
@@ -127,5 +97,35 @@ public class ElementsInPlayfield {
   /** Returns the level created for the GUI. */
   public static Level getLevel() {
     return LEVEL.copyOf();
+  }
+
+  /**
+   * The enum distiguishes between all the different graphic elements used as background.
+   *
+   * <ul>
+   *   <li>{@code OWL}: Owl
+   *   <li>{@code OWL1}: Other picture of the owl
+   *   <li>{@code START}: Where the game starts
+   *   <li>{@code END}: Position where the game ends
+   *   <li>{@code GROUND_NO_LAWN}: Ground element
+   *   <li>{@code GROUND_TOP_LAWN}: Ground element
+   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
+   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
+   *   <li>{@code GROUND_LEFT_TOP_RIGHT_LAWN}: Ground element
+   *   <li>{@code NO_ELEMENT}: No element
+   * </ul>
+   */
+  public enum ElementInPlayfield {
+    OWL,
+    OWL1,
+    START,
+    END,
+    GROUND_NO_LAWN,
+    GROUND_TOP_LAWN,
+    GROUND_LEFT_TOP_LAWN,
+    GROUND_TOP_RIGHT_LAWN,
+    GROUND_LEFT_TOP_RIGHT_LAWN,
+    NO_ELEMENT,
+    AIR
   }
 }

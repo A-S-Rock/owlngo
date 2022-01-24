@@ -83,11 +83,6 @@ public final class Level {
     finishObject = sourceLevel.getCopyOfFinishObject();
   }
 
-  /*
-   * TODO: Maybe these factory methods could cause problems with the bindings in JavaFX.
-   *   They could just act directly on the Level object (as the level itself stays immutable).
-   */
-
   /**
    * Creates a new level with a new player set at the given coordinate.
    *

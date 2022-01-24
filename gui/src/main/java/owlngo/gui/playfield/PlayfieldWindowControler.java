@@ -14,20 +14,16 @@ import owlngo.game.level.objects.ObjectInGame;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 
-/** Handles all actions on the playfield window. Obsolete because one already exists. */
+/**
+ * Handles all actions on the playfield window. For testing only. Obsolete because one already
+ * exists.
+ */
 public class PlayfieldWindowControler {
 
   private static final Pane[][] PANE = new Pane[MethodsForElement.SIZE][MethodsForElement.SIZE];
   private static final OwlnGo GAME = new OwlnGo(ElementsInPlayfield.getLevel());
 
   @FXML GridPane gridPanePlayfieldWindow;
-
-  @FXML
-  private void initialize() {
-    getElementsOfPlayfieldFromGame();
-    initializePanes();
-    setPanesOnPlayfield();
-  }
 
   private static void getElementsOfPlayfieldFromGame() {
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
@@ -71,30 +67,6 @@ public class PlayfieldWindowControler {
     return pane;
   }
 
-  private void initializePanes() {
-    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
-      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
-        PANE[rowIndex][columnIndex] = new Pane();
-      }
-    }
-  }
-
-  private void setPanesOnPlayfield() {
-    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
-      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
-        // Set Background of pane depending on the content of elementsInPlayfield
-
-        PANE[rowIndex][columnIndex] = setBackgroundOfPaneDependingOnContent(rowIndex, columnIndex);
-        gridPanePlayfieldWindow.add(PANE[rowIndex][columnIndex], columnIndex, rowIndex);
-      }
-    }
-  }
-
-  @FXML
-  void restartGame() {
-    // TODO: Actually start a new game.
-  }
-
   /**
    * Depending on keyboard entries on the Num Keybord of the letters WASD an action for the game is
    * started.
@@ -117,5 +89,36 @@ public class PlayfieldWindowControler {
     }
     getElementsOfPlayfieldFromGame();
     changeAllPanesDependingOnElementsInPlayfied();
+  }
+
+  @FXML
+  private void initialize() {
+    getElementsOfPlayfieldFromGame();
+    initializePanes();
+    setPanesOnPlayfield();
+  }
+
+  private void initializePanes() {
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        PANE[rowIndex][columnIndex] = new Pane();
+      }
+    }
+  }
+
+  private void setPanesOnPlayfield() {
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        // Set Background of pane depending on the content of elementsInPlayfield
+
+        PANE[rowIndex][columnIndex] = setBackgroundOfPaneDependingOnContent(rowIndex, columnIndex);
+        gridPanePlayfieldWindow.add(PANE[rowIndex][columnIndex], columnIndex, rowIndex);
+      }
+    }
+  }
+
+  @FXML
+  void restartGame() {
+    // TODO: Actually start a new game.
   }
 }

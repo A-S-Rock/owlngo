@@ -27,27 +27,7 @@ run {
     standardInput = System.in
 }
 
-
-/* TODO: Add a task like the template linked to the right main class for editor and welcome
-    screen.
- */
-
 // This is a template for the game window
-task taskForGameScreen(type: JavaExec) {
-    doFirst   {
-        jvmArgs   =   [
-                '--module-path', classpath.asPath,
-                '--add-modules', 'javafx.controls',
-                '--add-modules', 'javafx.fxml',
-                '--add-modules', 'javafx.graphics',
-                '--add-modules', 'javafx.base',
-                '--add-modules', 'javafx.swing',
-        ]
-    }
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'owlngo.gui.playfield.GameScreenMain'
-}
-
 task taskForWelcomeScreen(type: JavaExec) {
     doFirst   {
         jvmArgs   =   [

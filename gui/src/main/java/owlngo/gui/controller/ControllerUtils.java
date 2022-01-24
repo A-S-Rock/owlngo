@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 /** Utility class offers often-used methods for creating scenes, logos, avatars. */
 public class ControllerUtils {
 
+  // TODO: The retry button and others could be build here or in ViewUtils.
+
   private static final int SCENE_WIDTH = 1200;
   private static final int SCENE_HEIGHT = SCENE_WIDTH * 2 / 3;
 
@@ -47,9 +49,13 @@ public class ControllerUtils {
       stage.setScene(scene);
       stage.setResizable(true);
       stage.show();
+      if (event == null) {
+        return;
+      }
       ((Node) (event.getSource())).getScene().getWindow().hide();
     } catch (IOException e) {
       System.out.println("IO Exception while loading a fxml-window");
+      e.printStackTrace();
     }
   }
 

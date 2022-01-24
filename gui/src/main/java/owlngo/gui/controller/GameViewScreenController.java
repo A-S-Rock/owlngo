@@ -11,19 +11,29 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import owlngo.game.OwlnGo;
+import owlngo.gui.data.DataManager;
 import owlngo.gui.playfield.view.GameView;
 import owlngo.gui.playfield.view.ViewUtils;
 
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {
+  static final int NUM_LEVEL_COLUMNS = ViewUtils.NUM_LEVEL_COLUMNS;
+  static final int NUM_LEVEL_ROWS = ViewUtils.NUM_LEVEL_ROWS;
   @FXML Button backToMainMenuButton;
   @FXML Button giveUpButton;
   @FXML AnchorPane gamePane;
-  @FXML AnchorPane root;
+  private OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS); // default level
+  public GameViewScreenController() {
+    // load level from data manager if editor has one
+    if (DataManager.getInstance().getLevelContent() != null) {
+      game = new OwlnGo(DataManager.getInstance().getLevelContent());
+      DataManager.getInstance().setLevelContent(null);
+    }
+  }
 
   @FXML
   void initialize() {
-    gamePane.getChildren().addAll(createGameNode());
+    gamePane.getChildren().addAll(createGameNode(game));
 
     backToMainMenuButton.setOnAction(
         new EventHandler<>() {
@@ -48,17 +58,13 @@ public class GameViewScreenController {
         });
   }
 
-  static final int NUM_LEVEL_COLUMNS = ViewUtils.NUM_LEVEL_COLUMNS;
-  static final int NUM_LEVEL_ROWS = ViewUtils.NUM_LEVEL_ROWS;
+  private Node createGameNode(OwlnGo game) {
 
-  private Node createGameNode() {
-    final OwlnGo game = new OwlnGo(NUM_LEVEL_COLUMNS, NUM_LEVEL_ROWS);
     final GameView gameView = new GameView(game);
-
     Platform.runLater(
         () -> {
           final Stage stage = (Stage) gameView.getScene().getWindow();
-          ViewUtils.checkIfGameHasStopped(game, stage);
+          ViewUtils.setGameStateListener(stage, game);
         });
 
     return gameView;

@@ -3,7 +3,6 @@ package owlngo.game;
 /** This class is just for testing without the GUI. */
 public class Main {
 
-  // TODO: Check moves
   // TODO: Write JUnit tests
 
   /** Main method. */

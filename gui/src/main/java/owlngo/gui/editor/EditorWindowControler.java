@@ -15,15 +15,17 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import owlngo.gui.controller.ControllerUtils;
+import owlngo.gui.data.DataManager;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield;
 import owlngo.gui.data.MethodsForElement;
 import owlngo.gui.playfield.PlayfieldWindowControler;
-import owlngo.gui.playfield.view.ViewUtils;
 
 /** Handles all actions on the editor window. */
 public class EditorWindowControler {
 
+  private final DataManager dataManager = DataManager.getInstance();
   @FXML GridPane gridPaneEditorWindow;
 
   @FXML
@@ -66,25 +68,15 @@ public class EditorWindowControler {
   /** Starts the GameViewScreen. */
   @FXML
   void startGameView() {
-    /*
-    if (!owlElementInElementsOfPlayfield()) {
-      // set default position of owl
-      ElementsInPlayfield.setElementTo(
-          ElementInPlayfield.OWL, MethodsForElement.SIZE / 2, MethodsForElement.SIZE / 2);
-      JOptionPane.showMessageDialog(null, "No owl set by user. Owl is set at default position.");
-    }
-    */
     // If owl, start, end is in playfield the game can be started
     if (owlElementInElementsOfPlayfield()
         && startElementInElementsInPlayfield()
         && endElementInElementsOfPlayfield()) {
       ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
+      DataManager.getInstance().setLevelContent(ElementsInPlayfield.getLevel());
 
-      Stage primaryStage = new Stage();
-      primaryStage.setTitle("Owlngo");
-      ViewUtils.setSceneToGameViewWithLevel(primaryStage, ElementsInPlayfield.getLevel());
-      primaryStage.setResizable(true);
-      primaryStage.show();
+      FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
+      ControllerUtils.createScene(null, fxmlLoader);
       gridPaneEditorWindow.getScene().getWindow().hide();
     } else {
       JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
