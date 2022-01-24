@@ -14,10 +14,10 @@ public class Main {
     OwlnGo game = new OwlnGo(Level.createDemoLevel(10, 10));
 
     System.out.println("This text is for debugging purpose. Now some moves are tested.");
-    game.moveRight();
-    System.out.println("After a right move has been made.");
     game.moveLeft();
     System.out.println("After a left move has been made.");
+    game.moveRight();
+    System.out.println("After a right move has been made.");
     game.moveJump(false);
     System.out.println("After a jump without falling has been done.");
     game.moveFall();

@@ -183,16 +183,17 @@ public final class Level {
     final Coordinate oldCoordinate = object.getCoordinate();
 
     replaceObjectInGameWith(LevelObject.createAirObject(oldCoordinate), oldCoordinate);
+    replaceObjectInGameWith(startObject, startObject.getCoordinate()); // reset start
+    replaceObjectInGameWith(finishObject, finishObject.getCoordinate()); // reset finish
     replaceObjectInGameWith(object, newCoordinate);
   }
 
   private void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
+    // Replace object at its location with background
     removeObjectInGame(objectInGame);
 
-    if (objectInGame.getType() != ObjectType.PLAYER) {
-      // Replace dummy air at given coordinate with new object.
-      objectsInGame.removeIf(object -> object.getCoordinate().equals(coordinate));
-    }
+    // Replace dummy air at given coordinate with new object.
+    objectsInGame.removeIf(object -> object.getCoordinate().equals(coordinate));
 
     ObjectInGame newObject = objectInGame.withNewPosition(coordinate);
 
@@ -272,7 +273,7 @@ public final class Level {
   }
 
   private void setObjectInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
-    assert objectInGame.isNone() || (objectInGame.getCoordinate().equals(coordinate));
+    assert objectInGame.isNone();
     final int row = coordinate.getRow();
     levelLayout.putIfAbsent(row, new SimpleMapProperty<>(FXCollections.observableHashMap()));
     levelLayout.get(row).put(coordinate.getColumn(), objectInGame);
