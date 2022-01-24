@@ -6,7 +6,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /** Starter class for the editor window. */
@@ -34,15 +33,7 @@ public class EditorScreen extends Application {
       System.out.println("Root:" + root);
       Stage stage = new Stage();
       stage.setTitle("Owlngo Editor");
-      Scene scene = new Scene(root, 800, 600);
-      // Set up keyHandler
-      scene.setOnKeyPressed(
-          event -> {
-            KeyCode keyCode = event.getCode();
-            StoreLastKey.setLastKeyPressed(keyCode); // StoreKey in order to get
-            // the last press key asynchonous during mouse click events
-          });
-
+      Scene scene = new Scene(root, 1200, 800);
       stage.setScene(scene);
       stage.setResizable(true);
       stage.show();

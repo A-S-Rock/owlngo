@@ -25,15 +25,25 @@ import owlngo.gui.playfield.PlayfieldWindowControler;
 /** Handles all actions on the editor window. */
 public class EditorWindowControler {
 
-  private final DataManager dataManager = DataManager.getInstance();
   @FXML GridPane gridPaneEditorWindow;
+
+  private static final String PANE_BLACK_BORDER = "-fx-border-color:#CCCCCC; -fx-border-width:1px;";
 
   @FXML
   void initialize() {
-    System.out.println("initialilize windows EditorWindow.fxml");
     ElementsInPlayfield.setAllToNoElement(); // Define all Elements
-
     setPanesOnPlayfield();
+
+    Platform.runLater(
+        () ->
+            gridPaneEditorWindow
+                .getScene()
+                .setOnKeyPressed(
+                    event -> {
+                      KeyCode keyCode = event.getCode();
+                      StoreLastKey.setLastKeyPressed(keyCode); // StoreKey in order to get
+                      // the last press key asynchonous during mouse click events
+                    }));
   }
 
   /** Starts the Old playfield window GUI. */
@@ -95,7 +105,6 @@ public class EditorWindowControler {
 
   @FXML
   void loadElementsInPlayfield() {
-    System.out.println("loadElementsInPlayfield()");
     JFileChooser fileChooser = new JFileChooser();
     int valueFileChooser = fileChooser.showOpenDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
@@ -106,15 +115,11 @@ public class EditorWindowControler {
 
   @FXML
   void loadWelcomeScreen() throws IOException {
-    System.out.println(" loadWellcomeScreen");
-
     Stage primaryStage = new Stage();
     FXMLLoader fxmlLoaderWellcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
 
     Parent root = fxmlLoaderWellcome.load();
-
     primaryStage.setTitle("Owlngo");
-    primaryStage.isResizable();
     primaryStage.setScene(new Scene(root));
     primaryStage.setResizable(true);
     primaryStage.show();
@@ -149,6 +154,7 @@ public class EditorWindowControler {
             (evt) ->
                 setResetElement(
                     pane[finalRowIndex][finalColumnIndex], finalRowIndex, finalColumnIndex));
+        pane[rowIndex][columnIndex].setStyle(PANE_BLACK_BORDER);
       }
     }
   }
