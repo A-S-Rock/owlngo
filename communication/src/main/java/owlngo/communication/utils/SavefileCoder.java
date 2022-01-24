@@ -38,9 +38,12 @@ public final class SavefileCoder {
    *
    * @param savefileJson the JSON representation of a {@link Savefile} object
    * @return the actual {@link Savefile} object
-   * @throws IOException if an error happens while parsing
    */
-  public static Savefile decodeFromJson(String savefileJson) throws IOException {
-    return moshi.adapter(Savefile.class).fromJson(savefileJson);
+  public static Savefile decodeFromJson(String savefileJson) {
+    try {
+      return moshi.adapter(Savefile.class).fromJson(savefileJson);
+    } catch (IOException e) {
+      throw new AssertionError("Failed to parse savefile.");
+    }
   }
 }

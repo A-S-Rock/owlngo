@@ -52,9 +52,12 @@ public final class MessageCoder {
    *
    * @param messageJson the JSON representation of a {@link Message} object
    * @return the actual {@link Message} object
-   * @throws IOException if an error happens while parsing
    */
-  public static Message decodeFromJson(String messageJson) throws IOException {
-    return moshi.adapter(Message.class).fromJson(messageJson);
+  public static Message decodeFromJson(String messageJson) {
+    try {
+      return moshi.adapter(Message.class).fromJson(messageJson);
+    } catch (IOException e) {
+      throw new AssertionError("Failed to parse Message JSON.");
+    }
   }
 }
