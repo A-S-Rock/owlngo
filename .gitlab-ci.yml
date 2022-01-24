@@ -23,7 +23,6 @@ build:
       - communication/build
       - game/build
       - gui/build
-      - objects/build
       - server/build
       - .gradle
 
@@ -38,7 +37,6 @@ test:
       - communication/build
       - game/build
       - gui/build
-      - objects/build
       - server/build
       - .gradle
   artifacts:
@@ -57,7 +55,6 @@ javadoc:
       - communication/build
       - game/build
       - gui/build
-      - objects/build
       - server/build
       - .gradle
   artifacts:

@@ -10,14 +10,6 @@ For testing purposes the game window, welcome window and editor window can be st
 through dedicated gradle tasks. When the project is done, these tasks are considered to only be used
 for testing and will not be called from users (this will be delegated to the client).
 
-### Start the game
-
-- *In IntelliJ*: Use the gradle task "**owlngo > gui > Tasks >
-  other > taskForGameScreen**".
-
-
-- *In Terminal*: Use `./gradlew :gui:taskforGameScreen` to start the game.
-
 ### Start the welcome screen
 
 - *In IntelliJ*: Use the gradle task "**owlngo > gui > Tasks >
@@ -26,7 +18,7 @@ for testing and will not be called from users (this will be delegated to the cli
 
 - *In Terminal*: Use `./gradlew :gui:taskForWelcomeScreen` to start the game.
 
-### Start the welcome screen
+### Start the editor screen
 
 - *In IntelliJ*: Use the gradle task "**owlngo > gui > Tasks >
   other > taskForEditorScreen**".
@@ -45,6 +37,8 @@ dive)
 
 **D** - to make a step to the right including a one-step fall.
 
+The Editor controls are described in its window.
+
 ***
 
 What we have so far (and what's coming next)
@@ -53,6 +47,7 @@ What we have so far (and what's coming next)
 - [x] created a game model handling the whole game
 - [x] created a javafx GUI currently showing just the gameplay screen (without showing a victory
   screen at the end)
+- [x] added network communication protocol in docs/ [here](docs/network_communication_protocol.md)
 - [ ] added animations to all moves
 - [ ] added a timer and some controls to the gameplay screen
 - [x] added an editor

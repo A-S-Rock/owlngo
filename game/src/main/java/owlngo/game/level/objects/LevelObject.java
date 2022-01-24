@@ -9,6 +9,9 @@ public final class LevelObject implements ObjectInGame {
   /** A global constant representing an empty dummy object. */
   public static final LevelObject NONE = new LevelObject(ObjectType.NONE, Coordinate.of(-1, -1));
 
+  @SuppressWarnings("unused")
+  private static final String objectJsonType = "levelObject";
+
   private final ObjectType objectType;
   private final Coordinate coordinate;
 
