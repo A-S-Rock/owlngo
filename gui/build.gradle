@@ -29,21 +29,6 @@ run {
 }
 
 // This is a template for the game window
-task taskForGameScreen(type: JavaExec) {
-    doFirst   {
-        jvmArgs   =   [
-                '--module-path', classpath.asPath,
-                '--add-modules', 'javafx.controls',
-                '--add-modules', 'javafx.fxml',
-                '--add-modules', 'javafx.graphics',
-                '--add-modules', 'javafx.base',
-                '--add-modules', 'javafx.swing',
-        ]
-    }
-    classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'owlngo.gui.playfield.GameScreenMain'
-}
-
 task taskForWelcomeScreen(type: JavaExec) {
     doFirst   {
         jvmArgs   =   [
@@ -80,6 +65,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.github.spotbugs:spotbugs-annotations:4.0.1'
+
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testImplementation 'com.google.truth:truth:1.1.3'

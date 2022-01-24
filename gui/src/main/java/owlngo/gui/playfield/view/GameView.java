@@ -5,14 +5,11 @@ import java.util.Map;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
-import javafx.scene.layout.VBox;
 import owlngo.game.GameState;
 import owlngo.game.OwlnGo;
 import owlngo.game.level.Coordinate;
@@ -25,9 +22,9 @@ import owlngo.gui.playfield.action.PlayerAction;
  * Class shows our playingfield on the left side and an information field with buttons, etc. on the
  * right side.
  */
-public class GameView extends HBox {
+public class GameView extends StackPane {
 
-  public static final int TILE_SIZE = 20;
+  public static final int TILE_SIZE = 25;
 
   private final Map<ObjectInGame, Node> movableObjectViews = new HashMap<>();
 
@@ -37,14 +34,12 @@ public class GameView extends HBox {
    * @param game is a given owlngo game
    */
   public GameView(OwlnGo game) {
-    getChildren().addAll(createLevelView(game), createSidePanel(game));
+    getChildren().addAll(createLevelView(game));
   }
 
   private Node createLevelView(OwlnGo game) {
     TilePane levelView = new TilePane();
-
     GameState gameState = game.getGameState();
-
     fillLevelView(levelView, game);
     StackPane fullLevel = new StackPane();
     fillLevel(fullLevel, levelView, game);
@@ -58,6 +53,7 @@ public class GameView extends HBox {
 
     AnchorPane root = new AnchorPane();
     root.getChildren().add(fullLevel);
+    root.setFocusTraversable(true);
     return root;
   }
 
@@ -127,9 +123,5 @@ public class GameView extends HBox {
         levelView.getChildren().add(tileContent);
       }
     }
-  }
-
-  private Node createSidePanel(OwlnGo game) {
-    return new VBox(new Button("Test Button"));
   }
 }

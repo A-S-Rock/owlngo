@@ -9,6 +9,9 @@ import javafx.scene.layout.Pane;
 
 /** Contoller class for WelcomeScreen.fxml. */
 public class WelcomeScreenController {
+
+  // TODO: Add button for editor
+
   @FXML Button startRandomGameButton;
   @FXML Button loadLevelButton;
   @FXML Button exitGameButton;

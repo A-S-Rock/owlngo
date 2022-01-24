@@ -16,4 +16,16 @@
     <Bug pattern="EI_EXPOSE_REP2"/>
     <Class name="owlngo.gui.playfield.action.PlayerAction"/>
   </Match>
+  <Match>
+    <Bug pattern="MS_EXPOSE_REP"/>
+    <Class name="owlngo.gui.data.DataManager"/>
+  </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP"/>
+    <Class name="owlngo.gui.data.DataManager"/>
+  </Match>
+  <Match>
+    <Bug pattern="EI_EXPOSE_REP2"/>
+    <Class name="owlngo.gui.data.DataManager"/>
+  </Match>
 </FindBugsFilter>

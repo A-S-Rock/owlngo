@@ -13,11 +13,11 @@ import owlngo.game.level.Level;
 public final class ViewUtils {
 
   // TODO: These values should be from the game.
-  static final int NUM_LEVEL_COLUMNS = 30;
-  static final int NUM_LEVEL_ROWS = 30;
+  public static final int NUM_LEVEL_COLUMNS = 30;
+  public static final int NUM_LEVEL_ROWS = 30;
 
-  static final int DEFAULT_SCENE_WIDTH = 1200;
-  static final int DEFAULT_SCENE_HEIGHT = DEFAULT_SCENE_WIDTH * 2 / 3;
+  public static final int DEFAULT_SCENE_WIDTH = 1200;
+  public static final int DEFAULT_SCENE_HEIGHT = DEFAULT_SCENE_WIDTH * 2 / 3;
 
   /**
    * Sets the scene of the current window to the game window. Also, the game now checks if the game
@@ -43,7 +43,13 @@ public final class ViewUtils {
     setGameStateListener(stage, game);
   }
 
-  private static void setGameStateListener(Stage stage, OwlnGo game) {
+  /**
+   * Sets a listener for game status changes and reacts by opening the appropriate window.
+   *
+   * @param stage current stage
+   * @param game game the status is listened to
+   */
+  public static void setGameStateListener(Stage stage, OwlnGo game) {
     final FXMLLoader fxmlWinWindow =
         new FXMLLoader(ViewUtils.class.getResource("/GameSolvedScreen.fxml"));
     final FXMLLoader fxmlLoseWindow =
@@ -83,8 +89,6 @@ public final class ViewUtils {
                 System.out.println("Game Won");
               }
             }));
-
-    stage.setScene(new Scene(new GameView(game)));
   }
 
   public static double getTileX(double levelWidth, int column) {

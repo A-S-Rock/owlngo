@@ -17,6 +17,8 @@ import javafx.stage.Stage;
 /** Utility class offers often-used methods for creating scenes, logos, avatars. */
 public class ControllerUtils {
 
+  // TODO: The retry button and others could be build here or in ViewUtils.
+
   private static final int SCENE_WIDTH = 1200;
   private static final int SCENE_HEIGHT = SCENE_WIDTH * 2 / 3;
 
@@ -41,14 +43,19 @@ public class ControllerUtils {
   public static void createScene(ActionEvent event, FXMLLoader fxmlLoader) {
     try {
       Parent root = fxmlLoader.load();
-      Stage scene = new Stage();
-      scene.setTitle("Owlngo");
-      scene.setScene(new Scene(root, SCENE_WIDTH, SCENE_HEIGHT));
-      scene.setResizable(true);
-      scene.show();
+      Stage stage = new Stage();
+      stage.setTitle("Owlngo");
+      Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
+      stage.setScene(scene);
+      stage.setResizable(true);
+      stage.show();
+      if (event == null) {
+        return;
+      }
       ((Node) (event.getSource())).getScene().getWindow().hide();
     } catch (IOException e) {
       System.out.println("IO Exception while loading a fxml-window");
+      e.printStackTrace();
     }
   }
 
