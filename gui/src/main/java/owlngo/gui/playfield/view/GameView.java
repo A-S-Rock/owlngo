@@ -7,7 +7,6 @@ import javafx.beans.binding.DoubleBinding;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -25,7 +24,7 @@ import owlngo.gui.playfield.action.PlayerAction;
  * Class shows our playingfield on the left side and an information field with buttons, etc. on the
  * right side.
  */
-public class GameView extends HBox {
+public class GameView extends StackPane {
 
   public static final int TILE_SIZE = 40;
 
@@ -37,7 +36,7 @@ public class GameView extends HBox {
    * @param game is a given owlngo game
    */
   public GameView(OwlnGo game) {
-    getChildren().addAll(createLevelView(game), createSidePanel(game));
+    getChildren().addAll(createLevelView(game));
   }
 
   private Node createLevelView(OwlnGo game) {
@@ -56,6 +55,7 @@ public class GameView extends HBox {
 
     AnchorPane root = new AnchorPane();
     root.getChildren().add(fullLevel);
+    root.setFocusTraversable(true);
     return root;
   }
 
@@ -125,9 +125,5 @@ public class GameView extends HBox {
         levelView.getChildren().add(tileContent);
       }
     }
-  }
-
-  private Node createSidePanel(OwlnGo game) {
-    return new VBox(new Button("Test Button"));
   }
 }

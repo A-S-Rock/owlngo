@@ -14,8 +14,8 @@ public final class ViewUtils {
   public static final int NUM_LEVEL_COLUMNS = 10;
   public static final int NUM_LEVEL_ROWS = 10;
 
-  static final int DEFAULT_SCENE_WIDTH = 1200;
-  static final int DEFAULT_SCENE_HEIGHT = DEFAULT_SCENE_WIDTH * 2 / 3;
+  public static final int DEFAULT_SCENE_WIDTH = 1200;
+  public static final int DEFAULT_SCENE_HEIGHT = DEFAULT_SCENE_WIDTH * 2 / 3;
 
   /**
    * Sets the scene of the current window to the game window. Also, the game now checks if the game
