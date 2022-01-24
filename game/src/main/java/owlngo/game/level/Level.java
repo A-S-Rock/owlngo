@@ -17,11 +17,11 @@ import owlngo.game.level.objects.Player;
 public final class Level {
   private final int numRows;
   private final int numCols;
-  private final Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
+  private final transient Map<Integer, MapProperty<Integer, ObjectInGame>> levelLayout;
   private final List<ObjectInGame> objectsInGame;
-  private Player playerObject;
-  private LevelObject startObject;
-  private LevelObject finishObject;
+  private transient Player playerObject;
+  private transient LevelObject startObject;
+  private transient LevelObject finishObject;
 
   /**
    * Constructs a default level with fixed positions of player, start and finish for the given
@@ -38,28 +38,64 @@ public final class Level {
     this.numCols = numCols;
     levelLayout = new HashMap<>();
     objectsInGame = new ArrayList<>();
+    startObject = LevelObject.createStartObject(Coordinate.of(0, 0));
+    playerObject = Player.createPlayer(Coordinate.of(0, 0));
+    assert playerObject.getCoordinate().equals(startObject.getCoordinate());
 
-    playerObject = Player.createPlayer(Coordinate.of(numRows - 2, 1));
-    startObject = LevelObject.createStartObject(Coordinate.of(numRows - 2, 0));
-    finishObject = LevelObject.createFinishObject(Coordinate.of(numRows - 2, numCols - 1));
+    finishObject = LevelObject.createFinishObject(Coordinate.of(0, 0));
 
     for (int i = 0; i < numRows; ++i) {
       for (int j = 0; j < numCols; ++j) {
         Coordinate coordinate = Coordinate.of(i, j);
-        ObjectInGame object;
-        if (i == numRows - 1) {
-          object = LevelObject.createGroundObject(coordinate);
-        } else {
-          object = LevelObject.createAirObject(coordinate);
-        }
-        objectsInGame.add(object);
+        ObjectInGame object = LevelObject.createAirObject(coordinate);
+        objectsInGame.add(object); // player, start and finish are absent
         setObjectInGameAt(object, coordinate);
       }
     }
+  }
 
-    replaceObjectInGameWith(startObject, startObject.getCoordinate());
-    replaceObjectInGameWith(finishObject, finishObject.getCoordinate());
-    replaceObjectInGameWith(playerObject, playerObject.getCoordinate());
+  /**
+   * Creates a demo level with the given dimensions. At the lowest level, all but those at column
+   * multiples of 4 are ground elements. Start is set one row over the ground on the far left side,
+   * the player is over it. Finish is set on the same level as start, but on the far right side.
+   *
+   * @param numRows row count the level will have
+   * @param numCols column count the level will have
+   * @return the described demo level
+   */
+  public static Level createDemoLevel(int numRows, int numCols) {
+    final Level level = new Level(numRows, numCols);
+
+    final int maxRow = numRows - 1;
+    final int maxCol = numCols - 1;
+
+    for (int currentCol = 0; currentCol <= maxCol; currentCol++) {
+      if (currentCol != 0 && currentCol % 4 == 0) { // hole in the ground at column multiples of 4
+        continue;
+      }
+      final Coordinate coordinate = Coordinate.of(maxRow, currentCol);
+      final ObjectInGame object = LevelObject.createGroundObject(coordinate);
+      level.replaceObjectInGameWith(object, object.getCoordinate());
+    }
+
+    final LevelObject newStartObject = LevelObject.createStartObject(Coordinate.of(maxRow - 1, 0));
+    level.replaceObjectInGameWith(newStartObject, newStartObject.getCoordinate());
+
+    final int startObjectRow = newStartObject.getCoordinate().getRow();
+    final int startObjectColumn = newStartObject.getCoordinate().getColumn();
+    if (startObjectColumn == maxCol) {
+      throw new AssertionError(
+          "Start object is on the rightmost edge! This should be handled before.");
+    }
+    final Coordinate playerCoordinate = Coordinate.of(startObjectRow, startObjectColumn + 1);
+    final Player newPlayerObject = Player.createPlayer(playerCoordinate);
+    level.replaceObjectInGameWith(newPlayerObject, newPlayerObject.getCoordinate());
+
+    final LevelObject newFinishObject =
+        LevelObject.createFinishObject(Coordinate.of(maxRow - 1, maxCol));
+    level.replaceObjectInGameWith(newFinishObject, newFinishObject.getCoordinate());
+
+    return level;
   }
 
   private Level(Level sourceLevel) {
@@ -82,6 +118,10 @@ public final class Level {
     startObject = sourceLevel.getCopyOfStartObject();
     finishObject = sourceLevel.getCopyOfFinishObject();
   }
+
+  /*
+   * TODO: Player is obsolete as it shouldn't be set by the user!
+   */
 
   /**
    * Creates a new level with a new player set at the given coordinate.
@@ -141,13 +181,15 @@ public final class Level {
   /** Moves the object to the new position. */
   public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
     final Coordinate oldCoordinate = object.getCoordinate();
-    assert !oldCoordinate.equals(newCoordinate);
 
     replaceObjectInGameWith(LevelObject.createAirObject(oldCoordinate), oldCoordinate);
+    replaceObjectInGameWith(startObject, startObject.getCoordinate()); // reset start
+    replaceObjectInGameWith(finishObject, finishObject.getCoordinate()); // reset finish
     replaceObjectInGameWith(object, newCoordinate);
   }
 
   private void replaceObjectInGameWith(ObjectInGame objectInGame, Coordinate coordinate) {
+    // Replace object at its location with background
     removeObjectInGame(objectInGame);
 
     // Replace dummy air at given coordinate with new object.
@@ -231,7 +273,7 @@ public final class Level {
   }
 
   private void setObjectInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
-    assert objectInGame.isNone() || (objectInGame.getCoordinate().equals(coordinate));
+    assert objectInGame.isNone();
     final int row = coordinate.getRow();
     levelLayout.putIfAbsent(row, new SimpleMapProperty<>(FXCollections.observableHashMap()));
     levelLayout.get(row).put(coordinate.getColumn(), objectInGame);

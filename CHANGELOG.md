@@ -7,6 +7,22 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.8.0] - 2022-01-24
+
+### Added
+
+- Game now playable in new game window through welcome screen
+- Editor levels are playable (for now only once until linked correctly)
+- JSON communication protocol for server and client (also for savefiles)
+
+### Fixed
+
+- Inability of game window to take key inputs
+
+### Deleted
+
+- Old game window
+
 ## [0.7.0] - 2022-01-22
 
 ### Added
@@ -29,7 +45,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Added GameGivenUpScreen
 - Connected playerStatus WIN and LOSE to corresponding Screens
 
-### Fixed ###
+### Fixed
 
 - Bugfixes in game-ended screens, definining logo-URLs as constants
 
@@ -185,7 +201,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.7.0...main?from_project_id=3507
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.8.0...main?from_project_id=3507
+
+[0.8.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.7.0...v0.8.0?from_project_id=3507
 
 [0.7.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.6.4...v0.7.0?from_project_id=3507
 

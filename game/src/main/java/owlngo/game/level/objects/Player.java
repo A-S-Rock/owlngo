@@ -14,6 +14,9 @@ import owlngo.game.level.Move.MoveType;
  */
 public final class Player implements ObjectInGame {
 
+  @SuppressWarnings("unused")
+  private static final String objectJsonType = "player";
+
   private final ObjectType objectType;
   private final Coordinate coordinate;
   private final List<Move> possibleMoves;
