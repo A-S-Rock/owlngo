@@ -42,9 +42,7 @@ public class GameView extends HBox {
 
   private Node createLevelView(OwlnGo game) {
     TilePane levelView = new TilePane();
-
     GameState gameState = game.getGameState();
-
     fillLevelView(levelView, game);
     StackPane fullLevel = new StackPane();
     fillLevel(fullLevel, levelView, game);

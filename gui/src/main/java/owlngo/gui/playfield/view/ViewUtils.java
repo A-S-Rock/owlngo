@@ -11,8 +11,8 @@ import owlngo.game.OwlnGo;
 /** Serves as an utility class for various view - dependant tasks. */
 public final class ViewUtils {
 
-  static final int NUM_LEVEL_COLUMNS = 10;
-  static final int NUM_LEVEL_ROWS = 10;
+  public static final int NUM_LEVEL_COLUMNS = 10;
+  public static final int NUM_LEVEL_ROWS = 10;
 
   static final int DEFAULT_SCENE_WIDTH = 1200;
   static final int DEFAULT_SCENE_HEIGHT = DEFAULT_SCENE_WIDTH * 2 / 3;
@@ -25,13 +25,17 @@ public final class ViewUtils {
    */
   public static void setSceneToGameView(Stage stage) {
     OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS);
+    checkIfGameHasStopped(game, stage);
 
+    stage.setScene(new Scene(new GameView(game)));
+  }
+
+  public static void checkIfGameHasStopped(OwlnGo game, Stage stage) {
     final FXMLLoader fxmlWinWindow =
         new FXMLLoader(ViewUtils.class.getResource("/GameSolvedScreen.fxml"));
     final FXMLLoader fxmlLoseWindow =
         new FXMLLoader(ViewUtils.class.getResource("/GameOverScreen.fxml"));
     System.out.println(fxmlWinWindow);
-
     game.getGameState()
         .propertyStatus()
         .addListener(
@@ -65,8 +69,6 @@ public final class ViewUtils {
                 System.out.println("Game Won");
               }
             }));
-
-    stage.setScene(new Scene(new GameView(game)));
   }
 
   public static double getTileX(double levelWidth, int column) {
