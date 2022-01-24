@@ -13,6 +13,7 @@ public class WelcomeScreenController {
   // TODO: Add button for editor
 
   @FXML Button startRandomGameButton;
+  @FXML Button loadEditorButton;
   @FXML Button loadLevelButton;
   @FXML Button exitGameButton;
   @FXML Button highscoreButton;
@@ -25,6 +26,15 @@ public class WelcomeScreenController {
           @Override
           public void handle(ActionEvent event) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
+            ControllerUtils.createScene(event, fxmlLoader);
+          }
+        });
+
+    loadEditorButton.setOnAction(
+        new EventHandler<>() {
+          @Override
+          public void handle(ActionEvent event) {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EditorWindow.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           }
         });
