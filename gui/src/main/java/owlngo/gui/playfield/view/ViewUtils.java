@@ -43,6 +43,12 @@ public final class ViewUtils {
     setGameStateListener(stage, game);
   }
 
+  /**
+   * Sets a listener for game status changes and reacts by opening the appropriate window.
+   *
+   * @param stage current stage
+   * @param game game the status is listened to
+   */
   public static void setGameStateListener(Stage stage, OwlnGo game) {
     final FXMLLoader fxmlWinWindow =
         new FXMLLoader(ViewUtils.class.getResource("/GameSolvedScreen.fxml"));

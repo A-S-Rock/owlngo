@@ -23,6 +23,8 @@ public class GameViewScreenController {
   @FXML Button giveUpButton;
   @FXML AnchorPane gamePane;
   private OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS); // default level
+
+  /** Allows the controller to load a different level if possible. */
   public GameViewScreenController() {
     // load level from data manager if editor has one
     if (DataManager.getInstance().getLevelContent() != null) {

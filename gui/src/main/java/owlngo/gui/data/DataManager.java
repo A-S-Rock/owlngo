@@ -1,8 +1,10 @@
 package owlngo.gui.data;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import owlngo.game.level.Level;
 
 /** Makes data transfer between different JavaFX windows possible with the use as a singleton. */
+@SuppressFBWarnings({"MS_EXPOSE_REP", "EI_EXPOSE_REP", "EI_EXPOSE_REP2"})
 public class DataManager {
 
   private static DataManager instance;
