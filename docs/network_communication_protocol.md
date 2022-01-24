@@ -9,6 +9,53 @@ format. Used library for this are moshi and moshi-adapter, ver. 1.13.0
 
 ***
 
+### Level JSON representation
+
+To save Level objects in an appropriate way a special `LevelJSON` class has been introduced.
+
+   ```java 
+   {"numCols":<NUM_COLS>,"numRows":<NUM_ROWS>,"objectsInGame":<OBJECTS_IN_GAME>}
+   ```
+
+- `int <NUM_COLS>`: Number of columns in the level.
+- `int <NUM_ROWS>`: Number of rows in the level.
+- `List<ObjectInGameJson> <OBJECTS_IN_GAME>`: JSON representation of all objects present in the
+  level.<br><br>
+
+  To represent an object in-game (`ObjectInGameJson`) in JSON:
+   ```json lines
+   {"objectJsonType":<OBJECT_JSON_TYPE>,"objectType":<OBJECT_TYPE>,"coordinate":<COORDINATE>}
+   ```
+    - `enum <OBJECT_TYPE>`: Type of object (currently `"NONE"`, `"AIR"`, `"GROUND"`, `"PLAYER"`
+      , `"START"`, `"FINISH"`).
+    - `CoordinateJSON <COORDINATE>`: JSON representation of a coordinate in the level<br><br>
+
+  If the object is a moveable object like a player, (`ObjectInGameJson`) in JSON is extended:
+   ```json lines
+   {"objectJsonType":<OBJECT_JSON_TYPE>,"objectType":<OBJECT_TYPE>,"coordinate":<COORDINATE>,"possibleMoves":<POSSIBLE_MOVES>}
+   ```
+    - `List<MoveJson> <POSSIBLE_MOVES>`: JSON representation of moves the moveable object can
+      make.<br><br>
+
+  `MoveJson` in JSON:
+
+   ```json lines
+   {"moveType": <MOVE_TYPE>,"newCoordinate": <NEW_COORDINATE>}
+   ```
+    - `enum <MOVE_TYPE>`: Type of move (currently `"LEFT"`, `"RIGHT"`, `"JUMP"`, `"FALL"`).
+    - `CoordinateJSON <NEW_COORDINATE>`: JSON representation of the new coordinate after the
+      move.<br><br>
+
+  `CoordinateJson` in JSON:
+
+   ```json lines
+   {"row": <ROW>,"column": <COLUMN>}
+   ```
+    - `int <ROW>`: row coordinate.
+    - `int <COLUMN>`: column coordinate.
+
+***
+
 ### Client to Server
 
 1. `ConnectionRequest`: Test message delivering the player to the Server.
@@ -25,10 +72,10 @@ format. Used library for this are moshi and moshi-adapter, ver. 1.13.0
 
 3. `LoadLevelRequest`: Message asking for a level layout from the Server to play on.
    ```json lines
-   {"messageType":"LoadLevelRequest","playerName":<NAME>,"levelName":<LEVEL_NAME>}
+   {"messageType":"LoadLevelRequest","levelName":<LEVEL_NAME>,"playerName":<NAME>}
    ```
-    - `String <NAME>`: the client's (player's) name.
-    - `String <LEVEL_NAME>`: the name of the saved level.<br><br>
+    - `String <LEVEL_NAME>`: the name of the saved level.
+    - `String <NAME>`: the client's (player's) name.<br><br>
 
 4. `SaveLevelRequest`: Message asking the Server to save sent level layout locally.
    ```json lines
@@ -38,8 +85,6 @@ format. Used library for this are moshi and moshi-adapter, ver. 1.13.0
     - `String <AUTHOR>`: the level creator's name
     - `String <LEVEL_NAME>`: the name given to the level
     - `LevelJSON <LEVEL>`: JSON representation of the level object to be saved<br><br>
-
-   `LevelJSON` contains the size and the contents of the level in JSON format.<br>
 
 #### Upcoming
 
