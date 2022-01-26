@@ -1,7 +1,10 @@
 package owlngo.gui.editor;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -243,5 +246,56 @@ public class EditorWindowControler {
     }
 
     return countEnds == 1;
+  }
+
+  boolean errorInFormat(File fileName) throws IOException {
+    FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    boolean wrongFormat = false;
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      String lineInput = bufferedReader.readLine();
+      if (lineInput == null) {
+        wrongFormat = true;
+        break;
+      }
+      String[] partOfline = lineInput.split(",");
+      int sum = 0;
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        int number = Integer.parseInt(partOfline[rowIndex]);
+        sum = sum + number;
+      }
+      if (sum != Integer.parseInt(partOfline[partOfline.length - 1])) {
+        wrongFormat = true;
+        break;
+      }
+      // System.out.print(wrongFormat + " ");
+    }
+    fileReader.close();
+    bufferedReader.close();
+    return wrongFormat;
+  }
+
+  void setElementsInPlayfieldDependingOnFile(File fileName) throws IOException {
+    System.out.println("setElementsInPlayfieldDependingOnFile");
+    final ElementInPlayfield[] elementArray = ElementInPlayfield.values();
+
+    FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    boolean wrongFormat = false;
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      String lineInput = bufferedReader.readLine();
+      if (lineInput == null) {
+        wrongFormat = true;
+        break;
+      }
+      String[] partOfline = lineInput.split(",");
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        int number = Integer.parseInt(partOfline[rowIndex]);
+        ElementsInPlayfield.setElementTo(elementArray[number], rowIndex, columnIndex);
+        System.out.print("*");
+      }
+    }
+    fileReader.close();
+    bufferedReader.close();
   }
 }
