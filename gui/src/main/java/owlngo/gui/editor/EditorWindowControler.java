@@ -138,6 +138,7 @@ public class EditorWindowControler {
       // StandardCharsets.UTF_8.name()
       if (!errorInFormat(fileName)) {
         JOptionPane.showMessageDialog(null, "Format ok. Confirm that file is loaded");
+        ElementsInPlayfield.setAllToNoElement();
         setElementsInPlayfieldDependingOnFile(fileName);
         setPanesOnPlayfield();
       } else {
