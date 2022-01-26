@@ -2,8 +2,10 @@ package owlngo.gui.editor;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -103,16 +105,46 @@ public class EditorWindowControler {
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
       System.out.println(fileName);
+      try (PrintWriter printWriter = new PrintWriter(fileName, StandardCharsets.UTF_8)) {
+        for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+          int sum = 0;
+          for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+            int number = ElementsInPlayfield.getElement(rowIndex, columnIndex).ordinal();
+            sum = sum + number;
+            printWriter.print(number);
+            printWriter.print(",");
+          }
+          printWriter.print(sum);
+          printWriter.println();
+        }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      ;
     }
   }
 
   @FXML
-  void loadElementsInPlayfield() {
+  void loadElementsInPlayfield() throws IOException {
+    System.out.println("loadElementsInPlayfield()");
+
     JFileChooser fileChooser = new JFileChooser();
     int valueFileChooser = fileChooser.showOpenDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
       System.out.println(fileName);
+      // StandardCharsets.UTF_8.name()
+      if (!errorInFormat(fileName)) {
+        JOptionPane.showMessageDialog(null, "Format ok. Confirm that file is loaded");
+        setElementsInPlayfieldDependingOnFile(fileName);
+        setPanesOnPlayfield();
+      } else {
+        JOptionPane.showMessageDialog(null, "Wrong format");
+        System.out.println("Wrong format");
+      }
+      ;
     }
   }
 
