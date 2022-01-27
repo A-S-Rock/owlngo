@@ -1,12 +1,10 @@
 package owlngo.client;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.nio.charset.StandardCharsets;
 
 /**
  * Network client for the owlngo game. The connection-establishing code was derived from PEEGS-Task3
@@ -129,11 +127,9 @@ public final class Client {
    * @throws IOException collecting all problems when receiving/sending a message
    */
   public void start(String username, Socket socket) throws IOException {
-    PrintWriter clientOutput =
-        new PrintWriter(socket.getOutputStream(), true, StandardCharsets.UTF_8);
-    // Input Reader defined, but not yet used
-    /*BufferedReader clientInput =
-    new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));*/
-    clientOutput.println("I say hello. What say you? :P");
+
+    CommunicationManager comMan = new CommunicationManager("Testclient", socket);
+
+    comMan.handleCommunication();
   }
 }
