@@ -33,6 +33,8 @@ public class LevelTileView extends StackPane {
       getChildren().add(new StartView());
     } else if (object.getType() == ObjectType.FINISH) {
       getChildren().add(new FinishView());
+    } else if (object.getType() == ObjectType.FIRE) {
+      getChildren().add(new FireView());
     }
   }
 }
