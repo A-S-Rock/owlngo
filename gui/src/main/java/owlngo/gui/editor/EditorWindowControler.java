@@ -94,7 +94,8 @@ public class EditorWindowControler {
       ControllerUtils.createScene(null, fxmlLoader);
       gridPaneEditorWindow.getScene().getWindow().hide();
     } else {
-      JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
+      JOptionPane.showMessageDialog(
+          null, "<html><b style=\"font:system\"> Start, End and Owl must be in the playfield.");
     }
   }
 
