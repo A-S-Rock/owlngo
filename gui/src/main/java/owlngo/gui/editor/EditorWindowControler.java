@@ -62,7 +62,8 @@ public class EditorWindowControler {
       Parent root = fxmlLoader.load();
       Stage stage = new Stage();
       stage.setTitle("Owlngo Playfield");
-      Scene scene = new Scene(root, 800, 600);
+      // Scene scene = new Scene(root, 800, 600);
+      Scene scene = new Scene(root, 1200, 800);
       // Set up keyHandler
       scene.setOnKeyPressed(
           event -> {
@@ -94,8 +95,9 @@ public class EditorWindowControler {
       ControllerUtils.createScene(null, fxmlLoader);
       gridPaneEditorWindow.getScene().getWindow().hide();
     } else {
-      JOptionPane.showMessageDialog(
-          null, "<html><b style=\"font:system\"> Start, End and Owl must be in the playfield.");
+      // JOptionPane.showMessageDialog(null, "<html><b style=\"font:system\"> Start, End and Owl
+      // must be in the playfield.");
+      JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
     }
   }
 
@@ -135,16 +137,17 @@ public class EditorWindowControler {
     int valueFileChooser = fileChooser.showOpenDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
-      System.out.println(fileName);
       // StandardCharsets.UTF_8.name()
       if (!errorInFormat(fileName)) {
-        JOptionPane.showMessageDialog(null, "Format ok. Confirm that file is loaded");
-        ElementsInPlayfield.setAllToNoElement();
-        setElementsInPlayfieldDependingOnFile(fileName);
-        setPanesOnPlayfield();
+        int response =
+            JOptionPane.showConfirmDialog(null, "Format ok. Confirm that file is loaded");
+        if (response == JOptionPane.YES_OPTION) {
+          ElementsInPlayfield.setAllToNoElement();
+          setElementsInPlayfieldDependingOnFile(fileName);
+          setPanesOnPlayfield();
+        }
       } else {
         JOptionPane.showMessageDialog(null, "Wrong format");
-        System.out.println("Wrong format");
       }
       ;
     }
@@ -204,9 +207,7 @@ public class EditorWindowControler {
     System.out.println("setResetElement");
     if (ElementsInPlayfield.getElement(row, column)
         == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
-      System.out.print("I am set");
-      System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
-      System.out.println(StoreLastKey.getLastKeyPressedAsString());
+      // System.out.print("I am set");
 
       if (MethodsForElement.validKey(StoreLastKey.getLastKeyPressedAsString())) {
         // set in elementsInPlayfield the elementInPlayfield depending on the key pressed
@@ -215,13 +216,11 @@ public class EditorWindowControler {
         ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
       }
       // Set Background of pane depending on the content of elementsInPlayfield
-      System.out.println("isGround=" + ElementsInPlayfield.isGround(row, column));
-      System.out.println("isOwl=" + ElementsInPlayfield.isOwl(row, column));
 
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
     } else {
-      System.out.println("I am reset");
+      // System.out.println("I am reset");
       // set in elementsInPlayfield the elementInPlayfield to noElement
       final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
           ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
@@ -302,7 +301,6 @@ public class EditorWindowControler {
         wrongFormat = true;
         break;
       }
-      // System.out.print(wrongFormat + " ");
     }
     fileReader.close();
     bufferedReader.close();
@@ -326,7 +324,6 @@ public class EditorWindowControler {
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
         int number = Integer.parseInt(partOfline[rowIndex]);
         ElementsInPlayfield.setElementTo(elementArray[number], rowIndex, columnIndex);
-        System.out.print("*");
       }
     }
     fileReader.close();
