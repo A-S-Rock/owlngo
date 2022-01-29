@@ -62,7 +62,6 @@ public class EditorWindowControler {
       Parent root = fxmlLoader.load();
       Stage stage = new Stage();
       stage.setTitle("Owlngo Playfield");
-      // Scene scene = new Scene(root, 800, 600);
       Scene scene = new Scene(root, 1200, 800);
       // Set up keyHandler
       scene.setOnKeyPressed(
@@ -95,8 +94,6 @@ public class EditorWindowControler {
       ControllerUtils.createScene(null, fxmlLoader);
       gridPaneEditorWindow.getScene().getWindow().hide();
     } else {
-      // JOptionPane.showMessageDialog(null, "<html><b style=\"font:system\"> Start, End and Owl
-      // must be in the playfield.");
       JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
     }
   }
@@ -107,7 +104,6 @@ public class EditorWindowControler {
     int valueFileChooser = fileChooser.showSaveDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
-      System.out.println(fileName);
       try (PrintWriter printWriter = new PrintWriter(fileName, StandardCharsets.UTF_8)) {
         for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
           int sum = 0;
@@ -131,13 +127,11 @@ public class EditorWindowControler {
 
   @FXML
   void loadElementsInPlayfield() throws IOException {
-    System.out.println("loadElementsInPlayfield()");
 
     JFileChooser fileChooser = new JFileChooser();
     int valueFileChooser = fileChooser.showOpenDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
-      // StandardCharsets.UTF_8.name()
       if (!errorInFormat(fileName)) {
         int response =
             JOptionPane.showConfirmDialog(null, "Format ok. Confirm that file is loaded");
@@ -204,10 +198,9 @@ public class EditorWindowControler {
    * o (ground, start, end, owl). If one of those elements is clicked, it is set to no element.
    */
   private void setResetElement(Pane pane, int row, int column) {
-    System.out.println("setResetElement");
     if (ElementsInPlayfield.getElement(row, column)
         == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
-      // System.out.print("I am set");
+      // set
 
       if (MethodsForElement.validKey(StoreLastKey.getLastKeyPressedAsString())) {
         // set in elementsInPlayfield the elementInPlayfield depending on the key pressed
@@ -220,7 +213,7 @@ public class EditorWindowControler {
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
     } else {
-      // System.out.println("I am reset");
+      // reset
       // set in elementsInPlayfield the elementInPlayfield to noElement
       final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
           ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
@@ -308,7 +301,6 @@ public class EditorWindowControler {
   }
 
   void setElementsInPlayfieldDependingOnFile(File fileName) throws IOException {
-    System.out.println("setElementsInPlayfieldDependingOnFile");
     final ElementInPlayfield[] elementArray = ElementInPlayfield.values();
 
     FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
