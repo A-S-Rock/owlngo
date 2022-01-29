@@ -13,7 +13,8 @@ public interface ObjectInGame {
     START,
     FINISH,
     AIR,
-    GROUND
+    GROUND,
+    FIRE
   }
 
   /** Creates a new object ingame at the given position. */
