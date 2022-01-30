@@ -46,7 +46,7 @@ public class OwlnGo {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
-    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1) {
+    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1 || sideConditions.getEndurance() == 0) {
       gameState = gameState.with(GameStatus.LOSE);
     }
   }
