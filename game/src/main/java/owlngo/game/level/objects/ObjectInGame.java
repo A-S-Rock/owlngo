@@ -14,7 +14,8 @@ public interface ObjectInGame {
     FINISH,
     AIR,
     GROUND,
-    FIRE
+    FIRE,
+    FOOD
   }
 
   /** Creates a new object ingame at the given position. */
