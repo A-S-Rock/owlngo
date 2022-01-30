@@ -1,16 +1,20 @@
 package owlngo.gui.controller;
 
+import java.io.IOException;
+import java.net.Socket;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
+import owlngo.gui.data.CommunicationManager;
+import owlngo.communication.Connection;
+import owlngo.communication.messages.ConnectionRequest;
+import owlngo.communication.messages.Message;
 
 /** Contoller class for WelcomeScreen.fxml. */
 public class WelcomeScreenController {
-
-  // TODO: Add button for editor
 
   @FXML Button startRandomGameButton;
   @FXML Button loadEditorButton;
@@ -18,6 +22,26 @@ public class WelcomeScreenController {
   @FXML Button exitGameButton;
   @FXML Button highscoreButton;
   @FXML Pane imagePane;
+
+  private final String username;
+
+  public WelcomeScreenController() throws IOException {
+    username = CommunicationManager.getInstance().getUsername();
+    final Socket socket = CommunicationManager.getInstance().getSocket();
+    try (Connection connection = establishConnection(socket)) {
+      System.out.println("I will send a connection message now.");
+      connectToServer(connection);
+    }
+  }
+
+  private void connectToServer(Connection connection) {
+    Message connectionMessage = new ConnectionRequest(username);
+    connection.write(connectionMessage);
+  }
+
+  private Connection establishConnection(Socket socket) throws IOException {
+    return new Connection(socket.getOutputStream(), socket.getInputStream());
+  }
 
   @FXML
   void initialize() {
