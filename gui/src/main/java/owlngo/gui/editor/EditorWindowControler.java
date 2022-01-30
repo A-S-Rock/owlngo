@@ -280,30 +280,34 @@ public class EditorWindowControler {
     boolean wrongFormat = false;
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
       String lineInput = bufferedReader.readLine();
+
       if (lineInput == null) {
         wrongFormat = true;
         break;
       }
       String[] partOfline = lineInput.split(",");
-
       int sum = 0;
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
-        if (partOfline[rowIndex].length() == 0) {
+        // the string should not be empty
+        if (noNumber(partOfline[rowIndex])) {
           wrongFormat = true;
           break;
         }
-        ;
-        if (!partOfline[rowIndex].matches("[0-9]")) {
-          wrongFormat = true;
-          break;
-        }
+        // calculate sum
         int number = Integer.parseInt(partOfline[rowIndex]);
         sum = sum + number;
       }
       if (wrongFormat) {
         break;
       }
-      if (sum != Integer.parseInt(partOfline[partOfline.length - 1])) {
+      String checkSum = partOfline[partOfline.length - 1];
+      System.out.println("CheckSum" + checkSum);
+      if (noNumber(checkSum)) {
+        wrongFormat = true;
+        break;
+      }
+      // test check sum
+      if (sum != Integer.parseInt(checkSum)) {
         wrongFormat = true;
         break;
       }
@@ -311,6 +315,21 @@ public class EditorWindowControler {
     fileReader.close();
     bufferedReader.close();
     return wrongFormat;
+  }
+
+  boolean noNumber(String eingabe) {
+    // the string should not be empty
+    if (eingabe.length() == 0) {
+      return true;
+    }
+    // is only allowed to contain numbers
+    for (int x = 0; x < eingabe.length(); x++) {
+      String letter = eingabe.substring(x, x + 1);
+      if (!letter.matches("[0-9]")) {
+        return true;
+      }
+    }
+    return false;
   }
 
   void setElementsInPlayfieldDependingOnFile(File fileName) throws IOException {
