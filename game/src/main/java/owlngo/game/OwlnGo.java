@@ -65,7 +65,7 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveFall();
+      //moveFall();
     }
   }
 
@@ -83,7 +83,7 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveFall();
+      //moveFall();
     }
   }
 
