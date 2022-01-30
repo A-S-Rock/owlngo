@@ -19,13 +19,19 @@ public class OwlnGo {
   private GameState gameState;
   private SideConditions sideConditions;
 
-  /** Constructs an Owlngo game instance with the prespecified level dimensions and prespecified sideConditions. */
+  /**
+   * Constructs an Owlngo game instance with the prespecified level dimensions and prespecified
+   * sideConditions.
+   */
   public OwlnGo() {
     gameState = new GameState(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
     sideConditions = new SideConditions(endurance);
   }
 
-  /** Constructs an Owlngo game instance with the given level dimensions and prespecified sideConditions. */
+  /**
+   * Constructs an Owlngo game instance with the given level dimensions and prespecified
+   * sideConditions.
+   */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
     sideConditions = new SideConditions(endurance);
@@ -46,7 +52,8 @@ public class OwlnGo {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
-    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1 || sideConditions.getEndurance() == 0) {
+    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1
+        || sideConditions.getEndurance() == 0) {
       gameState = gameState.with(GameStatus.LOSE);
     }
   }
@@ -67,7 +74,7 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      //moveFall();
+      // moveFall();
     }
   }
 
@@ -87,7 +94,7 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      //moveFall();
+      // moveFall();
     }
   }
 

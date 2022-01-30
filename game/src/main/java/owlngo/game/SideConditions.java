@@ -1,5 +1,10 @@
 package owlngo.game;
 
+
+/**
+ * Represents sideConditons for the game.
+ */
+
 public class SideConditions {
 
   private int endurance;
@@ -19,5 +24,4 @@ public class SideConditions {
   public void decreaseEndurance() {
     endurance--;
   }
-
 }
