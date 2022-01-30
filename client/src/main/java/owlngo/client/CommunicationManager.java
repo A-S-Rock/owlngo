@@ -1,59 +1,64 @@
 package owlngo.client;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import javafx.application.Application;
-import owlngo.communication.messages.ConnectedNotification;
-import owlngo.communication.messages.ConnectionRequest;
-import owlngo.communication.messages.Message;
-import owlngo.communication.utils.MessageCoder;
-import owlngo.gui.playfield.WelcomeScreen;
 
-/** Class handles incoming and outgoing messages to and from the server. */
-public class CommunicationManager {
+/** Class storing the client socket for further use by JavaFX controllers. */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings({
+  "EI_EXPOSE_REP2",
+  "EI_EXPOSE_REP",
+  "MS_EXPOSE_REP"
+})
+public final class CommunicationManager {
 
-  private final Socket socket;
+  private static CommunicationManager instance;
   private String username;
+  private Socket socket;
 
-  CommunicationManager(String username, Socket socket) {
-    this.username = username;
-    this.socket = socket;
+  /**
+   * Instantiates the single instance of the CommunicationManager or returns it if already existant.
+   *
+   * @return the CommunicationManager's instance
+   */
+  public static synchronized CommunicationManager getInstance() {
+    if (instance == null) {
+      instance = new CommunicationManager();
+    }
+    return instance;
   }
 
   /**
-   * Main method of the thread that handles different types of messages to its corresponding
-   * server-class.
+   * Returns the connected client's username.
+   *
+   * @return the username
    */
-  void handleCommunication() throws IOException {
-    // starting GUI
-    Application.launch(WelcomeScreen.class, new String[] {});
+  public String getUsername() {
+    return username;
+  }
 
-    PrintWriter clientOutput =
-        new PrintWriter(socket.getOutputStream(), true, StandardCharsets.UTF_8);
-    BufferedReader clientInput =
-        new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));
-    clientOutput.println(MessageCoder.encodeToJson(new ConnectionRequest(username)));
+  /**
+   * Returns the client's socket connection.
+   *
+   * @return the socket
+   */
+  public Socket getSocket() {
+    return socket;
+  }
 
-    while (true) {
-      try {
-        String clientIn = clientInput.readLine();
-        if (clientIn == null) {
-          break;
-        }
-        Message decodedString = MessageCoder.decodeFromJson(clientIn);
+  /**
+   * Sets the connected client's username.
+   *
+   * @param username the username
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-        if (decodedString instanceof ConnectedNotification) {
-          System.out.println(
-              "Server signaled a positive conntection from "
-                  + ((ConnectedNotification) decodedString).getPlayerName());
-        }
-      } catch (IOException e) {
-        throw new AssertionError("Exception during Server-Client-Communication");
-      }
-    }
+  /**
+   * Sets the connected client's socket.
+   *
+   * @param socket the client's socket
+   */
+  public void setSocket(Socket socket) {
+    this.socket = socket;
   }
 }
