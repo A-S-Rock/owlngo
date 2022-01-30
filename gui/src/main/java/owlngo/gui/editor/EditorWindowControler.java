@@ -118,10 +118,11 @@ public class EditorWindowControler {
         }
       } catch (FileNotFoundException e) {
         e.printStackTrace();
+        System.err.println("FileNotFoundException in saveElementsInPlayfield()");
       } catch (IOException e) {
         e.printStackTrace();
+        System.err.println("IOException in saveElementsInPlayfield()");
       }
-      ;
     }
   }
 
@@ -143,7 +144,6 @@ public class EditorWindowControler {
       } else {
         JOptionPane.showMessageDialog(null, "Wrong format");
       }
-      ;
     }
   }
 
@@ -301,7 +301,6 @@ public class EditorWindowControler {
         break;
       }
       String checkSum = partOfline[partOfline.length - 1];
-      System.out.println("CheckSum" + checkSum);
       if (noNumber(checkSum)) {
         wrongFormat = true;
         break;
@@ -337,11 +336,9 @@ public class EditorWindowControler {
 
     FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
     BufferedReader bufferedReader = new BufferedReader(fileReader);
-    boolean wrongFormat = false;
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
       String lineInput = bufferedReader.readLine();
       if (lineInput == null) {
-        wrongFormat = true;
         break;
       }
       String[] partOfline = lineInput.split(",");
