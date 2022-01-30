@@ -62,6 +62,8 @@ public class OwlnGo {
     Move move = player.getRightMove();
     gameState.moveObjectInGame(move);
 
+    sideConditions.decreaseEndurance();
+
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
@@ -80,6 +82,8 @@ public class OwlnGo {
     Move move = player.getLeftMove();
     gameState.moveObjectInGame(move);
 
+    sideConditions.decreaseEndurance();
+
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
@@ -97,6 +101,8 @@ public class OwlnGo {
 
     Move move = player.getJumpMove();
     gameState.moveObjectInGame(move);
+
+    sideConditions.decreaseEndurance();
 
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
@@ -117,6 +123,8 @@ public class OwlnGo {
 
     Move move = player.getFallMove();
     gameState.moveObjectInGame(move);
+
+    sideConditions.decreaseEndurance();
 
     checkWinningConditions(move);
 
