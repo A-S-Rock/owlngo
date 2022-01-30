@@ -26,7 +26,6 @@ public class EditorScreen extends Application {
     // exception when getLastKeyPressed() is called without a key being pressed.
 
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/EditorWindow.fxml")));
-    System.out.println("FxmlLoader" + fxmlLoader);
 
     try {
       Parent root = fxmlLoader.load();
