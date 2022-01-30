@@ -285,10 +285,23 @@ public class EditorWindowControler {
         break;
       }
       String[] partOfline = lineInput.split(",");
+
       int sum = 0;
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        if (partOfline[rowIndex].length() == 0) {
+          wrongFormat = true;
+          break;
+        }
+        ;
+        if (!partOfline[rowIndex].matches("[0-9]")) {
+          wrongFormat = true;
+          break;
+        }
         int number = Integer.parseInt(partOfline[rowIndex]);
         sum = sum + number;
+      }
+      if (wrongFormat) {
+        break;
       }
       if (sum != Integer.parseInt(partOfline[partOfline.length - 1])) {
         wrongFormat = true;
