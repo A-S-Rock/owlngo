@@ -8,11 +8,20 @@ public final class ConnectionRequest implements Message {
 
   private final String playerName;
 
+  /**
+   * Creates a connection request with the given player name.
+   *
+   * @param playerName the player name.
+   */
   public ConnectionRequest(String playerName) {
     this.playerName = playerName;
   }
 
-  /** Returns the player's name. */
+  /**
+   * Returns the player's name.
+   *
+   * @return the player name.
+   */
   public String getPlayerName() {
     return playerName;
   }

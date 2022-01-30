@@ -25,14 +25,29 @@ public final class SaveLevelRequest implements Message {
     levelJson = new LevelJson(level);
   }
 
+  /**
+   * Returns the author's name.
+   *
+   * @return the author's player name.
+   */
   public String getAuthor() {
     return author;
   }
 
+  /**
+   * Returns the level name from the level to save on the server.
+   *
+   * @return the level name.
+   */
   public String getLevelName() {
     return levelName;
   }
 
+  /**
+   * Returns the level to be saved on the server.
+   *
+   * @return the level
+   */
   public Level getLevel() {
     return levelJson.createLevel();
   }
