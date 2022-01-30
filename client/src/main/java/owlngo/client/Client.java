@@ -5,6 +5,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import javafx.application.Application;
+import owlngo.gui.playfield.WelcomeScreen;
 
 /**
  * Network client for the owlngo game. The connection-establishing code was derived from PEEGS-Task3
@@ -128,8 +130,9 @@ public final class Client {
    */
   public void start(String username, Socket socket) throws IOException {
 
-    CommunicationManager comMan = new CommunicationManager("Testclient", socket);
-
-    comMan.handleCommunication();
+    CommunicationManager.getInstance().setUsername(username);
+    CommunicationManager.getInstance().setSocket(socket);
+    // starting GUI
+    Application.launch(WelcomeScreen.class);
   }
 }

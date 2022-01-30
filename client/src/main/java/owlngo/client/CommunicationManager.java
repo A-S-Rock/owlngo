@@ -1,40 +1,64 @@
 package owlngo.client;
 
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import javafx.application.Application;
-import owlngo.gui.playfield.WelcomeScreen;
 
-/** Class handles incoming and outgoing messages to and from the server. */
-public class CommunicationManager {
+/** Class storing the client socket for further use by JavaFX controllers. */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings({
+  "EI_EXPOSE_REP2",
+  "EI_EXPOSE_REP",
+  "MS_EXPOSE_REP"
+})
+public final class CommunicationManager {
 
-  private final Socket socket;
+  private static CommunicationManager instance;
   private String username;
+  private Socket socket;
 
-  CommunicationManager(String username, Socket socket) {
-    this.username = username;
-    this.socket = socket;
+  /**
+   * Instantiates the single instance of the CommunicationManager or returns it if already existant.
+   *
+   * @return the CommunicationManager's instance
+   */
+  public static synchronized CommunicationManager getInstance() {
+    if (instance == null) {
+      instance = new CommunicationManager();
+    }
+    return instance;
   }
 
   /**
-   * Main method of the thread that handles different types of messages to its corresponding
-   * server-class.
+   * Returns the connected client's username.
+   *
+   * @return the username
    */
-  void handleCommunication() {
-    // starting GUI
-    Application.launch(WelcomeScreen.class, new String[] {});
+  public String getUsername() {
+    return username;
+  }
 
-    try {
-      PrintWriter clientOutput =
-          new PrintWriter(socket.getOutputStream(), true, StandardCharsets.UTF_8);
-      // Input Reader defined, but not yet used
-      /* BufferedReader clientInput =
-      new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8));*/
-      clientOutput.println(username + " says hello. What say you? :P");
-    } catch (IOException e) {
-      System.err.println("IOException while communicating with the Server");
-    }
+  /**
+   * Returns the client's socket connection.
+   *
+   * @return the socket
+   */
+  public Socket getSocket() {
+    return socket;
+  }
+
+  /**
+   * Sets the connected client's username.
+   *
+   * @param username the username
+   */
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  /**
+   * Sets the connected client's socket.
+   *
+   * @param socket the client's socket
+   */
+  public void setSocket(Socket socket) {
+    this.socket = socket;
   }
 }
