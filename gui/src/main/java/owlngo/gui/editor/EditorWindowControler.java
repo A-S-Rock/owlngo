@@ -1,7 +1,12 @@
 package owlngo.gui.editor;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -57,7 +62,7 @@ public class EditorWindowControler {
       Parent root = fxmlLoader.load();
       Stage stage = new Stage();
       stage.setTitle("Owlngo Playfield");
-      Scene scene = new Scene(root, 800, 600);
+      Scene scene = new Scene(root, 1200, 800);
       // Set up keyHandler
       scene.setOnKeyPressed(
           event -> {
@@ -89,7 +94,7 @@ public class EditorWindowControler {
       ControllerUtils.createScene(null, fxmlLoader);
       gridPaneEditorWindow.getScene().getWindow().hide();
     } else {
-      JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
+      JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
     }
   }
 
@@ -99,17 +104,46 @@ public class EditorWindowControler {
     int valueFileChooser = fileChooser.showSaveDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
-      System.out.println(fileName);
+      try (PrintWriter printWriter = new PrintWriter(fileName, StandardCharsets.UTF_8)) {
+        for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+          int sum = 0;
+          for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+            int number = ElementsInPlayfield.getElement(rowIndex, columnIndex).ordinal();
+            sum = sum + number;
+            printWriter.print(number);
+            printWriter.print(",");
+          }
+          printWriter.print(sum);
+          printWriter.println();
+        }
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+        System.err.println("FileNotFoundException in saveElementsInPlayfield()");
+      } catch (IOException e) {
+        e.printStackTrace();
+        System.err.println("IOException in saveElementsInPlayfield()");
+      }
     }
   }
 
   @FXML
-  void loadElementsInPlayfield() {
+  void loadElementsInPlayfield() throws IOException {
+
     JFileChooser fileChooser = new JFileChooser();
     int valueFileChooser = fileChooser.showOpenDialog(null);
     if (valueFileChooser == JFileChooser.APPROVE_OPTION) {
       File fileName = new File(fileChooser.getSelectedFile().getAbsolutePath());
-      System.out.println(fileName);
+      if (!errorInFormat(fileName)) {
+        int response =
+            JOptionPane.showConfirmDialog(null, "Format ok. Confirm that file is loaded");
+        if (response == JOptionPane.YES_OPTION) {
+          ElementsInPlayfield.setAllToNoElement();
+          setElementsInPlayfieldDependingOnFile(fileName);
+          setPanesOnPlayfield();
+        }
+      } else {
+        JOptionPane.showMessageDialog(null, "Wrong format");
+      }
     }
   }
 
@@ -164,12 +198,9 @@ public class EditorWindowControler {
    * o (ground, start, end, owl). If one of those elements is clicked, it is set to no element.
    */
   private void setResetElement(Pane pane, int row, int column) {
-    System.out.println("setResetElement");
     if (ElementsInPlayfield.getElement(row, column)
         == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
-      System.out.print("I am set");
-      System.out.print("Key:" + StoreLastKey.getLastKeyPressed() + " ");
-      System.out.println(StoreLastKey.getLastKeyPressedAsString());
+      // set
 
       if (MethodsForElement.validKey(StoreLastKey.getLastKeyPressedAsString())) {
         // set in elementsInPlayfield the elementInPlayfield depending on the key pressed
@@ -178,13 +209,11 @@ public class EditorWindowControler {
         ElementsInPlayfield.setElementTo(elementInPlayfield, row, column);
       }
       // Set Background of pane depending on the content of elementsInPlayfield
-      System.out.println("isGround=" + ElementsInPlayfield.isGround(row, column));
-      System.out.println("isOwl=" + ElementsInPlayfield.isOwl(row, column));
 
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
     } else {
-      System.out.println("I am reset");
+      // reset
       // set in elementsInPlayfield the elementInPlayfield to noElement
       final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
           ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;
@@ -243,5 +272,82 @@ public class EditorWindowControler {
     }
 
     return countEnds == 1;
+  }
+
+  boolean errorInFormat(File fileName) throws IOException {
+    FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    boolean wrongFormat = false;
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      String lineInput = bufferedReader.readLine();
+
+      if (lineInput == null) {
+        wrongFormat = true;
+        break;
+      }
+      String[] partOfline = lineInput.split(",");
+      int sum = 0;
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        // the string should not be empty
+        if (noNumber(partOfline[rowIndex])) {
+          wrongFormat = true;
+          break;
+        }
+        // calculate sum
+        int number = Integer.parseInt(partOfline[rowIndex]);
+        sum = sum + number;
+      }
+      if (wrongFormat) {
+        break;
+      }
+      String checkSum = partOfline[partOfline.length - 1];
+      if (noNumber(checkSum)) {
+        wrongFormat = true;
+        break;
+      }
+      // test check sum
+      if (sum != Integer.parseInt(checkSum)) {
+        wrongFormat = true;
+        break;
+      }
+    }
+    fileReader.close();
+    bufferedReader.close();
+    return wrongFormat;
+  }
+
+  boolean noNumber(String eingabe) {
+    // the string should not be empty
+    if (eingabe.length() == 0) {
+      return true;
+    }
+    // is only allowed to contain numbers
+    for (int x = 0; x < eingabe.length(); x++) {
+      String letter = eingabe.substring(x, x + 1);
+      if (!letter.matches("[0-9]")) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  void setElementsInPlayfieldDependingOnFile(File fileName) throws IOException {
+    final ElementInPlayfield[] elementArray = ElementInPlayfield.values();
+
+    FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      String lineInput = bufferedReader.readLine();
+      if (lineInput == null) {
+        break;
+      }
+      String[] partOfline = lineInput.split(",");
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        int number = Integer.parseInt(partOfline[rowIndex]);
+        ElementsInPlayfield.setElementTo(elementArray[number], rowIndex, columnIndex);
+      }
+    }
+    fileReader.close();
+    bufferedReader.close();
   }
 }
