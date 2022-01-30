@@ -2,7 +2,6 @@
 plugins {
     // Apply the java Plugin to add support for Java.
     id 'java'
-    id 'application'
 
     // Quality stuff
     id 'checkstyle'
@@ -15,17 +14,6 @@ dependencies {
     dependencies {
         implementation project(':game')
     }
-}
-
-application {
-    // Define the main class for the application.
-    mainClass = 'owlngo.gui.playfield.GameScreenMain'
-    // mainClass = 'owlngo.gui.editor.EditorScreen'
-
-}
-
-run {
-    standardInput = System.in
 }
 
 // This is a template for the game window
