@@ -14,10 +14,10 @@ public class OwlnGo {
 
   static final int DEFAULT_NUM_ROWS = 30;
   static final int DEFAULT_NUM_COLS = 30;
-  static final int endurance = 10;
+  static final int ENDURANCE = 10;
 
   private GameState gameState;
-  private SideConditions sideConditions;
+  private final SideConditions sideConditions;
 
   /**
    * Constructs an Owlngo game instance with the prespecified level dimensions and prespecified
@@ -25,7 +25,7 @@ public class OwlnGo {
    */
   public OwlnGo() {
     gameState = new GameState(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
-    sideConditions = new SideConditions(endurance);
+    sideConditions = new SideConditions(ENDURANCE);
   }
 
   /**
@@ -34,13 +34,13 @@ public class OwlnGo {
    */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
-    sideConditions = new SideConditions(endurance);
+    sideConditions = new SideConditions(ENDURANCE);
   }
 
   /** Constructs an Owlngo game instance with a given level and prespecified sideConditions. */
   public OwlnGo(Level level) {
     gameState = new GameState(level);
-    sideConditions = new SideConditions(endurance);
+    sideConditions = new SideConditions(ENDURANCE);
   }
 
   /** Get the current GameState. */
