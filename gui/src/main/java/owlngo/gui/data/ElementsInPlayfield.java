@@ -91,9 +91,7 @@ public class ElementsInPlayfield {
           LEVEL = LEVEL.withAirAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.DANGER) {
           System.out.println("ToDo");
-          // ToDo
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.FOOD) {
-          // ToDo
           System.out.println("ToDo");
         }
       }
