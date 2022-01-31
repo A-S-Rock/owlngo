@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-/** Class adds a soil-themed rectangle as a ground/soil tile. */
+/** Class adds a fire-themed rectangle as a dangerous block tile. */
 public class FireView extends StackPane {
 
   private Image soilImage;

@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 
-/** Class adds a soil-themed rectangle as a ground/soil tile. */
+/** Class adds a mouse-themed rectangle as a food tile. */
 public class FoodView extends StackPane {
 
   private Image foodImage;
