@@ -76,16 +76,25 @@ public class PlayfieldWindowControler {
   public static void interpreteKeys(KeyCode keyCode) {
     if (keyCode == KeyCode.NUMPAD8
         || keyCode == KeyCode.getKeyCode("w")
-        || keyCode == KeyCode.getKeyCode("W")) {
+        || keyCode == KeyCode.getKeyCode("W")
+        || keyCode == KeyCode.UP) {
       GAME.moveJump(false);
     } else if ((keyCode == KeyCode.NUMPAD6)
         || (keyCode == KeyCode.getKeyCode("d"))
-        || (keyCode == KeyCode.getKeyCode("D"))) {
+        || (keyCode == KeyCode.getKeyCode("D"))
+        || keyCode == KeyCode.RIGHT) {
       GAME.moveRight();
     } else if (keyCode == KeyCode.NUMPAD4
         || keyCode == KeyCode.getKeyCode("a")
-        || keyCode == KeyCode.getKeyCode("A")) {
+        || keyCode == KeyCode.getKeyCode("A")
+        || keyCode == KeyCode.LEFT) {
       GAME.moveLeft();
+    } else if (keyCode == KeyCode.NUMPAD2
+        || (keyCode == KeyCode.getKeyCode("s"))
+        || (keyCode == KeyCode.getKeyCode("S"))
+        || (keyCode == KeyCode.DOWN)) {
+      GAME.moveFall();
+      System.out.println("Falling (one tile down)");
     }
     getElementsOfPlayfieldFromGame();
     changeAllPanesDependingOnElementsInPlayfied();
