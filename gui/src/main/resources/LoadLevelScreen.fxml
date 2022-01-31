@@ -39,7 +39,7 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="250.0" text="Play selected">
+                  <Button fx:id="playSelectedButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="250.0" text="Play selected">
                      <VBox.margin>
                         <Insets left="10.0" top="525.0" />
                      </VBox.margin>

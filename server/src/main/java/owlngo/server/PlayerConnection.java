@@ -4,11 +4,13 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.LevelNamesNotification;
 import owlngo.communication.messages.LoadLevelNamesRequest;
 import owlngo.communication.messages.Message;
+import owlngo.communication.savefiles.LevelSavefile;
 
 /**
  * This class handles the communication with (this server-side and) a connected client. Adjusted
@@ -19,10 +21,12 @@ public class PlayerConnection implements Closeable {
 
   private final String username;
   private Connection connection;
+  private final SavefileManager manager;
 
-  public PlayerConnection(String username, Connection connection) {
+  public PlayerConnection(String username, Connection connection, SavefileManager manager) {
     this.username = username;
     this.connection = connection;
+    this.manager = manager;
   }
 
   /**
@@ -35,11 +39,16 @@ public class PlayerConnection implements Closeable {
 
     if (message instanceof LoadLevelNamesRequest) {
       System.out.println("I received the load level request.");
-      final List<String> testList = new ArrayList<>();
-      testList.add("Level1");
-      testList.add("Level2");
-      testList.add("Level3");
-      final LevelNamesNotification notification = new LevelNamesNotification(testList);
+
+      final Map<String, LevelSavefile> savedLevels = manager.getSavedLevels();
+      final List<List<String>> levelNames = new ArrayList<>();
+
+      for (LevelSavefile savefile : savedLevels.values()) {
+        List<String> levelRecord = List.of(savefile.getLevelName(), savefile.getAuthor());
+        levelNames.add(levelRecord);
+      }
+
+      final LevelNamesNotification notification = new LevelNamesNotification(levelNames);
       connection.write(notification);
     } else {
       throw new AssertionError("Invalid communication.");

@@ -16,6 +16,7 @@ import owlngo.communication.messages.Message;
 public class ConnectionManager implements AutoCloseable {
 
   private Map<String, PlayerConnection> connections = new HashMap<>();
+  private final SavefileManager manager = new SavefileManager();
 
   void createNewPlayerConnection(Socket connectionSocket) throws IOException {
     Connection connection =
@@ -49,7 +50,7 @@ public class ConnectionManager implements AutoCloseable {
     }
     System.out.println("Received a connection request!");
     String username = ((ConnectionRequest) connectionMessage).getPlayerName();
-    return new PlayerConnection(username, connection);
+    return new PlayerConnection(username, connection, manager);
   }
 
   @Override

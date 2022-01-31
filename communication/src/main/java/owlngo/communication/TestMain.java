@@ -21,7 +21,8 @@ import owlngo.game.level.Level;
 public final class TestMain {
 
   private static final OwlnGo GAME = new OwlnGo(Level.createDemoLevel(10, 10));
-  private static final List<String> LEVEL_NAMES = List.of("DEMO1", "DEMO2", "DEMO3");
+  private static final List<List<String>> LEVEL_NAMES =
+      List.of(List.of("DEMO1", "void"), List.of("DEMO2", "VOID"), List.of("DEMO3", "VOID"));
 
   /**
    * Testing JSON encoding.
@@ -136,7 +137,7 @@ public final class TestMain {
         MessageCoder.decodeFromJson(levelNamesNotificationJson);
     final LevelNamesNotification parsedLevelNamesNotification =
         (LevelNamesNotification) levelNamesNotificationMessage;
-    final List<String> levelNames = parsedLevelNamesNotification.getLevelNames();
+    final List<List<String>> levelNames = parsedLevelNamesNotification.getLevelNames();
     System.out.println(levelNames); // for debugging reasons
 
     System.out.println("SendLevelNotification:");

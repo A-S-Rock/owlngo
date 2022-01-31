@@ -54,7 +54,6 @@ public class WelcomeScreenController {
 
   @SuppressWarnings("InfiniteLoopStatement")
   void start() throws IOException {
-    System.out.println("I will send a connection message now.");
     connectToServer(connection);
     while (true) {
       reactToServer(connection);
@@ -70,7 +69,8 @@ public class WelcomeScreenController {
           "[SERVER] " + sentUsername + " - you're successfully connected to the game server!");
       isConnected = true;
     } else if (message instanceof LevelNamesNotification) {
-      final List<String> receivedLevelNames = ((LevelNamesNotification) message).getLevelNames();
+      final List<List<String>> receivedLevelNames =
+          ((LevelNamesNotification) message).getLevelNames();
       System.out.println(
           "[CLIENT] Level names successfully loaded - "
               + Arrays.toString(receivedLevelNames.toArray()));
