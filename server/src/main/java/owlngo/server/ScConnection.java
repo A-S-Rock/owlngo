@@ -35,7 +35,7 @@ public class ScConnection implements Runnable {
         System.err.println("[Client]" + pcIn);
       }
     } catch (IOException e) {
-      e.getCause().getCause().printStackTrace();
+      System.err.println("Couldn't read from client!");
     }
   }
 }
