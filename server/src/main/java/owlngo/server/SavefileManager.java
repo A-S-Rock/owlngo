@@ -7,9 +7,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.utils.SavefileCoder;
 import owlngo.game.level.Coordinate;
@@ -96,7 +98,8 @@ public class SavefileManager {
 
     final File file = new File(directoryName + File.separator + fileName);
     try {
-      BufferedWriter writer = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
+      BufferedWriter writer =
+          new BufferedWriter(new FileWriter(file.getAbsoluteFile(), StandardCharsets.UTF_8));
       writer.write(savefileJson);
       writer.close();
     } catch (IOException e) {
@@ -105,22 +108,28 @@ public class SavefileManager {
     }
   }
 
+  /**
+   * Loads the requested level from storage.
+   *
+   * @param levelName the requested level's savename.
+   * @return the level layout which has been requested
+   * @throws IOException if reading the file failed.
+   */
   public Level loadLevelSavefile(String levelName) throws IOException {
     final String filename = "/savefiles/level/" + levelName + ".txt";
-    final InputStream inputStream = getClass().getResourceAsStream(filename);
 
-    if (inputStream != null) {
+    try (InputStream inputStream =
+        Objects.requireNonNull(getClass().getResourceAsStream(filename))) {
       final String savefileJson = readFromInputStream(inputStream);
       final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
       return savefile.getLevel();
-    } else {
-      throw new AssertionError("Couldn't create input stream for reading!");
     }
   }
 
   private String readFromInputStream(InputStream inputStream) throws IOException {
     StringBuilder result = new StringBuilder();
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+    try (BufferedReader reader =
+        new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
       String line;
       while ((line = reader.readLine()) != null) {
         result.append(line).append(System.lineSeparator());
