@@ -8,10 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
-import owlngo.gui.data.CommunicationManager;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.ConnectionRequest;
 import owlngo.communication.messages.Message;
+import owlngo.gui.data.CommunicationManager;
 
 /** Contoller class for WelcomeScreen.fxml. */
 public class WelcomeScreenController {
@@ -25,6 +25,11 @@ public class WelcomeScreenController {
 
   private final String username;
 
+  /**
+   * Initializes the controller to use the socket given by the client.
+   *
+   * @throws IOException if the establishment of the connection fails.
+   */
   public WelcomeScreenController() throws IOException {
     username = CommunicationManager.getInstance().getUsername();
     final Socket socket = CommunicationManager.getInstance().getSocket();

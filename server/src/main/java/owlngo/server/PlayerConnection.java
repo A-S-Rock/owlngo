@@ -11,6 +11,7 @@ import owlngo.communication.messages.Message;
  * This class handles the communication with (this server-side and) a connected client. Adjusted
  * from Task 3's equally named class.
  */
+@edu.umd.cs.findbugs.annotations.SuppressFBWarnings("EI_EXPOSE_REP2")
 public class PlayerConnection implements Closeable {
 
   private final String username;
@@ -21,6 +22,11 @@ public class PlayerConnection implements Closeable {
     this.connection = connection;
   }
 
+  /**
+   * Reacts to specific messages sent by the client.
+   *
+   * @throws IOException if the received message is unreadable or other IOExceptions happen
+   */
   public void reactToClient() throws IOException {
     Message message = connection.read();
 
