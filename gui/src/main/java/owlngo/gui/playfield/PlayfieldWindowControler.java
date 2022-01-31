@@ -77,15 +77,15 @@ public class PlayfieldWindowControler {
     if (keyCode == KeyCode.NUMPAD8
         || keyCode == KeyCode.getKeyCode("w")
         || keyCode == KeyCode.getKeyCode("W")) {
-      GAME.moveJump(false);
+      GAME.moveBasicJump();
     } else if ((keyCode == KeyCode.NUMPAD6)
         || (keyCode == KeyCode.getKeyCode("d"))
         || (keyCode == KeyCode.getKeyCode("D"))) {
-      GAME.moveRight();
+      GAME.moveBasicRight();
     } else if (keyCode == KeyCode.NUMPAD4
         || keyCode == KeyCode.getKeyCode("a")
         || keyCode == KeyCode.getKeyCode("A")) {
-      GAME.moveLeft();
+      GAME.moveBasicLeft();
     }
     getElementsOfPlayfieldFromGame();
     changeAllPanesDependingOnElementsInPlayfied();

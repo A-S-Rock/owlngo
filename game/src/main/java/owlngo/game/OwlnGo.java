@@ -48,86 +48,92 @@ public class OwlnGo {
   }
 
   /** Moves the player to the right. */
-  public void moveRight() {
+  public void moveBasicRight() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
     Player player = gameState.getPlayer();
-
     Move move = player.getRightMove();
     gameState.moveObjectInGame(move);
-
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveContinousFall();
     }
   }
 
   /** Moves the player to the left. */
-  public void moveLeft() {
+  public void moveBasicLeft() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
     Player player = gameState.getPlayer();
-
     Move move = player.getLeftMove();
     gameState.moveObjectInGame(move);
-
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveContinousFall();
     }
   }
 
   /** Lets the player jump. */
-  public void moveJump(boolean activateFall) {
+  public void moveBasicJump() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
     Player player = gameState.getPlayer();
-
     Move move = player.getJumpMove();
     gameState.moveObjectInGame(move);
-
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      if (activateFall) {
-        moveFall();
-      }
     }
   }
 
   /** Lets the player fall. */
-  public void moveFall() {
+  public void moveBasicFall() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
     Player player = gameState.getPlayer();
-
     Move move = player.getFallMove();
     gameState.moveObjectInGame(move);
-
     checkWinningConditions(move);
-
     // This might be obsolete because updates takes place in moveObjectInGame(move).
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
     }
   }
 
+  /** Lets the player jump right up and fall down. */
+  public void moveJumpRight() {
+    moveBasicJump();
+    moveBasicRight();
+    moveBasicRight();
+    moveContinousFall();
+  }
+
+  /** Lets the player jump left. */
+  public void moveJumpLeft() {
+    moveBasicJump();
+    moveBasicLeft();
+    moveBasicLeft();
+    moveContinousFall();
+  }
+
+  public void moveFly() {
+    moveBasicJump();
+  }
+
+  /** Lets the player fall continously to the next GROUND-object. */
   public void moveContinousFall() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
-
     while (gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer()).getType()
         != ObjectType.GROUND) {
       Player player = gameState.getPlayer();
