@@ -28,7 +28,8 @@ public class LevelTileView extends StackPane {
 
     if (object.getType() == ObjectType.GROUND) {
       getChildren().clear();
-      getChildren().add(new GroundView());
+      // unused: getChildren().add(new GroundView());
+      getChildren().add(new GroundView(gameState, tileRow, tileColumn));
     } else if (object.getType() == ObjectType.START) {
       getChildren().add(new StartView());
     } else if (object.getType() == ObjectType.FINISH) {
