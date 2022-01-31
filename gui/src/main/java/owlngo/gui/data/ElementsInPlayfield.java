@@ -89,6 +89,10 @@ public class ElementsInPlayfield {
           LEVEL = LEVEL.withAirAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
           LEVEL = LEVEL.withAirAt(coordinate);
+        } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.DANGER) {
+          // ToDo
+        } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.FOOD) {
+          // ToDo
         }
       }
     }
@@ -126,6 +130,8 @@ public class ElementsInPlayfield {
     GROUND_TOP_RIGHT_LAWN,
     GROUND_LEFT_TOP_RIGHT_LAWN,
     NO_ELEMENT,
-    AIR
+    AIR,
+    DANGER,
+    FOOD
   }
 }
