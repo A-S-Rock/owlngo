@@ -7,7 +7,7 @@ import java.net.Socket;
 /**
  * Main server class that offers a socket to connect a client. This code is derived from the PEEGS
  * Task3 (highlowcardgame). When connected a thread is opend and all further handling is deligated
- * to {@link ScConnection}.
+ * to {@link PlayerConnection}.
  */
 public class Server {
 
@@ -76,15 +76,18 @@ public class Server {
    * @param socket is the socket, the server listens to
    * @throws IOException is thrown, when something goes wrong with the connection via the socket
    */
+  @SuppressWarnings("InfiniteLoopStatement")
   public void start(ServerSocket socket) throws IOException {
-    int count = 0;
-    System.out.println("Server is Started ....");
-
-    while (count != -1) {
-      count++;
-      Socket acceptedSocket = socket.accept();
-      ScConnection scc = new ScConnection(acceptedSocket);
-      new Thread(scc).start();
+    System.out.println("Server Is Started...");
+    try (ConnectionManager manager = new ConnectionManager()) {
+      while (true) {
+        Socket connectionSocket = socket.accept();
+        try {
+          manager.createNewPlayerConnection(connectionSocket);
+        } catch (IOException e) {
+          // do not break here or server stops after a disconnected client!
+        }
+      }
     }
   }
 }
