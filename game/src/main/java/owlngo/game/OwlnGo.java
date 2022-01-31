@@ -4,6 +4,7 @@ import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.game.level.objects.Player;
 
 /**
@@ -60,7 +61,7 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveFall();
+      moveContinousFall();
     }
   }
 
@@ -78,7 +79,7 @@ public class OwlnGo {
     checkWinningConditions(move);
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
-      moveFall();
+      moveContinousFall();
     }
   }
 
@@ -119,5 +120,34 @@ public class OwlnGo {
     if (gameState.isGameRunning()) {
       gameState.getLevel().updatePossibleMovesOfPlayer();
     }
+  }
+
+  public void moveContinousFall() {
+    if (!gameState.isGameRunning()) {
+      System.out.println("Game is not running.");
+      return;
+    }
+
+    while (gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer()).getType()
+        != ObjectType.GROUND) {
+      Player player = gameState.getPlayer();
+      Move move = player.getFallMove();
+      gameState.moveObjectInGame(move);
+      checkWinningConditions(move);
+      gameState.getLevel().updatePossibleMovesOfPlayer();
+      if (move.getNewCoordinate() == player.getCoordinate()) {
+        break;
+      }
+    }
+    // This might be obsolete because updates takes place in moveObjectInGame(move).
+    if (gameState.isGameRunning()) {
+      gameState.getLevel().updatePossibleMovesOfPlayer();
+    }
+  }
+
+  Coordinate getActualCoordinateBelowPlayer() {
+    Player player = gameState.getPlayer();
+    int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() - 1;
+    return Coordinate.of(rowBelowPlayer, player.getCoordinate().getColumn());
   }
 }
