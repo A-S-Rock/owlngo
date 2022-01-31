@@ -90,9 +90,11 @@ public class ElementsInPlayfield {
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
           LEVEL = LEVEL.withAirAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.DANGER) {
+          System.out.println("ToDo");
           // ToDo
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.FOOD) {
           // ToDo
+          System.out.println("ToDo");
         }
       }
     }
