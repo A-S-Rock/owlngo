@@ -2,8 +2,11 @@ package owlngo.server;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import owlngo.communication.Connection;
+import owlngo.communication.messages.LevelNamesNotification;
 import owlngo.communication.messages.LoadLevelNamesRequest;
 import owlngo.communication.messages.Message;
 
@@ -31,8 +34,13 @@ public class PlayerConnection implements Closeable {
     Message message = connection.read();
 
     if (message instanceof LoadLevelNamesRequest) {
-      // TODO: Implement the level names
       System.out.println("I received the load level request.");
+      final List<String> testList = new ArrayList<>();
+      testList.add("Level1");
+      testList.add("Level2");
+      testList.add("Level3");
+      final LevelNamesNotification notification = new LevelNamesNotification(testList);
+      connection.write(notification);
     } else {
       throw new AssertionError("Invalid communication.");
     }
