@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import owlngo.game.OwlnGo;
@@ -22,6 +23,7 @@ public class GameViewScreenController {
   @FXML Button backToMainMenuButton;
   @FXML Button giveUpButton;
   @FXML AnchorPane gamePane;
+  @FXML ProgressBar enduranceBar;
   private OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS); // default level
 
   /** Allows the controller to load a different level if possible. */
