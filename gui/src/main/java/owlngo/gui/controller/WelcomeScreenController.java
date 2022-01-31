@@ -84,10 +84,6 @@ public class WelcomeScreenController {
     connection.write(connectionMessage);
   }
 
-  private Connection establishConnection(Socket socket) throws IOException {
-    return new Connection(socket.getOutputStream(), socket.getInputStream());
-  }
-
   @FXML
   void initialize() {
     startRandomGameButton.setOnAction(

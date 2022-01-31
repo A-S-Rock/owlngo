@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import owlngo.communication.savefiles.LevelSavefile;
@@ -30,7 +29,7 @@ public class SavefileManager {
 
   private static final int SAVEFILE_APPENDIX_LENGTH = 4; // ".txt" length
 
-  private final Map<String, Level> savedLevels = new HashMap<>();
+  private final Map<String, LevelSavefile> savedLevels = new HashMap<>();
 
   /**
    * Creates the savefile manager. Checks if directories for savefiles are present and creates them
@@ -100,10 +99,8 @@ public class SavefileManager {
             fileName.substring(0, fileName.length() - SAVEFILE_APPENDIX_LENGTH);
         System.out.println(levelName);
 
-        final Level level;
         try {
-          level = loadLevelSavefile(levelName);
-          savedLevels.put(levelName, level);
+          loadAndUpdateLevelSavefile(levelName);
         } catch (IOException e) {
           throw new AssertionError("This should not happen! " + e.getMessage());
         }
@@ -130,7 +127,7 @@ public class SavefileManager {
       BufferedWriter writer =
           new BufferedWriter(new FileWriter(file.getAbsoluteFile(), StandardCharsets.UTF_8));
       writer.write(savefileJson);
-      savedLevels.put(levelName, level);
+      savedLevels.put(levelName, savefile);
       writer.close();
     } catch (IOException e) {
       System.err.println("Couldn't create file " + fileName + "!");
@@ -142,17 +139,16 @@ public class SavefileManager {
    * Loads the requested level from storage.
    *
    * @param levelName the requested level's savename.
-   * @return the level layout which has been requested
    * @throws IOException if reading the file failed.
    */
-  public Level loadLevelSavefile(String levelName) throws IOException {
+  public void loadAndUpdateLevelSavefile(String levelName) throws IOException {
     final String filename = "/savefiles/level/" + levelName + ".txt";
 
     try (InputStream inputStream =
         Objects.requireNonNull(getClass().getResourceAsStream(filename))) {
       final String savefileJson = readFromInputStream(inputStream);
       final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
-      return savefile.getLevel();
+      savedLevels.put(levelName, savefile);
     }
   }
 
@@ -168,7 +164,7 @@ public class SavefileManager {
     return result.toString();
   }
 
-  public List<String> getLevelNames() {
-    return savedLevels.keySet().stream().sorted().toList();
+  public Map<String, LevelSavefile> getSavedLevels() {
+    return new HashMap<>(savedLevels);
   }
 }
