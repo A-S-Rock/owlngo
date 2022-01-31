@@ -15,8 +15,15 @@ public final class LoadLevelRecord {
     return levelNameProperty().get();
   }
 
+  /**
+   * Returns the level name property of the table record.
+   *
+   * @return level name property
+   */
   public StringProperty levelNameProperty() {
-    if (levelName == null) levelName = new SimpleStringProperty(this, "levelName");
+    if (levelName == null) {
+      levelName = new SimpleStringProperty(this, "levelName");
+    }
     return levelName;
   }
 
@@ -30,8 +37,15 @@ public final class LoadLevelRecord {
     return authorProperty().get();
   }
 
+  /**
+   * Returns the author property of the table record.
+   *
+   * @return the author property
+   */
   public StringProperty authorProperty() {
-    if (author == null) author = new SimpleStringProperty(this, "author");
+    if (author == null) {
+      author = new SimpleStringProperty(this, "author");
+    }
     return author;
   }
 

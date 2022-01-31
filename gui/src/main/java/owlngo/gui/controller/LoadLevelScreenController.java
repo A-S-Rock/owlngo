@@ -1,8 +1,5 @@
 package owlngo.gui.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;

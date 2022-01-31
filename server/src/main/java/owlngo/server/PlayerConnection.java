@@ -23,6 +23,13 @@ public class PlayerConnection implements Closeable {
   private Connection connection;
   private final SavefileManager manager;
 
+  /**
+   * Creates a player connection to the client with a managementlink to the savefiles.
+   *
+   * @param username the username of the client
+   * @param connection the connection over which communication takes place
+   * @param manager savefile manager for stored data on the server
+   */
   public PlayerConnection(String username, Connection connection, SavefileManager manager) {
     this.username = username;
     this.connection = connection;
