@@ -178,6 +178,28 @@ public final class Level {
     return new Level(this);
   }
 
+  /**
+   * Creates a new level with a food object set at the given coordinate.
+   *
+   * @param coordinate position of food
+   * @return an immutable copy of the level with food at the new location
+   */
+  public Level withFoodAt(Coordinate coordinate) {
+    replaceObjectInGameWith(LevelObject.createFoodObject(coordinate), coordinate);
+    return new Level(this);
+  }
+
+  /**
+   * Creates a new level with a fire object set at the given coordinate.
+   *
+   * @param coordinate position of fire
+   * @return an immutable copy of the level with fire at the new location
+   */
+  public Level withFireAt(Coordinate coordinate) {
+    replaceObjectInGameWith(LevelObject.createFireObject(coordinate), coordinate);
+    return new Level(this);
+  }
+
   /** Moves the object to the new position. */
   public void moveObjectInGame(ObjectInGame object, Coordinate newCoordinate) {
     final Coordinate oldCoordinate = object.getCoordinate();
