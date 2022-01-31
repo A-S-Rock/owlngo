@@ -136,8 +136,11 @@ public class OwlnGo {
     moveContinousFall();
   }
 
+  /** Lets the player jump left. */
   public void moveFly() {
     moveBasicJump();
+    sideConditions.decreaseEndurance();
+    //ToDo: Update Flying algorithm to fit to the game.
   }
 
   /** Lets the player fall continously to the next GROUND-object. */

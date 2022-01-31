@@ -7,6 +7,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.8.2] - 2022-01-30
+
+### Added
+
+- Endurance Bar added.
+- Recoded movement in game to basic moves to improve features in the future.
+
 ## [0.8.1] - 2022-01-30
 
 ### Added
