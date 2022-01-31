@@ -1,4 +1,4 @@
-package owlngo.client;
+package owlngo.gui.data;
 
 import java.net.Socket;
 

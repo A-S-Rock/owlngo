@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import javafx.application.Application;
+import owlngo.gui.data.CommunicationManager;
 import owlngo.gui.playfield.WelcomeScreen;
 
 /**
