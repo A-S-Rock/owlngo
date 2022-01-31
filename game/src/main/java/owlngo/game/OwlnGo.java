@@ -137,10 +137,18 @@ public class OwlnGo {
   }
 
   /** Lets the player jump left. */
-  public void moveFly() {
+  public void moveFlyUp() {
     moveBasicJump();
     sideConditions.decreaseEndurance();
-    //ToDo: Update Flying algorithm to fit to the game.
+    /*
+    //ToDo: there is no other key input
+    if ()
+    {
+      moveContinousFall();
+    }
+
+     */
+
   }
 
   /** Lets the player fall continously to the next GROUND-object. */
@@ -159,6 +167,7 @@ public class OwlnGo {
       if (move.getNewCoordinate() == player.getCoordinate()) {
         break;
       }
+      // ToDo: Integrate slow falling.
     }
     // This might be obsolete because updates takes place in moveObjectInGame(move).
     if (gameState.isGameRunning()) {

@@ -3,7 +3,6 @@ package owlngo.gui.playfield.action;
 import java.util.Map;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import owlngo.game.OwlnGo;
@@ -43,23 +42,22 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
   @Override
   public void handle(KeyEvent event) {
     // TODO: Animation
-    System.out.println("Das hier funktioniert!");
+
     String pressedKey = event.getText();
-    if (pressedKey.equals("a") || event.getCode() == KeyCode.LEFT) {
+    if (pressedKey.equals("a")) {
       game.moveBasicLeft();
-      System.out.println("Moving left.");
     }
-    if (pressedKey.equals("w") || event.getCode() == KeyCode.UP) {
+    if (pressedKey.equals("w")) {
       game.moveBasicJump();
-      System.out.println("Jumping (without falling).");
     }
-    if (pressedKey.equals("s") || event.getCode() == KeyCode.DOWN) {
-      game.moveBasicFall();
-      System.out.println("Falling (one tile down)");
-    }
-    if (pressedKey.equals("d") || event.getCode() == KeyCode.RIGHT) {
+    if (pressedKey.equals("d")) {
       game.moveBasicRight();
-      System.out.println("Moving right.");
+    }
+    if (pressedKey.equals("e")) {
+      game.moveJumpRight();
+    }
+    if (pressedKey.equals("q")) {
+      game.moveJumpLeft();
     }
   }
 }
