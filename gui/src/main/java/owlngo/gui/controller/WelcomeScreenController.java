@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import owlngo.communication.Connection;
+import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
 import owlngo.communication.messages.Message;
 import owlngo.gui.data.CommunicationManager;
@@ -25,17 +26,41 @@ public class WelcomeScreenController {
 
   private final String username;
 
-  /**
-   * Initializes the controller to use the socket given by the client.
-   *
-   * @throws IOException if the establishment of the connection fails.
-   */
-  public WelcomeScreenController() throws IOException {
+  /** Initializes the controller to use the socket given by the client. */
+  public WelcomeScreenController() {
     username = CommunicationManager.getInstance().getUsername();
     final Socket socket = CommunicationManager.getInstance().getSocket();
+    new Thread(
+            () -> {
+              try {
+                start(socket);
+              } catch (IOException e) {
+                System.err.println("Failed to connect to the server!");
+              }
+            })
+        .start();
+  }
+
+  @SuppressWarnings("InfiniteLoopStatement")
+  void start(Socket socket) throws IOException {
     try (Connection connection = establishConnection(socket)) {
       System.out.println("I will send a connection message now.");
       connectToServer(connection);
+      while (true) {
+        reactToServer(connection);
+      }
+    }
+  }
+
+  private void reactToServer(Connection connection) throws IOException {
+    Message message = connection.read();
+    if (message instanceof ConnectedNotification) {
+      final String sentUsername = ((ConnectedNotification) message).getPlayerName();
+      assert username.equals(sentUsername);
+      System.out.println(
+          "[SERVER] " + sentUsername + " - you're successfully connected to the game server!");
+    } else {
+      throw new AssertionError("Unknown message type!");
     }
   }
 
