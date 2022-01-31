@@ -7,6 +7,12 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.8.1] - 2022-01-30
+
+### Added
+
+- Editor now saves level layouts locally and may load them, too
+
 ## [0.8.0] - 2022-01-24
 
 ### Added

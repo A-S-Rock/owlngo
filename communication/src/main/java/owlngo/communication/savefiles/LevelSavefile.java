@@ -25,14 +25,29 @@ public final class LevelSavefile implements Savefile {
     levelJson = new LevelJson(level);
   }
 
+  /**
+   * Returns the name the level has been given by its author.
+   *
+   * @return the level's name.
+   */
   public String getLevelName() {
     return levelName;
   }
 
+  /**
+   * Returns the author of the created level.
+   *
+   * @return the player name who created the level.
+   */
   public String getAuthor() {
     return author;
   }
 
+  /**
+   * Returns the level saved on the server in this file.
+   *
+   * @return the level
+   */
   public Level getLevel() {
     return levelJson.createLevel();
   }
