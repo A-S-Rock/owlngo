@@ -93,13 +93,13 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="469.0" prefWidth="250.0">
                   <children>
-                              <TextFlow prefHeight="222.0" prefWidth="216.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <TextFlow prefHeight="391.0" prefWidth="217.0" AnchorPane.bottomAnchor="-56.0" AnchorPane.leftAnchor="13.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <VBox prefHeight="218.0" prefWidth="228.0">
+                                    <VBox prefHeight="389.0" prefWidth="228.0">
                                        <children>
                                           <Label text="Editor">
                                              <font>
-                                                <Font size="72.0" />
+                                                <Font name="Arial Black" size="24.0" />
                                              </font>
                                           </Label>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Press letter first" wrappingWidth="215.23705673217773">
@@ -112,7 +112,7 @@
                                                 <Font size="24.0" />
                                              </font>
                                           </Text>
-                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f: floor" wrappingWidth="133.171875">
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="g: ground" wrappingWidth="133.171875">
                                              <font>
                                                 <Font size="24.0" />
                                              </font>
@@ -123,6 +123,16 @@
                                              </font>
                                           </Text>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="e: end " wrappingWidth="214.171875">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="d: danger" wrappingWidth="214.171875">
+                                             <font>
+                                                <Font size="24.0" />
+                                             </font>
+                                          </Text>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="f: food" wrappingWidth="214.171875">
                                              <font>
                                                 <Font size="24.0" />
                                              </font>
