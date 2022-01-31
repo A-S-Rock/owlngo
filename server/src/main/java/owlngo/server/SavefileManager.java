@@ -1,13 +1,15 @@
 package owlngo.server;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.utils.SavefileCoder;
 import owlngo.game.level.Coordinate;
@@ -103,15 +105,27 @@ public class SavefileManager {
     }
   }
 
-  public static void main(String[] args) {
-    final SavefileManager manager = new SavefileManager();
-    final Level level = Level.createDemoLevel(10, 10);
-    final SaveLevelRequest saveLevelRequest = new SaveLevelRequest("playerName", "Dummy1", level);
+  public Level loadLevelSavefile(String levelName) throws IOException {
+    final String filename = "/savefiles/level/" + levelName + ".txt";
+    final InputStream inputStream = getClass().getResourceAsStream(filename);
 
-    final String authorName = saveLevelRequest.getAuthor();
-    final String levelName = saveLevelRequest.getLevelName();
-    final Level sentLevel = saveLevelRequest.getLevel();
+    if (inputStream != null) {
+      final String savefileJson = readFromInputStream(inputStream);
+      final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
+      return savefile.getLevel();
+    } else {
+      throw new AssertionError("Couldn't create input stream for reading!");
+    }
+  }
 
-    manager.writeLevelSavefile(levelName, authorName, sentLevel);
+  private String readFromInputStream(InputStream inputStream) throws IOException {
+    StringBuilder result = new StringBuilder();
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        result.append(line).append(System.lineSeparator());
+      }
+    }
+    return result.toString();
   }
 }

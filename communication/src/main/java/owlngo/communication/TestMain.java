@@ -45,7 +45,7 @@ public final class TestMain {
     System.out.println(loadLevelNamesRequestJson);
 
     System.out.println("LoadLevelRequest:");
-    final LoadLevelRequest loadLevelRequest = new LoadLevelRequest("PLAYER", testLevel);
+    final LoadLevelRequest loadLevelRequest = new LoadLevelRequest("PLAYER", "dummyLevel");
     final String loadLevelRequestJson = MessageCoder.encodeToJson(loadLevelRequest);
     System.out.println(loadLevelRequestJson);
 
@@ -108,8 +108,8 @@ public final class TestMain {
     final Message loadLevelRequestMessage = MessageCoder.decodeFromJson(loadLevelRequestJson);
     final LoadLevelRequest parsedLoadLevelRequest = (LoadLevelRequest) loadLevelRequestMessage;
     System.out.println(parsedLoadLevelRequest.getPlayerName());
-    final Level loadLevel = parsedLoadLevelRequest.getLevel();
-    System.out.println(loadLevel); // for debugging reasons
+    final String loadLevelName = parsedLoadLevelRequest.getLevelName();
+    System.out.println(loadLevelName); // for debugging reasons
 
     System.out.println("SaveLevelRequest:");
     System.out.println(saveLevelRequestJson);
