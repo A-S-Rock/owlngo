@@ -49,8 +49,8 @@ public final class LoadLevelRecord {
     return author;
   }
 
-  public LoadLevelRecord(String firstName, String lastName) {
-    setLevelName(firstName);
-    setAuthor(lastName);
+  public LoadLevelRecord(String levelName, String author) {
+    setLevelName(levelName);
+    setAuthor(author);
   }
 }

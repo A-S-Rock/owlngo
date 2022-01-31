@@ -17,6 +17,7 @@ import owlngo.communication.messages.LevelNamesNotification;
 import owlngo.communication.messages.LoadLevelNamesRequest;
 import owlngo.communication.messages.Message;
 import owlngo.gui.data.CommunicationManager;
+import owlngo.gui.data.DataManager;
 
 /** Contoller class for WelcomeScreen.fxml. */
 public class WelcomeScreenController {
@@ -74,6 +75,7 @@ public class WelcomeScreenController {
       System.out.println(
           "[CLIENT] Level names successfully loaded - "
               + Arrays.toString(receivedLevelNames.toArray()));
+      DataManager.getInstance().setLevelNamesContent(receivedLevelNames);
     } else {
       throw new AssertionError("Unknown message type!");
     }
@@ -108,9 +110,14 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            connection.write(new LoadLevelNamesRequest(username));
+            try {
+              Thread.sleep(1000); // wait a bit to let the server send its files
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
-            connection.write(new LoadLevelNamesRequest(username));
           }
         });
 
