@@ -1,6 +1,8 @@
 package owlngo.gui.playfield.action;
 
 import java.util.Map;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.input.KeyEvent;
@@ -54,7 +56,15 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       game.moveBasicRight();
     }
     if (pressedKey.equals("e")) {
-      game.moveJumpRight();
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.moveJumpRight();
+                  return null;
+                }
+              })
+          .start();
     }
     if (pressedKey.equals("q")) {
       game.moveJumpLeft();

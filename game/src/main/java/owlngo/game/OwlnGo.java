@@ -1,5 +1,6 @@
 package owlngo.game;
 
+import javafx.application.Platform;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
@@ -121,11 +122,14 @@ public class OwlnGo {
   }
 
   /** Lets the player jump right up and fall down. */
-  public void moveJumpRight() {
-    moveBasicUp();
-    moveBasicRight();
-    moveBasicRight();
-    moveContinousFall();
+  public void moveJumpRight() throws InterruptedException {
+    Platform.runLater(this::moveBasicUp);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicRight);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicRight);
+    Thread.sleep(300);
+    Platform.runLater(this::moveContinousFall);
   }
 
   /** Lets the player jump left. */
