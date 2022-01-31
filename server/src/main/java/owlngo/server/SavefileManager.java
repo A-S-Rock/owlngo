@@ -11,6 +11,9 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.utils.SavefileCoder;
@@ -25,6 +28,10 @@ public class SavefileManager {
   private static final Path SAVEFILE_HIGHSCORE_PATH =
       Paths.get("server/src/main/resources/savefiles/highscores");
 
+  private static final int SAVEFILE_APPENDIX_LENGTH = 4; // ".txt" length
+
+  private final Map<String, Level> savedLevels = new HashMap<>();
+
   /**
    * Creates the savefile manager. Checks if directories for savefiles are present and creates them
    * if not. Afterwards, if not already present, three dummy level files are created for initial
@@ -34,6 +41,7 @@ public class SavefileManager {
   public SavefileManager() {
     instantiateDirectories();
     createDummySavefiles();
+    updateSavedLevels();
   }
 
   private void instantiateDirectories() {
@@ -82,6 +90,27 @@ public class SavefileManager {
     writeLevelSavefile(levelNameDummyLevel3, dummyLevelAuthor, dummyLevel3);
   }
 
+  private void updateSavedLevels() {
+    final File levelDir = new File(SAVEFILE_LEVEL_PATH.toString());
+    File[] directoryListing = levelDir.listFiles();
+    if (directoryListing != null) {
+      for (File child : directoryListing) {
+        final String fileName = child.getName();
+        final String levelName =
+            fileName.substring(0, fileName.length() - SAVEFILE_APPENDIX_LENGTH);
+        System.out.println(levelName);
+
+        final Level level;
+        try {
+          level = loadLevelSavefile(levelName);
+          savedLevels.put(levelName, level);
+        } catch (IOException e) {
+          throw new AssertionError("This should not happen! " + e.getMessage());
+        }
+      }
+    }
+  }
+
   /**
    * Writes a level savefile with the given level name as file name. Also sets the author.
    *
@@ -101,6 +130,7 @@ public class SavefileManager {
       BufferedWriter writer =
           new BufferedWriter(new FileWriter(file.getAbsoluteFile(), StandardCharsets.UTF_8));
       writer.write(savefileJson);
+      savedLevels.put(levelName, level);
       writer.close();
     } catch (IOException e) {
       System.err.println("Couldn't create file " + fileName + "!");
@@ -136,5 +166,9 @@ public class SavefileManager {
       }
     }
     return result.toString();
+  }
+
+  public List<String> getLevelNames() {
+    return savedLevels.keySet().stream().sorted().toList();
   }
 }
