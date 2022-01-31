@@ -12,12 +12,12 @@ import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
 
 /** Class adds a soil-themed rectangle as a ground/soil tile. */
-public class GroundView extends StackPane {
+public class GroundViewSicherung extends StackPane {
 
   private Image soilImage;
 
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
-  public GroundView() {
+  public GroundViewSicherung() {
     try {
       soilImage =
           new Image(Objects.requireNonNull(getClass().getResource("/images/soil.png")).toString());
@@ -31,10 +31,8 @@ public class GroundView extends StackPane {
   }
 
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
-  public GroundView(GameState gameState, int tileRow, int tileColumn) {
-    System.out.println("GroundView");
+  public GroundViewSicherung(GameState gameState, int tileRow, int tileColumn) {
     String name = fileNameForGround(gameState, tileRow, tileColumn);
-    System.out.println("filename" + name);
     try {
       soilImage =
           new Image(Objects.requireNonNull(getClass().getResource("/images/" + name)).toString());
@@ -48,32 +46,23 @@ public class GroundView extends StackPane {
   }
 
   String fileNameForGround(GameState gameState, int row, int column) {
-    String name = "soil.png";
     if (topGrasBlocker(gameState, row, column)) {
-      name = "soil.png";
+      return "soil.png";
     } else {
       // if left and richt is blocked but not on the top it is free
       // gas can only grow on the top only
       if (leftGrasBlocker(gameState, row, column) && (rightGrasBlocker(gameState, row, column))) {
-        name = "soil_lawn_normal.png";
+        return "soil_lawn_normal.png";
       } else {
-        // either left or right are blocked or both are blocked, but the top is free
+        // either left or right are blocked, but the top is free
         // Therefore if left is blocked gras can only grow on the right side.
-        if (leftGrasBlocker(gameState, row, column)
-            && (!rightGrasBlocker(gameState, row, column))) {
-          name = "soil_lawn_right.png";
-        }
-        if (!leftGrasBlocker(gameState, row, column)
-            && (rightGrasBlocker(gameState, row, column))) {
-          name = "soil_lawn_left.png";
-        }
-        if (!leftGrasBlocker(gameState, row, column)
-            && (!rightGrasBlocker(gameState, row, column))) {
-          name = "soil_lawn_leftright.png";
+        if (leftGrasBlocker(gameState, row, column)) {
+          return "soil_lawn_right.png";
+        } else {
+          return "soil_lawn_leftright.png";
         }
       }
     }
-    return name;
   }
 
   boolean leftGrasBlocker(GameState gameState, int row, int column) {
@@ -90,7 +79,6 @@ public class GroundView extends StackPane {
 
   // This method handles also coordinates this wrong range
   boolean isElementGrasBlockingElement(GameState gameState, int row, int column) {
-    System.out.println("isElementGrasBlockingElement");
     if ((possibleRow(row)) && possibleColunmn(column)) {
       ObjectInGame object = gameState.getLevel().getObjectInGameAt(Coordinate.of(row, column));
       // gas growing
@@ -98,7 +86,6 @@ public class GroundView extends StackPane {
           || (object.getType() == ObjectType.GROUND)
           || (object.getType() == ObjectType.FIRE);
     } else {
-      System.out.println("Not allowed values" + row + " " + column);
       return true;
     }
   }
