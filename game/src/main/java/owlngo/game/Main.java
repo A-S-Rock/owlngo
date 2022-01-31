@@ -18,11 +18,11 @@ public class Main {
     System.out.println("After a left move has been made.");
     game.moveBasicRight();
     System.out.println("After a right move has been made.");
-    game.moveBasicJump();
+    game.moveBasicUp();
     System.out.println("After a jump without falling has been done.");
     game.moveBasicFall();
     System.out.println("After making him fall manually.");
-    game.moveBasicJump();
+    game.moveBasicUp();
     System.out.println("After a jump with falling has been done.");
   }
 }

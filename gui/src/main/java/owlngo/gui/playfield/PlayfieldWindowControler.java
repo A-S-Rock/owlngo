@@ -77,7 +77,7 @@ public class PlayfieldWindowControler {
     if (keyCode == KeyCode.NUMPAD8
         || keyCode == KeyCode.getKeyCode("w")
         || keyCode == KeyCode.getKeyCode("W")) {
-      GAME.moveBasicJump();
+      GAME.moveBasicUp();
     } else if ((keyCode == KeyCode.NUMPAD6)
         || (keyCode == KeyCode.getKeyCode("d"))
         || (keyCode == KeyCode.getKeyCode("D"))) {

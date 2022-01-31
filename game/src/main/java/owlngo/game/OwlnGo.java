@@ -90,7 +90,7 @@ public class OwlnGo {
   }
 
   /** Lets the player jump. */
-  public void moveBasicJump() {
+  public void moveBasicUp() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
@@ -122,7 +122,7 @@ public class OwlnGo {
 
   /** Lets the player jump right up and fall down. */
   public void moveJumpRight() {
-    moveBasicJump();
+    moveBasicUp();
     moveBasicRight();
     moveBasicRight();
     moveContinousFall();
@@ -130,7 +130,7 @@ public class OwlnGo {
 
   /** Lets the player jump left. */
   public void moveJumpLeft() {
-    moveBasicJump();
+    moveBasicUp();
     moveBasicLeft();
     moveBasicLeft();
     moveContinousFall();
@@ -138,7 +138,7 @@ public class OwlnGo {
 
   /** Lets the player jump left. */
   public void moveFlyUp() {
-    moveBasicJump();
+    moveBasicUp();
     sideConditions.decreaseEndurance();
     /*
     //ToDo: there is no other key input

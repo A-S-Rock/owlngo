@@ -48,7 +48,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       game.moveBasicLeft();
     }
     if (pressedKey.equals("w")) {
-      game.moveBasicJump();
+      game.moveBasicUp();
     }
     if (pressedKey.equals("d")) {
       game.moveBasicRight();
