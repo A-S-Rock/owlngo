@@ -105,7 +105,7 @@ public class OwlnGo {
   }
 
   /** Lets the player fall. */
-  public void moveBasicFall() {
+  public void moveBasicDown() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
