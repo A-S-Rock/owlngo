@@ -15,22 +15,33 @@ public class OwlnGo {
 
   static final int DEFAULT_NUM_ROWS = 30;
   static final int DEFAULT_NUM_COLS = 30;
+  static final int ENDURANCE = 10;
 
   private GameState gameState;
+  private final SideConditions sideConditions;
 
-  /** Constructs an Owlngo game instance with the prespecified level dimensions. */
+  /**
+   * Constructs an Owlngo game instance with the prespecified level dimensions and prespecified
+   * sideConditions.
+   */
   public OwlnGo() {
     gameState = new GameState(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
+    sideConditions = new SideConditions(ENDURANCE);
   }
 
-  /** Constructs an Owlngo game instance with the given level dimensions. */
+  /**
+   * Constructs an Owlngo game instance with the given level dimensions and prespecified
+   * sideConditions.
+   */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
+    sideConditions = new SideConditions(ENDURANCE);
   }
 
-  /** Constructs an Owlngo game instance with a given level. */
+  /** Constructs an Owlngo game instance with a given level and prespecified sideConditions. */
   public OwlnGo(Level level) {
     gameState = new GameState(level);
+    sideConditions = new SideConditions(ENDURANCE);
   }
 
   /** Get the current GameState. */
@@ -42,7 +53,8 @@ public class OwlnGo {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
-    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1) {
+    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1
+        || sideConditions.getEndurance() == 0) {
       gameState = gameState.with(GameStatus.LOSE);
     }
   }

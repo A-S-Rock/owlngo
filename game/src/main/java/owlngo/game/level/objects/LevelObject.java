@@ -60,6 +60,26 @@ public final class LevelObject implements ObjectInGame {
     return new LevelObject(ObjectType.AIR, coord);
   }
 
+  /**
+   * Creates a new fire object for the game at the given coordinate.
+   *
+   * @param coord coordinate to put the fire object to
+   * @return the fire object
+   */
+  public static LevelObject createFireObject(Coordinate coord) {
+    return new LevelObject(ObjectType.FIRE, coord);
+  }
+
+  /**
+   * Creates a new food object for the game at the given coordinate.
+   *
+   * @param coord coordinate to put the food object to
+   * @return the air object
+   */
+  public static LevelObject createFoodObject(Coordinate coord) {
+    return new LevelObject(ObjectType.FOOD, coord);
+  }
+
   @Override
   public ObjectInGame withNewPosition(Coordinate coordinate) {
     assert isValid();

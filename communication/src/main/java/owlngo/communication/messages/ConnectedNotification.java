@@ -10,10 +10,20 @@ public final class ConnectedNotification implements Message {
 
   private final String playerName;
 
+  /**
+   * Creates a connection notification with the given name.
+   *
+   * @param playerName the player name
+   */
   public ConnectedNotification(String playerName) {
     this.playerName = playerName;
   }
 
+  /**
+   * Returns the player name of the message sender.
+   *
+   * @return the player name
+   */
   public String getPlayerName() {
     return playerName;
   }

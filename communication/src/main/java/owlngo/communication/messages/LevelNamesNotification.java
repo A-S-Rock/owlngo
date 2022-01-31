@@ -9,10 +9,20 @@ public final class LevelNamesNotification implements Message {
 
   private final List<String> levelNames;
 
+  /**
+   * Creates a notification from the server with the given level names.
+   *
+   * @param levelNames list of level names on the server
+   */
   public LevelNamesNotification(List<String> levelNames) {
     this.levelNames = List.copyOf(levelNames);
   }
 
+  /**
+   * Returns the saved level names on the server.
+   *
+   * @return list of level names.
+   */
   public List<String> getLevelNames() {
     return List.copyOf(levelNames);
   }
