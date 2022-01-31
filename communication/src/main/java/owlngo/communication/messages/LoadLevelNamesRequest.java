@@ -7,10 +7,20 @@ public final class LoadLevelNamesRequest implements Message {
 
   private final String playerName;
 
+  /**
+   * Creates a request to the server to send all the level's names saved on the server.
+   *
+   * @param playerName the request's player name
+   */
   public LoadLevelNamesRequest(String playerName) {
     this.playerName = playerName;
   }
 
+  /**
+   * Returns the player name from which the request has been made.
+   *
+   * @return the player's name
+   */
   public String getPlayerName() {
     return playerName;
   }
