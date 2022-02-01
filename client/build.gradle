@@ -14,8 +14,6 @@ plugins {
 }
 
 dependencies {
-    implementation project(':communication')
-    implementation project(':game')
     implementation project(':gui')
 }
 
@@ -30,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.spotbugs:spotbugs-annotations:4.0.1'
+    implementation 'com.github.spotbugs:spotbugs-annotations:4.5.3'
 
 // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'

@@ -10,6 +10,8 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import owlngo.game.level.objects.ObjectInGame;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
+import owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield;
 
 /** In this class static methods are included to hold constant relations. */
 public class MethodsForElement {
@@ -26,58 +28,59 @@ public class MethodsForElement {
   public static final Map<ObjectInGame.ObjectType, ElementsInPlayfield.ElementInPlayfield>
       OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP =
           Map.ofEntries(
-              Map.entry(
-                  ObjectInGame.ObjectType.NONE, ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT),
-              Map.entry(ObjectInGame.ObjectType.PLAYER, ElementsInPlayfield.ElementInPlayfield.OWL),
-              Map.entry(
-                  ObjectInGame.ObjectType.START, ElementsInPlayfield.ElementInPlayfield.START),
-              Map.entry(ObjectInGame.ObjectType.FINISH, ElementsInPlayfield.ElementInPlayfield.END),
-              Map.entry(ObjectInGame.ObjectType.AIR, ElementsInPlayfield.ElementInPlayfield.AIR),
-              Map.entry(
-                  ObjectInGame.ObjectType.GROUND,
-                  ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN));
+              Map.entry(ObjectType.NONE, ElementInPlayfield.NO_ELEMENT),
+              Map.entry(ObjectType.PLAYER, ElementInPlayfield.OWL),
+              Map.entry(ObjectType.START, ElementInPlayfield.START),
+              Map.entry(ObjectType.FINISH, ElementInPlayfield.END),
+              Map.entry(ObjectType.AIR, ElementInPlayfield.AIR),
+              Map.entry(ObjectType.GROUND, ElementInPlayfield.GROUND_NO_LAWN),
+              Map.entry(ObjectType.FOOD, ElementInPlayfield.FOOD),
+              Map.entry(ObjectInGame.ObjectType.FIRE, ElementInPlayfield.DANGER));
 
-  static final Map<String, ElementsInPlayfield.ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
+  static final Map<String, ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
       Map.ofEntries(
           Map.entry("S", START),
-          Map.entry("E", ElementsInPlayfield.ElementInPlayfield.END),
-          Map.entry("F", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
-          Map.entry("G", ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN),
-          Map.entry("O", ElementsInPlayfield.ElementInPlayfield.OWL));
+          Map.entry("E", ElementInPlayfield.END),
+          Map.entry("F", ElementInPlayfield.FOOD),
+          Map.entry("G", ElementInPlayfield.GROUND_NO_LAWN),
+          Map.entry("D", ElementInPlayfield.DANGER),
+          Map.entry("O", ElementInPlayfield.OWL));
 
-  static final Map<ElementsInPlayfield.ElementInPlayfield, BackgroundFill>
-      elementInPlayfieldBackgroundFillMap =
-          Map.ofEntries(
-              Map.entry(
-                  ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT,
-                  new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)),
-              Map.entry(
-                  ElementsInPlayfield.ElementInPlayfield.AIR,
-                  new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)),
-              Map.entry(
-                  ElementsInPlayfield.ElementInPlayfield.OWL,
-                  new BackgroundFill(
-                      getImagePatternFromFile("/images/ingo40x40.png"),
-                      CornerRadii.EMPTY,
-                      Insets.EMPTY)),
-              Map.entry(
-                  ElementsInPlayfield.ElementInPlayfield.GROUND_NO_LAWN,
-                  new BackgroundFill(
-                      getImagePatternFromFile("/images/soil.png"),
-                      CornerRadii.EMPTY,
-                      Insets.EMPTY)),
-              Map.entry(
-                  START,
-                  new BackgroundFill(
-                      getImagePatternFromFile("/images/start.png"),
-                      CornerRadii.EMPTY,
-                      Insets.EMPTY)),
-              Map.entry(
-                  ElementsInPlayfield.ElementInPlayfield.END,
-                  new BackgroundFill(
-                      getImagePatternFromFile("/images/finish.png"),
-                      CornerRadii.EMPTY,
-                      Insets.EMPTY)));
+  static final Map<ElementInPlayfield, BackgroundFill> elementInPlayfieldBackgroundFillMap =
+      Map.ofEntries(
+          Map.entry(
+              ElementInPlayfield.NO_ELEMENT,
+              new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)),
+          Map.entry(
+              ElementInPlayfield.AIR,
+              new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)),
+          Map.entry(
+              ElementInPlayfield.OWL,
+              new BackgroundFill(
+                  getImagePatternFromFile("/images/ingo40x40.png"),
+                  CornerRadii.EMPTY,
+                  Insets.EMPTY)),
+          Map.entry(
+              ElementInPlayfield.GROUND_NO_LAWN,
+              new BackgroundFill(
+                  getImagePatternFromFile("/images/soil.png"), CornerRadii.EMPTY, Insets.EMPTY)),
+          Map.entry(
+              ElementInPlayfield.START,
+              new BackgroundFill(
+                  getImagePatternFromFile("/images/start.png"), CornerRadii.EMPTY, Insets.EMPTY)),
+          Map.entry(
+              ElementInPlayfield.DANGER,
+              new BackgroundFill(
+                  getImagePatternFromFile("/images/fire_animated.gif"),
+                  CornerRadii.EMPTY,
+                  Insets.EMPTY)),
+          Map.entry(
+              ElementInPlayfield.FOOD,
+              new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),
+          Map.entry(
+              ElementInPlayfield.END,
+              new BackgroundFill(
+                  getImagePatternFromFile("/images/finish.png"), CornerRadii.EMPTY, Insets.EMPTY)));
 
   /**
    * Return true, if the key @param inputKey is a key where an element is defined in
