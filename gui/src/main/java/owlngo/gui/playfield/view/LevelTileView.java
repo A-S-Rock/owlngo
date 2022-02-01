@@ -10,9 +10,6 @@ import owlngo.game.level.objects.ObjectInGame.ObjectType;
 /** Represents the view for an in-game object. */
 public class LevelTileView extends StackPane {
 
-  static final double TILE_WIDTH = 40;
-  static final double TILE_HEIGHT = 40;
-
   public LevelTileView(int row, int column, OwlnGo game) {
     fillTile(row, column, game);
   }
@@ -28,7 +25,6 @@ public class LevelTileView extends StackPane {
 
     if (object.getType() == ObjectType.GROUND) {
       getChildren().clear();
-      // unused: getChildren().add(new GroundView());
       getChildren().add(new GroundView(gameState, tileRow, tileColumn));
     } else if (object.getType() == ObjectType.START) {
       getChildren().add(new StartView());
