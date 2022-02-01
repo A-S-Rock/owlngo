@@ -47,7 +47,6 @@ public class SavefileManager {
     try {
       Files.createDirectories(SAVEFILE_LEVEL_PATH);
       Files.createDirectories(SAVEFILE_HIGHSCORE_PATH);
-      System.out.println("Created savefile directories!");
     } catch (IOException e) {
       System.err.println("Couldn't create savefile directories!");
       e.printStackTrace();
@@ -97,8 +96,6 @@ public class SavefileManager {
         final String fileName = child.getName();
         final String levelName =
             fileName.substring(0, fileName.length() - SAVEFILE_APPENDIX_LENGTH);
-        System.out.println(levelName);
-
         try {
           loadAndUpdateLevelSavefile(levelName);
         } catch (IOException e) {

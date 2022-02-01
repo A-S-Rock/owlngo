@@ -112,7 +112,7 @@ public class WelcomeScreenController {
           public void handle(ActionEvent event) {
             connection.write(new LoadLevelNamesRequest(username));
             try {
-              Thread.sleep(1000); // wait a bit to let the server send its files
+              Thread.sleep(500); // wait a bit to let the server send its files
             } catch (InterruptedException e) {
               e.printStackTrace();
             }

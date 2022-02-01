@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -27,6 +28,7 @@ public class LoadLevelScreenController {
   @FXML TableView<LoadLevelRecord> tableView;
   @FXML TableColumn<LoadLevelRecord, String> levelNameColumn;
   @FXML TableColumn<LoadLevelRecord, String> authorColumn;
+  @FXML Label selectedLevelLabel;
 
   private final List<LoadLevelRecord> levelRecords = new ArrayList<>();
 
@@ -40,6 +42,26 @@ public class LoadLevelScreenController {
             ControllerUtils.createScene(event, fxmlLoader);
           }
         });
+    playSelectedButton.setOnAction(
+        new EventHandler<>() {
+          @Override
+          public void handle(ActionEvent event) {
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
+            ControllerUtils.createScene(event, fxmlLoader);
+          }
+        });
+    tableView
+        .getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              if (newValue != null) {
+                selectedLevelLabel.setText(newValue.getLevelName());
+                playSelectedButton.setText("Play!");
+                playSelectedButton.mouseTransparentProperty().set(false);
+              }
+            }));
   }
 
   public LoadLevelScreenController() {
@@ -54,7 +76,6 @@ public class LoadLevelScreenController {
         levelRecords.add(
             new LoadLevelRecord(levelNames.get(LEVEL_NAME_INDEX), levelNames.get(AUTHOR_INDEX)));
       }
-      DataManager.getInstance().setLevelNamesContent(null);
     }
   }
 

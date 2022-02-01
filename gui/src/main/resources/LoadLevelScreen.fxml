@@ -23,8 +23,8 @@
          <center>
             <TableView fx:id="tableView" focusTraversable="false" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
               <columns>
-                <TableColumn fx:id="levelNameColumn" editable="false" maxWidth="174.0" prefWidth="129.0" resizable="false" text="Level Name" />
-                <TableColumn fx:id="authorColumn" editable="false" prefWidth="147.0" text="Author" />
+                <TableColumn fx:id="levelNameColumn" editable="false" maxWidth="780.0" prefWidth="676.0" resizable="false" text="Level Name" />
+                <TableColumn fx:id="authorColumn" editable="false" minWidth="0.0" prefWidth="253.0" text="Author" />
               </columns>
             </TableView>
          </center>
@@ -39,12 +39,28 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Button>
-                  <Button fx:id="playSelectedButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="250.0" text="Play selected">
+                  <Label focusTraversable="false" mouseTransparent="true" prefHeight="40.0" prefWidth="250.0" text="Selected level:">
                      <VBox.margin>
-                        <Insets left="10.0" top="525.0" />
+                        <Insets left="10.0" />
                      </VBox.margin>
                      <font>
-                        <Font size="32.0" />
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="250.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="selectedLevelLabel" alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" mouseTransparent="true" prefHeight="250.0" prefWidth="250.0" text="None" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="playSelectedButton" focusTraversable="false" mnemonicParsing="false" mouseTransparent="true" prefHeight="80.0" prefWidth="250.0" text="No Level selected!">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Button>
                </children>
