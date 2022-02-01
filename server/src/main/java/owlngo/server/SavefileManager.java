@@ -1,5 +1,6 @@
 package owlngo.server;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -138,6 +139,7 @@ public class SavefileManager {
    * @return loaded level
    * @throws IOException if reading the file failed.
    */
+  @SuppressFBWarnings("DM_EXIT")
   public Level loadAndUpdateLevelSavefile(String levelName) throws IOException {
     final String filename = "/savefiles/level/" + levelName + ".txt";
 
