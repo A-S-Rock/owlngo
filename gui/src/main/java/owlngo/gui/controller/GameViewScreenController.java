@@ -21,18 +21,21 @@ import owlngo.gui.playfield.view.ViewUtils;
 public class GameViewScreenController {
   static final int NUM_LEVEL_COLUMNS = ViewUtils.NUM_LEVEL_COLUMNS;
   static final int NUM_LEVEL_ROWS = ViewUtils.NUM_LEVEL_ROWS;
+
   @FXML Button backToMainMenuButton;
   @FXML Button giveUpButton;
   @FXML AnchorPane gamePane;
   @FXML ProgressBar enduranceBar;
-  private OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS); // default level
+
+  private final OwlnGo game;
 
   /** Allows the controller to load a different level if possible. */
   public GameViewScreenController() {
-    // load level from data manager if editor has one
-    if (DataManager.getInstance().getLevelContent() != null) {
-      game = new OwlnGo(DataManager.getInstance().getLevelContent());
-      DataManager.getInstance().setLevelContent(null);
+    DataManager manager = DataManager.getInstance();
+    if (manager.getLevelContent() != null) {
+      game = new OwlnGo(manager.getLevelContent());
+    } else {
+      game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS);
     }
   }
 

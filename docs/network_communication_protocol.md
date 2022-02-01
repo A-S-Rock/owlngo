@@ -61,31 +61,31 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
 
 1. `ConnectionRequest`: Test message delivering the player to the Server.
    ```json lines
-   {"messageType":"ConnectionRequest","playerName":<NAME>}
+   {"messageType":"ConnectionRequest","playerName":<PLAYER_NAME>}
    ```
-    - `String <NAME>`: the client's (player's) name <br><br>
+    - `String <PLAYER_NAME>`: the client's (player's) name <br><br>
 
-2. `LoadLevelNamesRequest`: Message requesting the names of the saved level layouts.
+2. `LoadLevelInfosRequest`: Message requesting info of the saved level layouts.
    ```json lines
-   {"messageType":"LoadLevelNamesRequest","playerName":<NAME>}
+   {"messageType":"LoadLevelInfosRequest","playerName":<PLAYER_NAME>}
    ```
-    - `String <NAME>`: the client's (player's) name<br><br>
+    - `String <PLAYER_NAME>`: the client's (player's) name<br><br>
 
 3. `LoadLevelRequest`: Message asking for a level layout from the Server to play on.
    ```json lines
-   {"messageType":"LoadLevelRequest","levelName":<LEVEL_NAME>,"playerName":<NAME>}
+   {"messageType":"LoadLevelRequest","levelName":<LEVEL_NAME>,"playerName":<PLAYER_NAME>}
    ```
     - `String <LEVEL_NAME>`: the name of the saved level.
-    - `String <NAME>`: the client's (player's) name.<br><br>
+    - `String <PLAYER_NAME>`: the client's (player's) name.<br><br>
 
 4. `SaveLevelRequest`: Message asking the Server to save sent level layout locally.
    ```json lines
-   {"messageType":"SaveLevelRequest","author":<AUTHOR>,"levelName":<LEVEL_NAME>,"level":<LEVEL>}
+   {"messageType":"SaveLevelRequest","author":<AUTHOR>,"level":<LEVEL>,"levelName":<LEVEL_NAME>}
    ```
-
     - `String <AUTHOR>`: the level creator's name
-    - `String <LEVEL_NAME>`: the name given to the level
-    - `LevelJSON <LEVEL>`: JSON representation of the level object to be saved<br><br>
+    - `LevelJSON <LEVEL>`: JSON representation of the level object to be saved (see previous
+      description of `LevelJSON`)
+    - `String <LEVEL_NAME>`: the name given to the level<br><br>
 
 #### Upcoming
 
@@ -104,11 +104,12 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
    ```
     - `String <NAME>`: the client's (player's) name <br><br>
 
-2. `LevelNamesNotification`: Sending the names of saved level layouts to the Client.
+2. `LevelInfosNotification`: Sending the names and authors of saved level layouts to the Client.
    ```json lines
-   {"messageType":"LevelNamesNotification","levelNames":<LEVEL_NAMES>}
+   {"messageType":"LevelInfosNotification","levelInfos":<LEVEL_INFOS>}
    ```
-    - `ListJSON<String> <LEVEL_NAMES>`: JSON representation of all saved level's names.<br><br>
+    - `ListJSON<ListJSON<String>> <LEVEL_INFOS>`: JSON representation of all saved level's
+      infos.<br><br>
 
 3. `SendLevelNotification`: Sending the requested level layout to the Server.
    ```json lines
@@ -119,7 +120,7 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
 
 4. `LevelSavedNotification`: Confirmation message if level layout has been saved successfully.
    ```json lines
-   {"messageType":"SendLevelNotification","levelName":<LEVEL_NAME>}
+   {"messageType":"LevelSavedNotification","levelName":<LEVEL_NAME>}
    ```
     - `String <LEVEL_NAME>`: Loaded level's name.
 
