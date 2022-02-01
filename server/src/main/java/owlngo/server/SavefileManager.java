@@ -60,25 +60,22 @@ public class SavefileManager {
 
     final String levelNameDummyLevel2 = "dummy2";
     Level dummyLevel2 = Level.createDemoLevel(15, 15);
-    final int dummyLevel2MaxRow = dummyLevel2.getNumRows() - 1;
-    final int dummyLevel2SecondRow = dummyLevel2MaxRow - 1;
-    for (int column = 1; column <= dummyLevel2MaxRow; column++) {
+    for (int column = 1; column <= 9; column++) {
       if (column % 3 == 0) {
-        final Coordinate coordinate = Coordinate.of(dummyLevel2SecondRow, column);
+        final Coordinate coordinate = Coordinate.of(13, column);
         dummyLevel2 = dummyLevel2.withGroundAt(coordinate);
       }
     }
 
     final String levelNameDummyLevel3 = "dummy3";
     Level dummyLevel3 = Level.createDemoLevel(30, 30);
-    final int fourthRow = 3;
     for (int column = 6; column < dummyLevel3.getNumColumns(); column++) {
       if (column % 4 != 0) {
-        final Coordinate coordinate = Coordinate.of(dummyLevel2SecondRow, column);
+        final Coordinate coordinate = Coordinate.of(28, column);
         dummyLevel3 = dummyLevel3.withGroundAt(coordinate);
       }
       if (column % 5 == 0) {
-        final Coordinate coordinate = Coordinate.of(fourthRow, column);
+        final Coordinate coordinate = Coordinate.of(27, column);
         dummyLevel3 = dummyLevel3.withGroundAt(coordinate);
       }
     }

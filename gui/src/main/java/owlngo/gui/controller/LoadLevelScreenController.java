@@ -58,11 +58,16 @@ public class LoadLevelScreenController {
         .addListener(
             ((observable, oldValue, newValue) -> {
               if (newValue != null) {
+                sendLoadLevelRequest(newValue.getLevelName());
                 selectedLevelLabel.setText(newValue.getLevelName());
                 playSelectedButtonState.set(PLAY_BUTTON_PLAY);
                 playSelectedButton.mouseTransparentProperty().set(false);
               }
             }));
+  }
+
+  private void sendLoadLevelRequest(String levelName) {
+    connection.write(new LoadLevelRequest(communicationManager.getUsername(), levelName));
   }
 
   private void playLevelAction(ActionEvent event) {
@@ -78,9 +83,6 @@ public class LoadLevelScreenController {
       }
       Platform.runLater(
           () -> {
-            connection.write(
-                new LoadLevelRequest(communicationManager.getUsername(), selectedLevel));
-
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           });
