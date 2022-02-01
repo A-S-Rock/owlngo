@@ -17,8 +17,6 @@ import javafx.stage.Stage;
 /** Utility class offers often-used methods for creating scenes, logos, avatars. */
 public class ControllerUtils {
 
-  // TODO: The retry button and others could be build here or in ViewUtils.
-
   private static final int SCENE_WIDTH = 1200;
   private static final int SCENE_HEIGHT = SCENE_WIDTH * 2 / 3;
 

@@ -1,18 +1,18 @@
 package owlngo.communication.messages;
 
-/** Asks for all level's names to choose from when selecting a game. */
-public final class LoadLevelNamesRequest implements Message {
+/** Asks for all level's info to choose from when selecting a game. */
+public final class LoadLevelInfosRequest implements Message {
   @SuppressWarnings("unused")
-  private static final String messageType = "LoadLevelNamesRequest";
+  private static final String messageType = "LoadLevelInfosRequest";
 
   private final String playerName;
 
   /**
-   * Creates a request to the server to send all the level's names saved on the server.
+   * Creates a request to the server to send all the level's info saved on the server.
    *
    * @param playerName the request's player name
    */
-  public LoadLevelNamesRequest(String playerName) {
+  public LoadLevelInfosRequest(String playerName) {
     this.playerName = playerName;
   }
 

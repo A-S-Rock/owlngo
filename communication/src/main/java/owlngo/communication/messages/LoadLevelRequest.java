@@ -1,25 +1,22 @@
 package owlngo.communication.messages;
 
-import owlngo.communication.utils.LevelJson;
-import owlngo.game.level.Level;
-
 /** Calls for a concrete level layout from the server to play on. */
 public final class LoadLevelRequest implements Message {
   @SuppressWarnings("unused")
   private static final String messageType = "LoadLevelRequest";
 
   private final String playerName;
-  private final LevelJson levelJson;
+  private final String levelName;
 
   /**
    * Creates a request to load a level from the server.
    *
    * @param playerName the player's name.
-   * @param level the level to load
+   * @param levelName the level to load
    */
-  public LoadLevelRequest(String playerName, Level level) {
+  public LoadLevelRequest(String playerName, String levelName) {
     this.playerName = playerName;
-    levelJson = new LevelJson(level);
+    this.levelName = levelName;
   }
 
   /**
@@ -36,7 +33,7 @@ public final class LoadLevelRequest implements Message {
    *
    * @return the level
    */
-  public Level getLevel() {
-    return levelJson.createLevel();
+  public String getLevelName() {
+    return levelName;
   }
 }
