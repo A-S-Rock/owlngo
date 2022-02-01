@@ -48,24 +48,21 @@ public class PlayerConnection implements Closeable {
     Message message = connection.read();
 
     if (message instanceof LoadLevelInfosRequest) {
-      System.out.println("I received the load level request.");
-
       final Map<String, LevelSavefile> savedLevels = manager.getSavedLevels();
-      final List<List<String>> levelNames = new ArrayList<>();
+      final List<List<String>> levelInfos = new ArrayList<>();
 
       for (LevelSavefile savefile : savedLevels.values()) {
         List<String> levelRecord = List.of(savefile.getLevelName(), savefile.getAuthor());
-        levelNames.add(levelRecord);
+        levelInfos.add(levelRecord);
       }
 
-      final LevelInfosNotification notification = new LevelInfosNotification(levelNames);
+      final LevelInfosNotification notification = new LevelInfosNotification(levelInfos);
       connection.write(notification);
-    } else if (message instanceof final LoadLevelRequest levelRequest) {
-      final String levelName = levelRequest.getLevelName();
-
+    } else if (message instanceof LoadLevelRequest) {
+      final String levelName = ((LoadLevelRequest) message).getLevelName();
       final Level level = manager.loadAndUpdateLevelSavefile(levelName);
-
       final SendLevelNotification notification = new SendLevelNotification(levelName, level);
+
       connection.write(notification);
     } else {
       throw new AssertionError("Invalid communication.");

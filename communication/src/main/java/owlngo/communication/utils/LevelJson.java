@@ -44,6 +44,10 @@ public final class LevelJson {
         level = level.withFinishAt(coordinate);
       } else if (type == ObjectType.GROUND) {
         level = level.withGroundAt(coordinate);
+      } else if (type == ObjectType.FOOD) {
+        level = level.withFoodAt(coordinate);
+      } else if (type == ObjectType.FIRE) {
+        level = level.withFireAt(coordinate);
       }
 
       if (type == ObjectType.PLAYER) {

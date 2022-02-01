@@ -18,9 +18,7 @@ public class GroundView extends StackPane {
 
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
   public GroundView(GameState gameState, int tileRow, int tileColumn) {
-    System.out.println("GroundView");
     String name = fileNameForGround(gameState, tileRow, tileColumn);
-    System.out.println("filename" + name);
     try {
       soilImage =
           new Image(Objects.requireNonNull(getClass().getResource("/images/" + name)).toString());
