@@ -58,15 +58,26 @@ public class OwlnGo {
     System.out.println("You loose! - OwlnGo.actionWhenDead()");
   }
 
+  /** Cheks winning conditions. */
   private void checkWinningConditions(Move move) {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
-    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1
-        || sideConditions.getEndurance() == 0) {
+    } else if (checkForDeath(move)) {
       actionWhenDead();
       gameState = gameState.with(GameStatus.LOSE);
     }
+  }
+
+  /** Checks if the player is dead. */
+  private boolean checkForDeath(Move move) {
+    return move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1
+        || sideConditions.getEndurance() == 0
+        || gameState
+            .getLevel()
+            .getObjectInGameAt(gameState.getPlayer().getCoordinate())
+            .getType()
+            .equals(ObjectType.FIRE);
   }
 
   /** Moves the player to the right. */
