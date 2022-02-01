@@ -90,7 +90,7 @@ public class GroundView extends StackPane {
     return isElementGrasBlockingElement(gameState, row - 1, column);
   }
 
-  // This method handles also coordinates this wrong range
+  // This method handles also coordinates this wrong range   
   boolean isElementGrasBlockingElement(GameState gameState, int row, int column) {
     if ((possibleRow(row)) && possibleColunmn(column)) {
       ObjectInGame object = gameState.getLevel().getObjectInGameAt(Coordinate.of(row, column));
