@@ -14,6 +14,7 @@ plugins {
 }
 
 dependencies {
+    implementation project(':communication')
     implementation project(':gui')
 }
 

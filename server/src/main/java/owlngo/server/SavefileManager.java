@@ -136,9 +136,10 @@ public class SavefileManager {
    * Loads the requested level from storage.
    *
    * @param levelName the requested level's savename.
+   * @return loaded level
    * @throws IOException if reading the file failed.
    */
-  public void loadAndUpdateLevelSavefile(String levelName) throws IOException {
+  public Level loadAndUpdateLevelSavefile(String levelName) throws IOException {
     final String filename = "/savefiles/level/" + levelName + ".txt";
 
     try (InputStream inputStream =
@@ -146,6 +147,7 @@ public class SavefileManager {
       final String savefileJson = readFromInputStream(inputStream);
       final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
       savedLevels.put(levelName, savefile);
+      return savefile.getLevel();
     }
   }
 

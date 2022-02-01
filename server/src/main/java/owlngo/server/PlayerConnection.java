@@ -9,8 +9,11 @@ import java.util.Objects;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.LevelNamesNotification;
 import owlngo.communication.messages.LoadLevelNamesRequest;
+import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
+import owlngo.communication.messages.SendLevelNotification;
 import owlngo.communication.savefiles.LevelSavefile;
+import owlngo.game.level.Level;
 
 /**
  * This class handles the communication with (this server-side and) a connected client. Adjusted
@@ -56,6 +59,13 @@ public class PlayerConnection implements Closeable {
       }
 
       final LevelNamesNotification notification = new LevelNamesNotification(levelNames);
+      connection.write(notification);
+    } else if (message instanceof final LoadLevelRequest levelRequest) {
+      final String levelName = levelRequest.getLevelName();
+
+      final Level level = manager.loadAndUpdateLevelSavefile(levelName);
+
+      final SendLevelNotification notification = new SendLevelNotification(levelName, level);
       connection.write(notification);
     } else {
       throw new AssertionError("Invalid communication.");
