@@ -7,6 +7,30 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.10.0] - 2022-02-01
+
+### Added
+
+GUI:
+
+- Shows FIRE and FOOD tiles on screen now.
+
+GAME:
+
+- FIRE now stops the game (lose)
+- Flying is possible now, but with expendable endurance; flying too much ends the game.
+
+### Changed
+
+- Endurance bar now shows the current endurance onscreen.
+- Gradle now is forced to load Java 17 (hopefully) if not present on the user's side.
+
+### Fixed
+
+- New FIRE and FOOD objects were not added to the game because the JSON class forgot to translate
+  them on client's side
+- FIRE wouldn't end the game when stepped on.
+
 ## [0.9.0] - 2022-02-01
 
 ### Added
@@ -231,7 +255,9 @@ GAME:
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.9.0...main?from_project_id=3507
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.10.0...main?from_project_id=3507
+
+[0.10.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.9.0...v0.10.0?from_project_id=3507
 
 [0.9.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.8.0...v0.9.0?from_project_id=3507
 

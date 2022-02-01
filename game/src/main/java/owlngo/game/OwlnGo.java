@@ -1,5 +1,6 @@
 package owlngo.game;
 
+import java.util.List;
 import javafx.application.Platform;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
@@ -54,30 +55,31 @@ public class OwlnGo {
     return sideConditions;
   }
 
-  private void actionWhenDead() {
-    System.out.println("You loose! - OwlnGo.actionWhenDead()");
-  }
-
   /** Cheks winning conditions. */
   private void checkWinningConditions(Move move) {
-    Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
+    final Coordinate finishCoordinate =
+        gameState.getLevel().getCopyOfFinishObject().getCoordinate();
+
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
     } else if (checkForDeath(move)) {
-      actionWhenDead();
       gameState = gameState.with(GameStatus.LOSE);
     }
   }
 
   /** Checks if the player is dead. */
   private boolean checkForDeath(Move move) {
-    return move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1
-        || sideConditions.getEndurance() == 0
-        || gameState
-            .getLevel()
-            .getObjectInGameAt(gameState.getPlayer().getCoordinate())
-            .getType()
-            .equals(ObjectType.FIRE);
+    // Check fall into oblivion.
+    final boolean fellDown =
+        move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1;
+    // Check exhaustion.
+    final boolean exhausted = sideConditions.getEndurance() == 0;
+    // Check if landed on fire.
+    final List<Coordinate> fireCoordinates = gameState.getFireCoordinates();
+    final boolean hitFire =
+        (!fireCoordinates.isEmpty() && fireCoordinates.contains(move.getNewCoordinate()));
+
+    return fellDown || exhausted || hitFire;
   }
 
   /** Moves the player to the right. */
@@ -155,7 +157,6 @@ public class OwlnGo {
 
   /** Lets the player jump left. */
   public void moveJumpLeft() throws InterruptedException {
-
     Platform.runLater(this::moveBasicUp);
     Thread.sleep(300);
     Platform.runLater(this::moveBasicLeft);
@@ -181,13 +182,13 @@ public class OwlnGo {
   }
 
   /** Lets the player fall only a single step. */
+  @SuppressWarnings("BusyWait")
   public void moveContinousFall() throws InterruptedException {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
-    while (gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer()).getType()
-        != ObjectType.GROUND) {
+    while (!checkForGroundBelowOwl()) {
       Player player = gameState.getPlayer();
       Move move = player.getFallMove();
       Platform.runLater(this::moveSingleStepFall);
