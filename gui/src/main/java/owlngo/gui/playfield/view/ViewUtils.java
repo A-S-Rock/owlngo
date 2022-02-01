@@ -27,7 +27,6 @@ public final class ViewUtils {
    */
   public static void setSceneToGameView(Stage stage) {
     final OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS);
-
     setGameStateListener(stage, game);
   }
 
@@ -39,7 +38,6 @@ public final class ViewUtils {
    */
   public static void setSceneToGameViewWithLevel(Stage stage, Level level) {
     final OwlnGo game = new OwlnGo(level);
-
     setGameStateListener(stage, game);
   }
 
@@ -54,7 +52,6 @@ public final class ViewUtils {
         new FXMLLoader(ViewUtils.class.getResource("/GameSolvedScreen.fxml"));
     final FXMLLoader fxmlLoseWindow =
         new FXMLLoader(ViewUtils.class.getResource("/GameOverScreen.fxml"));
-    System.out.println(fxmlWinWindow);
 
     game.getGameState()
         .propertyStatus()

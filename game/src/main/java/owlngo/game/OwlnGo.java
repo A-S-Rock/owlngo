@@ -50,6 +50,10 @@ public class OwlnGo {
     return gameState;
   }
 
+  public final SideConditions getSideConditions() {
+    return sideConditions;
+  }
+
   private void checkWinningConditions(Move move) {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
