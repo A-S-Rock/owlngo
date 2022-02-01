@@ -16,7 +16,11 @@ import owlngo.communication.messages.Message;
 public class ConnectionManager implements AutoCloseable {
 
   private Map<String, PlayerConnection> connections = new HashMap<>();
-  private final SavefileManager manager = new SavefileManager();
+  private final SavefileManager manager;
+
+  public ConnectionManager() {
+    this.manager = new SavefileManager();
+  }
 
   void createNewPlayerConnection(Socket connectionSocket) throws IOException {
     Connection connection =

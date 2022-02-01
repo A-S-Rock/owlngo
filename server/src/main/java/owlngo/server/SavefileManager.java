@@ -13,7 +13,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.utils.SavefileCoder;
 import owlngo.game.level.Coordinate;
@@ -22,10 +21,9 @@ import owlngo.game.level.Level;
 /** Manages creating and loading savefiles for levels, highscores and more. */
 public class SavefileManager {
 
-  private static final Path SAVEFILE_LEVEL_PATH =
-      Paths.get("server/src/main/resources/savefiles/level");
+  private static final Path SAVEFILE_LEVEL_PATH = Paths.get("src/main/resources/savefiles/level");
   private static final Path SAVEFILE_HIGHSCORE_PATH =
-      Paths.get("server/src/main/resources/savefiles/highscores");
+      Paths.get("src/main/resources/savefiles/highscores");
 
   private static final int SAVEFILE_APPENDIX_LENGTH = 4; // ".txt" length
 
@@ -61,10 +59,11 @@ public class SavefileManager {
 
     final String levelNameDummyLevel2 = "dummy2";
     Level dummyLevel2 = Level.createDemoLevel(15, 15);
-    final int thirdRow = 2;
-    for (int column = 1; column < dummyLevel2.getNumColumns(); column++) {
+    final int dummyLevel2MaxRow = dummyLevel2.getNumRows() - 1;
+    final int dummyLevel2SecondRow = dummyLevel2MaxRow - 1;
+    for (int column = 1; column <= dummyLevel2MaxRow; column++) {
       if (column % 3 == 0) {
-        final Coordinate coordinate = Coordinate.of(thirdRow, column);
+        final Coordinate coordinate = Coordinate.of(dummyLevel2SecondRow, column);
         dummyLevel2 = dummyLevel2.withGroundAt(coordinate);
       }
     }
@@ -74,7 +73,7 @@ public class SavefileManager {
     final int fourthRow = 3;
     for (int column = 6; column < dummyLevel3.getNumColumns(); column++) {
       if (column % 4 != 0) {
-        final Coordinate coordinate = Coordinate.of(thirdRow, column);
+        final Coordinate coordinate = Coordinate.of(dummyLevel2SecondRow, column);
         dummyLevel3 = dummyLevel3.withGroundAt(coordinate);
       }
       if (column % 5 == 0) {
@@ -142,8 +141,11 @@ public class SavefileManager {
   public Level loadAndUpdateLevelSavefile(String levelName) throws IOException {
     final String filename = "/savefiles/level/" + levelName + ".txt";
 
-    try (InputStream inputStream =
-        Objects.requireNonNull(getClass().getResourceAsStream(filename))) {
+    try (InputStream inputStream = getClass().getResourceAsStream(filename)) {
+      if (inputStream == null) {
+        System.err.println("Server had to create file directory first. Please restart server!");
+        System.exit(0);
+      }
       final String savefileJson = readFromInputStream(inputStream);
       final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
       savedLevels.put(levelName, savefile);
