@@ -30,11 +30,13 @@ public class GroundView extends StackPane {
     getChildren().add(groundElement);
   }
 
-  /** Constructor loads a png-image and makes a rectangle filled with this image. */
+  /**
+   * Constructor loads one of the png-images and makes a rectangle filled with this image. The
+   * png-image is selected depending on wether gras can grow or not.
+   */
   public GroundView(GameState gameState, int tileRow, int tileColumn) {
-    System.out.println("GroundView");
+
     String name = fileNameForGround(gameState, tileRow, tileColumn);
-    System.out.println("filename" + name);
     try {
       soilImage =
           new Image(Objects.requireNonNull(getClass().getResource("/images/" + name)).toString());
@@ -90,7 +92,6 @@ public class GroundView extends StackPane {
 
   // This method handles also coordinates this wrong range
   boolean isElementGrasBlockingElement(GameState gameState, int row, int column) {
-    System.out.println("isElementGrasBlockingElement");
     if ((possibleRow(row)) && possibleColunmn(column)) {
       ObjectInGame object = gameState.getLevel().getObjectInGameAt(Coordinate.of(row, column));
       // gas growing
@@ -98,7 +99,6 @@ public class GroundView extends StackPane {
           || (object.getType() == ObjectType.GROUND)
           || (object.getType() == ObjectType.FIRE);
     } else {
-      System.out.println("Not allowed values" + row + " " + column);
       return true;
     }
   }
