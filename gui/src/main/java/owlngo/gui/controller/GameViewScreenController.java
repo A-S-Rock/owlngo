@@ -43,8 +43,8 @@ public class GameViewScreenController {
   void initialize() {
 
     gamePane.getChildren().addAll(createGameNode(game));
-    Task task =
-        new Task<Void>() {
+    Task<Void> task =
+        new Task<>() {
           @Override
           protected Void call() {
             while (game.getGameState().isGameRunning()) {
