@@ -7,6 +7,30 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.9.0] - 2022-02-01
+
+### Added
+
+GUI:<br>
+
+- Server and Client connection established
+- Levels are stored on Server side even after server restart (persistent storage)
+- Load levels now loads all stored levels in a table which is clickable
+- Only if a level is selected it can actually be played (locked button)
+- Caution: Fail and Win screen currently do not restart the level properly.
+- Also, the FOOD and FIRE items are not included in the GUI right now
+
+GAME:
+
+- New ingame objects FIRE and FOOD were added to the game
+- Endurance for the player: After a certain amount of steps the player gets exhausted and loses the
+  game. FOOD is necessary to reach the finish.
+
+### Fixed
+
+- Client not loading the level from the server fast enough.
+- Creating smaller levels caused the player to show on the wrong spot.
+
 ## [0.8.1] - 2022-01-30
 
 ### Added
@@ -207,7 +231,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.8.0...main?from_project_id=3507
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.9.0...main?from_project_id=3507
+
+[0.9.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.8.0...v0.9.0?from_project_id=3507
 
 [0.8.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.7.0...v0.8.0?from_project_id=3507
 

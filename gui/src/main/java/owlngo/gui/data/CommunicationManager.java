@@ -1,6 +1,6 @@
 package owlngo.gui.data;
 
-import java.net.Socket;
+import owlngo.communication.Connection;
 
 /** Class storing the client socket for further use by JavaFX controllers. */
 @edu.umd.cs.findbugs.annotations.SuppressFBWarnings({
@@ -12,7 +12,7 @@ public final class CommunicationManager {
 
   private static CommunicationManager instance;
   private String username;
-  private Socket socket;
+  private Connection connection;
 
   /**
    * Instantiates the single instance of the CommunicationManager or returns it if already existant.
@@ -36,15 +36,6 @@ public final class CommunicationManager {
   }
 
   /**
-   * Returns the client's socket connection.
-   *
-   * @return the socket
-   */
-  public Socket getSocket() {
-    return socket;
-  }
-
-  /**
    * Sets the connected client's username.
    *
    * @param username the username
@@ -54,11 +45,20 @@ public final class CommunicationManager {
   }
 
   /**
-   * Sets the connected client's socket.
+   * Returns the connection from the client.
    *
-   * @param socket the client's socket
+   * @return the connection
    */
-  public void setSocket(Socket socket) {
-    this.socket = socket;
+  public Connection getConnection() {
+    return connection;
+  }
+
+  /**
+   * Sets the connection of the client.
+   *
+   * @param connection the connection
+   */
+  public void setConnection(Connection connection) {
+    this.connection = connection;
   }
 }

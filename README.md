@@ -6,6 +6,14 @@ play and create new levels.
 We use a server-client-architecture to show and deliver existing levels with their highscores. For
 messages between each other we use the moshi (json) protocol.
 
+### Running the game - prerequisites
+
+- This project is written with Java 17. It should download and install itself on running if not
+  present on the user's maschine. If there are problems, please contact us.
+
+- As this project doesn't create a jar to run, you either will need to use the Terminal for running
+  Gradle tasks or an IDE to run it interactively.
+
 ### Start the server
 
 - *In IntelliJ*: Use the gradle task "**owlngo > server > Tasks >
@@ -47,5 +55,5 @@ What we have so far (and what's coming next)
 - [ ] added animations to all moves
 - [ ] added a timer and some controls to the gameplay screen
 - [x] added an editor
-- [ ] added all previously concepted windows
+- [x] added all previously concepted windows
 - [x] connected everything with the server-client-architecture

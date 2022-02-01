@@ -3,28 +3,69 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.LoadLevelScreenController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="800.0" prefWidth="1200.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <Label text="Saved Levels">
+      <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Label text="Saved Levels" BorderPane.alignment="CENTER">
                <font>
                   <Font size="72.0" />
                </font>
-               <VBox.margin>
-                  <Insets bottom="20.0" top="80.0" />
-               </VBox.margin>
             </Label>
-            <Button fx:id="backToWelcomeScreenButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Main menu">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
+         </top>
+         <center>
+            <TableView fx:id="tableView" focusTraversable="false" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn fx:id="levelNameColumn" editable="false" maxWidth="780.0" prefWidth="676.0" resizable="false" text="Level Name" />
+                <TableColumn fx:id="authorColumn" editable="false" minWidth="0.0" prefWidth="253.0" text="Author" />
+              </columns>
+            </TableView>
+         </center>
+         <right>
+            <VBox prefHeight="695.0" prefWidth="270.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="backToWelcomeScreenButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="250.0" text="Main menu">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Label focusTraversable="false" mouseTransparent="true" prefHeight="40.0" prefWidth="250.0" text="Selected level:">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="250.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="selectedLevelLabel" alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" mouseTransparent="true" prefHeight="250.0" prefWidth="250.0" text="None" wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="5.0" left="10.0" top="5.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Button fx:id="playSelectedButton" focusTraversable="false" mnemonicParsing="false" mouseTransparent="true" prefHeight="80.0" prefWidth="250.0" text="No Level selected!">
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </right>
+      </BorderPane>
    </children>
 </AnchorPane>

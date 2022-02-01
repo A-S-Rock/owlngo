@@ -1,8 +1,6 @@
 package owlngo.gui.controller;
 
 import java.io.IOException;
-import java.net.Socket;
-import java.util.Arrays;
 import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,10 +11,13 @@ import javafx.scene.layout.Pane;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
-import owlngo.communication.messages.LevelNamesNotification;
-import owlngo.communication.messages.LoadLevelNamesRequest;
+import owlngo.communication.messages.LevelInfosNotification;
+import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.Message;
+import owlngo.communication.messages.SendLevelNotification;
+import owlngo.game.level.Level;
 import owlngo.gui.data.CommunicationManager;
+import owlngo.gui.data.DataManager;
 
 /** Contoller class for WelcomeScreen.fxml. */
 public class WelcomeScreenController {
@@ -30,14 +31,15 @@ public class WelcomeScreenController {
 
   private static boolean isConnected;
 
-  private final String username;
+  private final CommunicationManager communicationManager;
   private final Connection connection;
+  private final DataManager dataManager;
 
   /** Initializes the controller to use the socket given by the client. */
-  public WelcomeScreenController() throws IOException {
-    username = CommunicationManager.getInstance().getUsername();
-    final Socket socket = CommunicationManager.getInstance().getSocket();
-    this.connection = new Connection(socket.getOutputStream(), socket.getInputStream());
+  public WelcomeScreenController() {
+    communicationManager = CommunicationManager.getInstance();
+    connection = communicationManager.getConnection();
+    dataManager = DataManager.getInstance();
     if (!isConnected) {
       new Thread(
               () -> {
@@ -54,7 +56,6 @@ public class WelcomeScreenController {
 
   @SuppressWarnings("InfiniteLoopStatement")
   void start() throws IOException {
-    System.out.println("I will send a connection message now.");
     connectToServer(connection);
     while (true) {
       reactToServer(connection);
@@ -65,27 +66,26 @@ public class WelcomeScreenController {
     Message message = connection.read();
     if (message instanceof ConnectedNotification) {
       final String sentUsername = ((ConnectedNotification) message).getPlayerName();
-      assert username.equals(sentUsername);
+      assert communicationManager.getUsername().equals(sentUsername);
       System.out.println(
           "[SERVER] " + sentUsername + " - you're successfully connected to the game server!");
       isConnected = true;
-    } else if (message instanceof LevelNamesNotification) {
-      final List<String> receivedLevelNames = ((LevelNamesNotification) message).getLevelNames();
-      System.out.println(
-          "[CLIENT] Level names successfully loaded - "
-              + Arrays.toString(receivedLevelNames.toArray()));
+    } else if (message instanceof LevelInfosNotification) {
+      final List<List<String>> receivedLevelNames =
+          ((LevelInfosNotification) message).getLevelInfos();
+      dataManager.setLevelNamesContent(receivedLevelNames);
+    } else if (message instanceof SendLevelNotification) {
+      final Level level = ((SendLevelNotification) message).getLevel();
+      dataManager.setLevelContent(level);
     } else {
       throw new AssertionError("Unknown message type!");
     }
   }
 
   private void connectToServer(Connection connection) {
+    final String username = communicationManager.getUsername();
     Message connectionMessage = new ConnectionRequest(username);
     connection.write(connectionMessage);
-  }
-
-  private Connection establishConnection(Socket socket) throws IOException {
-    return new Connection(socket.getOutputStream(), socket.getInputStream());
   }
 
   @FXML
@@ -112,9 +112,16 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            final String username = communicationManager.getUsername();
+            connection.write(new LoadLevelInfosRequest(username));
+            try {
+              Thread.sleep(200); // wait a bit to let the server send its files
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
+            communicationManager.setConnection(connection);
             ControllerUtils.createScene(event, fxmlLoader);
-            connection.write(new LoadLevelNamesRequest(username));
           }
         });
 
