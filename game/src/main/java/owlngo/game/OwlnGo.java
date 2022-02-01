@@ -70,9 +70,6 @@ public class OwlnGo {
     Move move = player.getRightMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-    }
   }
 
   /** Moves the player to the left. */
@@ -85,9 +82,6 @@ public class OwlnGo {
     Move move = player.getLeftMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-    }
   }
 
   /** Lets the player jump. */
@@ -100,9 +94,6 @@ public class OwlnGo {
     Move move = player.getJumpMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-    }
   }
 
   /** Lets the player fall. */
@@ -115,10 +106,20 @@ public class OwlnGo {
     Move move = player.getFallMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
-    // This might be obsolete because updates takes place in moveObjectInGame(move).
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-    }
+  }
+
+  /** Lets the player walk left up and if possible fall down. */
+  public void moveLeft() throws InterruptedException {
+    Platform.runLater(this::moveBasicLeft);
+    Thread.sleep(300);
+    moveContinousFall();
+  }
+
+  /** Lets the player walk right up and if possible fall down. */
+  public void moveRight() throws InterruptedException {
+    Platform.runLater(this::moveBasicRight);
+    Thread.sleep(300);
+    moveContinousFall();
   }
 
   /** Lets the player jump right up and fall down. */
@@ -129,34 +130,38 @@ public class OwlnGo {
     Thread.sleep(300);
     Platform.runLater(this::moveBasicRight);
     Thread.sleep(300);
-    Platform.runLater(this::moveContinousFall);
-  }
-
-  /** Lets the player jump left. */
-  public void moveJumpLeft() {
-    moveBasicUp();
-    moveBasicLeft();
-    moveBasicLeft();
     moveContinousFall();
   }
 
   /** Lets the player jump left. */
-  public void moveFlyUp() {
-    moveBasicUp();
+  public void moveJumpLeft() throws InterruptedException {
+
+    Platform.runLater(this::moveBasicUp);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicLeft);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicLeft);
+    Thread.sleep(300);
+    moveContinousFall();
+  }
+
+  /** Lets the player jump left. */
+  public void moveFlyUp() throws InterruptedException {
+    Platform.runLater(this::moveBasicUp);
     sideConditions.decreaseEndurance();
-    /*
-    //ToDo: there is no other key input
-    if ()
-    {
-      moveContinousFall();
-    }
-
-     */
-
   }
 
   /** Lets the player fall continously to the next GROUND-object. */
-  public void moveContinousFall() {
+  public void moveSingleStepFall() {
+    Player player = gameState.getPlayer();
+    Move move = player.getFallMove();
+    gameState.moveObjectInGame(move);
+    checkWinningConditions(move);
+    gameState.getLevel().updatePossibleMovesOfPlayer();
+  }
+
+  /** Lets the player fall only a single step. */
+  public void moveContinousFall() throws InterruptedException {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
@@ -165,23 +170,24 @@ public class OwlnGo {
         != ObjectType.GROUND) {
       Player player = gameState.getPlayer();
       Move move = player.getFallMove();
-      gameState.moveObjectInGame(move);
-      checkWinningConditions(move);
-      gameState.getLevel().updatePossibleMovesOfPlayer();
+      Platform.runLater(this::moveSingleStepFall);
+      Thread.sleep(300);
       if (move.getNewCoordinate() == player.getCoordinate()) {
         break;
       }
-      // ToDo: Integrate slow falling.
-    }
-    // This might be obsolete because updates takes place in moveObjectInGame(move).
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
     }
   }
 
+  /** Returns the Coordinate below the Player. */
   Coordinate getActualCoordinateBelowPlayer() {
     Player player = gameState.getPlayer();
     int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() - 1;
     return Coordinate.of(rowBelowPlayer, player.getCoordinate().getColumn());
+  }
+
+  /** Checks for a GROUND-object below the player. */
+  boolean checkForGroundBelowOwl() {
+    return gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer()).getType()
+        == ObjectType.GROUND;
   }
 }

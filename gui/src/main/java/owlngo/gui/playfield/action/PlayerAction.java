@@ -1,7 +1,6 @@
 package owlngo.gui.playfield.action;
 
 import java.util.Map;
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -43,17 +42,41 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
 
   @Override
   public void handle(KeyEvent event) {
-    // TODO: Animation
 
     String pressedKey = event.getText();
+
     if (pressedKey.equals("a")) {
-      game.moveBasicLeft();
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.moveLeft();
+                  return null;
+                }
+              })
+          .start();
     }
     if (pressedKey.equals("w")) {
-      game.moveBasicUp();
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.moveFlyUp();
+                  return null;
+                }
+              })
+          .start();
     }
     if (pressedKey.equals("d")) {
-      game.moveBasicRight();
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.moveRight();
+                  return null;
+                }
+              })
+          .start();
     }
     if (pressedKey.equals("e")) {
       new Thread(
@@ -67,7 +90,15 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
           .start();
     }
     if (pressedKey.equals("q")) {
-      game.moveJumpLeft();
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.moveJumpLeft();
+                  return null;
+                }
+              })
+          .start();
     }
   }
 }
