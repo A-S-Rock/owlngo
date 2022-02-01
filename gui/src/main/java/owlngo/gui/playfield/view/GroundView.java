@@ -17,20 +17,6 @@ public class GroundView extends StackPane {
   private Image soilImage;
 
   /** Constructor loads a png-image and makes a rectangle filled with this image. */
-  public GroundView() {
-    try {
-      soilImage =
-          new Image(Objects.requireNonNull(getClass().getResource("/images/soil.png")).toString());
-    } catch (IllegalArgumentException e) {
-      System.err.println("Image not found.");
-    }
-    Rectangle groundElement =
-        new Rectangle(GameView.TILE_SIZE, GameView.TILE_SIZE, Color.TRANSPARENT);
-    groundElement.setFill(new ImagePattern(soilImage));
-    getChildren().add(groundElement);
-  }
-
-  /** Constructor loads a png-image and makes a rectangle filled with this image. */
   public GroundView(GameState gameState, int tileRow, int tileColumn) {
     System.out.println("GroundView");
     String name = fileNameForGround(gameState, tileRow, tileColumn);
@@ -47,7 +33,7 @@ public class GroundView extends StackPane {
     getChildren().add(groundElement);
   }
 
-  String fileNameForGround(GameState gameState, int row, int column) {
+  private String fileNameForGround(GameState gameState, int row, int column) {
     String name = "soil.png";
     if (topGrasBlocker(gameState, row, column)) {
       name = "soil.png";
@@ -76,24 +62,23 @@ public class GroundView extends StackPane {
     return name;
   }
 
-  boolean leftGrasBlocker(GameState gameState, int row, int column) {
+  private boolean leftGrasBlocker(GameState gameState, int row, int column) {
     return isElementGrasBlockingElement(gameState, row, column - 1);
   }
 
-  boolean rightGrasBlocker(GameState gameState, int row, int column) {
+  private boolean rightGrasBlocker(GameState gameState, int row, int column) {
     return isElementGrasBlockingElement(gameState, row, column + 1);
   }
 
-  boolean topGrasBlocker(GameState gameState, int row, int column) {
+  private boolean topGrasBlocker(GameState gameState, int row, int column) {
     return isElementGrasBlockingElement(gameState, row - 1, column);
   }
 
   // This method handles also coordinates this wrong range
-  boolean isElementGrasBlockingElement(GameState gameState, int row, int column) {
-    System.out.println("isElementGrasBlockingElement");
-    if ((possibleRow(row)) && possibleColunmn(column)) {
+  private boolean isElementGrasBlockingElement(GameState gameState, int row, int column) {
+    if ((possibleRow(gameState, row)) && possibleColunmn(gameState, column)) {
       ObjectInGame object = gameState.getLevel().getObjectInGameAt(Coordinate.of(row, column));
-      // gas growing
+      // grass growing
       return (object.getType() == ObjectType.START)
           || (object.getType() == ObjectType.GROUND)
           || (object.getType() == ObjectType.FIRE);
@@ -103,11 +88,11 @@ public class GroundView extends StackPane {
     }
   }
 
-  boolean possibleColunmn(int column) {
-    return (column >= 0) && (column < ViewUtils.NUM_LEVEL_COLUMNS);
+  private boolean possibleColunmn(GameState gameState, int column) {
+    return (column >= 0) && (column < gameState.getLevel().getNumColumns());
   }
 
-  boolean possibleRow(int row) {
-    return (row >= 0) && (row < ViewUtils.NUM_LEVEL_COLUMNS);
+  private boolean possibleRow(GameState gameState, int row) {
+    return (row >= 0) && (row < gameState.getLevel().getNumRows());
   }
 }
