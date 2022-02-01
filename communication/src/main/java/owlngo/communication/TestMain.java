@@ -3,9 +3,9 @@ package owlngo.communication;
 import java.util.List;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
-import owlngo.communication.messages.LevelNamesNotification;
+import owlngo.communication.messages.LevelInfosNotification;
 import owlngo.communication.messages.LevelSavedNotification;
-import owlngo.communication.messages.LoadLevelNamesRequest;
+import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SaveLevelRequest;
@@ -40,9 +40,9 @@ public final class TestMain {
     final String connectionRequestJson = MessageCoder.encodeToJson(connectionRequest);
     System.out.println(connectionRequestJson);
 
-    System.out.println("LoadLevelNamesRequest:");
-    final LoadLevelNamesRequest loadLevelNamesRequest = new LoadLevelNamesRequest("PLAYER");
-    final String loadLevelNamesRequestJson = MessageCoder.encodeToJson(loadLevelNamesRequest);
+    System.out.println("LoadLevelInfosRequest:");
+    final LoadLevelInfosRequest loadLevelInfosRequest = new LoadLevelInfosRequest("PLAYER");
+    final String loadLevelNamesRequestJson = MessageCoder.encodeToJson(loadLevelInfosRequest);
     System.out.println(loadLevelNamesRequestJson);
 
     System.out.println("LoadLevelRequest:");
@@ -64,8 +64,8 @@ public final class TestMain {
     System.out.println(connectedNotificationJson);
 
     System.out.println("LevelNamesNotification:");
-    final LevelNamesNotification levelNamesNotification = new LevelNamesNotification(LEVEL_NAMES);
-    final String levelNamesNotificationJson = MessageCoder.encodeToJson(levelNamesNotification);
+    final LevelInfosNotification levelInfosNotification = new LevelInfosNotification(LEVEL_NAMES);
+    final String levelNamesNotificationJson = MessageCoder.encodeToJson(levelInfosNotification);
     System.out.println(levelNamesNotificationJson);
 
     System.out.println("SendLevelNotification:");
@@ -96,13 +96,13 @@ public final class TestMain {
     final ConnectionRequest parsedConnectionRequest = (ConnectionRequest) connectionRequestMessage;
     System.out.println(parsedConnectionRequest.getPlayerName());
 
-    System.out.println("LoadLevelNamesRequest:");
+    System.out.println("LoadLevelInfosRequest:");
     System.out.println(loadLevelNamesRequestJson);
     final Message loadLevelNamesRequestMessage =
         MessageCoder.decodeFromJson(loadLevelNamesRequestJson);
-    final LoadLevelNamesRequest parsedLoadLevelNamesRequest =
-        (LoadLevelNamesRequest) loadLevelNamesRequestMessage;
-    System.out.println(parsedLoadLevelNamesRequest.getPlayerName());
+    final LoadLevelInfosRequest parsedLoadLevelInfosRequest =
+        (LoadLevelInfosRequest) loadLevelNamesRequestMessage;
+    System.out.println(parsedLoadLevelInfosRequest.getPlayerName());
 
     System.out.println("LoadLevelRequest:");
     System.out.println(loadLevelRequestJson);
@@ -135,9 +135,9 @@ public final class TestMain {
     System.out.println(levelNamesNotificationJson);
     final Message levelNamesNotificationMessage =
         MessageCoder.decodeFromJson(levelNamesNotificationJson);
-    final LevelNamesNotification parsedLevelNamesNotification =
-        (LevelNamesNotification) levelNamesNotificationMessage;
-    final List<List<String>> levelNames = parsedLevelNamesNotification.getLevelNames();
+    final LevelInfosNotification parsedLevelInfosNotification =
+        (LevelInfosNotification) levelNamesNotificationMessage;
+    final List<List<String>> levelNames = parsedLevelInfosNotification.getLevelInfos();
     System.out.println(levelNames); // for debugging reasons
 
     System.out.println("SendLevelNotification:");

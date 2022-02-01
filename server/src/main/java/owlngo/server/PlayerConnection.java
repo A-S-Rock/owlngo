@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import owlngo.communication.Connection;
-import owlngo.communication.messages.LevelNamesNotification;
-import owlngo.communication.messages.LoadLevelNamesRequest;
+import owlngo.communication.messages.LevelInfosNotification;
+import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SendLevelNotification;
@@ -47,7 +47,7 @@ public class PlayerConnection implements Closeable {
   public void reactToClient() throws IOException {
     Message message = connection.read();
 
-    if (message instanceof LoadLevelNamesRequest) {
+    if (message instanceof LoadLevelInfosRequest) {
       System.out.println("I received the load level request.");
 
       final Map<String, LevelSavefile> savedLevels = manager.getSavedLevels();
@@ -58,7 +58,7 @@ public class PlayerConnection implements Closeable {
         levelNames.add(levelRecord);
       }
 
-      final LevelNamesNotification notification = new LevelNamesNotification(levelNames);
+      final LevelInfosNotification notification = new LevelInfosNotification(levelNames);
       connection.write(notification);
     } else if (message instanceof final LoadLevelRequest levelRequest) {
       final String levelName = levelRequest.getLevelName();

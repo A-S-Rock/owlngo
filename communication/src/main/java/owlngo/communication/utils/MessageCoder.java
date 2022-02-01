@@ -5,9 +5,9 @@ import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
 import java.io.IOException;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
-import owlngo.communication.messages.LevelNamesNotification;
+import owlngo.communication.messages.LevelInfosNotification;
 import owlngo.communication.messages.LevelSavedNotification;
-import owlngo.communication.messages.LoadLevelNamesRequest;
+import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SaveLevelRequest;
@@ -24,11 +24,11 @@ public final class MessageCoder {
           .add(
               PolymorphicJsonAdapterFactory.of(Message.class, "messageType")
                   .withSubtype(ConnectionRequest.class, "ConnectionRequest")
-                  .withSubtype(LoadLevelNamesRequest.class, "LoadLevelNamesRequest")
+                  .withSubtype(LoadLevelInfosRequest.class, "LoadLevelInfosRequest")
                   .withSubtype(LoadLevelRequest.class, "LoadLevelRequest")
                   .withSubtype(SaveLevelRequest.class, "SaveLevelRequest")
                   .withSubtype(ConnectedNotification.class, "ConnectedNotification")
-                  .withSubtype(LevelNamesNotification.class, "LevelNamesNotification")
+                  .withSubtype(LevelInfosNotification.class, "LevelNamesNotification")
                   .withSubtype(SendLevelNotification.class, "SendLevelNotification")
                   .withSubtype(LevelSavedNotification.class, "LevelSavedNotification"))
           .add(

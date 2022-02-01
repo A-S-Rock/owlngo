@@ -11,8 +11,8 @@ import javafx.scene.layout.Pane;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
-import owlngo.communication.messages.LevelNamesNotification;
-import owlngo.communication.messages.LoadLevelNamesRequest;
+import owlngo.communication.messages.LevelInfosNotification;
+import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SendLevelNotification;
 import owlngo.game.level.Level;
@@ -70,9 +70,9 @@ public class WelcomeScreenController {
       System.out.println(
           "[SERVER] " + sentUsername + " - you're successfully connected to the game server!");
       isConnected = true;
-    } else if (message instanceof LevelNamesNotification) {
+    } else if (message instanceof LevelInfosNotification) {
       final List<List<String>> receivedLevelNames =
-          ((LevelNamesNotification) message).getLevelNames();
+          ((LevelInfosNotification) message).getLevelInfos();
       dataManager.setLevelNamesContent(receivedLevelNames);
     } else if (message instanceof SendLevelNotification) {
       final Level level = ((SendLevelNotification) message).getLevel();
@@ -113,7 +113,7 @@ public class WelcomeScreenController {
           @Override
           public void handle(ActionEvent event) {
             final String username = communicationManager.getUsername();
-            connection.write(new LoadLevelNamesRequest(username));
+            connection.write(new LoadLevelInfosRequest(username));
             try {
               Thread.sleep(200); // wait a bit to let the server send its files
             } catch (InterruptedException e) {
