@@ -60,7 +60,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() {
                   game.moveFlyUp();
                   return null;
                 }

@@ -43,7 +43,7 @@ public class GameViewScreenController {
     Task task =
         new Task<Void>() {
           @Override
-          protected Void call() throws Exception {
+          protected Void call() {
             while (game.getGameState().isGameRunning()) {
               int i = game.getSideConditions().getEndurance();
               updateProgress(i, 10);

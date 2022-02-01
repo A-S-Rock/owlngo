@@ -7,6 +7,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.8.3] - 2022-02-01
+
+### Added
+
+- Endurance Bar activated.
+- Added jump move with step-by-step animation.
+- Added contionous fall with step-by-step animation.
+- Endurance is now reduced when flying up.
+
 ## [0.8.2] - 2022-01-30
 
 ### Added
