@@ -76,7 +76,8 @@ public class MethodsForElement {
                   Insets.EMPTY)),
           Map.entry(
               ElementInPlayfield.FOOD,
-              new BackgroundFill(Color.GREEN, CornerRadii.EMPTY, Insets.EMPTY)),
+              new BackgroundFill(
+                  getImagePatternFromFile("/images/food.png"), CornerRadii.EMPTY, Insets.EMPTY)),
           Map.entry(
               ElementInPlayfield.END,
               new BackgroundFill(
