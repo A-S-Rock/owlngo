@@ -66,6 +66,7 @@ public class SavefileManager {
         dummyLevel2 = dummyLevel2.withGroundAt(coordinate);
       }
     }
+    dummyLevel2 = dummyLevel2.withFoodAt(Coordinate.of(13, 5));
 
     final String levelNameDummyLevel3 = "dummy3";
     Level dummyLevel3 = Level.createDemoLevel(30, 30);
@@ -79,6 +80,7 @@ public class SavefileManager {
         dummyLevel3 = dummyLevel3.withGroundAt(coordinate);
       }
     }
+    dummyLevel3 = dummyLevel3.withFireAt(Coordinate.of(28, 5));
 
     writeLevelSavefile(levelNameDummyLevel1, dummyLevelAuthor, dummyLevel1);
     writeLevelSavefile(levelNameDummyLevel2, dummyLevelAuthor, dummyLevel2);
