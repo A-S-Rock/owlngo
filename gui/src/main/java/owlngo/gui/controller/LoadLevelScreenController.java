@@ -87,6 +87,7 @@ public class LoadLevelScreenController {
     }
   }
 
+  /** Initiates the level screen with a table of stored levels on the server. */
   public LoadLevelScreenController() {
     communicationManager = CommunicationManager.getInstance();
     connection = communicationManager.getConnection();
