@@ -8,13 +8,16 @@ messages between each other we use the moshi (json) protocol.
 
 ### Running the game - prerequisites
 
-- This project is written with Java 17. It should download and install itself on running if not
+- This project is written with __Java 17__. It should download and install itself on running if not
   present on the user's maschine. If there are problems, please contact us.
 
 - As this project doesn't create a jar to run, you either will need to use the Terminal for running
   Gradle tasks or an IDE to run it interactively.
 
 ### Start the server
+
+__Caution: If the directory and file structure for the server got deleted or corrupted, a
+server restart is required to initialize the savefile structure.__
 
 - *In IntelliJ*: Use the gradle task "**owlngo > server > Tasks >
   application > run**".

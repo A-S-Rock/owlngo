@@ -1,9 +1,12 @@
 package owlngo.game;
 
+import java.util.List;
+import javafx.application.Platform;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.game.level.objects.Player;
 
 /**
@@ -48,96 +51,164 @@ public class OwlnGo {
     return gameState;
   }
 
+  public final SideConditions getSideConditions() {
+    return sideConditions;
+  }
+
+  /** Cheks winning conditions. */
   private void checkWinningConditions(Move move) {
-    Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
+    final Coordinate finishCoordinate =
+        gameState.getLevel().getCopyOfFinishObject().getCoordinate();
+
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
-    } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1
-        || sideConditions.getEndurance() == 0) {
+    } else if (checkForDeath(move)) {
       gameState = gameState.with(GameStatus.LOSE);
     }
   }
 
+  /** Checks if the player is dead. */
+  private boolean checkForDeath(Move move) {
+    // Check fall into oblivion.
+    final boolean fellDown =
+        move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1;
+    // Check exhaustion.
+    final boolean exhausted = sideConditions.getEndurance() == 0;
+    // Check if landed on fire.
+    final List<Coordinate> fireCoordinates = gameState.getFireCoordinates();
+    final boolean hitFire =
+        (!fireCoordinates.isEmpty() && fireCoordinates.contains(move.getNewCoordinate()));
+
+    return fellDown || exhausted || hitFire;
+  }
+
   /** Moves the player to the right. */
-  public void moveRight() {
+  public void moveBasicRight() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
     Player player = gameState.getPlayer();
-
     Move move = player.getRightMove();
     gameState.moveObjectInGame(move);
-
-    sideConditions.decreaseEndurance();
-
     checkWinningConditions(move);
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-      // moveFall();
-    }
   }
 
   /** Moves the player to the left. */
-  public void moveLeft() {
+  public void moveBasicLeft() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
     Player player = gameState.getPlayer();
-
     Move move = player.getLeftMove();
     gameState.moveObjectInGame(move);
-
-    sideConditions.decreaseEndurance();
-
     checkWinningConditions(move);
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-      // moveFall();
-    }
   }
 
   /** Lets the player jump. */
-  public void moveJump(boolean activateFall) {
+  public void moveBasicUp() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
     Player player = gameState.getPlayer();
-
     Move move = player.getJumpMove();
     gameState.moveObjectInGame(move);
-
-    sideConditions.decreaseEndurance();
-
     checkWinningConditions(move);
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-      if (activateFall) {
-        moveFall();
+  }
+
+  /** Lets the player fall. */
+  public void moveBasicDown() {
+    if (!gameState.isGameRunning()) {
+      System.out.println("Game is not running.");
+      return;
+    }
+    Player player = gameState.getPlayer();
+    Move move = player.getFallMove();
+    gameState.moveObjectInGame(move);
+    checkWinningConditions(move);
+  }
+
+  /** Lets the player walk left up and if possible fall down. */
+  public void moveLeft() throws InterruptedException {
+    Platform.runLater(this::moveBasicLeft);
+    Thread.sleep(300);
+    moveContinousFall();
+  }
+
+  /** Lets the player walk right up and if possible fall down. */
+  public void moveRight() throws InterruptedException {
+    Platform.runLater(this::moveBasicRight);
+    Thread.sleep(300);
+    moveContinousFall();
+  }
+
+  /** Lets the player jump right up and fall down. */
+  public void moveJumpRight() throws InterruptedException {
+    Platform.runLater(this::moveBasicUp);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicRight);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicRight);
+    Thread.sleep(300);
+    moveContinousFall();
+  }
+
+  /** Lets the player jump left. */
+  public void moveJumpLeft() throws InterruptedException {
+    Platform.runLater(this::moveBasicUp);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicLeft);
+    Thread.sleep(300);
+    Platform.runLater(this::moveBasicLeft);
+    Thread.sleep(300);
+    moveContinousFall();
+  }
+
+  /** Lets the player jump left. */
+  public void moveFlyUp() {
+    Platform.runLater(this::moveBasicUp);
+    sideConditions.decreaseEndurance();
+  }
+
+  /** Lets the player fall continously to the next GROUND-object. */
+  public void moveSingleStepFall() {
+    Player player = gameState.getPlayer();
+    Move move = player.getFallMove();
+    gameState.moveObjectInGame(move);
+    checkWinningConditions(move);
+    gameState.getLevel().updatePossibleMovesOfPlayer();
+  }
+
+  /** Lets the player fall only a single step. */
+  @SuppressWarnings("BusyWait")
+  public void moveContinousFall() throws InterruptedException {
+    if (!gameState.isGameRunning()) {
+      System.out.println("Game is not running.");
+      return;
+    }
+    while (!checkForGroundBelowOwl()) {
+      Player player = gameState.getPlayer();
+      Move move = player.getFallMove();
+      Platform.runLater(this::moveSingleStepFall);
+      Thread.sleep(300);
+      if (move.getNewCoordinate() == player.getCoordinate()) {
+        break;
       }
     }
   }
 
-  /** Lets the player fall. */
-  public void moveFall() {
-    if (!gameState.isGameRunning()) {
-      System.out.println("Game is not running.");
-      return;
-    }
+  /** Returns the Coordinate below the Player. */
+  Coordinate getActualCoordinateBelowPlayer() {
     Player player = gameState.getPlayer();
+    int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() - 1;
+    return Coordinate.of(rowBelowPlayer, player.getCoordinate().getColumn());
+  }
 
-    Move move = player.getFallMove();
-    gameState.moveObjectInGame(move);
-
-    sideConditions.decreaseEndurance();
-
-    checkWinningConditions(move);
-
-    // This might be obsolete because updates takes place in moveObjectInGame(move).
-    if (gameState.isGameRunning()) {
-      gameState.getLevel().updatePossibleMovesOfPlayer();
-    }
+  /** Checks for a GROUND-object below the player. */
+  boolean checkForGroundBelowOwl() {
+    return gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer()).getType()
+        == ObjectType.GROUND;
   }
 }

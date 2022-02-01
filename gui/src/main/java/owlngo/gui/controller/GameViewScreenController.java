@@ -2,6 +2,7 @@ package owlngo.gui.controller;
 
 import java.util.Objects;
 import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -40,7 +41,21 @@ public class GameViewScreenController {
 
   @FXML
   void initialize() {
+
     gamePane.getChildren().addAll(createGameNode(game));
+    Task<Void> task =
+        new Task<>() {
+          @Override
+          protected Void call() {
+            while (game.getGameState().isGameRunning()) {
+              int i = game.getSideConditions().getEndurance();
+              updateProgress(i, 10);
+            }
+            return null;
+          }
+        };
+    enduranceBar.progressProperty().bind(task.progressProperty());
+    new Thread(task).start();
 
     backToMainMenuButton.setOnAction(
         new EventHandler<>() {
