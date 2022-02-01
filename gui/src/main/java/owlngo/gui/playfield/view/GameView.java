@@ -88,11 +88,11 @@ public class GameView extends StackPane {
         int finalCurrentRow = currentRow;
         DoubleBinding pieceLocationX =
             Bindings.createDoubleBinding(
-                () -> ViewUtils.getTileX(levelView.widthProperty().get(), finalCurrentCol),
+                () -> ViewUtils.getTileX(levelView.widthProperty().get(), finalCurrentCol, game),
                 levelView.widthProperty());
         DoubleBinding pieceLocationY =
             Bindings.createDoubleBinding(
-                () -> ViewUtils.getTileY(levelView.heightProperty().get(), finalCurrentRow),
+                () -> ViewUtils.getTileY(levelView.heightProperty().get(), finalCurrentRow, game),
                 levelView.heightProperty());
 
         playerView.layoutXProperty().bind(pieceLocationX);

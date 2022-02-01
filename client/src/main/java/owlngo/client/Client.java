@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import javafx.application.Application;
+import owlngo.communication.Connection;
 import owlngo.gui.data.CommunicationManager;
 import owlngo.gui.playfield.WelcomeScreen;
 
@@ -132,7 +133,8 @@ public final class Client {
   public void start(String username, Socket socket) throws IOException {
 
     CommunicationManager.getInstance().setUsername(username);
-    CommunicationManager.getInstance().setSocket(socket);
+    CommunicationManager.getInstance()
+        .setConnection(new Connection(socket.getOutputStream(), socket.getInputStream()));
     // starting GUI
     Application.launch(WelcomeScreen.class);
   }

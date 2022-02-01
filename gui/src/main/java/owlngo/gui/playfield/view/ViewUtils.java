@@ -12,7 +12,6 @@ import owlngo.game.level.Level;
 /** Serves as an utility class for various view - dependant tasks. */
 public final class ViewUtils {
 
-  // TODO: These values should be from the game.
   public static final int NUM_LEVEL_COLUMNS = 30;
   public static final int NUM_LEVEL_ROWS = 30;
 
@@ -54,7 +53,6 @@ public final class ViewUtils {
         new FXMLLoader(ViewUtils.class.getResource("/GameSolvedScreen.fxml"));
     final FXMLLoader fxmlLoseWindow =
         new FXMLLoader(ViewUtils.class.getResource("/GameOverScreen.fxml"));
-    System.out.println(fxmlWinWindow);
 
     game.getGameState()
         .propertyStatus()
@@ -91,11 +89,11 @@ public final class ViewUtils {
             }));
   }
 
-  public static double getTileX(double levelWidth, int column) {
-    return (column * levelWidth / ViewUtils.NUM_LEVEL_COLUMNS);
+  public static double getTileX(double levelWidth, int column, OwlnGo game) {
+    return (column * levelWidth / game.getGameState().getLevel().getNumColumns());
   }
 
-  public static double getTileY(double levelHeight, int row) {
-    return (row * levelHeight / ViewUtils.NUM_LEVEL_ROWS);
+  public static double getTileY(double levelHeight, int row, OwlnGo game) {
+    return (row * levelHeight / game.getGameState().getLevel().getNumRows());
   }
 }
