@@ -54,12 +54,17 @@ public class OwlnGo {
     return sideConditions;
   }
 
+  private void actionWhenDead() {
+    System.out.println("You loose! - OwlnGo.actionWhenDead()");
+  }
+
   private void checkWinningConditions(Move move) {
     Coordinate finishCoordinate = gameState.getLevel().getCopyOfFinishObject().getCoordinate();
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
     } else if (move.getNewCoordinate().getRow() == gameState.getLevel().getNumRows() - 1
         || sideConditions.getEndurance() == 0) {
+      actionWhenDead();
       gameState = gameState.with(GameStatus.LOSE);
     }
   }
@@ -150,7 +155,7 @@ public class OwlnGo {
   }
 
   /** Lets the player jump left. */
-  public void moveFlyUp() throws InterruptedException {
+  public void moveFlyUp() {
     Platform.runLater(this::moveBasicUp);
     sideConditions.decreaseEndurance();
   }
