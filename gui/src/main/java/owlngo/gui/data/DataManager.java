@@ -2,6 +2,7 @@ package owlngo.gui.data;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
+import java.util.Objects;
 import owlngo.game.level.Level;
 
 /** Makes data transfer between different JavaFX windows possible with the use as a singleton. */
@@ -25,8 +26,10 @@ public class DataManager {
   }
 
   public Level getLevelContent() {
-    return levelContent;
+    return Objects.requireNonNullElseGet(levelContent, () -> Level.createDemoLevel(30, 30))
+        .copyOf();
   }
+
 
   public void setLevelContent(Level levelContent) {
     this.levelContent = levelContent;
