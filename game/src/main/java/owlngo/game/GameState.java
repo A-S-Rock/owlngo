@@ -36,6 +36,7 @@ public class GameState {
   private ObjectProperty<GameStatus> gameStatus = new SimpleObjectProperty<>();
   private ObjectProperty<Player> player = new SimpleObjectProperty<>();
   private final List<Coordinate> fireCoordinates = new ArrayList<>();
+  private final List<Coordinate> foodCoordinates = new ArrayList<>();
 
   /**
    * Contructs a GameState instance with a level of the given diemensions. Initially, the game
@@ -57,6 +58,9 @@ public class GameState {
       if (object.getType() == ObjectType.FIRE) {
         fireCoordinates.add(object.getCoordinate());
       }
+      if (object.getType() == ObjectType.FOOD) {
+        foodCoordinates.add(object.getCoordinate());
+      }
     }
   }
 
@@ -73,6 +77,9 @@ public class GameState {
       if (object.getType() == ObjectType.FIRE) {
         fireCoordinates.add(object.getCoordinate());
       }
+      if (object.getType() == ObjectType.FOOD) {
+        foodCoordinates.add(object.getCoordinate());
+      }
     }
   }
 
@@ -85,6 +92,9 @@ public class GameState {
     for (ObjectInGame object : level.getListOfObjectsInGame()) {
       if (object.getType() == ObjectType.FIRE) {
         fireCoordinates.add(object.getCoordinate());
+      }
+      if (object.getType() == ObjectType.FOOD) {
+        foodCoordinates.add(object.getCoordinate());
       }
     }
   }
@@ -129,6 +139,11 @@ public class GameState {
   /** Retruns the fire coordinates. */
   public List<Coordinate> getFireCoordinates() {
     return new ArrayList<>(fireCoordinates);
+  }
+
+  /** Retruns the food coordinates. */
+  public List<Coordinate> getFoodCoordinates() {
+    return new ArrayList<>(foodCoordinates);
   }
 
   /** Applies the given move. */
