@@ -165,7 +165,8 @@ public class EditorScreenController {
   private TextInputDialog createTextInputDialog() {
     TextInputDialog levelNameInput = new TextInputDialog();
     levelNameInput.setTitle("Set level name");
-    levelNameInput.setHeaderText("Choose level name for upload!");
+    levelNameInput.setHeaderText(
+        "Choose level name for upload!\n" + "Caution: Not putting a name doesn't save the level!");
     levelNameInput.setContentText("Enter level name:");
     levelNameInput.setGraphic(null);
     levelNameInput.showAndWait();
