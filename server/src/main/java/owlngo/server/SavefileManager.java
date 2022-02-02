@@ -13,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.utils.SavefileCoder;
 import owlngo.game.level.Coordinate;
@@ -112,10 +113,8 @@ public class SavefileManager {
   private void updateLevelSavefile(String levelName) throws IOException {
     final String filename = "/savefiles/level/" + levelName + ".txt";
 
-    try (InputStream inputStream = getClass().getResourceAsStream(filename)) {
-      if (inputStream == null) {
-        System.err.println("Server had to create file directory first.");
-      }
+    try (InputStream inputStream =
+        Objects.requireNonNull(getClass().getResourceAsStream(filename))) {
       final String savefileJson = readFromInputStream(inputStream);
       final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
       savedLevels.put(levelName, savefile);
