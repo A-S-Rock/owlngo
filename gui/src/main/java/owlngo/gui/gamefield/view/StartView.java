@@ -1,4 +1,4 @@
-package owlngo.gui.playfield.view;
+package owlngo.gui.gamefield.view;
 
 import java.util.Objects;
 import javafx.scene.image.Image;

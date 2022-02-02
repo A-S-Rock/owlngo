@@ -1,4 +1,4 @@
-package owlngo.gui.playfield.view;
+package owlngo.gui.gamefield.view;
 
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;

@@ -1,4 +1,4 @@
-package owlngo.gui.editor;
+package owlngo.gui.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -20,15 +20,14 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import owlngo.gui.controller.ControllerUtils;
 import owlngo.gui.data.DataManager;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield;
 import owlngo.gui.data.MethodsForElement;
-import owlngo.gui.playfield.PlayfieldWindowControler;
+import owlngo.gui.editor.StoreLastKey;
 
 /** Handles all actions on the editor window. */
-public class EditorWindowControler {
+public class EditorScreenController {
 
   @FXML GridPane gridPaneEditorWindow;
 
@@ -49,35 +48,6 @@ public class EditorWindowControler {
                       StoreLastKey.setLastKeyPressed(keyCode); // StoreKey in order to get
                       // the last press key asynchonous during mouse click events
                     }));
-  }
-
-  /** Starts the Old playfield window GUI. */
-  @FXML
-  private void startPlayfieldWindow() {
-    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
-
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
-
-    try {
-      Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
-      stage.setTitle("Owlngo Playfield");
-      Scene scene = new Scene(root, 1200, 800);
-      // Set up keyHandler
-      scene.setOnKeyPressed(
-          event -> {
-            KeyCode keyCode = event.getCode();
-            PlayfieldWindowControler.interpreteKeys(keyCode);
-          });
-
-      stage.setScene(scene);
-      stage.setResizable(true);
-      stage.show();
-      gridPaneEditorWindow.getScene().getWindow().hide();
-    } catch (IOException e) {
-      System.err.println("Couldn't load playing field window!");
-      Platform.exit();
-    }
   }
 
   /** Starts the GameViewScreen. */

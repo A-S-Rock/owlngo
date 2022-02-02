@@ -1,4 +1,4 @@
-package owlngo.gui.playfield.view;
+package owlngo.gui.gamefield.view;
 
 import javafx.scene.layout.StackPane;
 import owlngo.game.GameState;

@@ -1,4 +1,4 @@
-package owlngo.gui.playfield;
+package owlngo.gui.gamefield;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
