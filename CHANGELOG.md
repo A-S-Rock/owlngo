@@ -7,6 +7,15 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.10.1] - 2022-02-02
+
+### Added
+
+GAME:
+
+- Touching food updates endurance.
+
+
 ## [0.10.0] - 2022-02-01
 
 ### Added
