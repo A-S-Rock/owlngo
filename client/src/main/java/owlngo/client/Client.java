@@ -8,7 +8,7 @@ import java.net.UnknownHostException;
 import javafx.application.Application;
 import owlngo.communication.Connection;
 import owlngo.gui.data.CommunicationManager;
-import owlngo.gui.playfield.WelcomeScreen;
+import owlngo.gui.gamefield.WelcomeScreen;
 
 /**
  * Network client for the owlngo game. The connection-establishing code was derived from PEEGS-Task3

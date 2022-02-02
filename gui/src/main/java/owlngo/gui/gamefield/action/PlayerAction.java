@@ -1,4 +1,4 @@
-package owlngo.gui.playfield.action;
+package owlngo.gui.gamefield.action;
 
 import java.util.Map;
 import javafx.concurrent.Task;

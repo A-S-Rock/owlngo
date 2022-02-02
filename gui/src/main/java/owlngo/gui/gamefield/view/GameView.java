@@ -1,4 +1,4 @@
-package owlngo.gui.playfield.view;
+package owlngo.gui.gamefield.view;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +16,7 @@ import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
-import owlngo.gui.playfield.action.PlayerAction;
+import owlngo.gui.gamefield.action.PlayerAction;
 
 /**
  * Class shows our playingfield on the left side and an information field with buttons, etc. on the

@@ -14,7 +14,7 @@
   </Match>
   <Match>
     <Bug pattern="EI_EXPOSE_REP2"/>
-    <Class name="owlngo.gui.playfield.action.PlayerAction"/>
+    <Class name="owlngo.gui.gamefield.action.PlayerAction"/>
   </Match>
   <Match>
     <Bug pattern="EI_EXPOSE_REP"/>

@@ -14,8 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import owlngo.game.OwlnGo;
 import owlngo.gui.data.DataManager;
-import owlngo.gui.playfield.view.GameView;
-import owlngo.gui.playfield.view.ViewUtils;
+import owlngo.gui.gamefield.view.GameView;
+import owlngo.gui.gamefield.view.ViewUtils;
 
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {

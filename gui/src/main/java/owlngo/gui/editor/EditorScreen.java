@@ -21,12 +21,11 @@ public class EditorScreen extends Application {
    */
   @Override
   public void start(Stage primaryStage) {
-    StoreLastKey.setSpaceAsDefault();
     // set a default key. This is required to get no Null pointer
     // exception when getLastKeyPressed() is called without a key being pressed.
+    StoreLastKey.setSpaceAsDefault();
 
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/EditorWindow.fxml")));
-
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/EditorScreen.fxml")));
     try {
       Parent root = fxmlLoader.load();
       System.out.println("Root:" + root);
@@ -34,7 +33,7 @@ public class EditorScreen extends Application {
       stage.setTitle("Owlngo Editor");
       Scene scene = new Scene(root, 1200, 800);
       stage.setScene(scene);
-      stage.setResizable(true);
+      stage.setResizable(false);
       stage.show();
     } catch (IOException e) {
       Platform.exit();

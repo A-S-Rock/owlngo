@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.LoadLevelScreenController">
+<AnchorPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.LoadLevelScreenController">
    <children>
       <BorderPane prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -20,14 +20,6 @@
                </font>
             </Label>
          </top>
-         <center>
-            <TableView fx:id="tableView" focusTraversable="false" prefHeight="600.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-              <columns>
-                <TableColumn fx:id="levelNameColumn" editable="false" maxWidth="780.0" prefWidth="676.0" resizable="false" text="Level Name" />
-                <TableColumn fx:id="authorColumn" editable="false" minWidth="0.0" prefWidth="253.0" text="Author" />
-              </columns>
-            </TableView>
-         </center>
          <right>
             <VBox prefHeight="695.0" prefWidth="270.0" BorderPane.alignment="CENTER">
                <children>
@@ -44,16 +36,19 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font name="System Bold" size="23.0" />
                      </font>
                      <padding>
-                        <Insets top="250.0" />
+                        <Insets top="230.0" />
                      </padding>
                   </Label>
                   <Label fx:id="selectedLevelLabel" alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" mouseTransparent="true" prefHeight="250.0" prefWidth="250.0" text="None" wrapText="true">
                      <VBox.margin>
                         <Insets bottom="5.0" left="10.0" top="5.0" />
                      </VBox.margin>
+                     <font>
+                        <Font size="21.0" />
+                     </font>
                   </Label>
                   <Button fx:id="playSelectedButton" focusTraversable="false" mnemonicParsing="false" mouseTransparent="true" prefHeight="80.0" prefWidth="250.0" text="No Level selected!">
                      <VBox.margin>
@@ -66,6 +61,18 @@
                </children>
             </VBox>
          </right>
+         <center>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TableView fx:id="tableView" focusTraversable="false" prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columns>
+                      <TableColumn fx:id="levelNameColumn" editable="false" maxWidth="780.0" prefWidth="676.0" resizable="false" text="Level Name" />
+                      <TableColumn fx:id="authorColumn" editable="false" minWidth="0.0" prefWidth="253.0" text="Author" />
+                    </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

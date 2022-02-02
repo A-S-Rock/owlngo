@@ -8,9 +8,11 @@ import java.util.Map;
 import java.util.Objects;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.LevelInfosNotification;
+import owlngo.communication.messages.LevelSavedNotification;
 import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
+import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.messages.SendLevelNotification;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.game.level.Level;
@@ -48,25 +50,44 @@ public class PlayerConnection implements Closeable {
     Message message = connection.read();
 
     if (message instanceof LoadLevelInfosRequest) {
-      final Map<String, LevelSavefile> savedLevels = manager.getSavedLevels();
-      final List<List<String>> levelInfos = new ArrayList<>();
-
-      for (LevelSavefile savefile : savedLevels.values()) {
-        List<String> levelRecord = List.of(savefile.getLevelName(), savefile.getAuthor());
-        levelInfos.add(levelRecord);
-      }
-
-      final LevelInfosNotification notification = new LevelInfosNotification(levelInfos);
-      connection.write(notification);
-    } else if (message instanceof LoadLevelRequest) {
-      final String levelName = ((LoadLevelRequest) message).getLevelName();
-      final Level level = manager.loadAndUpdateLevelSavefile(levelName);
-      final SendLevelNotification notification = new SendLevelNotification(levelName, level);
-
-      connection.write(notification);
+      handleLoadLevelInfosRequest();
+    } else if (message instanceof final LoadLevelRequest loadRequest) {
+      handleLoadLevelRequest(loadRequest);
+    } else if (message instanceof final SaveLevelRequest saveRequest) {
+      handleSaveLevelRequest(saveRequest);
     } else {
       throw new AssertionError("Invalid communication.");
     }
+  }
+
+  private void handleLoadLevelInfosRequest() {
+    final Map<String, LevelSavefile> savedLevels = manager.getSavedLevels();
+    final List<List<String>> levelInfos = new ArrayList<>();
+
+    for (LevelSavefile savefile : savedLevels.values()) {
+      List<String> levelRecord = List.of(savefile.getLevelName(), savefile.getAuthor());
+      levelInfos.add(levelRecord);
+    }
+
+    final LevelInfosNotification notification = new LevelInfosNotification(levelInfos);
+    connection.write(notification);
+  }
+
+  private void handleLoadLevelRequest(LoadLevelRequest message) {
+    final String levelName = message.getLevelName();
+    final Level level = manager.loadLevelSavefile(levelName);
+    final SendLevelNotification notification = new SendLevelNotification(levelName, level);
+
+    connection.write(notification);
+  }
+
+  private void handleSaveLevelRequest(SaveLevelRequest saveRequest) {
+    final String author = saveRequest.getAuthor();
+    final String levelName = saveRequest.getLevelName();
+    final Level level = saveRequest.getLevel();
+
+    manager.writeLevelSavefile(levelName, author, level);
+    connection.write(new LevelSavedNotification(levelName));
   }
 
   void send(Message message) {

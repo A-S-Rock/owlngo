@@ -1,4 +1,4 @@
-package owlngo.gui.editor;
+package owlngo.gui.controller;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -12,7 +12,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -20,28 +24,40 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import owlngo.gui.controller.ControllerUtils;
+import owlngo.communication.Connection;
+import owlngo.communication.messages.SaveLevelRequest;
+import owlngo.game.level.Level;
+import owlngo.gui.data.CommunicationManager;
 import owlngo.gui.data.DataManager;
 import owlngo.gui.data.ElementsInPlayfield;
 import owlngo.gui.data.ElementsInPlayfield.ElementInPlayfield;
 import owlngo.gui.data.MethodsForElement;
-import owlngo.gui.playfield.PlayfieldWindowControler;
+import owlngo.gui.editor.StoreLastKey;
 
 /** Handles all actions on the editor window. */
-public class EditorWindowControler {
+public class EditorScreenController {
 
-  @FXML GridPane gridPaneEditorWindow;
+  @FXML GridPane gridPane;
+  @FXML SplitPane mainSplitPane;
+  @FXML AnchorPane leftSplit;
+  @FXML Button uploadToServerButton;
+  @FXML Button downloadFromServerButton;
 
   private static final String PANE_BLACK_BORDER = "-fx-border-color:#CCCCCC; -fx-border-width:1px;";
 
+  private final CommunicationManager communicationManager = CommunicationManager.getInstance();
+
   @FXML
   void initialize() {
+    mainSplitPane.setDividerPositions(0.8);
+    leftSplit.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.8));
+
     ElementsInPlayfield.setAllToNoElement(); // Define all Elements
     setPanesOnPlayfield();
 
     Platform.runLater(
         () ->
-            gridPaneEditorWindow
+            gridPane
                 .getScene()
                 .setOnKeyPressed(
                     event -> {
@@ -49,35 +65,6 @@ public class EditorWindowControler {
                       StoreLastKey.setLastKeyPressed(keyCode); // StoreKey in order to get
                       // the last press key asynchonous during mouse click events
                     }));
-  }
-
-  /** Starts the Old playfield window GUI. */
-  @FXML
-  private void startPlayfieldWindow() {
-    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
-
-    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/PlayfieldWindow.fxml")));
-
-    try {
-      Parent root = fxmlLoader.load();
-      Stage stage = new Stage();
-      stage.setTitle("Owlngo Playfield");
-      Scene scene = new Scene(root, 1200, 800);
-      // Set up keyHandler
-      scene.setOnKeyPressed(
-          event -> {
-            KeyCode keyCode = event.getCode();
-            PlayfieldWindowControler.interpreteKeys(keyCode);
-          });
-
-      stage.setScene(scene);
-      stage.setResizable(true);
-      stage.show();
-      gridPaneEditorWindow.getScene().getWindow().hide();
-    } catch (IOException e) {
-      System.err.println("Couldn't load playing field window!");
-      Platform.exit();
-    }
   }
 
   /** Starts the GameViewScreen. */
@@ -92,7 +79,7 @@ public class EditorWindowControler {
 
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
       ControllerUtils.createScene(null, fxmlLoader);
-      gridPaneEditorWindow.getScene().getWindow().hide();
+      gridPane.getScene().getWindow().hide();
     } else {
       JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
     }
@@ -157,7 +144,33 @@ public class EditorWindowControler {
     primaryStage.setScene(new Scene(root));
     primaryStage.setResizable(true);
     primaryStage.show();
-    gridPaneEditorWindow.getScene().getWindow().hide();
+    gridPane.getScene().getWindow().hide();
+  }
+
+  @FXML
+  void uploadToServer() {
+    TextInputDialog levelNameInput = createTextInputDialog();
+
+    final String levelName = levelNameInput.getResult();
+    if (levelName == null || levelName.trim().equals("")) {
+      return;
+    }
+    final String author = communicationManager.getUsername();
+    final Connection connection = communicationManager.getConnection();
+    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
+    final Level level = ElementsInPlayfield.getLevel();
+    connection.write(new SaveLevelRequest(author, levelName, level));
+  }
+
+  private TextInputDialog createTextInputDialog() {
+    TextInputDialog levelNameInput = new TextInputDialog();
+    levelNameInput.setTitle("Set level name");
+    levelNameInput.setHeaderText(
+        "Choose level name for upload!\n" + "Caution: Not putting a name doesn't save the level!");
+    levelNameInput.setContentText("Enter level name:");
+    levelNameInput.setGraphic(null);
+    levelNameInput.showAndWait();
+    return levelNameInput;
   }
 
   /**
@@ -178,7 +191,7 @@ public class EditorWindowControler {
         // Set Background of pane depending on the content of elementsInPlayfield
         setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex, columnIndex);
         // Put pane[][] into gridPane of EditorWindow
-        gridPaneEditorWindow.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
+        gridPane.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
 
         // Set event handler for each pane[][]
         // The called method is setResetElement
@@ -274,7 +287,7 @@ public class EditorWindowControler {
     return countEnds == 1;
   }
 
-  boolean errorInFormat(File fileName) throws IOException {
+  private boolean errorInFormat(File fileName) throws IOException {
     FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
     BufferedReader bufferedReader = new BufferedReader(fileReader);
     boolean wrongFormat = false;
@@ -316,14 +329,14 @@ public class EditorWindowControler {
     return wrongFormat;
   }
 
-  boolean noNumber(String eingabe) {
+  private boolean noNumber(String input) {
     // the string should not be empty
-    if (eingabe.length() == 0) {
+    if (input.length() == 0) {
       return true;
     }
     // is only allowed to contain numbers
-    for (int x = 0; x < eingabe.length(); x++) {
-      String letter = eingabe.substring(x, x + 1);
+    for (int x = 0; x < input.length(); x++) {
+      String letter = input.substring(x, x + 1);
       if (!letter.matches("[0-9]")) {
         return true;
       }

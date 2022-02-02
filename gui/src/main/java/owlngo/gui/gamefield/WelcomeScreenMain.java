@@ -1,4 +1,4 @@
-package owlngo.gui.playfield;
+package owlngo.gui.gamefield;
 
 /**
  * This class is used to start the welcome window as a gradle task including the JavaFX libraries.

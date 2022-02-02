@@ -1,6 +1,5 @@
 package owlngo.server;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,6 +13,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.utils.SavefileCoder;
 import owlngo.game.level.Coordinate;
@@ -96,12 +96,41 @@ public class SavefileManager {
         final String levelName =
             fileName.substring(0, fileName.length() - SAVEFILE_APPENDIX_LENGTH);
         try {
-          loadAndUpdateLevelSavefile(levelName);
+          updateLevelSavefile(levelName);
         } catch (IOException e) {
           throw new AssertionError("This should not happen! " + e.getMessage());
         }
       }
     }
+  }
+
+  /**
+   * Loads the requested level from storage.
+   *
+   * @param levelName the requested level's savename.
+   * @throws IOException if reading the file failed.
+   */
+  private void updateLevelSavefile(String levelName) throws IOException {
+    final String filename = "/savefiles/level/" + levelName + ".txt";
+
+    try (InputStream inputStream =
+        Objects.requireNonNull(getClass().getResourceAsStream(filename))) {
+      final String savefileJson = readFromInputStream(inputStream);
+      final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
+      savedLevels.put(levelName, savefile);
+    }
+  }
+
+  private String readFromInputStream(InputStream inputStream) throws IOException {
+    StringBuilder result = new StringBuilder();
+    try (BufferedReader reader =
+        new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+      String line;
+      while ((line = reader.readLine()) != null) {
+        result.append(line).append(System.lineSeparator());
+      }
+    }
+    return result.toString();
   }
 
   /**
@@ -132,38 +161,13 @@ public class SavefileManager {
   }
 
   /**
-   * Loads the requested level from storage.
+   * Loads the level of the current saved levels in the server.
    *
-   * @param levelName the requested level's savename.
-   * @return loaded level
-   * @throws IOException if reading the file failed.
+   * @param levelName the level to be loaded by name
+   * @return the requested level
    */
-  @SuppressFBWarnings("DM_EXIT")
-  public Level loadAndUpdateLevelSavefile(String levelName) throws IOException {
-    final String filename = "/savefiles/level/" + levelName + ".txt";
-
-    try (InputStream inputStream = getClass().getResourceAsStream(filename)) {
-      if (inputStream == null) {
-        System.err.println("Server had to create file directory first. Please restart server!");
-        System.exit(0);
-      }
-      final String savefileJson = readFromInputStream(inputStream);
-      final LevelSavefile savefile = (LevelSavefile) SavefileCoder.decodeFromJson(savefileJson);
-      savedLevels.put(levelName, savefile);
-      return savefile.getLevel();
-    }
-  }
-
-  private String readFromInputStream(InputStream inputStream) throws IOException {
-    StringBuilder result = new StringBuilder();
-    try (BufferedReader reader =
-        new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-      String line;
-      while ((line = reader.readLine()) != null) {
-        result.append(line).append(System.lineSeparator());
-      }
-    }
-    return result.toString();
+  public Level loadLevelSavefile(String levelName) {
+    return savedLevels.get(levelName).getLevel();
   }
 
   public Map<String, LevelSavefile> getSavedLevels() {
