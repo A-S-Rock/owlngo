@@ -12,7 +12,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.SplitPane;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
@@ -29,18 +31,23 @@ import owlngo.gui.editor.StoreLastKey;
 /** Handles all actions on the editor window. */
 public class EditorScreenController {
 
-  @FXML GridPane gridPaneEditorWindow;
+  @FXML GridPane gridPane;
+  @FXML SplitPane mainSplitPane;
+  @FXML AnchorPane leftSplit;
 
   private static final String PANE_BLACK_BORDER = "-fx-border-color:#CCCCCC; -fx-border-width:1px;";
 
   @FXML
   void initialize() {
+    mainSplitPane.setDividerPositions(0.8);
+    leftSplit.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.8));
+
     ElementsInPlayfield.setAllToNoElement(); // Define all Elements
     setPanesOnPlayfield();
 
     Platform.runLater(
         () ->
-            gridPaneEditorWindow
+            gridPane
                 .getScene()
                 .setOnKeyPressed(
                     event -> {
@@ -62,7 +69,7 @@ public class EditorScreenController {
 
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
       ControllerUtils.createScene(null, fxmlLoader);
-      gridPaneEditorWindow.getScene().getWindow().hide();
+      gridPane.getScene().getWindow().hide();
     } else {
       JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
     }
@@ -127,7 +134,7 @@ public class EditorScreenController {
     primaryStage.setScene(new Scene(root));
     primaryStage.setResizable(true);
     primaryStage.show();
-    gridPaneEditorWindow.getScene().getWindow().hide();
+    gridPane.getScene().getWindow().hide();
   }
 
   /**
@@ -148,7 +155,7 @@ public class EditorScreenController {
         // Set Background of pane depending on the content of elementsInPlayfield
         setBackgroundOfPaneDependingOnContent(pane[rowIndex][columnIndex], rowIndex, columnIndex);
         // Put pane[][] into gridPane of EditorWindow
-        gridPaneEditorWindow.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
+        gridPane.add(pane[rowIndex][columnIndex], columnIndex, rowIndex);
 
         // Set event handler for each pane[][]
         // The called method is setResetElement

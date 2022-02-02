@@ -12,13 +12,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.TextFlow?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.EditorScreenController">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.EditorScreenController">
   <children>
-    <SplitPane dividerPositions="0.7" layoutX="-2.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <SplitPane fx:id="mainSplitPane" dividerPositions="0.8" layoutX="-2.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <items>
-        <AnchorPane SplitPane.resizableWithParent="false">
+        <AnchorPane fx:id="leftSplit" SplitPane.resizableWithParent="false">
           <children>
-            <GridPane fx:id="gridPaneEditorWindow" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane fx:id="gridPane" style="-fx-background-color: White;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -89,9 +89,9 @@
         </AnchorPane>
         <AnchorPane fx:id="playfieldAnchor1" SplitPane.resizableWithParent="false">
           <children>
-            <SplitPane dividerPositions="0.5922818791946308" focusTraversable="false" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.5439698492462312" focusTraversable="false" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                <AnchorPane>
+                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="250.0">
                   <children>
                               <TextFlow layoutX="-2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -102,7 +102,7 @@
                                                 <Font name="Arial Black" size="24.0" />
                                              </font>
                                           </Label>
-                                          <TextArea editable="false" focusTraversable="false" mouseTransparent="true" prefHeight="310.0" prefWidth="250.0" text="1. Press letter first:&#10;&#10;g: ground&#10;s: start&#10;e: end&#10;o: owl&#10;d: danger&#10;f: food&#10;&#10;2. Click to select and deselect on the field. " wrapText="true">
+                                          <TextArea editable="false" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="390.0" prefWidth="250.0" text="1. Press letter first:&#10;&#10;g: ground&#10;s: start&#10;e: end&#10;o: owl&#10;d: danger&#10;f: food&#10;&#10;2. Click to select and deselect on the field. " wrapText="true">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
@@ -118,34 +118,34 @@
                               <VBox fillWidth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
       
-                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#startGameView" prefHeight="40.0" prefWidth="250.0" text="Play">
+                    <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#startGameView" prefHeight="60.0" prefWidth="250.0" text="Play">
                                        <font>
-                                          <Font size="19.0" />
+                                          <Font size="29.0" />
                                        </font>
                                     </Button>
-                                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#saveElementsInPlayfield" prefHeight="40.0" prefWidth="250.0" text="Save local">
+                                    <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#saveElementsInPlayfield" prefHeight="60.0" prefWidth="250.0" text="Save local">
                                        <font>
-                                          <Font size="19.0" />
+                                          <Font size="29.0" />
                                        </font>
                                     </Button>
-                    <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#loadElementsInPlayfield" prefHeight="40.0" prefWidth="250.0" text="Load local">
+                    <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#loadElementsInPlayfield" prefHeight="60.0" prefWidth="250.0" text="Load local">
                                        <font>
-                                          <Font size="19.0" />
+                                          <Font size="27.0" />
                                        </font>
                                     </Button>
-                    <Button fx:id="uploadToServerButton" prefHeight="40.0" prefWidth="250.0" text="Upload to Server">
+                    <Button fx:id="uploadToServerButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="250.0" text="Upload to Server">
                                        <font>
-                                          <Font size="19.0" />
+                                          <Font size="27.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="downloadFromServerButton" prefHeight="40.0" prefWidth="250.0" text="Download from Server">
+                                    <Button fx:id="downloadFromServerButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="250.0" text="Download from Server">
                                        <font>
-                                          <Font size="19.0" />
+                                          <Font size="22.0" />
                                        </font>
                                     </Button>
-                                    <Button layoutX="10.0" layoutY="163.0" onAction="#loadWelcomeScreen" prefHeight="40.0" prefWidth="250.0" text="Return to Main Menu">
+                                    <Button layoutX="10.0" layoutY="163.0" minHeight="-Infinity" minWidth="-Infinity" onAction="#loadWelcomeScreen" prefHeight="60.0" prefWidth="250.0" text="Return to Main Menu">
                                        <font>
-                                          <Font size="19.0" />
+                                          <Font size="22.0" />
                                        </font>
                                     </Button>
                                  </children>
