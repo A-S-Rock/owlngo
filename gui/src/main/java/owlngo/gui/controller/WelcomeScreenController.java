@@ -2,16 +2,21 @@ package owlngo.gui.controller;
 
 import java.io.IOException;
 import java.util.List;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
 import owlngo.communication.messages.LevelInfosNotification;
+import owlngo.communication.messages.LevelSavedNotification;
 import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SendLevelNotification;
@@ -64,22 +69,53 @@ public class WelcomeScreenController {
 
   private void reactToServer(Connection connection) throws IOException {
     Message message = connection.read();
-    if (message instanceof ConnectedNotification) {
-      final String sentUsername = ((ConnectedNotification) message).getPlayerName();
-      assert communicationManager.getUsername().equals(sentUsername);
-      System.out.println(
-          "[SERVER] " + sentUsername + " - you're successfully connected to the game server!");
-      isConnected = true;
-    } else if (message instanceof LevelInfosNotification) {
-      final List<List<String>> receivedLevelNames =
-          ((LevelInfosNotification) message).getLevelInfos();
-      dataManager.setLevelNamesContent(receivedLevelNames);
-    } else if (message instanceof SendLevelNotification) {
-      final Level level = ((SendLevelNotification) message).getLevel();
-      dataManager.setLevelContent(level);
+    if (message instanceof final ConnectedNotification connectedNotification) {
+      handleConnectedNotification(connectedNotification);
+    } else if (message instanceof final LevelInfosNotification infosNotification) {
+      handleLevelInfosNotification(infosNotification);
+    } else if (message instanceof final SendLevelNotification levelNotification) {
+      handleSendLevelNotification(levelNotification);
+    } else if (message instanceof final LevelSavedNotification levelSavedNotification) {
+      handleLevelSavedNotification(levelSavedNotification);
     } else {
       throw new AssertionError("Unknown message type!");
     }
+  }
+
+  private void handleConnectedNotification(ConnectedNotification message) {
+    final String sentUsername = message.getPlayerName();
+    assert communicationManager.getUsername().equals(sentUsername);
+    System.out.println(
+        "[SERVER] " + sentUsername + " - you're successfully connected to the game server!");
+    isConnected = true;
+  }
+
+  private void handleLevelInfosNotification(LevelInfosNotification message) {
+    final List<List<String>> receivedLevelNames = message.getLevelInfos();
+    dataManager.setLevelNamesContent(receivedLevelNames);
+  }
+
+  private void handleSendLevelNotification(SendLevelNotification message) {
+    final Level level = message.getLevel();
+    dataManager.setLevelContent(level);
+  }
+
+  private void handleLevelSavedNotification(LevelSavedNotification levelSavedNotification) {
+    final String levelName = levelSavedNotification.getLevelName();
+
+    Platform.runLater(() -> createSaveSuccessAlert(levelName));
+  }
+
+  private void createSaveSuccessAlert(String levelName) {
+    final ButtonType okayButtonType = new ButtonType("Okay!");
+    final Alert alert = new Alert(AlertType.CONFIRMATION);
+    alert.getButtonTypes().clear();
+    alert.getButtonTypes().add(okayButtonType);
+    alert.setTitle("Success: Level save");
+    alert.setHeaderText("Level save successful!");
+    alert.setContentText("Your level \"" + levelName + "\" has been saved on the server!");
+    alert.setGraphic(null);
+    alert.showAndWait();
   }
 
   private void connectToServer(Connection connection) {

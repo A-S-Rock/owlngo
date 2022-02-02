@@ -149,19 +149,27 @@ public class EditorScreenController {
 
   @FXML
   void uploadToServer() {
-    TextInputDialog levelNameInput = new TextInputDialog("TestSave");
-    levelNameInput.setTitle("Set level name");
-    levelNameInput.setHeaderText("Choose level name for upload!");
-    levelNameInput.setContentText("Enter level name:");
-    levelNameInput.setGraphic(null);
-    levelNameInput.showAndWait();
+    TextInputDialog levelNameInput = createTextInputDialog();
 
     final String levelName = levelNameInput.getResult();
+    if (levelName == null || levelName.trim().equals("")) {
+      return;
+    }
     final String author = communicationManager.getUsername();
     final Connection connection = communicationManager.getConnection();
     ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
     final Level level = ElementsInPlayfield.getLevel();
     connection.write(new SaveLevelRequest(author, levelName, level));
+  }
+
+  private TextInputDialog createTextInputDialog() {
+    TextInputDialog levelNameInput = new TextInputDialog();
+    levelNameInput.setTitle("Set level name");
+    levelNameInput.setHeaderText("Choose level name for upload!");
+    levelNameInput.setContentText("Enter level name:");
+    levelNameInput.setGraphic(null);
+    levelNameInput.showAndWait();
+    return levelNameInput;
   }
 
   /**

@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.gui.data.CommunicationManager;
@@ -30,6 +31,7 @@ public class LoadLevelScreenController {
   private static final String PLAY_BUTTON_PLAY = "Play!";
   private static final String PLAY_BUTTON_DOWNLOADING = "Downloading...";
 
+  @FXML AnchorPane root;
   @FXML Button backToWelcomeScreenButton;
   @FXML Button playSelectedButton;
   @FXML TableView<LoadLevelRecord> tableView;
@@ -52,6 +54,7 @@ public class LoadLevelScreenController {
         });
     playSelectedButton.textProperty().bindBidirectional(playSelectedButtonState);
     playSelectedButton.setOnAction(this::playLevelAction);
+
     tableView
         .getSelectionModel()
         .selectedItemProperty()
