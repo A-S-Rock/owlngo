@@ -133,7 +133,7 @@
                                           <Font size="27.0" />
                                        </font>
                                     </Button>
-                    <Button fx:id="uploadToServerButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="250.0" text="Upload to Server">
+                    <Button fx:id="uploadToServerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#uploadToServer" prefHeight="60.0" prefWidth="250.0" text="Upload to Server">
                                        <font>
                                           <Font size="27.0" />
                                        </font>

@@ -103,6 +103,7 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            communicationManager.setConnection(connection);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EditorScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           }
