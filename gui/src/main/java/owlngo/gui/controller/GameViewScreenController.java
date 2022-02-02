@@ -33,12 +33,6 @@ public class GameViewScreenController {
   public GameViewScreenController() {
     DataManager manager = DataManager.getInstance();
     game = new OwlnGo(manager.getLevelContent());
-    //ToDo This old if-check can be removed after intensive testing
-    /*if (manager.getLevelContent() != null) {
-      game = new OwlnGo(manager.getLevelContent());
-    } else {
-      game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS);
-    } */
   }
 
   @FXML
