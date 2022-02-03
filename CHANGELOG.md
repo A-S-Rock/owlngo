@@ -7,6 +7,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.10.2] - 2022-02-03
+
+### Added
+
+GAME:
+
+- Separated flight-mode and walk-mode with colour changing endurance bar.
+
 ## [0.10.0] - 2022-02-01
 
 ### Added
