@@ -50,6 +50,11 @@ public class GameViewScreenController {
             while (game.getGameState().isGameRunning()) {
               int i = game.getSideConditions().getEndurance();
               updateProgress(i, 10);
+              if (game.getSideConditions().isInFlightMode()) {
+                enduranceBar.setStyle("-fx-accent: red;");
+              } else {
+                enduranceBar.setStyle("-fx-accent: gray;");
+              }
             }
             return null;
           }

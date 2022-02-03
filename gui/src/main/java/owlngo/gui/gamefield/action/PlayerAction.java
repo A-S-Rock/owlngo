@@ -60,8 +60,8 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() {
-                  game.moveFlyUp();
+                protected Void call() throws InterruptedException {
+                  game.moveUp();
                   return null;
                 }
               })
@@ -83,7 +83,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
               new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                  game.moveJumpRight();
+                  game.moveUpRight();
                   return null;
                 }
               })
@@ -94,7 +94,52 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
               new Task<Void>() {
                 @Override
                 protected Void call() throws Exception {
-                  game.moveJumpLeft();
+                  game.moveUpLeft();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("f")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.getSideConditions().setInFlightMode();
+                  game.moveContinousFall();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("c")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.moveDownRight();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("x")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() {
+                  game.moveDown();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("y")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws Exception {
+                  game.moveDownLeft();
                   return null;
                 }
               })
