@@ -19,8 +19,6 @@ import owlngo.gui.gamefield.view.ViewUtils;
 
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {
-  static final int NUM_LEVEL_COLUMNS = ViewUtils.NUM_LEVEL_COLUMNS;
-  static final int NUM_LEVEL_ROWS = ViewUtils.NUM_LEVEL_ROWS;
 
   @FXML Button backToMainMenuButton;
   @FXML Button giveUpButton;

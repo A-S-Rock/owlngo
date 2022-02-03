@@ -49,7 +49,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveLeft();
                   return null;
                 }
@@ -71,7 +71,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveRight();
                   return null;
                 }
@@ -82,7 +82,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveUpRight();
                   return null;
                 }
@@ -93,7 +93,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveUpLeft();
                   return null;
                 }
@@ -104,7 +104,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.getSideConditions().setInFlightMode();
                   game.moveContinousFall();
                   return null;
@@ -116,7 +116,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveDownRight();
                   return null;
                 }
@@ -127,7 +127,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() {
+                protected Void call() throws InterruptedException {
                   game.moveDown();
                   return null;
                 }
@@ -138,7 +138,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveDownLeft();
                   return null;
                 }
