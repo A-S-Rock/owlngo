@@ -7,6 +7,7 @@ import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
+import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.game.level.objects.Player;
 
@@ -16,10 +17,10 @@ import owlngo.game.level.objects.Player;
  */
 public class OwlnGo {
 
-  static final int DEFAULT_NUM_ROWS = 30;
-  static final int DEFAULT_NUM_COLS = 30;
-  static final int ENDURANCE = 10;
-  static final boolean INFLIGHTMODE = false;
+  private static final int DEFAULT_NUM_ROWS = 30;
+  private static final int DEFAULT_NUM_COLS = 30;
+  private static final int ENDURANCE = 10;
+  private static final boolean IN_FLIGHT_MODE = false;
 
   private GameState gameState;
   private final SideConditions sideConditions;
@@ -30,7 +31,7 @@ public class OwlnGo {
    */
   public OwlnGo() {
     gameState = new GameState(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
-    sideConditions = new SideConditions(ENDURANCE, INFLIGHTMODE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
   }
 
   /**
@@ -39,13 +40,13 @@ public class OwlnGo {
    */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
-    sideConditions = new SideConditions(ENDURANCE, INFLIGHTMODE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
   }
 
   /** Constructs an Owlngo game instance with a given level and prespecified sideConditions. */
   public OwlnGo(Level level) {
     gameState = new GameState(level);
-    sideConditions = new SideConditions(ENDURANCE, INFLIGHTMODE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
   }
 
   /** Get the current GameState. */
@@ -104,8 +105,8 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getRightMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getRightMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
@@ -116,8 +117,8 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getLeftMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getLeftMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
@@ -128,8 +129,8 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getJumpMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getJumpMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
@@ -140,16 +141,16 @@ public class OwlnGo {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getFallMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getFallMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
 
   /** Lets the player fall only a single step. */
   public void moveSingleStepFall() {
-    Player player = gameState.getPlayer();
-    Move move = player.getFallMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getFallMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
     gameState.getLevel().updatePossibleMovesOfPlayer();
@@ -163,8 +164,8 @@ public class OwlnGo {
       return;
     }
     while (!checkForGroundBelowOwl()) {
-      Player player = gameState.getPlayer();
-      Move move = player.getFallMove();
+      final Player player = gameState.getPlayer();
+      final Move move = player.getFallMove();
       Platform.runLater(this::moveSingleStepFall);
       Thread.sleep(300);
       if (move.getNewCoordinate() == player.getCoordinate()) {
@@ -175,43 +176,41 @@ public class OwlnGo {
 
   /** Lets the player walk/fly left. */
   public void moveLeft() throws InterruptedException {
-    if (sideConditions.isInFlightMode()) {
-      Platform.runLater(this::moveBasicLeft);
-      Thread.sleep(300);
+    final boolean inFlightMode = sideConditions.isInFlightMode();
+    Platform.runLater(this::moveBasicLeft);
+    Thread.sleep(300);
+    if (inFlightMode) {
       sideConditions.decreaseEndurance();
-    } else if (!sideConditions.isInFlightMode()) {
-      Platform.runLater(this::moveBasicLeft);
-      Thread.sleep(300);
+    } else {
       moveContinousFall();
     }
   }
 
   /** Lets the player walk/fly right. */
   public void moveRight() throws InterruptedException {
-    if (sideConditions.isInFlightMode()) {
-      Platform.runLater(this::moveBasicRight);
-      Thread.sleep(300);
+    final boolean inFlightMode = sideConditions.isInFlightMode();
+    Platform.runLater(this::moveBasicRight);
+    Thread.sleep(300);
+    if (inFlightMode) {
       sideConditions.decreaseEndurance();
-    } else if (!sideConditions.isInFlightMode()) {
-      Platform.runLater(this::moveBasicRight);
-      Thread.sleep(300);
+    } else {
       moveContinousFall();
     }
   }
 
   /** Lets the player walk/fly up. */
   public void moveUp() throws InterruptedException {
-    if (sideConditions.isInFlightMode()) {
-      Platform.runLater(this::moveBasicUp);
+    final boolean inFlightMode = sideConditions.isInFlightMode();
+    Platform.runLater(this::moveBasicUp);
+    Thread.sleep(300);
+    if (inFlightMode) {
       sideConditions.decreaseEndurance();
-    } else if (!sideConditions.isInFlightMode()) {
-      Platform.runLater(this::moveBasicUp);
-      Thread.sleep(300);
+    } else {
       moveContinousFall();
     }
   }
 
-  /** Lets the player walk/fly up. */
+  /** Lets the player walk/fly down. */
   public void moveDown() {
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicDown);
@@ -226,7 +225,7 @@ public class OwlnGo {
       Thread.sleep(300);
       Platform.runLater(this::moveBasicUp);
       sideConditions.decreaseEndurance();
-    } else if (!sideConditions.isInFlightMode()) {
+    } else {
       Platform.runLater(this::moveBasicUp);
       Thread.sleep(300);
       Platform.runLater(this::moveBasicRight);
@@ -244,7 +243,7 @@ public class OwlnGo {
       Thread.sleep(300);
       Platform.runLater(this::moveBasicUp);
       sideConditions.decreaseEndurance();
-    } else if (!sideConditions.isInFlightMode()) {
+    } else {
       Platform.runLater(this::moveBasicUp);
       Thread.sleep(300);
       Platform.runLater(this::moveBasicLeft);
@@ -277,14 +276,15 @@ public class OwlnGo {
 
   /** Returns the Coordinate below the Player. */
   Coordinate getActualCoordinateBelowPlayer() {
-    Player player = gameState.getPlayer();
-    int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() - 1;
+    final Player player = gameState.getPlayer();
+    final int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() - 1;
     return Coordinate.of(rowBelowPlayer, player.getCoordinate().getColumn());
   }
 
   /** Checks for a GROUND-object below the player. */
   boolean checkForGroundBelowOwl() {
-    return gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer()).getType()
-        == ObjectType.GROUND;
+    final ObjectInGame objectBelow =
+        gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer());
+    return objectBelow.getType() == ObjectType.GROUND;
   }
 }
