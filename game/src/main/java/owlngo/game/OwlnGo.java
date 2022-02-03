@@ -59,11 +59,15 @@ public class OwlnGo {
     return sideConditions;
   }
 
+  public final int getMaxSideConditions() {
+    return ENDURANCE;
+  }
+
   /** Cheks winning conditions. */
   private void checkWinningConditions(Move move) {
     final Coordinate finishCoordinate =
         gameState.getLevel().getCopyOfFinishObject().getCoordinate();
-
+    checkForFood(move);
     if (move.getNewCoordinate().equals(finishCoordinate)) {
       gameState = gameState.with(GameStatus.WIN);
     } else if (checkForDeath(move)) {
@@ -84,6 +88,14 @@ public class OwlnGo {
         (!fireCoordinates.isEmpty() && fireCoordinates.contains(move.getNewCoordinate()));
 
     return fellDown || exhausted || hitFire;
+  }
+
+  /** Checks if the player is dead. */
+  private void checkForFood(Move move) {
+    final List<Coordinate> foodCoordinates = gameState.getFoodCoordinates();
+    if (!foodCoordinates.isEmpty() && foodCoordinates.contains(move.getNewCoordinate())) {
+      sideConditions.resetEndurance(ENDURANCE);
+    }
   }
 
   /** Moves the player one step to the right. */

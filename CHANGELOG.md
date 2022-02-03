@@ -15,6 +15,16 @@ GAME:
 
 - Separated flight-mode and walk-mode with colour changing endurance bar.
 
+
+## [0.10.1] - 2022-02-02
+
+### Added
+
+GAME:
+
+- Touching food updates endurance.
+
+
 ## [0.10.0] - 2022-02-01
 
 ### Added
