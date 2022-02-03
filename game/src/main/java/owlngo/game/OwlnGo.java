@@ -1,5 +1,6 @@
 package owlngo.game;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import javafx.application.Platform;
 import owlngo.game.GameState.GameStatus;
@@ -21,7 +22,7 @@ public class OwlnGo {
   static final boolean INFLIGHTMODE = false;
 
   private GameState gameState;
-  private SideConditions sideConditions;
+  private final SideConditions sideConditions;
 
   /**
    * Constructs an Owlngo game instance with the prespecified level dimensions and prespecified
@@ -52,6 +53,8 @@ public class OwlnGo {
     return gameState;
   }
 
+  /** Get the current SideConditions. */
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   public final SideConditions getSideConditions() {
     return sideConditions;
   }
