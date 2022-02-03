@@ -15,10 +15,6 @@ public class SideConditions {
     return endurance;
   }
 
-  public void increaseEndurance() {
-    endurance++;
-  }
-
   public void decreaseEndurance() {
     endurance--;
   }

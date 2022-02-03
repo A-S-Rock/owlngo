@@ -21,7 +21,7 @@ public class OwlnGo {
   static final boolean INFLIGHTMODE = false;
 
   private GameState gameState;
-  private final SideConditions sideConditions;
+  private SideConditions sideConditions;
 
   /**
    * Constructs an Owlngo game instance with the prespecified level dimensions and prespecified
