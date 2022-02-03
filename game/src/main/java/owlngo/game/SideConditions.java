@@ -13,8 +13,8 @@ public class SideConditions {
     return endurance;
   }
 
-  public void increaseEndurance() {
-    endurance++;
+  public void resetEndurance(int originalEndurance) {
+    endurance = originalEndurance;
   }
 
   public void decreaseEndurance() {
