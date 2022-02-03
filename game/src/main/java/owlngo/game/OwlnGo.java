@@ -1,11 +1,13 @@
 package owlngo.game;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import javafx.application.Platform;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
 import owlngo.game.level.Move;
+import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.ObjectInGame.ObjectType;
 import owlngo.game.level.objects.Player;
 
@@ -15,9 +17,10 @@ import owlngo.game.level.objects.Player;
  */
 public class OwlnGo {
 
-  static final int DEFAULT_NUM_ROWS = 30;
-  static final int DEFAULT_NUM_COLS = 30;
-  static final int ENDURANCE = 10;
+  private static final int DEFAULT_NUM_ROWS = 30;
+  private static final int DEFAULT_NUM_COLS = 30;
+  private static final int ENDURANCE = 10;
+  private static final boolean IN_FLIGHT_MODE = false;
 
   private GameState gameState;
   private final SideConditions sideConditions;
@@ -28,7 +31,7 @@ public class OwlnGo {
    */
   public OwlnGo() {
     gameState = new GameState(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
-    sideConditions = new SideConditions(ENDURANCE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
   }
 
   /**
@@ -37,13 +40,13 @@ public class OwlnGo {
    */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
-    sideConditions = new SideConditions(ENDURANCE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
   }
 
   /** Constructs an Owlngo game instance with a given level and prespecified sideConditions. */
   public OwlnGo(Level level) {
     gameState = new GameState(level);
-    sideConditions = new SideConditions(ENDURANCE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
   }
 
   /** Get the current GameState. */
@@ -51,6 +54,8 @@ public class OwlnGo {
     return gameState;
   }
 
+  /** Get the current SideConditions. */
+  @SuppressFBWarnings("EI_EXPOSE_REP")
   public final SideConditions getSideConditions() {
     return sideConditions;
   }
@@ -94,106 +99,64 @@ public class OwlnGo {
     }
   }
 
-  /** Moves the player to the right. */
-  public void moveBasicRight() {
+  /** Moves the player one step to the right. */
+  private void moveBasicRight() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getRightMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getRightMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
 
-  /** Moves the player to the left. */
-  public void moveBasicLeft() {
+  /** Moves the player one step to the left. */
+  private void moveBasicLeft() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getLeftMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getLeftMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
 
-  /** Lets the player jump. */
-  public void moveBasicUp() {
+  /** Moves the player one step up. */
+  private void moveBasicUp() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getJumpMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getJumpMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
 
-  /** Lets the player fall. */
-  public void moveBasicDown() {
+  /** Moves the player one step down. */
+  private void moveBasicDown() {
     if (!gameState.isGameRunning()) {
       System.out.println("Game is not running.");
       return;
     }
-    Player player = gameState.getPlayer();
-    Move move = player.getFallMove();
+    final Player player = gameState.getPlayer();
+    final Move move = player.getFallMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
   }
 
-  /** Lets the player walk left up and if possible fall down. */
-  public void moveLeft() throws InterruptedException {
-    Platform.runLater(this::moveBasicLeft);
-    Thread.sleep(300);
-    moveContinousFall();
-  }
-
-  /** Lets the player walk right up and if possible fall down. */
-  public void moveRight() throws InterruptedException {
-    Platform.runLater(this::moveBasicRight);
-    Thread.sleep(300);
-    moveContinousFall();
-  }
-
-  /** Lets the player jump right up and fall down. */
-  public void moveJumpRight() throws InterruptedException {
-    Platform.runLater(this::moveBasicUp);
-    Thread.sleep(300);
-    Platform.runLater(this::moveBasicRight);
-    Thread.sleep(300);
-    Platform.runLater(this::moveBasicRight);
-    Thread.sleep(300);
-    moveContinousFall();
-  }
-
-  /** Lets the player jump left. */
-  public void moveJumpLeft() throws InterruptedException {
-    Platform.runLater(this::moveBasicUp);
-    Thread.sleep(300);
-    Platform.runLater(this::moveBasicLeft);
-    Thread.sleep(300);
-    Platform.runLater(this::moveBasicLeft);
-    Thread.sleep(300);
-    moveContinousFall();
-  }
-
-  /** Lets the player jump left. */
-  public void moveFlyUp() {
-    Platform.runLater(this::moveBasicUp);
-    sideConditions.decreaseEndurance();
-  }
-
-  /** Lets the player fall continously to the next GROUND-object. */
-  public void moveSingleStepFall() {
-    Player player = gameState.getPlayer();
-    Move move = player.getFallMove();
+  /** Lets the player fall only a single step. */
+  private void moveSingleStepFall() {
+    final Player player = gameState.getPlayer();
+    final Move move = player.getFallMove();
     gameState.moveObjectInGame(move);
     checkWinningConditions(move);
     gameState.getLevel().updatePossibleMovesOfPlayer();
   }
 
-  /** Lets the player fall only a single step. */
+  /** Lets the player fall continously to the next GROUND-object. */
   @SuppressWarnings("BusyWait")
   public void moveContinousFall() throws InterruptedException {
     if (!gameState.isGameRunning()) {
@@ -201,26 +164,130 @@ public class OwlnGo {
       return;
     }
     while (!checkForGroundBelowOwl()) {
-      Player player = gameState.getPlayer();
-      Move move = player.getFallMove();
-      Platform.runLater(this::moveSingleStepFall);
-      Thread.sleep(300);
-      if (move.getNewCoordinate() == player.getCoordinate()) {
-        break;
+      if (!sideConditions.isInFlightMode()) {
+        final Player player = gameState.getPlayer();
+        final Move move = player.getFallMove();
+        Platform.runLater(this::moveSingleStepFall);
+        Thread.sleep(300);
+        if (move.getNewCoordinate() == player.getCoordinate()) {
+          break;
+        }
       }
+    }
+  }
+
+  /** Lets the player walk/fly left. */
+  public void moveLeft() throws InterruptedException {
+    final boolean inFlightMode = sideConditions.isInFlightMode();
+    Platform.runLater(this::moveBasicLeft);
+    if (inFlightMode) {
+      sideConditions.decreaseEndurance();
+    } else {
+      moveContinousFall();
+    }
+    Thread.sleep(300);
+  }
+
+  /** Lets the player walk/fly right. */
+  public void moveRight() throws InterruptedException {
+    final boolean inFlightMode = sideConditions.isInFlightMode();
+    Platform.runLater(this::moveBasicRight);
+    if (inFlightMode) {
+      sideConditions.decreaseEndurance();
+    } else {
+      moveContinousFall();
+    }
+    Thread.sleep(300);
+  }
+
+  /** Lets the player walk/fly up. */
+  public void moveUp() throws InterruptedException {
+    final boolean inFlightMode = sideConditions.isInFlightMode();
+    Platform.runLater(this::moveBasicUp);
+    if (inFlightMode) {
+      sideConditions.decreaseEndurance();
+    } else {
+      moveContinousFall();
+    }
+    Thread.sleep(300);
+  }
+
+  /** Lets the player walk/fly down. */
+  public void moveDown() throws InterruptedException {
+    if (sideConditions.isInFlightMode()) {
+      Platform.runLater(this::moveBasicDown);
+      sideConditions.decreaseEndurance();
+      Thread.sleep(300);
+    }
+  }
+
+  /** Lets the player jump right up and fall down or fly diagonaly up right. */
+  public void moveUpRight() throws InterruptedException {
+    if (sideConditions.isInFlightMode()) {
+      Platform.runLater(this::moveBasicRight);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicUp);
+      sideConditions.decreaseEndurance();
+    } else {
+      Platform.runLater(this::moveBasicUp);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicRight);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicRight);
+      Thread.sleep(300);
+      moveContinousFall();
+    }
+  }
+
+  /** Lets the player jump left up and fall down or fly diagonaly up left. */
+  public void moveUpLeft() throws InterruptedException {
+    if (sideConditions.isInFlightMode()) {
+      Platform.runLater(this::moveBasicLeft);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicUp);
+      sideConditions.decreaseEndurance();
+    } else {
+      Platform.runLater(this::moveBasicUp);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicLeft);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicLeft);
+      Thread.sleep(300);
+      moveContinousFall();
+    }
+  }
+
+  /** Lets the player fly diagonaly down right. */
+  public void moveDownRight() throws InterruptedException {
+    if (sideConditions.isInFlightMode()) {
+      Platform.runLater(this::moveBasicRight);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicDown);
+      sideConditions.decreaseEndurance();
+    }
+  }
+
+  /** Lets the player fly diagonaly down left. */
+  public void moveDownLeft() throws InterruptedException {
+    if (sideConditions.isInFlightMode()) {
+      Platform.runLater(this::moveBasicLeft);
+      Thread.sleep(300);
+      Platform.runLater(this::moveBasicDown);
+      sideConditions.decreaseEndurance();
     }
   }
 
   /** Returns the Coordinate below the Player. */
   Coordinate getActualCoordinateBelowPlayer() {
-    Player player = gameState.getPlayer();
-    int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() - 1;
+    final Player player = gameState.getPlayer();
+    final int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() + 1;
     return Coordinate.of(rowBelowPlayer, player.getCoordinate().getColumn());
   }
 
   /** Checks for a GROUND-object below the player. */
   boolean checkForGroundBelowOwl() {
-    return gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer()).getType()
-        == ObjectType.GROUND;
+    final ObjectInGame objectBelow =
+        gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer());
+    return objectBelow.getType() == ObjectType.GROUND;
   }
 }

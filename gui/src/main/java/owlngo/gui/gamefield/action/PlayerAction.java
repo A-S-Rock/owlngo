@@ -49,7 +49,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveLeft();
                   return null;
                 }
@@ -60,8 +60,8 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() {
-                  game.moveFlyUp();
+                protected Void call() throws InterruptedException {
+                  game.moveUp();
                   return null;
                 }
               })
@@ -71,7 +71,7 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
+                protected Void call() throws InterruptedException {
                   game.moveRight();
                   return null;
                 }
@@ -82,8 +82,8 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
-                  game.moveJumpRight();
+                protected Void call() throws InterruptedException {
+                  game.moveUpRight();
                   return null;
                 }
               })
@@ -93,8 +93,53 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
       new Thread(
               new Task<Void>() {
                 @Override
-                protected Void call() throws Exception {
-                  game.moveJumpLeft();
+                protected Void call() throws InterruptedException {
+                  game.moveUpLeft();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("f")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws InterruptedException {
+                  game.getSideConditions().setInFlightMode();
+                  game.moveContinousFall();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("c")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws InterruptedException {
+                  game.moveDownRight();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("x")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws InterruptedException {
+                  game.moveDown();
+                  return null;
+                }
+              })
+          .start();
+    }
+    if (pressedKey.equals("y")) {
+      new Thread(
+              new Task<Void>() {
+                @Override
+                protected Void call() throws InterruptedException {
+                  game.moveDownLeft();
                   return null;
                 }
               })

@@ -7,6 +7,22 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.10.2] - 2022-02-03
+
+### Added
+
+GAME:
+
+- Separated flight-mode and walk-mode with colour changing endurance bar.
+
+### Fixed
+
+GAME:
+
+- Wrong block check for falling (upper instead of lower block)
+- Endurance bar lagged behind movement
+- Catching fall with flight did not work
+
 ## [0.10.1] - 2022-02-02
 
 ### Added
@@ -14,7 +30,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 GAME:
 
 - Touching food updates endurance.
-
 
 ## [0.10.0] - 2022-02-01
 

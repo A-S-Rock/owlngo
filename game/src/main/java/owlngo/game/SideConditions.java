@@ -4,9 +4,11 @@ package owlngo.game;
 public class SideConditions {
 
   private int endurance;
+  private boolean inFlightMode;
 
-  SideConditions(int endurance) {
+  SideConditions(int endurance, boolean inFlightMode) {
     this.endurance = endurance;
+    this.inFlightMode = inFlightMode;
   }
 
   public int getEndurance() {
@@ -19,5 +21,13 @@ public class SideConditions {
 
   public void decreaseEndurance() {
     endurance--;
+  }
+
+  public boolean isInFlightMode() {
+    return inFlightMode;
+  }
+
+  public void setInFlightMode() {
+    this.inFlightMode = !inFlightMode;
   }
 }
