@@ -19,28 +19,6 @@ public final class ViewUtils {
   public static final int DEFAULT_SCENE_HEIGHT = DEFAULT_SCENE_WIDTH * 2 / 3;
 
   /**
-   * Sets the scene of the current window to the game window. Also, the game now checks if the game
-   * has stopped.
-   *
-   * @param stage current GUI stage
-   */
-  public static void setSceneToGameView(Stage stage) {
-    final OwlnGo game = new OwlnGo(NUM_LEVEL_ROWS, NUM_LEVEL_COLUMNS);
-    setGameStateListener(stage, game);
-  }
-
-  /**
-   * Resets the scene to a custom level game.
-   *
-   * @param stage the current stage
-   * @param level the custom level typically created by the editor
-   */
-  public static void setSceneToGameViewWithLevel(Stage stage, Level level) {
-    final OwlnGo game = new OwlnGo(level);
-    setGameStateListener(stage, game);
-  }
-
-  /**
    * Sets a listener for game status changes and reacts by opening the appropriate window.
    *
    * @param stage current stage

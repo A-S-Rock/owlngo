@@ -3,6 +3,7 @@ package owlngo.gui.data;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
 import owlngo.game.level.Level;
 import owlngo.gui.gamefield.view.ViewUtils;
 
@@ -13,6 +14,7 @@ public class DataManager {
   private static DataManager instance;
   private Level levelContent;
   private List<List<String>> levelNamesContent;
+  private SimpleStringProperty timeStringProperty;
 
   /**
    * Instantiates the single instance of the DataManager or returns it if already existant.
@@ -48,5 +50,13 @@ public class DataManager {
 
   public void setLevelNamesContent(List<List<String>> levelNamesContent) {
     this.levelNamesContent = levelNamesContent;
+  }
+
+  public SimpleStringProperty getTimeStringProperty() {
+    return timeStringProperty;
+  }
+
+  public void setTimeStringProperty(SimpleStringProperty timeStringProperty) {
+    this.timeStringProperty = timeStringProperty;
   }
 }

@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import owlngo.game.GameState.GameStatus;
 import owlngo.game.OwlnGo;
 import owlngo.gui.data.DataManager;
 import owlngo.gui.gamefield.view.GameView;
@@ -33,17 +34,31 @@ public class GameViewScreenController {
   @FXML Label timerLabel;
 
   private final OwlnGo game;
+  private final DataManager dataManager = DataManager.getInstance();
 
   /** Allows the controller to load a different level if possible. */
   public GameViewScreenController() {
-    DataManager manager = DataManager.getInstance();
-    game = new OwlnGo(manager.getLevelContent());
+    game = new OwlnGo(dataManager.getLevelContent());
   }
 
   @FXML
   void initialize() {
 
     gamePane.getChildren().addAll(createGameNode(game));
+
+    final LevelTimer levelTimer = new LevelTimer();
+    levelTimer.startTimer(0); // start at 0 seconds
+    timerLabel.textProperty().bind(levelTimer.timeStringProperty());
+
+    game.getGameState()
+        .propertyStatus()
+        .addListener(
+            ((observable, oldValue, newValue) -> {
+              levelTimer.stopTimer();
+              if (newValue == GameStatus.WIN) {
+                dataManager.setTimeStringProperty(levelTimer.timeStringProperty());
+              }
+            }));
 
     backToMainMenuButton.setOnAction(
         new EventHandler<>() {
@@ -87,10 +102,6 @@ public class GameViewScreenController {
         };
     enduranceBar.progressProperty().bind(task.progressProperty());
     new Thread(task).start();
-
-    final LevelTimer levelTimer = new LevelTimer();
-    levelTimer.startTimer(0);
-    timerLabel.textProperty().bind(levelTimer.timeStringProperty());
   }
 
   private Node createGameNode(OwlnGo game) {
@@ -106,7 +117,7 @@ public class GameViewScreenController {
   }
 
   /**
-   * Inner class to construct a timer for time measuring level completions. Source:
+   * Inner class to construct a timer for timeStringProperty measuring level completions. Source:
    * https://stackoverflow.com/questions/9355303/javafx-stopwatch-timer
    */
   private static final class LevelTimer {
@@ -124,7 +135,7 @@ public class GameViewScreenController {
     private boolean timing = false;
 
     public LevelTimer() {
-      timeStringProperty = new SimpleStringProperty("00:00:00");
+      timeStringProperty = new SimpleStringProperty("00:00.00");
     }
 
     public void startTimer(final long time) {
@@ -160,7 +171,7 @@ public class GameViewScreenController {
               + split[TIMER_MINUTES]
               + ":"
               + split[TIMER_SECONDS]
-              + ":"
+              + "."
               + (split[TIMER_MILLIS].length() == 1
                   ? "0" + split[TIMER_MILLIS]
                   : split[TIMER_MILLIS].substring(0, 2)));
