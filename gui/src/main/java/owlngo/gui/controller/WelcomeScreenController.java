@@ -1,5 +1,6 @@
 package owlngo.gui.controller;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.List;
 import javafx.application.Platform;
@@ -25,6 +26,7 @@ import owlngo.gui.data.CommunicationManager;
 import owlngo.gui.data.DataManager;
 
 /** Contoller class for WelcomeScreen.fxml. */
+@SuppressFBWarnings("DM_EXIT")
 public class WelcomeScreenController {
 
   @FXML Button startRandomGameButton;
@@ -53,7 +55,6 @@ public class WelcomeScreenController {
                 } catch (IOException e) {
                   System.err.println("Failed to connect to the server!");
                   connection.close();
-                  Platform.exit();
                   System.exit(0);
                 }
               })
@@ -176,5 +177,7 @@ public class WelcomeScreenController {
     exitGameButton.setOnAction(event -> System.exit(0));
 
     imagePane.getChildren().add(ControllerUtils.createLogoPane("standard"));
+    Platform.runLater(
+        () -> imagePane.getScene().getWindow().setOnCloseRequest(event -> connection.close()));
   }
 }

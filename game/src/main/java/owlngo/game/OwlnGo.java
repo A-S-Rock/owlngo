@@ -163,16 +163,16 @@ public class OwlnGo {
   /** Lets the player fall continously to the next GROUND-object. */
   @SuppressWarnings("BusyWait")
   public void moveContinousFall() throws InterruptedException {
-    if (!gameState.isGameRunning()) {
-      System.out.println("Game is not running.");
-      return;
-    }
     while (!checkForGroundBelowOwl()) {
+      if (!gameState.isGameRunning()) {
+        System.out.println("Game is not running.");
+        return;
+      }
       if (!sideConditions.isInFlightMode()) {
         final Player player = gameState.getPlayer();
         final Move move = player.getFallMove();
         Platform.runLater(this::moveSingleStepFall);
-        Thread.sleep(300);
+        Thread.sleep(150);
         if (move.getNewCoordinate() == player.getCoordinate()) {
           break;
         }
@@ -299,5 +299,10 @@ public class OwlnGo {
     final ObjectInGame objectBelow =
         gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer());
     return objectBelow.getType() == ObjectType.GROUND;
+  }
+
+  /** Lets the player give up. */
+  public void giveUp() {
+    gameState = gameState.with(GameStatus.GIVE_UP);
   }
 }

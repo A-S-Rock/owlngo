@@ -49,6 +49,7 @@ public class GameViewScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            game.giveUp(); // halts the game
             FXMLLoader fxmlLoader =
                 new FXMLLoader(
                     Objects.requireNonNull(getClass().getResource("/WelcomeScreen.fxml")));
@@ -60,6 +61,7 @@ public class GameViewScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            game.giveUp();
             FXMLLoader fxmlLoader =
                 new FXMLLoader(
                     Objects.requireNonNull(getClass().getResource("/GameGivenUpScreen.fxml")));
@@ -115,7 +117,6 @@ public class GameViewScreenController {
     private static final int TIMER_REFRESH_RATE = 10;
 
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss:S");
-    private String[] split;
     private final SimpleStringProperty timeStringProperty;
     private long time;
     private final Timer timer = new Timer("Level time", true);
@@ -153,7 +154,7 @@ public class GameViewScreenController {
 
     private void updateTime() {
       this.time += TIMER_REFRESH_RATE;
-      split = dateFormat.format(new Date(time)).split(":");
+      String[] split = dateFormat.format(new Date(time)).split(":");
       timeStringProperty.set(
           TIMER_PREFIX
               + split[TIMER_MINUTES]
