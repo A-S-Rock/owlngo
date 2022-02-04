@@ -183,9 +183,9 @@ public class OwlnGo {
     if (inFlightMode) {
       sideConditions.decreaseEndurance();
     } else {
+      Thread.sleep(300);
       moveContinousFall();
     }
-    Thread.sleep(300);
   }
 
   /** Lets the player walk/fly right. */
@@ -195,9 +195,9 @@ public class OwlnGo {
     if (inFlightMode) {
       sideConditions.decreaseEndurance();
     } else {
+      Thread.sleep(300);
       moveContinousFall();
     }
-    Thread.sleep(300);
   }
 
   /** Lets the player walk/fly up. */
@@ -207,9 +207,9 @@ public class OwlnGo {
     if (inFlightMode) {
       sideConditions.decreaseEndurance();
     } else {
+      Thread.sleep(300);
       moveContinousFall();
     }
-    Thread.sleep(300);
   }
 
   /** Lets the player walk/fly down. */
