@@ -14,6 +14,7 @@ public class DataManager {
   private static DataManager instance;
   private Level levelContent;
   private List<List<String>> levelNamesContent;
+  private List<List<String>> levelStatsContent;
   private SimpleStringProperty timeStringProperty;
 
   /**
@@ -50,6 +51,14 @@ public class DataManager {
 
   public void setLevelNamesContent(List<List<String>> levelNamesContent) {
     this.levelNamesContent = levelNamesContent;
+  }
+
+  public List<List<String>> getLevelStatsContent() {
+    return levelStatsContent;
+  }
+
+  public void setLevelStatsContent(List<List<String>> levelStatsContent) {
+    this.levelStatsContent = levelStatsContent;
   }
 
   public SimpleStringProperty getTimeStringProperty() {

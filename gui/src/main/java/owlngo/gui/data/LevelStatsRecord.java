@@ -15,14 +15,40 @@ public class LevelStatsRecord {
   // Level name.
 
   private StringProperty levelName;
+  private IntegerProperty tries;
+  private IntegerProperty completions;
+  private StringProperty bestTime;
 
-  public void setLevelName(String value) {
-    levelNameProperty().set(value);
+  // Number of tries.
+  private StringProperty byUser;
+
+  /**
+   * Sets up a level stats record to show in a table view.
+   *
+   * @param levelName the level name
+   * @param tries the number of tries on the level
+   * @param completions the number of successful tries on the level
+   * @param bestTime the best time
+   * @param byUser the user with the best time
+   */
+  public LevelStatsRecord(
+      String levelName, int tries, int completions, String bestTime, String byUser) {
+    setLevelName(levelName);
+    setTries(tries);
+    setCompletions(completions);
+    setBestTime(bestTime);
+    setByUser(byUser);
   }
 
   public String getLevelName() {
     return levelNameProperty().get();
   }
+
+  public void setLevelName(String value) {
+    levelNameProperty().set(value);
+  }
+
+  // Number of completions.
 
   /**
    * Returns the level name property of the table record.
@@ -36,16 +62,12 @@ public class LevelStatsRecord {
     return levelName;
   }
 
-  // Number of tries.
-
-  private IntegerProperty tries;
+  public int getTries() {
+    return triesProperty().get();
+  }
 
   public void setTries(int value) {
     triesProperty().set(value);
-  }
-
-  public int getTries() {
-    return triesProperty().get();
   }
 
   /**
@@ -60,16 +82,14 @@ public class LevelStatsRecord {
     return tries;
   }
 
-  // Number of completions.
-
-  private IntegerProperty completions;
-
-  public void setCompletions(int value) {
-    completionsProperty().set(value);
-  }
+  // String representation of best time.
 
   public int getCompletions() {
     return completionsProperty().get();
+  }
+
+  public void setCompletions(int value) {
+    completionsProperty().set(value);
   }
 
   /**
@@ -84,16 +104,14 @@ public class LevelStatsRecord {
     return completions;
   }
 
-  // String representation of best time.
+  public String getBestTime() {
+    return bestTimeProperty().get();
+  }
 
-  private StringProperty bestTime;
+  // User with best time.
 
   public void setBestTime(String value) {
     bestTimeProperty().set(value);
-  }
-
-  public String getBestTime() {
-    return bestTimeProperty().get();
   }
 
   /**
@@ -108,16 +126,12 @@ public class LevelStatsRecord {
     return bestTime;
   }
 
-  // User with best time.
-
-  private StringProperty byUser;
+  public String getByUser() {
+    return byUserProperty().get();
+  }
 
   public void setByUser(String value) {
     byUserProperty().set(value);
-  }
-
-  public String getByUser() {
-    return byUserProperty().get();
   }
 
   /**

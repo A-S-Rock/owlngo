@@ -16,8 +16,10 @@ import javafx.scene.layout.Pane;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
+import owlngo.communication.messages.GetLevelStatsRequest;
 import owlngo.communication.messages.LevelInfosNotification;
 import owlngo.communication.messages.LevelSavedNotification;
+import owlngo.communication.messages.LevelStatsNotification;
 import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SendLevelNotification;
@@ -29,18 +31,16 @@ import owlngo.gui.data.DataManager;
 @SuppressFBWarnings("DM_EXIT")
 public class WelcomeScreenController {
 
+  private static boolean isConnected;
+  private final CommunicationManager communicationManager;
+  private final Connection connection;
+  private final DataManager dataManager;
   @FXML Button startRandomGameButton;
   @FXML Button loadEditorButton;
   @FXML Button loadLevelButton;
   @FXML Button exitGameButton;
   @FXML Button highscoreButton;
   @FXML Pane imagePane;
-
-  private static boolean isConnected;
-
-  private final CommunicationManager communicationManager;
-  private final Connection connection;
-  private final DataManager dataManager;
 
   /** Initializes the controller to use the socket given by the client. */
   public WelcomeScreenController() {
@@ -80,6 +80,8 @@ public class WelcomeScreenController {
       handleSendLevelNotification(levelNotification);
     } else if (message instanceof final LevelSavedNotification levelSavedNotification) {
       handleLevelSavedNotification(levelSavedNotification);
+    } else if (message instanceof final LevelStatsNotification levelStatsNotification) {
+      handleLevelStatsNotification(levelStatsNotification);
     } else {
       throw new AssertionError("Unknown message type!");
     }
@@ -103,10 +105,15 @@ public class WelcomeScreenController {
     dataManager.setLevelContent(level);
   }
 
-  private void handleLevelSavedNotification(LevelSavedNotification levelSavedNotification) {
-    final String levelName = levelSavedNotification.getLevelName();
+  private void handleLevelSavedNotification(LevelSavedNotification message) {
+    final String levelName = message.getLevelName();
 
     Platform.runLater(() -> createSaveSuccessAlert(levelName));
+  }
+
+  private void handleLevelStatsNotification(LevelStatsNotification message) {
+    final List<List<String>> receivedLevelStats = message.getLevelStats();
+    dataManager.setLevelStatsContent(receivedLevelStats);
   }
 
   private void createSaveSuccessAlert(String levelName) {
@@ -169,6 +176,13 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            final String username = communicationManager.getUsername();
+            connection.write(new GetLevelStatsRequest(username));
+            try {
+              Thread.sleep(200); // wait a bit to let the server send its files
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/HighscoreScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           }

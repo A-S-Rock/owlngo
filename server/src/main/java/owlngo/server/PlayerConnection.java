@@ -7,14 +7,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import owlngo.communication.Connection;
+import owlngo.communication.messages.GetLevelStatsRequest;
 import owlngo.communication.messages.LevelInfosNotification;
 import owlngo.communication.messages.LevelSavedNotification;
+import owlngo.communication.messages.LevelStatsNotification;
 import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.messages.SendLevelNotification;
 import owlngo.communication.savefiles.LevelSavefile;
+import owlngo.communication.savefiles.LevelStatsSavefile;
 import owlngo.game.level.Level;
 
 /**
@@ -25,8 +28,8 @@ import owlngo.game.level.Level;
 public class PlayerConnection implements Closeable {
 
   private final String username;
-  private Connection connection;
   private final SavefileManager manager;
+  private Connection connection;
 
   /**
    * Creates a player connection to the client with a managementlink to the savefiles.
@@ -55,6 +58,8 @@ public class PlayerConnection implements Closeable {
       handleLoadLevelRequest(loadRequest);
     } else if (message instanceof final SaveLevelRequest saveRequest) {
       handleSaveLevelRequest(saveRequest);
+    } else if (message instanceof GetLevelStatsRequest) {
+      handleGetLevelStatsRequest();
     } else {
       throw new AssertionError("Invalid communication.");
     }
@@ -88,6 +93,26 @@ public class PlayerConnection implements Closeable {
 
     manager.writeLevelSavefile(levelName, author, level);
     connection.write(new LevelSavedNotification(levelName));
+  }
+
+  private void handleGetLevelStatsRequest() {
+    final Map<String, LevelStatsSavefile> savedStats = manager.getSavedStats();
+    final List<List<String>> levelStats = new ArrayList<>();
+
+    for (LevelStatsSavefile statsSavefile : savedStats.values()) {
+      final String levelName = statsSavefile.getLevelName();
+      final String triesString = String.valueOf(statsSavefile.getTries());
+      final String completionsString = String.valueOf(statsSavefile.getCompletions());
+      final String bestTime = statsSavefile.getBestTime();
+      final String byUser = statsSavefile.getByUser();
+
+      List<String> levelStatsRecord =
+          List.of(levelName, triesString, completionsString, bestTime, byUser);
+      levelStats.add(levelStatsRecord);
+    }
+
+    final LevelStatsNotification notification = new LevelStatsNotification(levelStats);
+    connection.write(notification);
   }
 
   void send(Message message) {
