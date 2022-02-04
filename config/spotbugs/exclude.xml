@@ -21,6 +21,10 @@
     <Class name="owlngo.gui.data.LoadLevelRecord"/>
   </Match>
   <Match>
+    <Bug pattern="EI_EXPOSE_REP"/>
+    <Class name="owlngo.gui.data.LevelStatsRecord"/>
+  </Match>
+  <Match>
     <Bug pattern="MS_EXPOSE_REP"/>
     <Class name="owlngo.gui.data.DataManager"/>
   </Match>
