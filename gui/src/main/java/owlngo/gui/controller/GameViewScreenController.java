@@ -35,7 +35,6 @@ public class GameViewScreenController {
 
   @FXML
   void initialize() {
-
     gamePane.getChildren().addAll(createGameNode(game));
     Task<Void> task =
         new Task<>() {
