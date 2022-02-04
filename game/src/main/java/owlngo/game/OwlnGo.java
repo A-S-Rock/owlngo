@@ -99,6 +99,8 @@ public class OwlnGo {
     }
   }
 
+  // Basic movement
+
   /** Moves the player one step to the right. */
   private void moveBasicRight() {
     if (!gameState.isGameRunning()) {
@@ -147,6 +149,8 @@ public class OwlnGo {
     checkWinningConditions(move);
   }
 
+  // Falling
+
   /** Lets the player fall only a single step. */
   private void moveSingleStepFall() {
     final Player player = gameState.getPlayer();
@@ -175,6 +179,8 @@ public class OwlnGo {
       }
     }
   }
+
+  // Advanced movement for GUI purposes.
 
   /** Lets the player walk/fly left. */
   public void moveLeft() throws InterruptedException {
@@ -220,6 +226,8 @@ public class OwlnGo {
       Thread.sleep(300);
     }
   }
+
+  // Diagonal movement.
 
   /** Lets the player jump right up and fall down or fly diagonaly up right. */
   public void moveUpRight() throws InterruptedException {
@@ -277,15 +285,17 @@ public class OwlnGo {
     }
   }
 
+  // Checking methods.
+
   /** Returns the Coordinate below the Player. */
-  Coordinate getActualCoordinateBelowPlayer() {
+  private Coordinate getActualCoordinateBelowPlayer() {
     final Player player = gameState.getPlayer();
     final int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() + 1;
     return Coordinate.of(rowBelowPlayer, player.getCoordinate().getColumn());
   }
 
   /** Checks for a GROUND-object below the player. */
-  boolean checkForGroundBelowOwl() {
+  private boolean checkForGroundBelowOwl() {
     final ObjectInGame objectBelow =
         gameState.getLevel().getObjectInGameAt(getActualCoordinateBelowPlayer());
     return objectBelow.getType() == ObjectType.GROUND;
