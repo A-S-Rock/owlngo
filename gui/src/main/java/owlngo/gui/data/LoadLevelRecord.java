@@ -3,8 +3,15 @@ package owlngo.gui.data;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-/** This class is used to get a data model for the load level table view. */
+/**
+ * This class is used to get a data model for the load level table view. See <a
+ * href="https://openjfx.io/javadoc/17/javafx.controls/javafx/scene/control/TableView.html">JavaFX
+ * doc for TableView</a>.
+ */
 public final class LoadLevelRecord {
+
+  // Level name.
+
   private StringProperty levelName;
 
   public void setLevelName(String value) {
@@ -26,6 +33,8 @@ public final class LoadLevelRecord {
     }
     return levelName;
   }
+
+  // Author.
 
   private StringProperty author;
 
