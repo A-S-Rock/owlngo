@@ -5,13 +5,16 @@ import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
 import java.io.IOException;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
+import owlngo.communication.messages.GetLevelStatsRequest;
 import owlngo.communication.messages.LevelInfosNotification;
 import owlngo.communication.messages.LevelSavedNotification;
+import owlngo.communication.messages.LevelStatsNotification;
 import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.messages.SendLevelNotification;
+import owlngo.communication.messages.UpdateLevelStatsRequest;
 import owlngo.game.level.objects.LevelObject;
 import owlngo.game.level.objects.ObjectInGame;
 import owlngo.game.level.objects.Player;
@@ -27,10 +30,13 @@ public final class MessageCoder {
                   .withSubtype(LoadLevelInfosRequest.class, "LoadLevelInfosRequest")
                   .withSubtype(LoadLevelRequest.class, "LoadLevelRequest")
                   .withSubtype(SaveLevelRequest.class, "SaveLevelRequest")
+                  .withSubtype(UpdateLevelStatsRequest.class, "UpdateLevelStatsRequest")
+                  .withSubtype(GetLevelStatsRequest.class, "GetLevelStatsRequest")
                   .withSubtype(ConnectedNotification.class, "ConnectedNotification")
                   .withSubtype(LevelInfosNotification.class, "LevelNamesNotification")
                   .withSubtype(SendLevelNotification.class, "SendLevelNotification")
-                  .withSubtype(LevelSavedNotification.class, "LevelSavedNotification"))
+                  .withSubtype(LevelSavedNotification.class, "LevelSavedNotification")
+                  .withSubtype(LevelStatsNotification.class, "LevelStatsNotification"))
           .add(
               PolymorphicJsonAdapterFactory.of(ObjectInGame.class, "objectJsonType")
                   .withSubtype(Player.class, "player")
