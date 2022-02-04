@@ -53,6 +53,8 @@ public class WelcomeScreenController {
                 } catch (IOException e) {
                   System.err.println("Failed to connect to the server!");
                   connection.close();
+                  Platform.exit();
+                  System.exit(0);
                 }
               })
           .start();
