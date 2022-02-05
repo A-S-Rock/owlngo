@@ -1,6 +1,6 @@
 package owlngo.gui.data;
 
-import static owlngo.gui.data.MethodsForElement.OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP;
+import static owlngo.gui.data.MethodsForElement.OBJECT_TYPE__ELEMENT_IN_PLAYFIELD_MAP;
 
 import java.util.List;
 import owlngo.game.level.Coordinate;
@@ -115,7 +115,7 @@ public class ElementsInPlayfield {
         Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
         ObjectType objectType = level.getObjectInGameAt(coordinate).getType();
         ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] =
-            OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP.get(objectType);
+            OBJECT_TYPE__ELEMENT_IN_PLAYFIELD_MAP.get(objectType);
       }
     }
   }
