@@ -1,5 +1,7 @@
 package owlngo.gui.data;
 
+import static owlngo.gui.data.MethodsForElement.OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP;
+
 import java.util.List;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
@@ -85,8 +87,6 @@ public class ElementsInPlayfield {
           LEVEL = LEVEL.withStartAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.END) {
           LEVEL = LEVEL.withFinishAt(coordinate);
-        } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.AIR) {
-          LEVEL = LEVEL.withAirAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
           LEVEL = LEVEL.withAirAt(coordinate);
           // No element is not an element in the game
@@ -114,21 +114,8 @@ public class ElementsInPlayfield {
       for (int rowIndex = 0; rowIndex < maxRows; rowIndex++) {
         Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
         ObjectType objectType = level.getObjectInGameAt(coordinate).getType();
-        if (objectType == ObjectType.AIR) {
-          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.AIR;
-        } else if (objectType == ObjectType.GROUND) {
-          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.GROUND_NO_LAWN;
-        } else if (objectType == ObjectType.FIRE) {
-          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.DANGER;
-        } else if (objectType == ObjectType.FOOD) {
-          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.FOOD;
-        } else if (objectType == ObjectType.PLAYER) {
-          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.OWL;
-        } else if (objectType == ObjectType.START) {
-          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.START;
-        } else if (objectType == ObjectType.FINISH) {
-          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.END;
-        }
+        ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] =
+            OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP.get(objectType);
       }
     }
   }
@@ -160,7 +147,6 @@ public class ElementsInPlayfield {
     GROUND_TOP_RIGHT_LAWN,
     GROUND_LEFT_TOP_RIGHT_LAWN,
     NO_ELEMENT,
-    AIR,
     DANGER,
     FOOD
   }
