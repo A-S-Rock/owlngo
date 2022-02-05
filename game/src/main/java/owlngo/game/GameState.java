@@ -24,12 +24,14 @@ public class GameState {
    *   <li>{@code ONGOING}: if the game is still running.
    *   <li>{@code WIN}: if the player won the game.
    *   <li>{@code LOSE}: if the player lost the game.
+   *   <li>{@code GIVE_UP}: if the player directly gives up.
    * </ul>
    */
   public enum GameStatus {
     ONGOING,
     WIN,
-    LOSE
+    LOSE,
+    GIVE_UP
   }
 
   private final Level level;

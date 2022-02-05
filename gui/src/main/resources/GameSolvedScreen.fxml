@@ -59,6 +59,11 @@
                </font>
             </Button>
             <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="3" GridPane.rowSpan="4" />
+            <Label fx:id="completedTimeLabel" text="PLACEHOLDER_TIME" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="1">
+               <font>
+                  <Font size="31.0" />
+               </font>
+            </Label>
          </children>
       </GridPane>
    </children>

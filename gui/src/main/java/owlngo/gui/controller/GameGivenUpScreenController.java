@@ -17,7 +17,6 @@ public class GameGivenUpScreenController {
   @FXML
   void initialize() {
     retryButton.setOnAction(
-        // TODO: Let the current level restart
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
