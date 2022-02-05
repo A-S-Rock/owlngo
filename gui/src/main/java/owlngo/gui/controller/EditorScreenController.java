@@ -138,34 +138,35 @@ public class EditorScreenController {
     }
   }
 
-  //////////////////////////////////////////////////////////
   @FXML
-  void downloadFromServer()  {
+  void downloadFromServer() {
     System.out.println("downloadFromServer");
     final Connection connection = communicationManager.getConnection();
     final String username = communicationManager.getUsername();
     connection.write(new LoadLevelInfosRequest(username));
-          try {
-              Thread.sleep(200); // wait a bit to let the server send its files
-            } catch (InterruptedException e) {
-              e.printStackTrace();
-            }
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
-            communicationManager.setConnection(connection);
-            ControllerUtils.createScene(null, fxmlLoader);
+    try {
+      Thread.sleep(200); // wait a bit to let the server send its files
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
+    communicationManager.setConnection(connection);
 
-            /*
-            Stage primaryStage = new Stage();
-            Parent root = fxmlLoader.load();
-            primaryStage.setTitle("Owlngo");
-            primaryStage.setScene(new Scene(root));
-            primaryStage.setResizable(true);
-            primaryStage.show();
-            gridPane.getScene().getWindow().hide();
-            */
+    // ControllerUtils.createScene(null, fxmlLoader);
+
+    Stage primaryStage = new Stage();
+    Parent root = null;
+    try {
+      root = fxmlLoader.load();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    primaryStage.setTitle("Owlngo");
+    primaryStage.setScene(new Scene(root));
+    primaryStage.setResizable(true);
+    primaryStage.show();
+    gridPane.getScene().getWindow().hide();
   }
-
-  //////////////////////////////////////////
 
   @FXML
   void loadWelcomeScreen() throws IOException {
