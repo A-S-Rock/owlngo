@@ -1,0 +1,1 @@
+{"savefileType":"LevelStatsSavefile","bestTime":"00:02:70","byUser":"Genit","completions":1,"levelName":"thisIsATest","tries":2}

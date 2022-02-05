@@ -18,6 +18,10 @@ public class DataManager {
   private List<List<String>> levelStatsContent;
   private SimpleStringProperty timeStringProperty;
 
+  private DataManager() {
+    levelNameContent = "DEFAULT";
+  }
+
   /**
    * Instantiates the single instance of the DataManager or returns it if already existant.
    *

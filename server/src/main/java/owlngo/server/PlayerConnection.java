@@ -141,11 +141,12 @@ public class PlayerConnection implements Closeable {
     final int newTries = ++oldTries; // increment oldTries, because level got attempted
 
     final boolean newHasWon = message.getHasWon();
-    final int newCompletions = newHasWon ? ++oldCompletions : oldCompletions;
 
     if (newHasWon) {
 
-      String newTime = message.getTime();
+      final int newCompletions = ++oldCompletions;
+
+      final String newTime = message.getTime();
 
       final SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SS");
       try {
@@ -167,9 +168,11 @@ public class PlayerConnection implements Closeable {
         manager.writeLevelStatsSavefile(
             levelName, newTries, newCompletions, newBestTimeString, newByUser);
       } catch (ParseException e) {
-        // System.err.println("Couldn't read time properly!" + oldBestTime);
+        System.err.println("Couldn't read time properly! " + oldBestTime);
         e.printStackTrace();
       }
+    } else {
+      manager.writeLevelStatsSavefile(levelName, newTries, oldCompletions, oldBestTime, oldByUser);
     }
   }
 
