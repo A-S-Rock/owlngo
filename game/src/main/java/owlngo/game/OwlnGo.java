@@ -193,8 +193,8 @@ public class OwlnGo {
     } else {
       Thread.sleep(300);
       moveContinousFall();
-      getSideConditions().setActiveMovement();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player walk/fly right. */
@@ -207,8 +207,8 @@ public class OwlnGo {
     } else {
       Thread.sleep(300);
       moveContinousFall();
-      getSideConditions().setActiveMovement();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player walk/fly up. */
@@ -221,8 +221,8 @@ public class OwlnGo {
     } else {
       Thread.sleep(300);
       moveContinousFall();
-      getSideConditions().setActiveMovement();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player walk/fly down. */
