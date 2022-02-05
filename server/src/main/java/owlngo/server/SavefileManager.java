@@ -107,9 +107,17 @@ public class SavefileManager {
     createNewStatsForLevel(levelNameDummyLevel3, dummyLevelAuthor);
   }
 
-  // Helper method for new levels
-
-  private void createNewStatsForLevel(String levelName, String username) {
+  /**
+   * Creates a level stat with initial values for tries, completions and best times:<br>
+   * <br>
+   * <code>tries = 0</code>,<br>
+   * <code>completions = 0</code> and<br>
+   * <code>best time = "59:59:99"</code>.
+   *
+   * @param levelName level name for the new level stat
+   * @param username username of the stat creator
+   */
+  public void createNewStatsForLevel(String levelName, String username) {
     writeLevelStatsSavefile(
         levelName, TRIES_NEW_LEVEL, COMPLETIONS_NEW_LEVEL, BEST_TIME_NEW_LEVEL, username);
   }

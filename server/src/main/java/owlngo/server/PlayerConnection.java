@@ -121,16 +121,18 @@ public class PlayerConnection implements Closeable {
     connection.write(notification);
   }
 
-  private void handleUpdateLevelStatsRequest(UpdateLevelStatsRequest message) {
-    final String levelName = message.getLevelName();
+  private void handleUpdateLevelStatsRequest(UpdateLevelStatsRequest newStats) {
+    final String levelName = newStats.getLevelName();
+    final String username = newStats.getUsername();
 
     // Find old data (or generate new if not present)
 
     LevelStatsSavefile statsSavefile = manager.getSavedStats().get(levelName);
     if (statsSavefile == null) {
-      manager.writeLevelStatsSavefile(levelName, 0, 0, "59:59:99", "VOID");
+      manager.createNewStatsForLevel(levelName, username);
       statsSavefile = manager.getSavedStats().get(levelName);
     }
+
     int oldTries = statsSavefile.getTries();
     int oldCompletions = statsSavefile.getCompletions();
     String oldBestTime = statsSavefile.getBestTime();
@@ -138,41 +140,54 @@ public class PlayerConnection implements Closeable {
 
     // Calculate new updated savefile
 
-    final int newTries = ++oldTries; // increment oldTries, because level got attempted
+    // Increment new tries
+    final int newTries = ++oldTries;
 
-    final boolean newHasWon = message.getHasWon();
+    // Check if level has been won -> if true, other stats change!
+    final boolean newHasWon = newStats.getHasWon();
 
     if (newHasWon) {
-
+      // win -> increment completions
       final int newCompletions = ++oldCompletions;
 
-      final String newTime = message.getTime();
+      // Compare times and get the best one.
+      final String newTime = newStats.getTime();
+      final String newBestTimeString = compareAndReturnBestTime(oldBestTime, newTime);
 
-      final SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SS");
-      try {
-        final Date oldTimeDate = formatter.parse(oldBestTime);
-        final Date newTimeDate = formatter.parse(newTime);
-
-        final Date newBestTime;
-        String newByUser;
-        if (newTimeDate.before(oldTimeDate)) {
-          newBestTime = newTimeDate;
-          newByUser = message.getUsername();
-        } else {
-          newBestTime = oldTimeDate;
-          newByUser = oldByUser;
-        }
-
-        final String newBestTimeString = formatter.format(newBestTime);
-
-        manager.writeLevelStatsSavefile(
-            levelName, newTries, newCompletions, newBestTimeString, newByUser);
-      } catch (ParseException e) {
-        System.err.println("Couldn't read time properly! " + oldBestTime);
-        e.printStackTrace();
+      // New best time changes the stat username.
+      String newByUser;
+      if (newBestTimeString.equals(oldBestTime)) {
+        newByUser = oldByUser;
+      } else {
+        newByUser = newStats.getUsername();
       }
+
+      manager.writeLevelStatsSavefile(
+          levelName, newTries, newCompletions, newBestTimeString, newByUser);
+
     } else {
       manager.writeLevelStatsSavefile(levelName, newTries, oldCompletions, oldBestTime, oldByUser);
+    }
+  }
+
+  /** Compares two times and returns the better one. */
+  private String compareAndReturnBestTime(final String oldTime, final String newTime) {
+    final SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SS");
+    try {
+      final Date oldTimeDate = formatter.parse(oldTime);
+      final Date newTimeDate = formatter.parse(newTime);
+
+      final Date newBestTime;
+
+      if (newTimeDate.before(oldTimeDate)) {
+        newBestTime = newTimeDate;
+      } else {
+        newBestTime = oldTimeDate;
+      }
+
+      return formatter.format(newBestTime);
+    } catch (ParseException e) {
+      throw new AssertionError("Couldn't parse times!" + oldTime + ", " + newTime);
     }
   }
 
