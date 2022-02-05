@@ -1,5 +1,7 @@
 package owlngo.gui.controller;
 
+import static owlngo.gui.data.ElementsInPlayfield.setElementsInPlayfieldDependingOnLevelFromDataManager;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -25,6 +27,7 @@ import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import owlngo.communication.Connection;
+import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.game.level.Level;
 import owlngo.gui.data.CommunicationManager;
@@ -53,6 +56,7 @@ public class EditorScreenController {
     leftSplit.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.8));
 
     ElementsInPlayfield.setAllToNoElement(); // Define all Elements
+    setElementsInPlayfieldDependingOnLevelFromDataManager();
     setPanesOnPlayfield();
 
     Platform.runLater(
@@ -134,12 +138,41 @@ public class EditorScreenController {
     }
   }
 
+  //////////////////////////////////////////////////////////
+  @FXML
+  void downloadFromServer()  {
+    System.out.println("downloadFromServer");
+    final Connection connection = communicationManager.getConnection();
+    final String username = communicationManager.getUsername();
+    connection.write(new LoadLevelInfosRequest(username));
+          try {
+              Thread.sleep(200); // wait a bit to let the server send its files
+            } catch (InterruptedException e) {
+              e.printStackTrace();
+            }
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
+            communicationManager.setConnection(connection);
+            ControllerUtils.createScene(null, fxmlLoader);
+
+            /*
+            Stage primaryStage = new Stage();
+            Parent root = fxmlLoader.load();
+            primaryStage.setTitle("Owlngo");
+            primaryStage.setScene(new Scene(root));
+            primaryStage.setResizable(true);
+            primaryStage.show();
+            gridPane.getScene().getWindow().hide();
+            */
+  }
+
+  //////////////////////////////////////////
+
   @FXML
   void loadWelcomeScreen() throws IOException {
     Stage primaryStage = new Stage();
-    FXMLLoader fxmlLoaderWellcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
+    FXMLLoader fxmlLoaderWelcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
 
-    Parent root = fxmlLoaderWellcome.load();
+    Parent root = fxmlLoaderWelcome.load();
     primaryStage.setTitle("Owlngo");
     primaryStage.setScene(new Scene(root));
     primaryStage.setResizable(true);

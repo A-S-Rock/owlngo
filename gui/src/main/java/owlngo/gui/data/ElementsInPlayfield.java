@@ -3,6 +3,7 @@ package owlngo.gui.data;
 import java.util.List;
 import owlngo.game.level.Coordinate;
 import owlngo.game.level.Level;
+import owlngo.game.level.objects.ObjectInGame.ObjectType;
 
 /** The class stores all elements of the gamefield and provides utilities for them. */
 public class ElementsInPlayfield {
@@ -73,7 +74,6 @@ public class ElementsInPlayfield {
 
   /** Sets the level based on the information of the array. */
   public static void setLevelForGameDependingOnElementsInPlayfield() {
-
     for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
         Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
@@ -89,6 +89,7 @@ public class ElementsInPlayfield {
           LEVEL = LEVEL.withAirAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.NO_ELEMENT) {
           LEVEL = LEVEL.withAirAt(coordinate);
+          // No element is not an element in the game
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.DANGER) {
           LEVEL = LEVEL.withFireAt(coordinate);
         } else if (ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] == ElementInPlayfield.FOOD) {
@@ -101,6 +102,35 @@ public class ElementsInPlayfield {
   /** Returns the level created for the GUI. */
   public static Level getLevel() {
     return LEVEL.copyOf();
+  }
+
+  /** Sets the information in the array depending on the level in the dataManager. */
+  public static void setElementsInPlayfieldDependingOnLevelFromDataManager() {
+    DataManager manager = DataManager.getInstance();
+    final Level level = manager.getLevelContent();
+    int maxColumns = level.getNumColumns();
+    int maxRows = level.getNumRows();
+    for (int columnIndex = 0; columnIndex < maxColumns; columnIndex++) {
+      for (int rowIndex = 0; rowIndex < maxRows; rowIndex++) {
+        Coordinate coordinate = Coordinate.of(rowIndex, columnIndex);
+        ObjectType objectType = level.getObjectInGameAt(coordinate).getType();
+        if (objectType == ObjectType.AIR) {
+          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.AIR;
+        } else if (objectType == ObjectType.GROUND) {
+          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.GROUND_NO_LAWN;
+        } else if (objectType == ObjectType.FIRE) {
+          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.DANGER;
+        } else if (objectType == ObjectType.FOOD) {
+          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.FOOD;
+        } else if (objectType == ObjectType.PLAYER) {
+          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.OWL;
+        } else if (objectType == ObjectType.START) {
+          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.START;
+        } else if (objectType == ObjectType.FINISH) {
+          ELEMENTS_IN_PLAYFIELD[rowIndex][columnIndex] = ElementInPlayfield.END;
+        }
+      }
+    }
   }
 
   /**

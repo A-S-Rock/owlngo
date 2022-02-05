@@ -31,6 +31,11 @@
                         <Insets left="10.0" />
                      </VBox.margin>
                   </Button>
+                  <Button fx:id="backToEditorButton" mnemonicParsing="false" prefHeight="80.0" prefWidth="250.0" text="Editor">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Button>
                   <Label focusTraversable="false" mouseTransparent="true" prefHeight="40.0" prefWidth="250.0" text="Selected level:">
                      <VBox.margin>
                         <Insets left="10.0" />
@@ -42,7 +47,7 @@
                         <Insets top="230.0" />
                      </padding>
                   </Label>
-                  <Label fx:id="selectedLevelLabel" alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" mouseTransparent="true" prefHeight="250.0" prefWidth="250.0" text="None" wrapText="true">
+                  <Label fx:id="selectedLevelLabel" alignment="TOP_LEFT" contentDisplay="CENTER" focusTraversable="false" mouseTransparent="true" prefHeight="235.0" prefWidth="250.0" text="None" wrapText="true">
                      <VBox.margin>
                         <Insets bottom="5.0" left="10.0" top="5.0" />
                      </VBox.margin>

@@ -34,6 +34,7 @@ public class LoadLevelScreenController {
   @FXML AnchorPane root;
   @FXML Button backToWelcomeScreenButton;
   @FXML Button playSelectedButton;
+  @FXML Button backToEditorButton;
   @FXML TableView<LoadLevelRecord> tableView;
   @FXML TableColumn<LoadLevelRecord, String> levelNameColumn;
   @FXML TableColumn<LoadLevelRecord, String> authorColumn;
@@ -52,6 +53,12 @@ public class LoadLevelScreenController {
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
           ControllerUtils.createScene(event, fxmlLoader);
         });
+    backToEditorButton.setOnAction(
+        event -> {
+          FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EditorScreen.fxml"));
+          ControllerUtils.createScene(event, fxmlLoader);
+        });
+
     playSelectedButton.textProperty().bindBidirectional(playSelectedButtonState);
     playSelectedButton.setOnAction(this::playLevelAction);
 
@@ -75,6 +82,7 @@ public class LoadLevelScreenController {
 
   private void playLevelAction(ActionEvent event) {
     final String selectedLevel = selectedLevelLabel.textProperty().getValue();
+
     if (selectedLevel.equals("None")) {
       throw new AssertionError("Button shouldn't be clickable when no level is selected!");
     } else {
