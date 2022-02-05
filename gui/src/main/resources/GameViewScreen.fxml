@@ -36,7 +36,17 @@
                               <Font size="36.0" />
                            </font>
                         </Button>
+                        <Label text="Flight endurance:">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
                         <ProgressBar fx:id="enduranceBar" prefHeight="30.0" prefWidth="380.0" progress="1.0" />
+                        <Label fx:id="timerLabel" text="PLACEHOLDER_TIMER">
+                           <font>
+                              <Font size="29.0" />
+                           </font>
+                        </Label>
                      </children>
                   </VBox>
                </children>

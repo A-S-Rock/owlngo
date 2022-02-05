@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi;
 import com.squareup.moshi.adapters.PolymorphicJsonAdapterFactory;
 import java.io.IOException;
 import owlngo.communication.savefiles.LevelSavefile;
+import owlngo.communication.savefiles.LevelStatsSavefile;
 import owlngo.communication.savefiles.Savefile;
 import owlngo.game.level.objects.LevelObject;
 import owlngo.game.level.objects.ObjectInGame;
@@ -16,7 +17,8 @@ public final class SavefileCoder {
       new Moshi.Builder()
           .add(
               PolymorphicJsonAdapterFactory.of(Savefile.class, "savefileType")
-                  .withSubtype(LevelSavefile.class, "LevelSavefile"))
+                  .withSubtype(LevelSavefile.class, "LevelSavefile")
+                  .withSubtype(LevelStatsSavefile.class, "LevelStatsSavefile"))
           .add(
               PolymorphicJsonAdapterFactory.of(ObjectInGame.class, "objectJsonType")
                   .withSubtype(Player.class, "player")

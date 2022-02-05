@@ -11,7 +11,7 @@ format. Used library for this are moshi and moshi-adapter, ver. 1.13.0
 
 ### Level JSON representation
 
-To save Level objects in an appropriate way a special `LevelJSON` class has been introduced.
+To save Level objects in an appropriate way a special `LevelJson` class has been introduced.
 
    ```java 
    {"numCols":<NUM_COLS>,"numRows":<NUM_ROWS>,"objectsInGame":<OBJECTS_IN_GAME>}
@@ -19,7 +19,7 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
 
 - `int <NUM_COLS>`: Number of columns in the level.
 - `int <NUM_ROWS>`: Number of rows in the level.
-- `List<ObjectInGameJson> <OBJECTS_IN_GAME>`: JSON representation of all objects present in the
+- `ListJson<ObjectInGameJson> <OBJECTS_IN_GAME>`: JSON representation of all objects present in the
   level.<br><br>
 
   To represent an object in-game (`ObjectInGameJson`) in JSON:
@@ -28,14 +28,14 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
    ```
     - `enum <OBJECT_TYPE>`: Type of object (currently `"NONE"`, `"AIR"`, `"GROUND"`, `"PLAYER"`
       , `"START"`, `"FINISH"`).
-    - `CoordinateJSON <COORDINATE>`: JSON representation of a coordinate in the level<br><br>
+    - `CoordinateJson <COORDINATE>`: JSON representation of a coordinate in the level<br><br>
 
   If the object is a moveable object like a player, (`ObjectInGameJson`) in JSON is extended:
    ```json lines
    {"objectJsonType":<OBJECT_JSON_TYPE>,"objectType":<OBJECT_TYPE>,"coordinate":<COORDINATE>,
   "possibleMoves":<POSSIBLE_MOVES>}
    ```
-    - `List<MoveJson> <POSSIBLE_MOVES>`: JSON representation of moves the moveable object can
+    - `ListJson<MoveJson> <POSSIBLE_MOVES>`: JSON representation of moves the moveable object can
       make.<br><br>
 
   `MoveJson` in JSON:
@@ -44,7 +44,7 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
    {"moveType": <MOVE_TYPE>,"newCoordinate": <NEW_COORDINATE>}
    ```
     - `enum <MOVE_TYPE>`: Type of move (currently `"LEFT"`, `"RIGHT"`, `"JUMP"`, `"FALL"`).
-    - `CoordinateJSON <NEW_COORDINATE>`: JSON representation of the new coordinate after the
+    - `CoordinateJson <NEW_COORDINATE>`: JSON representation of the new coordinate after the
       move.<br><br>
 
   `CoordinateJson` in JSON:
@@ -83,16 +83,27 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
    {"messageType":"SaveLevelRequest","author":<AUTHOR>,"level":<LEVEL>,"levelName":<LEVEL_NAME>}
    ```
     - `String <AUTHOR>`: the level creator's name
-    - `LevelJSON <LEVEL>`: JSON representation of the level object to be saved (see previous
-      description of `LevelJSON`)
+    - `LevelJson <LEVEL>`: JSON representation of the level object to be saved (see previous
+      description of `LevelJson`)
     - `String <LEVEL_NAME>`: the name given to the level<br><br>
-
-#### Upcoming
 
 5. `UpdateLevelStatsRequest`: Requests the Server to update the current level's stats like
    highscores, number of tries etc.
 
+    ```json lines
+   {"messageType":"UpdateLevelStatsRequest","levelName":<LEVEL_NAME>,"hasWon":<HAS_WON>,
+   "time": <TIME>,"username": <username>}
+   ```
+    - `String <LEVEL_NAME>`: Name of level.
+    - `boolean <HAS_WON>`: Increments completions if player has won.
+    - `String <TIME>`: Time of completion (if HAS_WON is true).
+    - `String <USERNAME>`: Name of the playing user.<br><br>
+
 6. `GetLevelStatsRequest`: Calling all level's stats from the Server.
+    ```json lines
+   {"messageType":"GetLevelStatsRequest","playerName":<PLAYER_NAME>}
+   ```
+    - `String <PLAYER_NAME>`: the client's (player's) name<br><br>
 
 ***
 
@@ -108,7 +119,7 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
    ```json lines
    {"messageType":"LevelInfosNotification","levelInfos":<LEVEL_INFOS>}
    ```
-    - `ListJSON<ListJSON<String>> <LEVEL_INFOS>`: JSON representation of all saved level's
+    - `ListJson<ListJson<String>> <LEVEL_INFOS>`: JSON representation of all saved level's
       infos.<br><br>
 
 3. `SendLevelNotification`: Sending the requested level layout to the Server.
@@ -116,19 +127,19 @@ To save Level objects in an appropriate way a special `LevelJSON` class has been
    {"messageType":"SendLevelNotification","levelName":<LEVEL_NAME>,"level":<LEVEL>}
    ```
     - `String <LEVEL_NAME>`: Loaded level's name.
-    - `LevelJSON <LEVEL>`: Loaded level's layout (see previous description of `LevelJSON`).<br><br>
+    - `LevelJson <LEVEL>`: Loaded level's layout (see previous description of `LevelJSON`).<br><br>
 
 4. `LevelSavedNotification`: Confirmation message if level layout has been saved successfully.
    ```json lines
    {"messageType":"LevelSavedNotification","levelName":<LEVEL_NAME>}
    ```
-    - `String <LEVEL_NAME>`: Loaded level's name.
+    - `String <LEVEL_NAME>`: Loaded level's name.<br><br>
 
-#### Upcoming
-
-5. `LevelStatsUpdatedNotification`: Confirmation message that level stats have been updated.
-
-6. `LevelStatsNotification`: Returns the saved level stats to the Client
+5. `LevelStatsNotification`: Updates all level stats to the Client for highscores
+    ```json lines
+   {"messageType":"LevelStatsNotification","levelStats":<LEVEL_STATS>}
+   ```
+    - `ListJson<ListJson<String>> <LEVEL_STATS>`: level's stats in String representation.
 
 ***
 
@@ -145,12 +156,19 @@ savefiles structure. As before, moshi ver. 1.13.0 is used here as well.
     - `String <LEVEL_NAME>`: Saved level's name (also file name).
     - `String <AUTHOR>`: Creator of the saved level.
     - `LevelJSON <LEVEL>`: Level's layout (see previous description of `LevelJSON`) consisting of
-      background elements (air) and interaction elements (ground, player, start, finish etc.).
+      background elements (air) and interaction elements (ground, player, start, finish etc.)
+      .<br><br>
 
-#### Upcoming
-
-2. `UsersSavefileEntry`: .txt savefile for users joined on the server (maybe with credentials)
-
-3. `LevelStatsSavefileEntry`: .txt savefile for level stats like highscores etc.
+2. `LevelStatsSavefile`: .txt savefile for level stats like highscores etc.
+    ```json lines
+   {"dataType":"LevelStatsSavefile","levelName":<LEVEL_NAME>,"tries":<TRIES>,
+   "completions":<COMPLETIONS>,"bestTime": <BEST_TIME>,"byUser": <BY_USER>}
+   ```
+    - `String <LEVEL_NAME>`: Name of level (also incorporated in file name).
+    - `int <TRIES>`: Number of tries in the level (incomplete, won or lost).
+    - `int <COMPLETIONS>`: Number of wins on the level.
+    - `String <BEST_TIME>`: String representation of the best time. Will be converted to Date if
+      compared to each other
+    - `String <BY_USER>`: User with the best time.
 
 [here]: https://search.maven.org/artifact/com.squareup.moshi/moshi/1.13.0/jar 

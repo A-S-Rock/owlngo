@@ -4,7 +4,6 @@ import static owlngo.gui.data.ElementsInPlayfield.setElementsInPlayfieldDependin
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -107,12 +106,8 @@ public class EditorScreenController {
           printWriter.print(sum);
           printWriter.println();
         }
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-        System.err.println("FileNotFoundException in saveElementsInPlayfield()");
       } catch (IOException e) {
         e.printStackTrace();
-        System.err.println("IOException in saveElementsInPlayfield()");
       }
     }
   }
@@ -183,17 +178,23 @@ public class EditorScreenController {
 
   @FXML
   void uploadToServer() {
-    TextInputDialog levelNameInput = createTextInputDialog();
+    if (owlElementInElementsOfPlayfield()
+        && startElementInElementsInPlayfield()
+        && endElementInElementsOfPlayfield()) {
+      TextInputDialog levelNameInput = createTextInputDialog();
 
-    final String levelName = levelNameInput.getResult();
-    if (levelName == null || levelName.trim().equals("")) {
-      return;
+      final String levelName = levelNameInput.getResult();
+      if (levelName == null || levelName.trim().equals("")) {
+        return;
+      }
+      final String author = communicationManager.getUsername();
+      final Connection connection = communicationManager.getConnection();
+      ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
+      final Level level = ElementsInPlayfield.getLevel();
+      connection.write(new SaveLevelRequest(author, levelName, level));
+    } else {
+      JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
     }
-    final String author = communicationManager.getUsername();
-    final Connection connection = communicationManager.getConnection();
-    ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
-    final Level level = ElementsInPlayfield.getLevel();
-    connection.write(new SaveLevelRequest(author, levelName, level));
   }
 
   private TextInputDialog createTextInputDialog() {
@@ -247,8 +248,6 @@ public class EditorScreenController {
   private void setResetElement(Pane pane, int row, int column) {
     if (ElementsInPlayfield.getElement(row, column)
         == ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT) {
-      // set
-
       if (MethodsForElement.validKey(StoreLastKey.getLastKeyPressedAsString())) {
         // set in elementsInPlayfield the elementInPlayfield depending on the key pressed
         final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
@@ -260,7 +259,6 @@ public class EditorScreenController {
       setBackgroundOfPaneDependingOnContent(pane, row, column);
 
     } else {
-      // reset
       // set in elementsInPlayfield the elementInPlayfield to noElement
       final ElementsInPlayfield.ElementInPlayfield elementInPlayfield =
           ElementsInPlayfield.ElementInPlayfield.NO_ELEMENT;

@@ -2,19 +2,26 @@ package owlngo.server;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import owlngo.communication.Connection;
+import owlngo.communication.messages.GetLevelStatsRequest;
 import owlngo.communication.messages.LevelInfosNotification;
 import owlngo.communication.messages.LevelSavedNotification;
+import owlngo.communication.messages.LevelStatsNotification;
 import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.messages.SendLevelNotification;
+import owlngo.communication.messages.UpdateLevelStatsRequest;
 import owlngo.communication.savefiles.LevelSavefile;
+import owlngo.communication.savefiles.LevelStatsSavefile;
 import owlngo.game.level.Level;
 
 /**
@@ -25,8 +32,8 @@ import owlngo.game.level.Level;
 public class PlayerConnection implements Closeable {
 
   private final String username;
-  private Connection connection;
   private final SavefileManager manager;
+  private Connection connection;
 
   /**
    * Creates a player connection to the client with a managementlink to the savefiles.
@@ -55,6 +62,10 @@ public class PlayerConnection implements Closeable {
       handleLoadLevelRequest(loadRequest);
     } else if (message instanceof final SaveLevelRequest saveRequest) {
       handleSaveLevelRequest(saveRequest);
+    } else if (message instanceof GetLevelStatsRequest) {
+      handleGetLevelStatsRequest();
+    } else if (message instanceof final UpdateLevelStatsRequest updateStatsRequest) {
+      handleUpdateLevelStatsRequest(updateStatsRequest);
     } else {
       throw new AssertionError("Invalid communication.");
     }
@@ -88,6 +99,96 @@ public class PlayerConnection implements Closeable {
 
     manager.writeLevelSavefile(levelName, author, level);
     connection.write(new LevelSavedNotification(levelName));
+  }
+
+  private void handleGetLevelStatsRequest() {
+    final Map<String, LevelStatsSavefile> savedStats = manager.getSavedStats();
+    final List<List<String>> levelStats = new ArrayList<>();
+
+    for (LevelStatsSavefile statsSavefile : savedStats.values()) {
+      final String levelName = statsSavefile.getLevelName();
+      final String triesString = String.valueOf(statsSavefile.getTries());
+      final String completionsString = String.valueOf(statsSavefile.getCompletions());
+      final String bestTime = statsSavefile.getBestTime();
+      final String byUser = statsSavefile.getByUser();
+
+      List<String> levelStatsRecord =
+          List.of(levelName, triesString, completionsString, bestTime, byUser);
+      levelStats.add(levelStatsRecord);
+    }
+
+    final LevelStatsNotification notification = new LevelStatsNotification(levelStats);
+    connection.write(notification);
+  }
+
+  private void handleUpdateLevelStatsRequest(UpdateLevelStatsRequest newStats) {
+    final String levelName = newStats.getLevelName();
+    final String username = newStats.getUsername();
+
+    // Find old data (or generate new if not present)
+
+    LevelStatsSavefile statsSavefile = manager.getSavedStats().get(levelName);
+    if (statsSavefile == null) {
+      manager.createNewStatsForLevel(levelName, username);
+      statsSavefile = manager.getSavedStats().get(levelName);
+    }
+
+    int oldTries = statsSavefile.getTries();
+    int oldCompletions = statsSavefile.getCompletions();
+    String oldBestTime = statsSavefile.getBestTime();
+    String oldByUser = statsSavefile.getByUser();
+
+    // Calculate new updated savefile
+
+    // Increment new tries
+    final int newTries = ++oldTries;
+
+    // Check if level has been won -> if true, other stats change!
+    final boolean newHasWon = newStats.getHasWon();
+
+    if (newHasWon) {
+      // win -> increment completions
+      final int newCompletions = ++oldCompletions;
+
+      // Compare times and get the best one.
+      final String newTime = newStats.getTime();
+      final String newBestTimeString = compareAndReturnBestTime(oldBestTime, newTime);
+
+      // New best time changes the stat username.
+      String newByUser;
+      if (newBestTimeString.equals(oldBestTime)) {
+        newByUser = oldByUser;
+      } else {
+        newByUser = newStats.getUsername();
+      }
+
+      manager.writeLevelStatsSavefile(
+          levelName, newTries, newCompletions, newBestTimeString, newByUser);
+
+    } else {
+      manager.writeLevelStatsSavefile(levelName, newTries, oldCompletions, oldBestTime, oldByUser);
+    }
+  }
+
+  /** Compares two times and returns the better one. */
+  private String compareAndReturnBestTime(final String oldTime, final String newTime) {
+    final SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SS");
+    try {
+      final Date oldTimeDate = formatter.parse(oldTime);
+      final Date newTimeDate = formatter.parse(newTime);
+
+      final Date newBestTime;
+
+      if (newTimeDate.before(oldTimeDate)) {
+        newBestTime = newTimeDate;
+      } else {
+        newBestTime = oldTimeDate;
+      }
+
+      return formatter.format(newBestTime);
+    } catch (ParseException e) {
+      throw new AssertionError("Couldn't parse times!" + oldTime + ", " + newTime);
+    }
   }
 
   void send(Message message) {

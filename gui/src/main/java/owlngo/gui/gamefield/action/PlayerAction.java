@@ -43,107 +43,110 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
   @Override
   public void handle(KeyEvent event) {
 
-    String pressedKey = event.getText();
-
-    if (pressedKey.equals("a")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveLeft();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("w")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveUp();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("d")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveRight();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("e")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveUpRight();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("q")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveUpLeft();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("f")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.getSideConditions().setInFlightMode();
-                  game.moveContinousFall();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("c")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveDownRight();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("x")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveDown();
-                  return null;
-                }
-              })
-          .start();
-    }
-    if (pressedKey.equals("y")) {
-      new Thread(
-              new Task<Void>() {
-                @Override
-                protected Void call() throws InterruptedException {
-                  game.moveDownLeft();
-                  return null;
-                }
-              })
-          .start();
+    if (!game.getSideConditions().isActiveMovement()) {
+      String pressedKey = event.getText();
+      if (pressedKey.equals("a")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveLeft();
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("w")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveUp();
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("d")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveRight();
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("e")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveUpRight();
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("q")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveUpLeft();
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("f")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.getSideConditions().setInFlightMode();
+                    if (!game.getSideConditions().isInFlightMode()) {
+                      game.moveContinousFall();
+                    }
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("c")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveDownRight();
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("x")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveDown();
+                    return null;
+                  }
+                })
+            .start();
+      }
+      if (pressedKey.equals("y")) {
+        new Thread(
+                new Task<Void>() {
+                  @Override
+                  protected Void call() throws InterruptedException {
+                    game.moveDownLeft();
+                    return null;
+                  }
+                })
+            .start();
+      }
     }
   }
 }
