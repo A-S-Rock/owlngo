@@ -23,6 +23,10 @@ import owlngo.game.level.Level;
 /** Manages creating and loading savefiles for levels, highscores and more. */
 public class SavefileManager {
 
+  private static final int TRIES_NEW_LEVEL = 0;
+  private static final int COMPLETIONS_NEW_LEVEL = 0;
+  private static final String BEST_TIME_NEW_LEVEL = "59:59:99";
+
   private static final Path SAVEFILE_LEVEL_PATH = Paths.get("src/main/resources/savefiles/level");
   private static final Path SAVEFILE_STATS_PATH = Paths.get("src/main/resources/savefiles/stats");
 
@@ -94,13 +98,20 @@ public class SavefileManager {
     dummyLevel3 = dummyLevel3.withFireAt(Coordinate.of(28, 5));
 
     writeLevelSavefile(levelNameDummyLevel1, dummyLevelAuthor, dummyLevel1);
-    writeLevelStatsSavefile(levelNameDummyLevel1, 0, 0, "59:59:99", dummyLevelAuthor);
+    createNewStatsForLevel(levelNameDummyLevel1, dummyLevelAuthor);
 
     writeLevelSavefile(levelNameDummyLevel2, dummyLevelAuthor, dummyLevel2);
-    writeLevelStatsSavefile(levelNameDummyLevel2, 0, 0, "59:59:99", dummyLevelAuthor);
+    createNewStatsForLevel(levelNameDummyLevel2, dummyLevelAuthor);
 
     writeLevelSavefile(levelNameDummyLevel3, dummyLevelAuthor, dummyLevel3);
-    writeLevelStatsSavefile(levelNameDummyLevel3, 0, 0, "59:59:99", dummyLevelAuthor);
+    createNewStatsForLevel(levelNameDummyLevel3, dummyLevelAuthor);
+  }
+
+  // Helper method for new levels
+
+  private void createNewStatsForLevel(String levelName, String username) {
+    writeLevelStatsSavefile(
+        levelName, TRIES_NEW_LEVEL, COMPLETIONS_NEW_LEVEL, BEST_TIME_NEW_LEVEL, username);
   }
 
   // Updating methods for level saves.
@@ -197,6 +208,11 @@ public class SavefileManager {
       BufferedWriter writer =
           new BufferedWriter(new FileWriter(file.getAbsoluteFile(), StandardCharsets.UTF_8));
       writer.write(savefileJson);
+
+      if (!savedLevels.containsKey(levelName)) {
+        createNewStatsForLevel(levelName, author);
+      }
+
       savedLevels.put(levelName, savefile);
       writer.close();
     } catch (IOException e) {
