@@ -103,6 +103,9 @@ public class WelcomeScreenController {
   private void handleSendLevelNotification(SendLevelNotification message) {
     final Level level = message.getLevel();
     dataManager.setLevelContent(level);
+
+    final String levelName = message.getLevelName();
+    dataManager.setLevelNameContent(levelName);
   }
 
   private void handleLevelSavedNotification(LevelSavedNotification message) {
@@ -191,7 +194,5 @@ public class WelcomeScreenController {
     exitGameButton.setOnAction(event -> System.exit(0));
 
     imagePane.getChildren().add(ControllerUtils.createLogoPane("standard"));
-    Platform.runLater(
-        () -> imagePane.getScene().getWindow().setOnCloseRequest(event -> connection.close()));
   }
 }

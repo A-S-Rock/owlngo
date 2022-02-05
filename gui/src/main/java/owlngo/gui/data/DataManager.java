@@ -13,6 +13,7 @@ public class DataManager {
 
   private static DataManager instance;
   private Level levelContent;
+  private String levelNameContent;
   private List<List<String>> levelNamesContent;
   private List<List<String>> levelStatsContent;
   private SimpleStringProperty timeStringProperty;
@@ -43,6 +44,14 @@ public class DataManager {
 
   public void setLevelContent(Level levelContent) {
     this.levelContent = levelContent;
+  }
+
+  public String getLevelNameContent() {
+    return levelNameContent;
+  }
+
+  public void setLevelNameContent(String levelNameContent) {
+    this.levelNameContent = levelNameContent;
   }
 
   public List<List<String>> getLevelNamesContent() {

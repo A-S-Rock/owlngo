@@ -2,7 +2,10 @@ package owlngo.server;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -16,6 +19,7 @@ import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.communication.messages.Message;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.communication.messages.SendLevelNotification;
+import owlngo.communication.messages.UpdateLevelStatsRequest;
 import owlngo.communication.savefiles.LevelSavefile;
 import owlngo.communication.savefiles.LevelStatsSavefile;
 import owlngo.game.level.Level;
@@ -60,6 +64,8 @@ public class PlayerConnection implements Closeable {
       handleSaveLevelRequest(saveRequest);
     } else if (message instanceof GetLevelStatsRequest) {
       handleGetLevelStatsRequest();
+    } else if (message instanceof final UpdateLevelStatsRequest updateStatsRequest) {
+      handleUpdateLevelStatsRequest(updateStatsRequest);
     } else {
       throw new AssertionError("Invalid communication.");
     }
@@ -113,6 +119,58 @@ public class PlayerConnection implements Closeable {
 
     final LevelStatsNotification notification = new LevelStatsNotification(levelStats);
     connection.write(notification);
+  }
+
+  private void handleUpdateLevelStatsRequest(UpdateLevelStatsRequest message) {
+    final String levelName = message.getLevelName();
+
+    // Find old data (or generate new if not present)
+
+    LevelStatsSavefile statsSavefile = manager.getSavedStats().get(levelName);
+    if (statsSavefile == null) {
+      manager.writeLevelStatsSavefile(levelName, 0, 0, "59:59:99", "VOID");
+      statsSavefile = manager.getSavedStats().get(levelName);
+    }
+    int oldTries = statsSavefile.getTries();
+    int oldCompletions = statsSavefile.getCompletions();
+    String oldBestTime = statsSavefile.getBestTime();
+    String oldByUser = statsSavefile.getByUser();
+
+    // Calculate new updated savefile
+
+    final int newTries = ++oldTries; // increment oldTries, because level got attempted
+
+    final boolean newHasWon = message.getHasWon();
+    final int newCompletions = newHasWon ? ++oldCompletions : oldCompletions;
+
+    if (newHasWon) {
+
+      String newTime = message.getTime();
+
+      final SimpleDateFormat formatter = new SimpleDateFormat("mm:ss:SS");
+      try {
+        final Date oldTimeDate = formatter.parse(oldBestTime);
+        final Date newTimeDate = formatter.parse(newTime);
+
+        final Date newBestTime;
+        String newByUser;
+        if (newTimeDate.before(oldTimeDate)) {
+          newBestTime = newTimeDate;
+          newByUser = message.getUsername();
+        } else {
+          newBestTime = oldTimeDate;
+          newByUser = oldByUser;
+        }
+
+        final String newBestTimeString = formatter.format(newBestTime);
+
+        manager.writeLevelStatsSavefile(
+            levelName, newTries, newCompletions, newBestTimeString, newByUser);
+      } catch (ParseException e) {
+        // System.err.println("Couldn't read time properly!" + oldBestTime);
+        e.printStackTrace();
+      }
+    }
   }
 
   void send(Message message) {

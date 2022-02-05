@@ -64,7 +64,7 @@ public class SavefileManager {
 
   /** Create three new dummy levels including their stats. */
   private void createDummySavefiles() {
-    final String dummyLevelAuthor = "Void";
+    final String dummyLevelAuthor = "VOID";
 
     final String levelNameDummyLevel1 = "dummy1";
     final Level dummyLevel1 = Level.createDemoLevel(10, 10);
@@ -94,13 +94,13 @@ public class SavefileManager {
     dummyLevel3 = dummyLevel3.withFireAt(Coordinate.of(28, 5));
 
     writeLevelSavefile(levelNameDummyLevel1, dummyLevelAuthor, dummyLevel1);
-    writeLevelStatsSavefile(levelNameDummyLevel1, 0, 0, "00:00:00", dummyLevelAuthor);
+    writeLevelStatsSavefile(levelNameDummyLevel1, 0, 0, "59:59:99", dummyLevelAuthor);
 
     writeLevelSavefile(levelNameDummyLevel2, dummyLevelAuthor, dummyLevel2);
-    writeLevelStatsSavefile(levelNameDummyLevel2, 0, 0, "00:00:00", dummyLevelAuthor);
+    writeLevelStatsSavefile(levelNameDummyLevel2, 0, 0, "59:59:99", dummyLevelAuthor);
 
     writeLevelSavefile(levelNameDummyLevel3, dummyLevelAuthor, dummyLevel3);
-    writeLevelStatsSavefile(levelNameDummyLevel3, 0, 0, "00:00:00", dummyLevelAuthor);
+    writeLevelStatsSavefile(levelNameDummyLevel3, 0, 0, "59:59:99", dummyLevelAuthor);
   }
 
   // Updating methods for level saves.

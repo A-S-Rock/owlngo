@@ -18,8 +18,11 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import owlngo.communication.Connection;
+import owlngo.communication.messages.UpdateLevelStatsRequest;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.OwlnGo;
+import owlngo.gui.data.CommunicationManager;
 import owlngo.gui.data.DataManager;
 import owlngo.gui.gamefield.view.GameView;
 import owlngo.gui.gamefield.view.ViewUtils;
@@ -27,14 +30,16 @@ import owlngo.gui.gamefield.view.ViewUtils;
 /** Contoller class for GameViewScreen.fxml. */
 public class GameViewScreenController {
 
+  private final OwlnGo game;
+  private final DataManager dataManager = DataManager.getInstance();
+  private final CommunicationManager communicationManager = CommunicationManager.getInstance();
+  private final Connection connection = communicationManager.getConnection();
+
   @FXML Button backToMainMenuButton;
   @FXML Button giveUpButton;
   @FXML AnchorPane gamePane;
   @FXML ProgressBar enduranceBar;
   @FXML Label timerLabel;
-
-  private final OwlnGo game;
-  private final DataManager dataManager = DataManager.getInstance();
 
   /** Allows the controller to load a different level if possible. */
   public GameViewScreenController() {
@@ -55,9 +60,22 @@ public class GameViewScreenController {
         .addListener(
             ((observable, oldValue, newValue) -> {
               levelTimer.stopTimer();
+
+              final String levelName = dataManager.getLevelNameContent();
+              final String username = communicationManager.getUsername();
+              boolean hasWon;
+              final String currentTime = levelTimer.timeStringProperty.getValue().substring(6);
+
               if (newValue == GameStatus.WIN) {
+                hasWon = true;
                 dataManager.setTimeStringProperty(levelTimer.timeStringProperty());
+              } else {
+                hasWon = false;
               }
+
+              final UpdateLevelStatsRequest updateStatsRequest =
+                  new UpdateLevelStatsRequest(levelName, hasWon, currentTime, username);
+              connection.write(updateStatsRequest);
             }));
 
     backToMainMenuButton.setOnAction(
@@ -127,15 +145,15 @@ public class GameViewScreenController {
     private static final int TIMER_MILLIS = 2;
     private static final int TIMER_REFRESH_RATE = 10;
 
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss:S");
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("mm:ss:SS");
     private final SimpleStringProperty timeStringProperty;
-    private long time;
     private final Timer timer = new Timer("Level time", true);
+    private long time;
     private TimerTask timerTask;
     private boolean timing = false;
 
     public LevelTimer() {
-      timeStringProperty = new SimpleStringProperty("00:00.00");
+      timeStringProperty = new SimpleStringProperty("00:00:00");
     }
 
     public void startTimer(final long time) {
@@ -171,7 +189,7 @@ public class GameViewScreenController {
               + split[TIMER_MINUTES]
               + ":"
               + split[TIMER_SECONDS]
-              + "."
+              + ":"
               + (split[TIMER_MILLIS].length() == 1
                   ? "0" + split[TIMER_MILLIS]
                   : split[TIMER_MILLIS].substring(0, 2)));
