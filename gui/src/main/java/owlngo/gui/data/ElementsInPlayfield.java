@@ -52,13 +52,7 @@ public class ElementsInPlayfield {
    * @param column position on the playfield
    */
   public static boolean isGround(int row, int column) {
-    List<ElementInPlayfield> groundList =
-        List.of(
-            ElementInPlayfield.GROUND_NO_LAWN,
-            ElementInPlayfield.GROUND_TOP_LAWN,
-            ElementInPlayfield.GROUND_LEFT_TOP_LAWN,
-            ElementInPlayfield.GROUND_LEFT_TOP_RIGHT_LAWN,
-            ElementInPlayfield.GROUND_TOP_RIGHT_LAWN);
+    List<ElementInPlayfield> groundList = List.of(ElementInPlayfield.GROUND_NO_LAWN);
     return groundList.contains(ELEMENTS_IN_PLAYFIELD[row][column]);
   }
 
@@ -70,7 +64,7 @@ public class ElementsInPlayfield {
    * @param column position on the playfield
    */
   public static boolean isOwl(int row, int column) {
-    List<ElementInPlayfield> owlList = List.of(ElementInPlayfield.OWL1, ElementInPlayfield.OWL);
+    List<ElementInPlayfield> owlList = List.of(ElementInPlayfield.OWL);
     return owlList.contains(ELEMENTS_IN_PLAYFIELD[row][column]);
   }
 
@@ -125,27 +119,19 @@ public class ElementsInPlayfield {
    *
    * <ul>
    *   <li>{@code OWL}: Owl
-   *   <li>{@code OWL1}: Other picture of the owl
    *   <li>{@code START}: Where the game starts
    *   <li>{@code END}: Position where the game ends
    *   <li>{@code GROUND_NO_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code GROUND_TOP_RIGHT_LAWN}: Ground element
-   *   <li>{@code GROUND_LEFT_TOP_RIGHT_LAWN}: Ground element
    *   <li>{@code NO_ELEMENT}: No element
+   *   <li>{@code DANGER}: Fire
+   *   <li>{@code FOOD}: Makes the owl stronger
    * </ul>
    */
   public enum ElementInPlayfield {
     OWL,
-    OWL1,
     START,
     END,
     GROUND_NO_LAWN,
-    GROUND_TOP_LAWN,
-    GROUND_LEFT_TOP_LAWN,
-    GROUND_TOP_RIGHT_LAWN,
-    GROUND_LEFT_TOP_RIGHT_LAWN,
     NO_ELEMENT,
     DANGER,
     FOOD

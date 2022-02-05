@@ -289,7 +289,7 @@ public class EditorScreenController {
         }
       }
     }
-
+    // number of owls needs to be exactly one
     return countOwls == 1;
   }
 
@@ -303,7 +303,7 @@ public class EditorScreenController {
         }
       }
     }
-
+    // number of start elements needs to be exactly one
     return countStarts == 1;
   }
 
@@ -317,10 +317,11 @@ public class EditorScreenController {
         }
       }
     }
-
+    // number of end elements needs to be exactly one
     return countEnds == 1;
   }
 
+  /*
   private boolean errorInFormat(File fileName) throws IOException {
     FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
     BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -375,6 +376,78 @@ public class EditorScreenController {
         return true;
       }
     }
+    return false;
+  }
+  */
+
+  private boolean errorInFormat(File fileName) throws IOException {
+    FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    boolean wrongFormat = false;
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      String lineInput = bufferedReader.readLine();
+
+      if (lineInput == null) {
+        wrongFormat = true;
+        break;
+      }
+      String[] partOfline = lineInput.split(",");
+      int sum = 0;
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        // the string should not be empty
+        if ((noNumber(partOfline[rowIndex]))) {
+          wrongFormat = true;
+          break;
+        } else if (notAllowedNumber(partOfline[rowIndex])) {
+          wrongFormat = true;
+          break;
+        }
+        // calculate sum
+        int number = Integer.parseInt(partOfline[rowIndex]);
+        sum = sum + number;
+      }
+      if (wrongFormat) {
+        break;
+      }
+
+      String checkSum = partOfline[partOfline.length - 1];
+      if (noNumber(checkSum)) {
+        wrongFormat = true;
+        break;
+      }
+      // test check sum
+      if (sum != Integer.parseInt(checkSum)) {
+        wrongFormat = true;
+        break;
+      }
+    }
+    fileReader.close();
+    bufferedReader.close();
+    return wrongFormat;
+  }
+
+  private boolean notAllowedNumber(String input) {
+    int number = Integer.parseInt(input);
+    if ((number < 0) || (number >= ElementInPlayfield.values().length)) {
+      return true;
+    }
+    return false;
+  }
+
+  private boolean noNumber(String input) {
+    // the string should not be empty
+    if (input.length() == 0) {
+      return true;
+    }
+    // string is only allowed to contain numbers
+    for (int x = 0; x < input.length(); x++) {
+      String letter = input.substring(x, x + 1);
+      // no number
+      if (!letter.matches("[0-9]")) {
+        return true;
+      }
+    }
+
     return false;
   }
 
