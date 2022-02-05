@@ -21,6 +21,7 @@ public class OwlnGo {
   private static final int DEFAULT_NUM_COLS = 30;
   private static final int ENDURANCE = 10;
   private static final boolean IN_FLIGHT_MODE = false;
+  private static final boolean ACTIVE_MOVEMENT = false;
 
   private GameState gameState;
   private final SideConditions sideConditions;
@@ -31,7 +32,7 @@ public class OwlnGo {
    */
   public OwlnGo() {
     gameState = new GameState(DEFAULT_NUM_ROWS, DEFAULT_NUM_COLS);
-    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE, ACTIVE_MOVEMENT);
   }
 
   /**
@@ -40,13 +41,13 @@ public class OwlnGo {
    */
   public OwlnGo(int numRows, int numCols) {
     gameState = new GameState(numRows, numCols);
-    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE, ACTIVE_MOVEMENT);
   }
 
   /** Constructs an Owlngo game instance with a given level and prespecified sideConditions. */
   public OwlnGo(Level level) {
     gameState = new GameState(level);
-    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE);
+    sideConditions = new SideConditions(ENDURANCE, IN_FLIGHT_MODE, ACTIVE_MOVEMENT);
   }
 
   /** Get the current GameState. */
@@ -184,6 +185,7 @@ public class OwlnGo {
 
   /** Lets the player walk/fly left. */
   public void moveLeft() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     final boolean inFlightMode = sideConditions.isInFlightMode();
     Platform.runLater(this::moveBasicLeft);
     if (inFlightMode) {
@@ -192,10 +194,12 @@ public class OwlnGo {
       Thread.sleep(300);
       moveContinousFall();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player walk/fly right. */
   public void moveRight() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     final boolean inFlightMode = sideConditions.isInFlightMode();
     Platform.runLater(this::moveBasicRight);
     if (inFlightMode) {
@@ -204,10 +208,12 @@ public class OwlnGo {
       Thread.sleep(300);
       moveContinousFall();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player walk/fly up. */
   public void moveUp() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     final boolean inFlightMode = sideConditions.isInFlightMode();
     Platform.runLater(this::moveBasicUp);
     if (inFlightMode) {
@@ -216,21 +222,25 @@ public class OwlnGo {
       Thread.sleep(300);
       moveContinousFall();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player walk/fly down. */
   public void moveDown() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicDown);
       sideConditions.decreaseEndurance();
       Thread.sleep(300);
     }
+    getSideConditions().setActiveMovement();
   }
 
   // Diagonal movement.
 
   /** Lets the player jump right up and fall down or fly diagonaly up right. */
   public void moveUpRight() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicRight);
       Thread.sleep(300);
@@ -245,10 +255,12 @@ public class OwlnGo {
       Thread.sleep(300);
       moveContinousFall();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player jump left up and fall down or fly diagonaly up left. */
   public void moveUpLeft() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicLeft);
       Thread.sleep(300);
@@ -263,26 +275,31 @@ public class OwlnGo {
       Thread.sleep(300);
       moveContinousFall();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player fly diagonaly down right. */
   public void moveDownRight() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicRight);
       Thread.sleep(300);
       Platform.runLater(this::moveBasicDown);
       sideConditions.decreaseEndurance();
     }
+    getSideConditions().setActiveMovement();
   }
 
   /** Lets the player fly diagonaly down left. */
   public void moveDownLeft() throws InterruptedException {
+    getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicLeft);
       Thread.sleep(300);
       Platform.runLater(this::moveBasicDown);
       sideConditions.decreaseEndurance();
     }
+    getSideConditions().setActiveMovement();
   }
 
   // Checking methods.

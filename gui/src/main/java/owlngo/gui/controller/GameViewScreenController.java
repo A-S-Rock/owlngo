@@ -48,7 +48,6 @@ public class GameViewScreenController {
 
   @FXML
   void initialize() {
-
     gamePane.getChildren().addAll(createGameNode(game));
 
     final LevelTimer levelTimer = new LevelTimer();

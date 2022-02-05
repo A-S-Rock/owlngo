@@ -5,10 +5,12 @@ public class SideConditions {
 
   private int endurance;
   private boolean inFlightMode;
+  private boolean activeMovement;
 
-  SideConditions(int endurance, boolean inFlightMode) {
+  SideConditions(int endurance, boolean inFlightMode, boolean activeMovement) {
     this.endurance = endurance;
     this.inFlightMode = inFlightMode;
+    this.activeMovement = activeMovement;
   }
 
   public int getEndurance() {
@@ -29,5 +31,13 @@ public class SideConditions {
 
   public void setInFlightMode() {
     this.inFlightMode = !inFlightMode;
+  }
+
+  public boolean isActiveMovement() {
+    return activeMovement;
+  }
+
+  public void setActiveMovement() {
+    this.activeMovement = !activeMovement;
   }
 }
