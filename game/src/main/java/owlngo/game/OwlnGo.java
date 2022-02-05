@@ -17,6 +17,8 @@ import owlngo.game.level.objects.Player;
  */
 public class OwlnGo {
 
+  private static final int ANIMATION_UPDATE_TIME = 100;
+
   private static final int DEFAULT_NUM_ROWS = 30;
   private static final int DEFAULT_NUM_COLS = 30;
   private static final int ENDURANCE = 10;
@@ -173,7 +175,7 @@ public class OwlnGo {
         final Player player = gameState.getPlayer();
         final Move move = player.getFallMove();
         Platform.runLater(this::moveSingleStepFall);
-        Thread.sleep(150);
+        Thread.sleep(ANIMATION_UPDATE_TIME + 50);
         if (move.getNewCoordinate() == player.getCoordinate()) {
           break;
         }
@@ -191,7 +193,7 @@ public class OwlnGo {
     if (inFlightMode) {
       sideConditions.decreaseEndurance();
     } else {
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       moveContinousFall();
     }
     getSideConditions().setActiveMovement();
@@ -205,7 +207,7 @@ public class OwlnGo {
     if (inFlightMode) {
       sideConditions.decreaseEndurance();
     } else {
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       moveContinousFall();
     }
     getSideConditions().setActiveMovement();
@@ -219,7 +221,7 @@ public class OwlnGo {
     if (inFlightMode) {
       sideConditions.decreaseEndurance();
     } else {
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       moveContinousFall();
     }
     getSideConditions().setActiveMovement();
@@ -231,7 +233,7 @@ public class OwlnGo {
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicDown);
       sideConditions.decreaseEndurance();
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
     }
     getSideConditions().setActiveMovement();
   }
@@ -243,16 +245,16 @@ public class OwlnGo {
     getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicRight);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicUp);
       sideConditions.decreaseEndurance();
     } else {
       Platform.runLater(this::moveBasicUp);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicRight);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicRight);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       moveContinousFall();
     }
     getSideConditions().setActiveMovement();
@@ -263,16 +265,16 @@ public class OwlnGo {
     getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicLeft);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicUp);
       sideConditions.decreaseEndurance();
     } else {
       Platform.runLater(this::moveBasicUp);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicLeft);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicLeft);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       moveContinousFall();
     }
     getSideConditions().setActiveMovement();
@@ -283,7 +285,7 @@ public class OwlnGo {
     getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicRight);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicDown);
       sideConditions.decreaseEndurance();
     }
@@ -295,7 +297,7 @@ public class OwlnGo {
     getSideConditions().setActiveMovement();
     if (sideConditions.isInFlightMode()) {
       Platform.runLater(this::moveBasicLeft);
-      Thread.sleep(300);
+      Thread.sleep(ANIMATION_UPDATE_TIME);
       Platform.runLater(this::moveBasicDown);
       sideConditions.decreaseEndurance();
     }
