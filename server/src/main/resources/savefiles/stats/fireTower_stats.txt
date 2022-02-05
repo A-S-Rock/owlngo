@@ -1,0 +1,1 @@
+{"savefileType":"LevelStatsSavefile","bestTime":"00:08:47","byUser":"Genit","completions":1,"levelName":"fireTower","tries":2}

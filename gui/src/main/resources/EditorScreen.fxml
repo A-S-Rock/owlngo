@@ -138,7 +138,7 @@
                                           <Font size="27.0" />
                                        </font>
                                     </Button>
-                                    <Button fx:id="downloadFromServerButton" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="250.0" text="Download from Server">
+                                    <Button fx:id="downloadFromServerButton" disable="true" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="250.0" text="Download from Server">
                                        <font>
                                           <Font size="22.0" />
                                        </font>

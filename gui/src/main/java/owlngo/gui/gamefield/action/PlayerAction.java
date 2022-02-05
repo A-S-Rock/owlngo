@@ -106,7 +106,9 @@ public final class PlayerAction implements EventHandler<KeyEvent> {
                   @Override
                   protected Void call() throws InterruptedException {
                     game.getSideConditions().setInFlightMode();
-                    game.moveContinousFall();
+                    if (!game.getSideConditions().isInFlightMode()) {
+                      game.moveContinousFall();
+                    }
                     return null;
                   }
                 })

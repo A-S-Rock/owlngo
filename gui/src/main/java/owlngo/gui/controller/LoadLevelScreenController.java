@@ -69,6 +69,14 @@ public class LoadLevelScreenController {
             }));
   }
 
+  /** Initiates the level screen with a table of stored levels on the server. */
+  public LoadLevelScreenController() {
+    communicationManager = CommunicationManager.getInstance();
+    connection = communicationManager.getConnection();
+    setupLevelRecords();
+    setupTableView();
+  }
+
   private void sendLoadLevelRequest(String levelName) {
     connection.write(new LoadLevelRequest(communicationManager.getUsername(), levelName));
   }
@@ -90,14 +98,6 @@ public class LoadLevelScreenController {
             ControllerUtils.createScene(event, fxmlLoader);
           });
     }
-  }
-
-  /** Initiates the level screen with a table of stored levels on the server. */
-  public LoadLevelScreenController() {
-    communicationManager = CommunicationManager.getInstance();
-    connection = communicationManager.getConnection();
-    setupLevelRecords();
-    setupTableView();
   }
 
   private void setupLevelRecords() {
