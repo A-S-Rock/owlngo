@@ -6,7 +6,7 @@ play and create new levels.
 We use a server-client-architecture to show and deliver existing levels with their highscores. For
 messages between each other we use the moshi (json) protocol.
 
-### Running the game - prerequisites
+## Running the game - prerequisites
 
 - This project is written with __Java 17__. It should download and install itself on running if not
   present on the user's maschine. If there are problems, please contact us.
@@ -14,7 +14,7 @@ messages between each other we use the moshi (json) protocol.
 - As this project doesn't create a jar to run, you either will need to use the Terminal for running
   Gradle tasks or an IDE to run it interactively.
 
-### Start the server
+## Start the server
 
 __Caution: If the directory and file structure for the server got deleted or corrupted, a server
 restart is required to initialize the savefile structure.__
@@ -25,7 +25,7 @@ restart is required to initialize the savefile structure.__
 
 - *In Terminal*: Use `./gradlew :server:run` to start the server.
 
-### Start the client (must be after the server has started)
+## Start the client (must be after the server has started)
 
 - *In IntelliJ*: Use the gradle task "**owlngo > client > Tasks >
   application > run**".
@@ -33,11 +33,11 @@ restart is required to initialize the savefile structure.__
 
 - *In Terminal*: Use `./gradlew :client:run` to connect the client to the server.
 
-### Controls
+## Controls in the game
 
-**F** - switch between walk mode and flight mode.
+**F** - switch between walk mode and flight mode
 
-#### Flight mode off - endurance bar gray - owl falls down
+### Flight mode off - endurance bar gray - owl falls down
 
 **W** - jump
 
@@ -49,7 +49,7 @@ restart is required to initialize the savefile structure.__
 
 **E** - jup to the right
 
-#### Flight mode on - endurance bar red - owl does not fall down
+### Flight mode on - endurance bar red - owl does not fall down
 
 **W** - fly up
 
@@ -68,11 +68,7 @@ restart is required to initialize the savefile structure.__
 **C** - fly to the right and down
 
 
-The Editor controls are described in its window.
-
-***
-
-What we have so far (and what's coming next)
+##What we have so far (and what's coming next)
 
 - [x] created a simple server-client-architecture (but not used right now)
 - [x] created a game model handling the whole game
@@ -80,7 +76,9 @@ What we have so far (and what's coming next)
   screen at the end)
 - [x] added network communication protocol in docs/ [here](docs/network_communication_protocol.md)
 - [ ] added animations to all moves
-- [ ] added a timer and some controls to the gameplay screen
+- [x] added a timer and some controls to the gameplay screen
 - [x] added an editor
+- [x] added flight mode
+- [x] added endurance for flight mode
 - [x] added all previously concepted windows
 - [x] connected everything with the server-client-architecture
