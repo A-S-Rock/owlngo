@@ -18,6 +18,7 @@ public class GameSolvedScreenController {
   @FXML Pane imagePane;
   @FXML Label completedTimeLabel;
 
+
   @FXML
   void initialize() {
     retryButton.setOnAction(

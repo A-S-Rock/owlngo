@@ -2,6 +2,7 @@ package owlngo.gui.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -16,11 +17,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.LoadLevelRequest;
 import owlngo.gui.data.CommunicationManager;
 import owlngo.gui.data.DataManager;
 import owlngo.gui.data.LoadLevelRecord;
+
 
 /** Contoller class for LoadLevelScreen.fxml. */
 public class LoadLevelScreenController {
@@ -44,11 +48,13 @@ public class LoadLevelScreenController {
   private final Connection connection;
   private final StringProperty playSelectedButtonState =
       new SimpleStringProperty(PLAY_BUTTON_NO_LEVEL_SELECTED);
+  private final MediaPlayer mediaPlayer;
 
   @FXML
   void initialize() {
     backToWelcomeScreenButton.setOnAction(
         event -> {
+          mediaPlayer.stop();
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
           ControllerUtils.createScene(event, fxmlLoader);
         });
@@ -71,6 +77,10 @@ public class LoadLevelScreenController {
 
   /** Initiates the level screen with a table of stored levels on the server. */
   public LoadLevelScreenController() {
+    final Media media =
+        new Media(Objects.requireNonNull(getClass().getResource("/music/cinematic-dramatic-11120.mp3")).toString());
+    mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.play();
     communicationManager = CommunicationManager.getInstance();
     connection = communicationManager.getConnection();
     setupLevelRecords();
