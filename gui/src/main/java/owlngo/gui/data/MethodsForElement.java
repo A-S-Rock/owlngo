@@ -22,7 +22,6 @@ public class MethodsForElement {
   // PLAYER,          OWL
   // START,           START
   // FINISH,          END
-  // AIR,             AIR
   // GROUND           GROUND_NO_LAWN
 
   public static final Map<ObjectInGame.ObjectType, ElementsInPlayfield.ElementInPlayfield>
@@ -32,9 +31,9 @@ public class MethodsForElement {
               Map.entry(ObjectType.PLAYER, ElementInPlayfield.OWL),
               Map.entry(ObjectType.START, ElementInPlayfield.START),
               Map.entry(ObjectType.FINISH, ElementInPlayfield.END),
-              Map.entry(ObjectType.AIR, ElementInPlayfield.AIR),
               Map.entry(ObjectType.GROUND, ElementInPlayfield.GROUND_NO_LAWN),
               Map.entry(ObjectType.FOOD, ElementInPlayfield.FOOD),
+              Map.entry(ObjectType.AIR, ElementInPlayfield.NO_ELEMENT),
               Map.entry(ObjectInGame.ObjectType.FIRE, ElementInPlayfield.DANGER));
 
   static final Map<String, ElementInPlayfield> STRING_ELEMENT_IN_PLAYFIELD_MAP =
@@ -50,9 +49,6 @@ public class MethodsForElement {
       Map.ofEntries(
           Map.entry(
               ElementInPlayfield.NO_ELEMENT,
-              new BackgroundFill(Color.WHITESMOKE, CornerRadii.EMPTY, Insets.EMPTY)),
-          Map.entry(
-              ElementInPlayfield.AIR,
               new BackgroundFill(Color.LIGHTBLUE, CornerRadii.EMPTY, Insets.EMPTY)),
           Map.entry(
               ElementInPlayfield.OWL,

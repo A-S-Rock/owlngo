@@ -148,15 +148,6 @@ public final class Player implements ObjectInGame {
     return List.copyOf(possibleMoves);
   }
 
-  /** Returns an immutable list of the possible move's coordinates. */
-  public List<Coordinate> getPossibleMoveCoordinates() {
-    List<Coordinate> coordList = new ArrayList<>();
-    for (Move move : possibleMoves) {
-      coordList.add(move.getNewCoordinate());
-    }
-    return coordList;
-  }
-
   @Override
   public ObjectInGame withNewPosition(Coordinate coordinate) {
     assert isValid();

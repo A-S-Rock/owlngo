@@ -1,5 +1,7 @@
 package owlngo.gui.controller;
 
+import static owlngo.gui.data.ElementsInPlayfield.setElementsInPlayfieldDependingOnLevelFromDataManager;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -24,6 +26,7 @@ import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import owlngo.communication.Connection;
+import owlngo.communication.messages.LoadLevelInfosRequest;
 import owlngo.communication.messages.SaveLevelRequest;
 import owlngo.game.level.Level;
 import owlngo.gui.data.CommunicationManager;
@@ -52,6 +55,7 @@ public class EditorScreenController {
     leftSplit.maxWidthProperty().bind(mainSplitPane.widthProperty().multiply(0.8));
 
     ElementsInPlayfield.setAllToNoElement(); // Define all Elements
+    setElementsInPlayfieldDependingOnLevelFromDataManager();
     setPanesOnPlayfield();
 
     Platform.runLater(
@@ -80,7 +84,7 @@ public class EditorScreenController {
       ControllerUtils.createScene(null, fxmlLoader);
       gridPane.getScene().getWindow().hide();
     } else {
-      JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
+      JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
     }
   }
 
@@ -130,11 +134,41 @@ public class EditorScreenController {
   }
 
   @FXML
+  void downloadFromServer() {
+    System.out.println("downloadFromServer");
+    final Connection connection = communicationManager.getConnection();
+    final String username = communicationManager.getUsername();
+    connection.write(new LoadLevelInfosRequest(username));
+    try {
+      Thread.sleep(200); // wait a bit to let the server send its files
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
+    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/LoadLevelScreen.fxml"));
+    communicationManager.setConnection(connection);
+
+    // ControllerUtils.createScene(null, fxmlLoader);
+
+    Stage primaryStage = new Stage();
+    Parent root = null;
+    try {
+      root = fxmlLoader.load();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    primaryStage.setTitle("Owlngo");
+    primaryStage.setScene(new Scene(root));
+    primaryStage.setResizable(true);
+    primaryStage.show();
+    gridPane.getScene().getWindow().hide();
+  }
+
+  @FXML
   void loadWelcomeScreen() throws IOException {
     Stage primaryStage = new Stage();
-    FXMLLoader fxmlLoaderWellcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
+    FXMLLoader fxmlLoaderWelcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
 
-    Parent root = fxmlLoaderWellcome.load();
+    Parent root = fxmlLoaderWelcome.load();
     primaryStage.setTitle("Owlngo");
     primaryStage.setScene(new Scene(root));
     primaryStage.setResizable(true);
@@ -159,7 +193,7 @@ public class EditorScreenController {
       final Level level = ElementsInPlayfield.getLevel();
       connection.write(new SaveLevelRequest(author, levelName, level));
     } else {
-      JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
+      JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
     }
   }
 
@@ -253,7 +287,7 @@ public class EditorScreenController {
         }
       }
     }
-
+    // number of owls needs to be exactly one
     return countOwls == 1;
   }
 
@@ -267,7 +301,7 @@ public class EditorScreenController {
         }
       }
     }
-
+    // number of start elements needs to be exactly one
     return countStarts == 1;
   }
 
@@ -281,10 +315,11 @@ public class EditorScreenController {
         }
       }
     }
-
+    // number of end elements needs to be exactly one
     return countEnds == 1;
   }
 
+  /*
   private boolean errorInFormat(File fileName) throws IOException {
     FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
     BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -339,6 +374,78 @@ public class EditorScreenController {
         return true;
       }
     }
+    return false;
+  }
+  */
+
+  private boolean errorInFormat(File fileName) throws IOException {
+    FileReader fileReader = new FileReader(fileName, StandardCharsets.UTF_8);
+    BufferedReader bufferedReader = new BufferedReader(fileReader);
+    boolean wrongFormat = false;
+    for (int columnIndex = 0; columnIndex < MethodsForElement.SIZE; columnIndex++) {
+      String lineInput = bufferedReader.readLine();
+
+      if (lineInput == null) {
+        wrongFormat = true;
+        break;
+      }
+      String[] partOfline = lineInput.split(",");
+      int sum = 0;
+      for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
+        // the string should not be empty
+        if ((noNumber(partOfline[rowIndex]))) {
+          wrongFormat = true;
+          break;
+        } else if (notAllowedNumber(partOfline[rowIndex])) {
+          wrongFormat = true;
+          break;
+        }
+        // calculate sum
+        int number = Integer.parseInt(partOfline[rowIndex]);
+        sum = sum + number;
+      }
+      if (wrongFormat) {
+        break;
+      }
+
+      String checkSum = partOfline[partOfline.length - 1];
+      if (noNumber(checkSum)) {
+        wrongFormat = true;
+        break;
+      }
+      // test check sum
+      if (sum != Integer.parseInt(checkSum)) {
+        wrongFormat = true;
+        break;
+      }
+    }
+    fileReader.close();
+    bufferedReader.close();
+    return wrongFormat;
+  }
+
+  private boolean notAllowedNumber(String input) {
+    int number = Integer.parseInt(input);
+    if ((number < 0) || (number >= ElementInPlayfield.values().length)) {
+      return true;
+    }
+    return false;
+  }
+
+  private boolean noNumber(String input) {
+    // the string should not be empty
+    if (input.length() == 0) {
+      return true;
+    }
+    // string is only allowed to contain numbers
+    for (int x = 0; x < input.length(); x++) {
+      String letter = input.substring(x, x + 1);
+      // no number
+      if (!letter.matches("[0-9]")) {
+        return true;
+      }
+    }
+
     return false;
   }
 

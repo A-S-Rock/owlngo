@@ -28,7 +28,6 @@ public class EditorScreen extends Application {
     FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(("/EditorScreen.fxml")));
     try {
       Parent root = fxmlLoader.load();
-      System.out.println("Root:" + root);
       Stage stage = new Stage();
       stage.setTitle("Owlngo Editor");
       Scene scene = new Scene(root, 1200, 800);
