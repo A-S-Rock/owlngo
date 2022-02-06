@@ -20,7 +20,7 @@ public class GameOverScreenController {
 
   public GameOverScreenController() {
     final Media media =
-        new Media(Objects.requireNonNull(getClass().getResource("/music/mixkit_ethereal_win.mp3")).toString());
+        new Media(Objects.requireNonNull(getClass().getResource("/music/mixkit_horror_lose.mp3")).toString());
     mediaPlayer = new MediaPlayer(media);
     mediaPlayer.play();
   }
