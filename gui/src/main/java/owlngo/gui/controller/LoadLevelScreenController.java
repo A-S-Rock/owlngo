@@ -25,7 +25,6 @@ import owlngo.gui.data.CommunicationManager;
 import owlngo.gui.data.DataManager;
 import owlngo.gui.data.LoadLevelRecord;
 
-
 /** Contoller class for LoadLevelScreen.fxml. */
 public class LoadLevelScreenController {
 
@@ -78,7 +77,9 @@ public class LoadLevelScreenController {
   /** Initiates the level screen with a table of stored levels on the server. */
   public LoadLevelScreenController() {
     final Media media =
-        new Media(Objects.requireNonNull(getClass().getResource("/music/cinematic-dramatic-11120.mp3")).toString());
+        new Media(
+            Objects.requireNonNull(getClass().getResource("/music/cinematic-dramatic-11120.mp3"))
+                .toString());
     mediaPlayer = new MediaPlayer(media);
     mediaPlayer.play();
     communicationManager = CommunicationManager.getInstance();

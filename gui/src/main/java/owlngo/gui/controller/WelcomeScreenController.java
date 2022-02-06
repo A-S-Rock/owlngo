@@ -48,7 +48,9 @@ public class WelcomeScreenController {
   /** Initializes the controller to use the socket given by the client. */
   public WelcomeScreenController() {
     final Media media =
-        new Media(Objects.requireNonNull(getClass().getResource("/music/honor-and-sword-main-11222.mp3")).toString());
+        new Media(
+            Objects.requireNonNull(getClass().getResource("/music/honor-and-sword-main-11222.mp3"))
+                .toString());
     mediaPlayer = new MediaPlayer(media);
     mediaPlayer.play();
     communicationManager = CommunicationManager.getInstance();
