@@ -81,7 +81,6 @@ public class GroundView extends StackPane {
           || (object.getType() == ObjectType.GROUND)
           || (object.getType() == ObjectType.FIRE);
     } else {
-      // System.out.println("Not allowed values" + row + " " + column);
       return true;
     }
   }
