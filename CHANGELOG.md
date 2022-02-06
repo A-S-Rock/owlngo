@@ -7,6 +7,25 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.11.0] - 2022-02-05
+
+### Added
+
+GAME/GUI:
+
+- Statistics for levels with number of tries, completions, best time and who made them.
+- Game logic gets tested by JUnit tests
+
+SERVER:
+
+- Stores statistics persistently (and creates new ones for new levels)
+
+### Fixed
+
+GAME/GUI:
+
+- Game now doesn't read repeated inputs by holding keys down, but consumes them one after another.
+
 ## [0.10.2] - 2022-02-03
 
 ### Added
@@ -279,7 +298,9 @@ GAME:
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.10.0...main?from_project_id=3507
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.11.0...main?from_project_id=3507
+
+[0.11.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.10.0...v0.11.0?from_project_id=3507
 
 [0.10.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.9.0...v0.10.0?from_project_id=3507
 
