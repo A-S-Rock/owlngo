@@ -111,18 +111,19 @@ public class OwlnGoBasicTest {
     assertThat(arbitraryObject.getType()).isNotEqualTo(type);
 
     // Set object at this exact Coordinate and check again.
-    Level newLevel =
-        switch (type) {
-          case START -> level.withStartAt(coordinate);
-          case FINISH -> level.withFinishAt(coordinate);
-          case GROUND -> level.withGroundAt(coordinate);
-          case PLAYER -> level.withNewPlayerAt(coordinate);
-          case FIRE -> level.withFireAt(coordinate);
-          case FOOD -> level.withFoodAt(coordinate);
-          case AIR -> level.withAirAt(coordinate);
-          default -> throw new IllegalStateException(
-              "Unexpected value: " + type); // NONE not present in game
-        };
+    Level newLevel;
+
+    switch (type) {
+      case START -> newLevel = level.withStartAt(coordinate);
+      case FINISH -> newLevel = level.withFinishAt(coordinate);
+      case GROUND -> newLevel = level.withGroundAt(coordinate);
+      case PLAYER -> newLevel = level.withNewPlayerAt(coordinate);
+      case FIRE -> newLevel = level.withFireAt(coordinate);
+      case FOOD -> newLevel = level.withFoodAt(coordinate);
+      case AIR -> newLevel = level.withAirAt(coordinate);
+      default -> throw new IllegalStateException(
+          "Unexpected value: " + type); // NONE not present in game
+    }
 
     final ObjectInGame newObjectInGame = newLevel.getObjectInGameAt(coordinate);
     assertThat(newObjectInGame.getType()).isEqualTo(type);
