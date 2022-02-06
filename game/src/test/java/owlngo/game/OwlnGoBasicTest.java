@@ -20,7 +20,6 @@ public class OwlnGoBasicTest {
   private static final int NUM_OBJECTS = NUM_ROWS * NUM_COLUMNS; // player is extra
 
   /** This panel initializer is needed to run tests involved with <code>Platform#runlater</code>. */
-
   @Test
   public void testGameDimensions() {
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
