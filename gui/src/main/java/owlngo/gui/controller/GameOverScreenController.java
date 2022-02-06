@@ -18,6 +18,7 @@ public class GameOverScreenController {
   @FXML Button exitGameButton;
   @FXML Pane imagePane;
 
+  /** Initializes the controller of the game screen. */
   public GameOverScreenController() {
     final Media media =
         new Media(

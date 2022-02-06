@@ -51,6 +51,7 @@ public class EditorScreenController {
 
   private final MediaPlayer mediaPlayer;
 
+  /** Initializes the controller of the editor. */
   public EditorScreenController() {
     final Media media =
         new Media(

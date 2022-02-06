@@ -21,6 +21,7 @@ public class GameSolvedScreenController {
   @FXML Pane imagePane;
   @FXML Label completedTimeLabel;
 
+  /** Initializes the controller of the game solved screen. */
   public GameSolvedScreenController() {
     final Media media =
         new Media(
