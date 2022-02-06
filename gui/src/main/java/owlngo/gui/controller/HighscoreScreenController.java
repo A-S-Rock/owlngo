@@ -2,6 +2,7 @@ package owlngo.gui.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,12 +15,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import owlngo.gui.data.DataManager;
 import owlngo.gui.data.LevelStatsRecord;
 
 /** Contoller class for HighscoreScreen.fxml. */
 public class HighscoreScreenController {
-
+  private final MediaPlayer mediaPlayer;
   private static final int LEVEL_NAME_INDEX = 0;
   private static final int TRIES_INDEX = 1;
   private static final int COMPLETIONS_INDEX = 2;
@@ -43,15 +46,23 @@ public class HighscoreScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            mediaPlayer.stop();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           }
         });
   }
 
+  /** Initializes the controller of the high score screen. */
   public HighscoreScreenController() {
     setupLevelStatsRecords();
     setupTableView();
+    final Media media =
+        new Media(
+            Objects.requireNonNull(getClass().getResource("/music/dont-you-think-lose-16073.mp3"))
+                .toString());
+    mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.play();
   }
 
   private void setupLevelStatsRecords() {
