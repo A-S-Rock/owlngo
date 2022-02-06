@@ -4,7 +4,6 @@ import javafx.scene.input.KeyCode;
 
 /** This class stores the last key pressed. */
 public final class StoreLastKey {
-  // 6.1. 14.20
   private static KeyCode keyCode;
 
   /**
