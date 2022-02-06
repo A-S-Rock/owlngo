@@ -1,11 +1,7 @@
 package owlngo.game;
 
 import com.google.common.truth.Truth;
-import com.sun.javafx.application.PlatformImpl;
 import java.util.List;
-import javafx.application.Platform;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
@@ -15,19 +11,10 @@ import owlngo.game.level.objects.ObjectInGame.ObjectType;
 
 /** Tests the basic behaviour for {@link OwlnGo} games. */
 public class OwlnGoBasicTest {
-  private static final int NUM_ROWS = 10;
-  private static final int NUM_COLUMNS = 10;
+  private static final int NUM_ROWS = 20;
+  private static final int NUM_COLUMNS = 20;
   private static final int NUM_OBJECTS = NUM_ROWS * NUM_COLUMNS;
 
-  /**
-   * Initialize a JavaFX thread for execution of Platform.runlater() calls.
-   */
-  @BeforeAll
-  public static void startup() {
-    PlatformImpl.startup(() -> {});
-  }
-
-  /** This panel initializer is needed to run tests involved with <code>Platform#runlater</code>. */
   @Test
   public void testGameDimensions() {
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
@@ -147,11 +134,7 @@ public class OwlnGoBasicTest {
     final Level levelWithPlayerInFrontOfFinish = level.withNewPlayerAt(coordinateLeftOfFinish);
 
     final OwlnGo gameWithPlayerInFrontOfFinish = new OwlnGo(levelWithPlayerInFrontOfFinish);
-    try {
-      gameWithPlayerInFrontOfFinish.moveRight();
-    } catch (InterruptedException e) {
-      Assertions.fail();
-    }
+    gameWithPlayerInFrontOfFinish.moveBasicRight();
 
     final GameStatus newStatus = gameWithPlayerInFrontOfFinish.getGameState().getStatus();
     Truth.assertThat(newStatus).isEqualTo(GameStatus.WIN);
@@ -176,11 +159,8 @@ public class OwlnGoBasicTest {
 
     // Going three moves to the right in this level causes the player to fall.
     for (int repititions = 0; repititions < 3; repititions++) {
-      try {
-        game.moveRight();
-      } catch (InterruptedException e) {
-        Assertions.fail();
-      }
+      game.moveBasicRight();
+      game.moveSingleStepFall();
     }
 
     final GameStatus newStatus = game.getGameState().getStatus();
@@ -203,16 +183,9 @@ public class OwlnGoBasicTest {
 
     final OwlnGo gameWithFireInFrontOfPlayer = new OwlnGo(levelWithFireInFrontOfPlayer);
 
-    try {
-      gameWithFireInFrontOfPlayer.moveRight();
-      Platform.runLater(
-          () -> {
-            final GameStatus newStatus = game.getGameState().getStatus();
-            Truth.assertThat(newStatus).isEqualTo(GameStatus.LOSE);
-          });
-    } catch (InterruptedException e) {
-      Assertions.fail();
-    }
+    gameWithFireInFrontOfPlayer.moveBasicRight();
+    final GameStatus newStatus = gameWithFireInFrontOfPlayer.getGameState().getStatus();
+    Truth.assertThat(newStatus).isEqualTo(GameStatus.LOSE);
   }
 
   @Test
@@ -226,34 +199,19 @@ public class OwlnGoBasicTest {
     game.getSideConditions().setInFlightMode();
 
     for (int steps = 0; steps < endurance - 1; steps++) {
-      try {
-        game.moveLeft();
-        game.moveRight();
-      } catch (InterruptedException e) {
-        Assertions.fail();
-      }
+      game.moveBasicRight();
     }
 
     // Check if after exact endurance - 1 steps the game is still running.
 
-    Platform.runLater(
-        () -> {
-          final GameStatus newStatusWithEnduranceLeft = game.getGameState().getStatus();
-          Truth.assertThat(newStatusWithEnduranceLeft).isEqualTo(GameStatus.ONGOING);
+    final GameStatus newStatusWithEnduranceLeft = game.getGameState().getStatus();
+    Truth.assertThat(newStatusWithEnduranceLeft).isEqualTo(GameStatus.ONGOING);
 
-          try {
-            game.moveRight();
-          } catch (InterruptedException e) {
-            Assertions.fail();
-          }
-        });
+    game.moveBasicRight();
 
     // Now run one more move - the game should be lost.
 
-    Platform.runLater(
-        () -> {
-          final GameStatus newStatusWithDepletedEndurance = game.getGameState().getStatus();
-          Truth.assertThat(newStatusWithDepletedEndurance).isEqualTo(GameStatus.LOSE);
-        });
+    final GameStatus newStatusWithDepletedEndurance = game.getGameState().getStatus();
+    Truth.assertThat(newStatusWithDepletedEndurance).isEqualTo(GameStatus.LOSE);
   }
 }

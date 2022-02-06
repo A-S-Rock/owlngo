@@ -14,7 +14,6 @@ repositories {
 }
 
 dependencies {
-    implementation 'de.saxsys:jfx-testrunner:1.2'
     implementation 'com.github.spotbugs:spotbugs-annotations:4.5.3'
 
 // Use JUnit Jupiter API for testing.
