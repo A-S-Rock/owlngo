@@ -6,7 +6,7 @@ play and create new levels.
 We use a server-client-architecture to show and deliver existing levels with their highscores. For
 messages between each other we use the moshi (json) protocol.
 
-### Running the game - prerequisites
+## Running the game - prerequisites
 
 - This project is written with __Java 17__. It should download and install itself on running if not
   present on the user's maschine. If there are problems, please contact us.
@@ -14,7 +14,7 @@ messages between each other we use the moshi (json) protocol.
 - As this project doesn't create a jar to run, you either will need to use the Terminal for running
   Gradle tasks or an IDE to run it interactively.
 
-### Start the server
+## Start the server
 
 __Caution: If the directory and file structure for the server got deleted or corrupted, a server
 restart is required to initialize the savefile structure.__
@@ -26,7 +26,7 @@ restart is required to initialize the savefile structure.__
 - *In Terminal*: Use `./gradlew :server:run -q --console=plain` to start the server.
   Note: `-q --console=plain` simply suppresses the gradle output in Terminal. Add if you wish.
 
-### Start the client (must be after the server has started)
+## Start the client (must be after the server has started)
 
 - *In IntelliJ*: Use the gradle task "**owlngo > client > Tasks >
   application > run**".
@@ -41,42 +41,42 @@ restart is required to initialize the savefile structure.__
 ./gradlew :client:run -q --console=plain --args="--username YOUR_USERNAME"
 ```
 
-### Controls
+## Controls in the game
 
-#### Jumps
+**F** - switch between walk mode and flight mode
 
-**W** - to make a jump (which is currently set to just jump without falling afterwards)
+### Flight mode off - endurance bar gray - owl falls down
 
-**Q** - jumps in a half circle up to the left.
+**W** - jump
 
-**E** - jumps in a half circle up to the right.
+**A** - step to the left
 
-#### Other movement
+**D** - step to the right
 
-**A** - to make a step to the left including a one-step fall.
+**Q** - jup to the left
 
-**S** - currently without function
+**E** - jup to the right
 
-**D** - to make a step to the right including a one-step fall.
+### Flight mode on - endurance bar red - owl does not fall down
 
-The Editor controls are described in its window.
+**W** - fly up
 
-#### Toggle flight and flight controls
+**X** - fly down
 
-To toggle the flight mode (no gravity, but endurance depletion with every move), press **F**
-ingame. The endurance bar should change color.
+**A** - fly to the left
 
-This also enables new added controls for downward movement:
+**D** - fly to the right
 
-**Y** - move diagonally to the lower left
+**Q** - fly to the left and up
 
-**X** - move a step downwards
+**E** - fly to the right and up
 
-**C** - move diagonally to the lower right.
+**Y** - fly to the left and down
 
-***
+**C** - fly to the right and down
 
-What we have so far (and what's coming next)
+
+##What we have so far (and what's coming next)
 
 - [x] created a simple server-client-architecture (but not used right now)
 - [x] created a game model handling the whole game
@@ -86,5 +86,7 @@ What we have so far (and what's coming next)
 - [ ] added animations to all moves
 - [x] added a timer and some controls to the gameplay screen as well as statistics
 - [x] added an editor
+- [x] added flight mode
+- [x] added endurance for flight mode
 - [x] added all previously concepted windows
 - [x] connected everything with the server-client-architecture
