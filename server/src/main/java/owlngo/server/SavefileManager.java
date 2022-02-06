@@ -86,7 +86,7 @@ public class SavefileManager {
     final String levelNameDummyLevel3 = "dummy3";
     Level dummyLevel3 = Level.createDemoLevel(30, 30);
     for (int column = 6; column < dummyLevel3.getNumColumns(); column++) {
-      if (column % 4 != 0) {
+      if (column % 4 != 0 && column != 29) {
         final Coordinate coordinate = Coordinate.of(28, column);
         dummyLevel3 = dummyLevel3.withGroundAt(coordinate);
       }
