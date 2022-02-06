@@ -20,7 +20,7 @@ public class OwlnGoBasicTest {
   private static final int NUM_OBJECTS = NUM_ROWS * NUM_COLUMNS; // player is extra
 
   /** This panel initializer is needed to run tests involved with <code>Platform#runlater</code>. */
-  private final JFXPanel tempPaner = new JFXPanel();
+  //private final JFXPanel tempPaner = new JFXPanel();
 
   @Test
   public void testGameDimensions() {
