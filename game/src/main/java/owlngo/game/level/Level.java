@@ -54,6 +54,31 @@ public final class Level {
     }
   }
 
+  private Level(Level sourceLevel) {
+    numRows = sourceLevel.getNumRows();
+    numCols = sourceLevel.getNumColumns();
+    if (numRows <= 3 || numCols <= 3) {
+      throw new IllegalArgumentException("Level dimensions cannot be lower or equal to 3.");
+    }
+
+    levelLayout = new HashMap<>();
+
+    List<ObjectInGame> clonedObjectsInGame = new ArrayList<>();
+    for (int i = 0; i < numRows; ++i) {
+      for (int j = 0; j < numCols; ++j) {
+        Coordinate coordinate = Coordinate.of(i, j);
+        ObjectInGame clonedObjectInGame = sourceLevel.getObjectInGameAt(coordinate).copyOf();
+        setObjectInGameAt(clonedObjectInGame, coordinate);
+        clonedObjectsInGame.add(clonedObjectInGame);
+      }
+    }
+    objectsInGame = new ArrayList<>(clonedObjectsInGame);
+
+    playerObject = sourceLevel.getCopyOfPlayer();
+    startObject = sourceLevel.getCopyOfStartObject();
+    finishObject = sourceLevel.getCopyOfFinishObject();
+  }
+
   /**
    * Creates a demo level with the given dimensions. At the lowest level, all but those at column
    * multiples of 4 are ground elements. Start is set one row over the ground on the far left side,
@@ -83,10 +108,7 @@ public final class Level {
 
     final int startObjectRow = newStartObject.getCoordinate().getRow();
     final int startObjectColumn = newStartObject.getCoordinate().getColumn();
-    if (startObjectColumn == maxCol) {
-      throw new AssertionError(
-          "Start object is on the rightmost edge! This should be handled before.");
-    }
+
     final Coordinate playerCoordinate = Coordinate.of(startObjectRow, startObjectColumn + 1);
     final Player newPlayerObject = Player.createPlayer(playerCoordinate);
     level.replaceObjectInGameWith(newPlayerObject, newPlayerObject.getCoordinate());
@@ -97,31 +119,6 @@ public final class Level {
 
     return level;
   }
-
-  private Level(Level sourceLevel) {
-    numRows = sourceLevel.getNumRows();
-    numCols = sourceLevel.getNumColumns();
-    levelLayout = new HashMap<>();
-
-    List<ObjectInGame> clonedObjectsInGame = new ArrayList<>();
-    for (int i = 0; i < numRows; ++i) {
-      for (int j = 0; j < numCols; ++j) {
-        Coordinate coordinate = Coordinate.of(i, j);
-        ObjectInGame clonedObjectInGame = sourceLevel.getObjectInGameAt(coordinate).copyOf();
-        setObjectInGameAt(clonedObjectInGame, coordinate);
-        clonedObjectsInGame.add(clonedObjectInGame);
-      }
-    }
-    objectsInGame = new ArrayList<>(clonedObjectsInGame);
-
-    playerObject = sourceLevel.getCopyOfPlayer();
-    startObject = sourceLevel.getCopyOfStartObject();
-    finishObject = sourceLevel.getCopyOfFinishObject();
-  }
-
-  /*
-   * TODO: Player is obsolete as it shouldn't be set by the user!
-   */
 
   /**
    * Creates a new level with a new player set at the given coordinate.
@@ -236,8 +233,7 @@ public final class Level {
     assert !objectInGame.isNone();
     Coordinate coordinate = objectInGame.getCoordinate();
     setObjectInGameAt(LevelObject.createAirObject(coordinate), coordinate);
-    boolean wasRemoved = objectsInGame.remove(objectInGame);
-    assert wasRemoved;
+    objectsInGame.remove(objectInGame);
   }
 
   /** Returns an immutable copy of the level. */
@@ -295,7 +291,7 @@ public final class Level {
   }
 
   private void setObjectInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
-    assert objectInGame.isNone();
+    assert !objectInGame.isNone();
     final int row = coordinate.getRow();
     levelLayout.putIfAbsent(row, new SimpleMapProperty<>(FXCollections.observableHashMap()));
     levelLayout.get(row).put(coordinate.getColumn(), objectInGame);
