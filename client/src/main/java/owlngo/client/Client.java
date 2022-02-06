@@ -118,7 +118,7 @@ public final class Client {
     return username != null && !username.isBlank();
   }
 
-  public static void printHelpMessage() {
+  private static void printHelpMessage() {
     System.out.println(
         "java Client [--username <String>] [--address <String>] [--port <int>] [--help]");
   }

@@ -260,10 +260,20 @@ public class SavefileManager {
     }
   }
 
+  /**
+   * Returns all saved levels.
+   *
+   * @return mapping between level name and its savefile.
+   */
   public Map<String, LevelSavefile> getSavedLevels() {
     return new HashMap<>(savedLevels);
   }
 
+  /**
+   * Returns all saved level's stat files.
+   *
+   * @return mapping between level name and its level stats savefile.
+   */
   public Map<String, LevelStatsSavefile> getSavedStats() {
     return new HashMap<>(savedStats);
   }
