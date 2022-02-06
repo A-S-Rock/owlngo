@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -45,6 +46,7 @@ public class WelcomeScreenController {
   @FXML Button exitGameButton;
   @FXML Button highscoreButton;
   @FXML Pane imagePane;
+  @FXML Label usernameLabel;
 
   /** Initializes the controller to use the socket given by the client. */
   public WelcomeScreenController() {
@@ -209,5 +211,8 @@ public class WelcomeScreenController {
     exitGameButton.setOnAction(event -> System.exit(0));
 
     imagePane.getChildren().add(ControllerUtils.createLogoPane("standard"));
+
+    final String username = communicationManager.getUsername();
+    usernameLabel.textProperty().set(username);
   }
 }
