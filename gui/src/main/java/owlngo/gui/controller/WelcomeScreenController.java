@@ -13,6 +13,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -33,8 +34,9 @@ import owlngo.gui.data.DataManager;
 /** Contoller class for WelcomeScreen.fxml. */
 @SuppressFBWarnings("DM_EXIT")
 public class WelcomeScreenController {
-  private final MediaPlayer mediaPlayer;
+
   private static boolean isConnected;
+  private final MediaPlayer mediaPlayer;
   private final CommunicationManager communicationManager;
   private final Connection connection;
   private final DataManager dataManager;
@@ -44,6 +46,7 @@ public class WelcomeScreenController {
   @FXML Button exitGameButton;
   @FXML Button highscoreButton;
   @FXML Pane imagePane;
+  @FXML Label usernameLabel;
 
   /** Initializes the controller to use the socket given by the client. */
   public WelcomeScreenController() {
@@ -52,6 +55,7 @@ public class WelcomeScreenController {
             Objects.requireNonNull(getClass().getResource("/music/honor-and-sword-main-11222.mp3"))
                 .toString());
     mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.setVolume(0.25);
     mediaPlayer.play();
     communicationManager = CommunicationManager.getInstance();
     connection = communicationManager.getConnection();
@@ -207,5 +211,8 @@ public class WelcomeScreenController {
     exitGameButton.setOnAction(event -> System.exit(0));
 
     imagePane.getChildren().add(ControllerUtils.createLogoPane("standard"));
+
+    final String username = communicationManager.getUsername();
+    usernameLabel.textProperty().set(username);
   }
 }

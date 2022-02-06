@@ -7,6 +7,21 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.0] - 2022-02-06
+
+### Added
+
+Full version of the game with some more added features:
+
+- Music to some more screens
+- Username gets shown on the welcome screen
+- Editor now is able to edit saved levels on the server
+- Delete button in Editor wipes the plane for a clean slate
+
+### Changed
+
+- FOOD got changed to FOUNTAIN because it stays on the screen after consumation
+
 ## [0.11.1] - 2022-02-06
 
 ### Added
@@ -306,7 +321,9 @@ GAME:
 - gradle wrapper to build a gradle project
 - `.gitignore` file for unneeded files on the repository
 
-[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.11.0...main?from_project_id=3507
+[Unreleased]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v1.0.0...main?from_project_id=3507
+
+[1.0.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.11.0...v1.0.0?from_project_id=3507
 
 [0.11.0]: https://gitlab2.cip.ifi.lmu.de/sosy-lab/peegs-ws-21/level-editor-team-1/-/compare/v0.10.0...v0.11.0?from_project_id=3507
 

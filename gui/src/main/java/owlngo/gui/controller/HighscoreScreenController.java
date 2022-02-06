@@ -62,6 +62,7 @@ public class HighscoreScreenController {
             Objects.requireNonNull(getClass().getResource("/music/dont-you-think-lose-16073.mp3"))
                 .toString());
     mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.setVolume(0.15);
     mediaPlayer.play();
   }
 

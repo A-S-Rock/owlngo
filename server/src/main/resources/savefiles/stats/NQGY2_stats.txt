@@ -1,0 +1,1 @@
+{"savefileType":"LevelStatsSavefile","bestTime":"59:59:99","byUser":"G.R.Amlich","completions":0,"levelName":"NQGY2","tries":0}

@@ -8,6 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="owlngo.gui.controller.WelcomeScreenController">
@@ -38,12 +39,12 @@
                   <Font size="72.0" />
                </font>
             </Label>
-            <Button fx:id="startRandomGameButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Random game" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
+            <Button fx:id="startRandomGameButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Play Recent Again" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="3">
                <padding>
                   <Insets bottom="10.0" left="50.0" right="50.0" top="10.0" />
                </padding>
                <font>
-                  <Font size="36.0" />
+                  <Font size="35.0" />
                </font>
             </Button>
             <Button fx:id="loadEditorButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" prefHeight="80.0" prefWidth="380.0" text="Editor" textAlignment="CENTER" GridPane.columnIndex="3" GridPane.columnSpan="2" GridPane.rowIndex="4">
@@ -73,6 +74,26 @@
                </font>
             </Button>
             <Pane fx:id="imagePane" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.rowSpan="4" />
+            <VBox GridPane.columnSpan="3" GridPane.rowIndex="7" GridPane.rowSpan="2">
+               <children>
+                  <Label text="Username: " underline="true">
+                     <font>
+                        <Font name="System Italic" size="29.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" />
+                     </padding>
+                  </Label>
+                  <Label fx:id="usernameLabel" text="PLACEHOLDER" textFill="#b40ffa" wrapText="true">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
          </children>
       </GridPane>
    </children>

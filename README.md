@@ -53,9 +53,9 @@ restart is required to initialize the savefile structure.__
 
 **D** - step to the right
 
-**Q** - jup to the left
+**Q** - jump to the left
 
-**E** - jup to the right
+**E** - jump to the right
 
 ### Flight mode on - endurance bar red - owl does not fall down
 
@@ -83,7 +83,6 @@ restart is required to initialize the savefile structure.__
 - [x] created a javafx GUI currently showing just the gameplay screen (without showing a victory
   screen at the end)
 - [x] added network communication protocol in docs/ [here](docs/network_communication_protocol.md)
-- [ ] added animations to all moves
 - [x] added a timer and some controls to the gameplay screen as well as statistics
 - [x] added an editor
 - [x] added flight mode

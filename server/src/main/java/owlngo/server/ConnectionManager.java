@@ -15,9 +15,10 @@ import owlngo.communication.messages.Message;
  */
 public class ConnectionManager implements AutoCloseable {
 
-  private Map<String, PlayerConnection> connections = new HashMap<>();
   private final SavefileManager manager;
+  private Map<String, PlayerConnection> connections = new HashMap<>();
 
+  /** Initializes the savefile manager. */
   public ConnectionManager() {
     this.manager = new SavefileManager();
   }

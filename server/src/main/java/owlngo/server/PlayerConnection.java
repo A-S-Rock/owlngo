@@ -197,6 +197,11 @@ public class PlayerConnection implements Closeable {
     }
   }
 
+  /**
+   * Returns the username.
+   *
+   * @return the username
+   */
   public String getUsername() {
     return username;
   }

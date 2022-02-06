@@ -16,6 +16,7 @@ import owlngo.gui.gamefield.WelcomeScreen;
  */
 public final class Client {
 
+  private static final int USERNAME_MAX_LENGTH = 50;
   private static final int DEFAULT_PORT = 4441;
   private static final String DEFAULT_ADDRESS = "localhost";
   private static final String DEFAULT_USERNAME = System.getProperty("user.name");
@@ -39,6 +40,10 @@ public final class Client {
           }
           ++i;
           username = args[i];
+          if (username.length() > USERNAME_MAX_LENGTH) {
+            printErrorMessage("Username too long! Please choose a shorter one.");
+            return;
+          }
           break;
         case "--address":
           if (isLastArgument(i, args)) {
@@ -113,7 +118,7 @@ public final class Client {
     return username != null && !username.isBlank();
   }
 
-  public static void printHelpMessage() {
+  private static void printHelpMessage() {
     System.out.println(
         "java Client [--username <String>] [--address <String>] [--port <int>] [--help]");
   }
