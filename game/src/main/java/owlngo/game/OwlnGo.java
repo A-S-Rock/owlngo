@@ -24,9 +24,8 @@ public class OwlnGo {
   private static final int ENDURANCE = 10;
   private static final boolean IN_FLIGHT_MODE = false;
   private static final boolean ACTIVE_MOVEMENT = false;
-
-  private GameState gameState;
   private final SideConditions sideConditions;
+  private GameState gameState;
 
   /**
    * Constructs an Owlngo game instance with the prespecified level dimensions and prespecified
@@ -63,7 +62,7 @@ public class OwlnGo {
     return sideConditions;
   }
 
-  public final int getMaxSideConditions() {
+  public final int getMaxEndurance() {
     return ENDURANCE;
   }
 
@@ -309,7 +308,11 @@ public class OwlnGo {
   /** Returns the Coordinate below the Player. */
   private Coordinate getActualCoordinateBelowPlayer() {
     final Player player = gameState.getPlayer();
-    final int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() + 1;
+
+    int rowBelowPlayer = gameState.getPlayer().getCoordinate().getRow() + 1;
+    if (rowBelowPlayer == gameState.getLevel().getNumRows()) {
+      return Coordinate.of(rowBelowPlayer - 1, player.getCoordinate().getColumn());
+    }
     return Coordinate.of(rowBelowPlayer, player.getCoordinate().getColumn());
   }
 

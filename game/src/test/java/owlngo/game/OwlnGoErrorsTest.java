@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import org.junit.jupiter.api.Test;
 import owlngo.game.level.Level;
 
-/** Tests for error calls from {@link OwlnGo}. */
+/** Tests for error calls from {@link OwlnGo}. Adjusted from Task 2 "Beesweeper". */
 public class OwlnGoErrorsTest {
 
   // first game constructor with numRows and numColumns

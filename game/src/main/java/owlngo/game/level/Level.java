@@ -233,8 +233,7 @@ public final class Level {
     assert !objectInGame.isNone();
     Coordinate coordinate = objectInGame.getCoordinate();
     setObjectInGameAt(LevelObject.createAirObject(coordinate), coordinate);
-    boolean wasRemoved = objectsInGame.remove(objectInGame);
-    assert wasRemoved;
+    objectsInGame.remove(objectInGame);
   }
 
   /** Returns an immutable copy of the level. */
@@ -292,7 +291,7 @@ public final class Level {
   }
 
   private void setObjectInGameAt(ObjectInGame objectInGame, Coordinate coordinate) {
-    assert objectInGame.isNone();
+    assert !objectInGame.isNone();
     final int row = coordinate.getRow();
     levelLayout.putIfAbsent(row, new SimpleMapProperty<>(FXCollections.observableHashMap()));
     levelLayout.get(row).put(coordinate.getColumn(), objectInGame);
