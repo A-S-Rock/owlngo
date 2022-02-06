@@ -60,6 +60,7 @@ public class LoadLevelScreenController {
         });
     backToEditorButton.setOnAction(
         event -> {
+          mediaPlayer.stop();
           FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EditorScreen.fxml"));
           ControllerUtils.createScene(event, fxmlLoader);
         });
@@ -100,6 +101,7 @@ public class LoadLevelScreenController {
   }
 
   private void playLevelAction(ActionEvent event) {
+    mediaPlayer.stop();
     final String selectedLevel = selectedLevelLabel.textProperty().getValue();
 
     if (selectedLevel.equals("None")) {

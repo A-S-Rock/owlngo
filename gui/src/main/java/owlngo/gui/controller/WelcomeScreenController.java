@@ -33,8 +33,9 @@ import owlngo.gui.data.DataManager;
 /** Contoller class for WelcomeScreen.fxml. */
 @SuppressFBWarnings("DM_EXIT")
 public class WelcomeScreenController {
-  private final MediaPlayer mediaPlayer;
+
   private static boolean isConnected;
+  private final MediaPlayer mediaPlayer;
   private final CommunicationManager communicationManager;
   private final Connection connection;
   private final DataManager dataManager;
@@ -52,6 +53,7 @@ public class WelcomeScreenController {
             Objects.requireNonNull(getClass().getResource("/music/honor-and-sword-main-11222.mp3"))
                 .toString());
     mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.setVolume(0.25);
     mediaPlayer.play();
     communicationManager = CommunicationManager.getInstance();
     connection = communicationManager.getConnection();

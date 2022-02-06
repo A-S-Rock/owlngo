@@ -1,1 +1,1 @@
-{"savefileType":"LevelStatsSavefile","bestTime":"00:01:80","byUser":"Genit","completions":8,"levelName":"DEFAULT","tries":37}
+{"savefileType":"LevelStatsSavefile","bestTime":"00:01:80","byUser":"Genit","completions":8,"levelName":"DEFAULT","tries":41}

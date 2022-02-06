@@ -58,6 +58,7 @@ public class EditorScreenController {
             Objects.requireNonNull(getClass().getResource("/music/soundboard_jeopardy.mp3"))
                 .toString());
     mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.setVolume(0.45);
     mediaPlayer.play();
   }
 
