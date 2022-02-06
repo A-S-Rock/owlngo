@@ -128,7 +128,7 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testWinCondition() {
-    final JFXPanel tempPaner = new JFXPanel();
+    new JFXPanel();
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
@@ -164,7 +164,7 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testLoseConditionWithFalling() {
-    final JFXPanel tempPaner = new JFXPanel();
+    new JFXPanel();
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
@@ -184,7 +184,7 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testLoseConditionWithFire() {
-    final JFXPanel tempPaner = new JFXPanel();
+    new JFXPanel();
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
@@ -213,7 +213,7 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testLoseConditionWithExhaustion() {
-    final JFXPanel tempPaner = new JFXPanel();
+    new JFXPanel();
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
