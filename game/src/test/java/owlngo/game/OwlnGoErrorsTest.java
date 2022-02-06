@@ -1,7 +1,6 @@
 package owlngo.game;
 
-import static org.junit.jupiter.api.Assertions.fail;
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import owlngo.game.level.Level;
 
@@ -14,7 +13,7 @@ public class OwlnGoErrorsTest {
   public void testNegativeRows() {
     try {
       new OwlnGo(-1, 10);
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -24,7 +23,7 @@ public class OwlnGoErrorsTest {
   public void testNoRows() {
     try {
       new OwlnGo(0, 10);
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -34,7 +33,7 @@ public class OwlnGoErrorsTest {
   public void testIfRowsLowerThanOrEqualThree() {
     try {
       new OwlnGo(3, 10);
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -44,7 +43,7 @@ public class OwlnGoErrorsTest {
   public void testNegativeColumns() {
     try {
       new OwlnGo(10, -1);
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -54,7 +53,7 @@ public class OwlnGoErrorsTest {
   public void testNoColumns() {
     try {
       new OwlnGo(10, 0);
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -64,7 +63,7 @@ public class OwlnGoErrorsTest {
   public void testIfColumnsLowerThanOrEqualThree() {
     try {
       new OwlnGo(10, 3);
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -76,7 +75,7 @@ public class OwlnGoErrorsTest {
   public void testLevelConstructorNegativeRows() {
     try {
       new OwlnGo(new Level(-1, 10));
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -86,7 +85,7 @@ public class OwlnGoErrorsTest {
   public void testLevelConstructorNoRows() {
     try {
       new OwlnGo(new Level(0, 10));
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -96,7 +95,7 @@ public class OwlnGoErrorsTest {
   public void testLevelConstructorIfRowsLowerThanOrEqualThree() {
     try {
       new OwlnGo(new Level(3, 10));
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -106,7 +105,7 @@ public class OwlnGoErrorsTest {
   public void testLevelConstructorNegativeColumns() {
     try {
       new OwlnGo(new Level(10, -1));
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -116,7 +115,7 @@ public class OwlnGoErrorsTest {
   public void testLevelContstructorColumns() {
     try {
       new OwlnGo(new Level(10, 0));
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }
@@ -126,7 +125,7 @@ public class OwlnGoErrorsTest {
   public void testLevelContstructorIfColumnsLowerThanOrEqualThree() {
     try {
       new OwlnGo(new Level(10, 3));
-      fail("Expected IllegalArgumentException");
+      Assertions.fail("Expected IllegalArgumentException");
     } catch (IllegalArgumentException e) {
       // Expected: test successful
     }

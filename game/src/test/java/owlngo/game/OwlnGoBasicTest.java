@@ -1,11 +1,10 @@
 package owlngo.game;
 
-import static com.google.common.truth.Truth.assertThat;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import com.google.common.truth.Truth;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
@@ -34,9 +33,9 @@ public class OwlnGoBasicTest {
         game.getGameState().getLevel().getListOfObjectsInGame();
     final int numberOfObjectsInGame = objectsInGame.size();
 
-    assertThat(rows).isEqualTo(NUM_ROWS);
-    assertThat(columns).isEqualTo(NUM_COLUMNS);
-    assertThat(numberOfObjectsInGame).isEqualTo(NUM_OBJECTS);
+    Truth.assertThat(rows).isEqualTo(NUM_ROWS);
+    Truth.assertThat(columns).isEqualTo(NUM_COLUMNS);
+    Truth.assertThat(numberOfObjectsInGame).isEqualTo(NUM_OBJECTS);
   }
 
   @Test
@@ -108,7 +107,7 @@ public class OwlnGoBasicTest {
     // Get object in game at an arbitrary Coordinate like (5, 5) and check if it is not the desired
     // object type.
     final ObjectInGame arbitraryObject = level.getObjectInGameAt(coordinate);
-    assertThat(arbitraryObject.getType()).isNotEqualTo(type);
+    Truth.assertThat(arbitraryObject.getType()).isNotEqualTo(type);
 
     // Set object at this exact Coordinate and check again.
     Level newLevel;
@@ -126,14 +125,14 @@ public class OwlnGoBasicTest {
     }
 
     final ObjectInGame newObjectInGame = newLevel.getObjectInGameAt(coordinate);
-    assertThat(newObjectInGame.getType()).isEqualTo(type);
+    Truth.assertThat(newObjectInGame.getType()).isEqualTo(type);
   }
 
   @Test
   public void testWinCondition() {
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
-    assertThat(status).isEqualTo(GameStatus.ONGOING);
+    Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
 
     final Level level = game.getGameState().getLevel();
     final Coordinate finishCoordinate = level.getCopyOfFinishObject().getCoordinate();
@@ -146,48 +145,48 @@ public class OwlnGoBasicTest {
     try {
       gameWithPlayerInFrontOfFinish.moveRight();
     } catch (InterruptedException e) {
-      fail();
+      Assertions.fail();
     }
 
     final GameStatus newStatus = gameWithPlayerInFrontOfFinish.getGameState().getStatus();
-    assertThat(newStatus).isEqualTo(GameStatus.WIN);
+    Truth.assertThat(newStatus).isEqualTo(GameStatus.WIN);
   }
 
   @Test
   public void testGiveUp() {
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
-    assertThat(status).isEqualTo(GameStatus.ONGOING);
+    Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
 
     game.giveUp();
     final GameStatus newStatus = game.getGameState().getStatus();
-    assertThat(newStatus).isEqualTo(GameStatus.GIVE_UP);
+    Truth.assertThat(newStatus).isEqualTo(GameStatus.GIVE_UP);
   }
 
   @Test
   public void testLoseConditionWithFalling() {
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
-    assertThat(status).isEqualTo(GameStatus.ONGOING);
+    Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
 
     // Going three moves to the right in this level causes the player to fall.
     for (int repititions = 0; repititions < 3; repititions++) {
       try {
         game.moveRight();
       } catch (InterruptedException e) {
-        fail();
+        Assertions.fail();
       }
     }
 
     final GameStatus newStatus = game.getGameState().getStatus();
-    assertThat(newStatus).isEqualTo(GameStatus.LOSE);
+    Truth.assertThat(newStatus).isEqualTo(GameStatus.LOSE);
   }
 
   @Test
   public void testLoseConditionWithFire() {
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
-    assertThat(status).isEqualTo(GameStatus.ONGOING);
+    Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
 
     // Create fire in front of player and move right into it.
     final Level level = game.getGameState().getLevel();
@@ -204,10 +203,10 @@ public class OwlnGoBasicTest {
       Platform.runLater(
           () -> {
             final GameStatus newStatus = game.getGameState().getStatus();
-            assertThat(newStatus).isEqualTo(GameStatus.LOSE);
+            Truth.assertThat(newStatus).isEqualTo(GameStatus.LOSE);
           });
     } catch (InterruptedException e) {
-      fail();
+      Assertions.fail();
     }
   }
 
@@ -215,7 +214,7 @@ public class OwlnGoBasicTest {
   public void testLoseConditionWithExhaustion() {
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
-    assertThat(status).isEqualTo(GameStatus.ONGOING);
+    Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
 
     // Get endurance of player and deplete endurance completely in flight mode.
     final int endurance = game.getMaxEndurance();
@@ -226,7 +225,7 @@ public class OwlnGoBasicTest {
         game.moveLeft();
         game.moveRight();
       } catch (InterruptedException e) {
-        fail();
+        Assertions.fail();
       }
     }
 
@@ -235,12 +234,12 @@ public class OwlnGoBasicTest {
     Platform.runLater(
         () -> {
           final GameStatus newStatusWithEnduranceLeft = game.getGameState().getStatus();
-          assertThat(newStatusWithEnduranceLeft).isEqualTo(GameStatus.ONGOING);
+          Truth.assertThat(newStatusWithEnduranceLeft).isEqualTo(GameStatus.ONGOING);
 
           try {
             game.moveRight();
           } catch (InterruptedException e) {
-            fail();
+            Assertions.fail();
           }
         });
 
@@ -249,7 +248,7 @@ public class OwlnGoBasicTest {
     Platform.runLater(
         () -> {
           final GameStatus newStatusWithDepletedEndurance = game.getGameState().getStatus();
-          assertThat(newStatusWithDepletedEndurance).isEqualTo(GameStatus.LOSE);
+          Truth.assertThat(newStatusWithDepletedEndurance).isEqualTo(GameStatus.LOSE);
         });
   }
 }
