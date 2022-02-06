@@ -3,6 +3,7 @@ package owlngo.gui.controller;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +14,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import owlngo.communication.Connection;
 import owlngo.communication.messages.ConnectedNotification;
 import owlngo.communication.messages.ConnectionRequest;
@@ -30,7 +33,7 @@ import owlngo.gui.data.DataManager;
 /** Contoller class for WelcomeScreen.fxml. */
 @SuppressFBWarnings("DM_EXIT")
 public class WelcomeScreenController {
-
+  private final MediaPlayer mediaPlayer;
   private static boolean isConnected;
   private final CommunicationManager communicationManager;
   private final Connection connection;
@@ -44,6 +47,12 @@ public class WelcomeScreenController {
 
   /** Initializes the controller to use the socket given by the client. */
   public WelcomeScreenController() {
+    final Media media =
+        new Media(
+            Objects.requireNonNull(getClass().getResource("/music/honor-and-sword-main-11222.mp3"))
+                .toString());
+    mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.play();
     communicationManager = CommunicationManager.getInstance();
     connection = communicationManager.getConnection();
     dataManager = DataManager.getInstance();
@@ -143,6 +152,7 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            mediaPlayer.stop();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
           }
@@ -152,6 +162,7 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            mediaPlayer.stop();
             communicationManager.setConnection(connection);
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/EditorScreen.fxml"));
             ControllerUtils.createScene(event, fxmlLoader);
@@ -162,6 +173,7 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            mediaPlayer.stop();
             final String username = communicationManager.getUsername();
             connection.write(new LoadLevelInfosRequest(username));
             try {
@@ -179,6 +191,7 @@ public class WelcomeScreenController {
         new EventHandler<>() {
           @Override
           public void handle(ActionEvent event) {
+            mediaPlayer.stop();
             final String username = communicationManager.getUsername();
             connection.write(new GetLevelStatsRequest(username));
             try {
