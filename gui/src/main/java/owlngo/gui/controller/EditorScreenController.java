@@ -180,6 +180,15 @@ public class EditorScreenController {
   }
 
   @FXML
+  void deleteAllElements() {
+    int response = JOptionPane.showConfirmDialog(null, "Delete all elements in the editor");
+    if (response == JOptionPane.YES_OPTION) {
+      ElementsInPlayfield.setAllToNoElement();
+      setPanesOnPlayfield();
+    }
+  }
+
+  @FXML
   void loadWelcomeScreen() throws IOException {
     Stage primaryStage = new Stage();
     FXMLLoader fxmlLoaderWellcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
