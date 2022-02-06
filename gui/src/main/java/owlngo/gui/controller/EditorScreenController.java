@@ -90,7 +90,7 @@ public class EditorScreenController {
         && endElementInElementsOfPlayfield()) {
       ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
       DataManager.getInstance().setLevelContent(ElementsInPlayfield.getLevel());
-
+      mediaPlayer.stop();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
       ControllerUtils.createScene(null, fxmlLoader);
       gridPane.getScene().getWindow().hide();
@@ -148,7 +148,7 @@ public class EditorScreenController {
   void loadWelcomeScreen() throws IOException {
     Stage primaryStage = new Stage();
     FXMLLoader fxmlLoaderWellcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
-
+    mediaPlayer.stop();
     Parent root = fxmlLoaderWellcome.load();
     primaryStage.setTitle("Owlngo");
     primaryStage.setScene(new Scene(root));
