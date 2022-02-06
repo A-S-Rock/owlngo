@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,6 +23,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -48,6 +51,18 @@ public class EditorScreenController {
   private static final String PANE_BLACK_BORDER = "-fx-border-color:#CCCCCC; -fx-border-width:1px;";
 
   private final CommunicationManager communicationManager = CommunicationManager.getInstance();
+
+  private final MediaPlayer mediaPlayer;
+
+  /** Initializes the controller of the editor. */
+  public EditorScreenController() {
+    final Media media =
+        new Media(
+            Objects.requireNonNull(getClass().getResource("/music/soundboard_jeopardy.mp3"))
+                .toString());
+    mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.play();
+  }
 
   @FXML
   void initialize() {
@@ -79,7 +94,7 @@ public class EditorScreenController {
         && endElementInElementsOfPlayfield()) {
       ElementsInPlayfield.setLevelForGameDependingOnElementsInPlayfield();
       DataManager.getInstance().setLevelContent(ElementsInPlayfield.getLevel());
-
+      mediaPlayer.stop();
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/GameViewScreen.fxml"));
       ControllerUtils.createScene(null, fxmlLoader);
       gridPane.getScene().getWindow().hide();
@@ -166,9 +181,9 @@ public class EditorScreenController {
   @FXML
   void loadWelcomeScreen() throws IOException {
     Stage primaryStage = new Stage();
-    FXMLLoader fxmlLoaderWelcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
-
-    Parent root = fxmlLoaderWelcome.load();
+    FXMLLoader fxmlLoaderWellcome = new FXMLLoader(getClass().getResource("/WelcomeScreen.fxml"));
+    mediaPlayer.stop();
+    Parent root = fxmlLoaderWellcome.load();
     primaryStage.setTitle("Owlngo");
     primaryStage.setScene(new Scene(root));
     primaryStage.setResizable(true);
@@ -287,7 +302,7 @@ public class EditorScreenController {
         }
       }
     }
-    // number of owls needs to be exactly one
+
     return countOwls == 1;
   }
 
@@ -301,7 +316,7 @@ public class EditorScreenController {
         }
       }
     }
-    // number of start elements needs to be exactly one
+
     return countStarts == 1;
   }
 
@@ -315,7 +330,7 @@ public class EditorScreenController {
         }
       }
     }
-    // number of end elements needs to be exactly one
+
     return countEnds == 1;
   }
 
@@ -392,7 +407,7 @@ public class EditorScreenController {
       String[] partOfline = lineInput.split(",");
       int sum = 0;
       for (int rowIndex = 0; rowIndex < MethodsForElement.SIZE; rowIndex++) {
-        // the string should not be empty
+
         if ((noNumber(partOfline[rowIndex]))) {
           wrongFormat = true;
           break;
@@ -400,7 +415,7 @@ public class EditorScreenController {
           wrongFormat = true;
           break;
         }
-        // calculate sum
+
         int number = Integer.parseInt(partOfline[rowIndex]);
         sum = sum + number;
       }
@@ -413,7 +428,7 @@ public class EditorScreenController {
         wrongFormat = true;
         break;
       }
-      // test check sum
+
       if (sum != Integer.parseInt(checkSum)) {
         wrongFormat = true;
         break;
@@ -433,14 +448,14 @@ public class EditorScreenController {
   }
 
   private boolean noNumber(String input) {
-    // the string should not be empty
+
     if (input.length() == 0) {
       return true;
     }
-    // string is only allowed to contain numbers
+
     for (int x = 0; x < input.length(); x++) {
       String letter = input.substring(x, x + 1);
-      // no number
+
       if (!letter.matches("[0-9]")) {
         return true;
       }
