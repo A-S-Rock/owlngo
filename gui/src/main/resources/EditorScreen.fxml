@@ -89,9 +89,9 @@
         </AnchorPane>
         <AnchorPane fx:id="playfieldAnchor1" SplitPane.resizableWithParent="false">
           <children>
-            <SplitPane dividerPositions="0.5439698492462312" focusTraversable="false" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.4610552763819096" focusTraversable="false" orientation="VERTICAL" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
-                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="250.0">
+                <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="250.0">
                   <children>
                               <TextFlow layoutX="-2.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
@@ -102,7 +102,7 @@
                                                 <Font name="Arial Black" size="24.0" />
                                              </font>
                                           </Label>
-                                          <TextArea editable="false" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="390.0" prefWidth="250.0" text="1. Press letter first:&#10;&#10;g: ground&#10;s: start&#10;e: end&#10;o: owl&#10;d: danger&#10;f: food&#10;&#10;2. Click to select and deselect on the field. " wrapText="true">
+                                          <TextArea editable="false" focusTraversable="false" minHeight="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefHeight="324.0" prefWidth="250.0" text="1. Press letter first:&#10;&#10;g: ground&#10;s: start&#10;e: end&#10;o: owl&#10;d: danger&#10;f: food&#10;&#10;2. Click to select and deselect on the field. " wrapText="true">
                                              <font>
                                                 <Font size="16.0" />
                                              </font>
@@ -113,9 +113,9 @@
                               </TextFlow>
                   </children>
                 </AnchorPane>
-                        <AnchorPane>
+                        <AnchorPane prefHeight="416.0" prefWidth="250.0">
                            <children>
-                              <VBox fillWidth="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox fillWidth="false" layoutY="6.0" prefHeight="360.0" prefWidth="250.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="6.0">
                                  <children>
       
                     <Button minHeight="-Infinity" minWidth="-Infinity" onAction="#startGameView" prefHeight="60.0" prefWidth="250.0" text="Play">
@@ -139,6 +139,11 @@
                                        </font>
                                     </Button>
                                     <Button fx:id="downloadFromServerButton" minHeight="-Infinity" minWidth="-Infinity" onAction="#downloadFromServer" prefHeight="60.0" prefWidth="250.0" text="Download from Server">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Button>
+                                    <Button fx:id="delete" minHeight="-Infinity" minWidth="-Infinity" onAction="#deleteAllElements" prefHeight="60.0" prefWidth="250.0" text="Delete">
                                        <font>
                                           <Font size="22.0" />
                                        </font>
