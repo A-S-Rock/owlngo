@@ -25,7 +25,7 @@ public class MethodsForElement {
   // GROUND           GROUND_NO_LAWN
 
   public static final Map<ObjectInGame.ObjectType, ElementsInPlayfield.ElementInPlayfield>
-      OBJECT_TYPE__ELEMENT_IN_PLAYFIELD_MAP =
+      OBJECT_TYPE_ELEMENT_IN_PLAYFIELD_MAP =
           Map.ofEntries(
               Map.entry(ObjectType.NONE, ElementInPlayfield.NO_ELEMENT),
               Map.entry(ObjectType.PLAYER, ElementInPlayfield.OWL),
@@ -44,20 +44,6 @@ public class MethodsForElement {
           Map.entry("G", ElementInPlayfield.GROUND_NO_LAWN),
           Map.entry("D", ElementInPlayfield.DANGER),
           Map.entry("O", ElementInPlayfield.OWL));
-
-  /*
-  public static final Map<ElementsInPlayfield.ElementInPlayfield, ObjectInGame.ObjectType>
-      ELEMENT_IN_PLAYFIELD_MAP__OBJECT_TYPE =
-          Map.ofEntries(
-              Map.entry(ElementInPlayfield.NO_ELEMENT, ObjectType.NONE),
-              Map.entry(ElementInPlayfield.OWL, ObjectType.PLAYER),
-              Map.entry(ElementInPlayfield.START, ObjectType.START),
-              Map.entry(ElementInPlayfield.END, ObjectType.START),
-              Map.entry(ElementInPlayfield.GROUND_NO_LAWN, ObjectType.GROUND),
-              Map.entry(ElementInPlayfield.FOOD, ObjectType.FOOD),
-              Map.entry(ElementInPlayfield.NO_ELEMENT, ObjectType.AIR),
-              Map.entry(ElementInPlayfield.DANGER, ObjectInGame.ObjectType.FIRE));
-  */
 
   static final Map<ElementInPlayfield, BackgroundFill> elementInPlayfieldBackgroundFillMap =
       Map.ofEntries(

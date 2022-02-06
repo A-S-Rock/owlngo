@@ -35,6 +35,9 @@
                      <font>
                         <Font size="36.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="10.0" />
+                     </VBox.margin>
                   </Button>
                   <Label focusTraversable="false" mouseTransparent="true" prefHeight="40.0" prefWidth="250.0" text="Selected level:">
                      <VBox.margin>
@@ -57,7 +60,7 @@
                   </Label>
                   <Button fx:id="playSelectedButton" focusTraversable="false" mnemonicParsing="false" mouseTransparent="true" prefHeight="80.0" prefWidth="250.0" text="No Level selected!">
                      <VBox.margin>
-                        <Insets left="10.0" />
+                        <Insets bottom="10.0" left="10.0" />
                      </VBox.margin>
                      <font>
                         <Font name="System Bold" size="24.0" />
