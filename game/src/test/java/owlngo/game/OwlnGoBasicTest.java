@@ -15,13 +15,12 @@ import owlngo.game.level.objects.ObjectInGame.ObjectType;
 /** Tests the basic behaviour for {@link OwlnGo} games. */
 public class OwlnGoBasicTest {
 
-  /** This panel initializer is needed to run tests involved with <code>Platform#runlater</code>. */
-  @SuppressWarnings("unused")
-  private final JFXPanel tempPaner = new JFXPanel();
-
   private static final int NUM_ROWS = 10;
   private static final int NUM_COLUMNS = 10;
   private static final int NUM_OBJECTS = NUM_ROWS * NUM_COLUMNS; // player is extra
+
+  /** This panel initializer is needed to run tests involved with <code>Platform#runlater</code>. */
+  private final JFXPanel tempPaner = new JFXPanel();
 
   @Test
   public void testGameDimensions() {
