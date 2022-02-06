@@ -42,17 +42,14 @@ import owlngo.gui.editor.StoreLastKey;
 /** Handles all actions on the editor window. */
 public class EditorScreenController {
 
+  private static final String PANE_BLACK_BORDER = "-fx-border-color:#CCCCCC; -fx-border-width:1px;";
+  private final CommunicationManager communicationManager = CommunicationManager.getInstance();
+  private final MediaPlayer mediaPlayer;
   @FXML GridPane gridPane;
   @FXML SplitPane mainSplitPane;
   @FXML AnchorPane leftSplit;
   @FXML Button uploadToServerButton;
   @FXML Button downloadFromServerButton;
-
-  private static final String PANE_BLACK_BORDER = "-fx-border-color:#CCCCCC; -fx-border-width:1px;";
-
-  private final CommunicationManager communicationManager = CommunicationManager.getInstance();
-
-  private final MediaPlayer mediaPlayer;
 
   /** Initializes the controller of the editor. */
   public EditorScreenController() {
@@ -166,17 +163,16 @@ public class EditorScreenController {
     // ControllerUtils.createScene(null, fxmlLoader);
 
     Stage primaryStage = new Stage();
-    Parent root = null;
     try {
-      root = fxmlLoader.load();
+      Parent root = fxmlLoader.load();
+      primaryStage.setTitle("Owlngo");
+      primaryStage.setScene(new Scene(root));
+      primaryStage.setResizable(true);
+      primaryStage.show();
+      gridPane.getScene().getWindow().hide();
     } catch (IOException e) {
       e.printStackTrace();
     }
-    primaryStage.setTitle("Owlngo");
-    primaryStage.setScene(new Scene(root));
-    primaryStage.setResizable(true);
-    primaryStage.show();
-    gridPane.getScene().getWindow().hide();
   }
 
   @FXML
@@ -392,10 +388,7 @@ public class EditorScreenController {
 
   private boolean notAllowedNumber(String input) {
     int number = Integer.parseInt(input);
-    if ((number < 0) || (number >= ElementInPlayfield.values().length)) {
-      return true;
-    }
-    return false;
+    return (number < 0) || (number >= ElementInPlayfield.values().length);
   }
 
   private boolean noNumber(String input) {
