@@ -1,0 +1,1 @@
+{"savefileType":"LevelStatsSavefile","bestTime":"59:59:99","byUser":"roman","completions":0,"levelName":"hook","tries":3}

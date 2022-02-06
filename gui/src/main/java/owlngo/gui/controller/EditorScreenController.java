@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.util.Objects;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +21,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -45,6 +48,18 @@ public class EditorScreenController {
   private static final String PANE_BLACK_BORDER = "-fx-border-color:#CCCCCC; -fx-border-width:1px;";
 
   private final CommunicationManager communicationManager = CommunicationManager.getInstance();
+
+  private final MediaPlayer mediaPlayer;
+
+  public EditorScreenController() {
+    final Media media =
+        new Media(
+            Objects.requireNonNull(getClass().getResource("/music/soundboard_jeopardy.mp3"))
+                .toString());
+    mediaPlayer = new MediaPlayer(media);
+    mediaPlayer.play();
+    }
+
 
   @FXML
   void initialize() {
