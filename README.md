@@ -16,8 +16,8 @@ messages between each other we use the moshi (json) protocol.
 
 ### Start the server
 
-__Caution: If the directory and file structure for the server got deleted or corrupted, a
-server restart is required to initialize the savefile structure.__
+__Caution: If the directory and file structure for the server got deleted or corrupted, a server
+restart is required to initialize the savefile structure.__
 
 - *In IntelliJ*: Use the gradle task "**owlngo > server > Tasks >
   application > run**".
@@ -35,14 +35,38 @@ server restart is required to initialize the savefile structure.__
 
 ### Controls
 
-**W** - to make a jump (which is currently set to just jump without falling afterwards)
+**F** - switch between walk mode and flight mode.
 
-**A** - to make a step to the left including a one-step fall.
+#### Flight mode off - endurance bar gray - owl falls down
 
-**S** - to make a "small" fall (just 1 field down) (maybe we will use this later to make a power
-dive)
+**W** - jump
 
-**D** - to make a step to the right including a one-step fall.
+**A** - step to the left
+
+**D** - step to the right
+
+**Q** - jup to the left
+
+**E** - jup to the right
+
+#### Flight mode on - endurance bar red - owl does not fall down
+
+**W** - fly up
+
+**X** - fly down
+
+**A** - fly to the left
+
+**D** - fly to the right
+
+**Q** - fly to the left and up
+
+**E** - fly to the right and up
+
+**Y** - fly to the left and down
+
+**C** - fly to the right and down
+
 
 The Editor controls are described in its window.
 
