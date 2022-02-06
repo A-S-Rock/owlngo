@@ -23,7 +23,8 @@ restart is required to initialize the savefile structure.__
   application > run**".
 
 
-- *In Terminal*: Use `./gradlew :server:run` to start the server.
+- *In Terminal*: Use `./gradlew :server:run -q --console=plain` to start the server.
+  Note: `-q --console=plain` simply suppresses the gradle output in Terminal. Add if you wish.
 
 ## Start the client (must be after the server has started)
 
@@ -32,6 +33,13 @@ restart is required to initialize the savefile structure.__
 
 
 - *In Terminal*: Use `./gradlew :client:run` to connect the client to the server.
+  Note: `-q --console=plain` simply suppresses the gradle output in Terminal. Add if you wish.
+
+- For another username (default is your local machine username) type the following in Terminal:
+
+```
+./gradlew :client:run -q --console=plain --args="--username YOUR_USERNAME"
+```
 
 ## Controls in the game
 
@@ -76,7 +84,7 @@ restart is required to initialize the savefile structure.__
   screen at the end)
 - [x] added network communication protocol in docs/ [here](docs/network_communication_protocol.md)
 - [ ] added animations to all moves
-- [x] added a timer and some controls to the gameplay screen
+- [x] added a timer and some controls to the gameplay screen as well as statistics
 - [x] added an editor
 - [x] added flight mode
 - [x] added endurance for flight mode
