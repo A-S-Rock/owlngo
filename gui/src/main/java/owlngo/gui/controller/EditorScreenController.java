@@ -84,7 +84,7 @@ public class EditorScreenController {
       ControllerUtils.createScene(null, fxmlLoader);
       gridPane.getScene().getWindow().hide();
     } else {
-      JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
+      JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
     }
   }
 
@@ -193,7 +193,7 @@ public class EditorScreenController {
       final Level level = ElementsInPlayfield.getLevel();
       connection.write(new SaveLevelRequest(author, levelName, level));
     } else {
-      JOptionPane.showMessageDialog(null, " Start, End and Owl must be in the playfield.");
+      JOptionPane.showMessageDialog(null, "Start, End and Owl must be in the playfield.");
     }
   }
 
