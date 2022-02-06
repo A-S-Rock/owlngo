@@ -58,8 +58,7 @@ public class EditorScreenController {
                 .toString());
     mediaPlayer = new MediaPlayer(media);
     mediaPlayer.play();
-    }
-
+  }
 
   @FXML
   void initialize() {

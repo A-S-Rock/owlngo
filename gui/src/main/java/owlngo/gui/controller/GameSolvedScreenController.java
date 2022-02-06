@@ -23,7 +23,9 @@ public class GameSolvedScreenController {
 
   public GameSolvedScreenController() {
     final Media media =
-        new Media(Objects.requireNonNull(getClass().getResource("/music/mixkit_ethereal_win.mp3")).toString());
+        new Media(
+            Objects.requireNonNull(getClass().getResource("/music/mixkit_ethereal_win.mp3"))
+                .toString());
     mediaPlayer = new MediaPlayer(media);
     mediaPlayer.play();
   }
