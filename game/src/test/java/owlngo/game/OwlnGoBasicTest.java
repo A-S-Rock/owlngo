@@ -5,6 +5,7 @@ import com.sun.javafx.application.PlatformImpl;
 import java.util.List;
 import javafx.application.Platform;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import owlngo.game.GameState.GameStatus;
 import owlngo.game.level.Coordinate;
@@ -17,6 +18,14 @@ public class OwlnGoBasicTest {
   private static final int NUM_ROWS = 10;
   private static final int NUM_COLUMNS = 10;
   private static final int NUM_OBJECTS = NUM_ROWS * NUM_COLUMNS;
+
+  /**
+   * Initialize a JavaFX thread for execution of Platform.runlater() calls.
+   */
+  @BeforeAll
+  public static void startup() {
+    PlatformImpl.startup(() -> {});
+  }
 
   /** This panel initializer is needed to run tests involved with <code>Platform#runlater</code>. */
   @Test
@@ -126,7 +135,6 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testWinCondition() {
-    PlatformImpl.startup(() -> {});
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
@@ -162,7 +170,6 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testLoseConditionWithFalling() {
-    PlatformImpl.startup(() -> {});
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
@@ -182,7 +189,6 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testLoseConditionWithFire() {
-    PlatformImpl.startup(() -> {});
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
@@ -211,7 +217,6 @@ public class OwlnGoBasicTest {
 
   @Test
   public void testLoseConditionWithExhaustion() {
-    PlatformImpl.startup(() -> {});
     final OwlnGo game = new OwlnGo(NUM_ROWS, NUM_COLUMNS);
     final GameStatus status = game.getGameState().getStatus();
     Truth.assertThat(status).isEqualTo(GameStatus.ONGOING);
