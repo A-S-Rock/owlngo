@@ -17,7 +17,7 @@ public class OwlnGoBasicTest {
 
   /** This panel initializer is needed to run tests involved with <code>Platform#runlater</code>. */
   @SuppressWarnings("unused")
-  private static final JFXPanel tempPaner = new JFXPanel();
+  private final JFXPanel tempPaner = new JFXPanel();
 
   private static final int NUM_ROWS = 10;
   private static final int NUM_COLUMNS = 10;
