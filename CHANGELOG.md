@@ -7,6 +7,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.11.1] - 2022-02-06
+
+### Added
+
+GAME/GUI:
+
+- Music to Give Up Screen
+
 ## [0.11.0] - 2022-02-05
 
 ### Added
