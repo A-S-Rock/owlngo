@@ -48,9 +48,6 @@ public class GameState {
    * @param numCols the number of rows of the level
    */
   GameState(int numRows, int numCols) {
-    if (numRows <= 3 || numCols <= 3) {
-      throw new IllegalArgumentException("Level dimensions cannot be lower or equal to 3.");
-    }
     level = Level.createDemoLevel(numRows, numCols);
     gameStatus.set(GameStatus.ONGOING);
     level.updatePossibleMovesOfPlayer();
@@ -67,9 +64,6 @@ public class GameState {
   }
 
   GameState(Level level) {
-    if (level.getNumRows() <= 3 || level.getNumColumns() <= 3) {
-      throw new IllegalArgumentException("Level dimensions cannot be lower or equal to 3.");
-    }
     this.level = level;
     gameStatus.set(GameStatus.ONGOING);
     level.updatePossibleMovesOfPlayer();
