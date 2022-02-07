@@ -149,6 +149,7 @@ public class EditorScreenController {
 
   @FXML
   void downloadFromServer() {
+    mediaPlayer.stop();
     System.out.println("downloadFromServer");
     final Connection connection = communicationManager.getConnection();
     final String username = communicationManager.getUsername();
